@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Welcome from './Welcome';
-import textFields from './components/Slides/CreateSlide'
+import textFields from './components/parcours/CreateParcours'
 class App extends Component {
 
  

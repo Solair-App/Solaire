@@ -185,7 +185,7 @@ function TextFields(props) {
         handleChange={handleChange}
         currentValue={state.difficulté}
       />
-      <h1 style={{ color: "red" }}>{state.errorMessage}</h1>
+      <h1 style={{ color: "red", marginBottom: '15%' }}>{state.errorMessage}</h1>
       <Button
         fullWidth={true}
         size="large"

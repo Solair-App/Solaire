@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
@@ -14,11 +13,14 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: "inline-block",
     verticalAlign: "middle",
-    margin: "auto"
+    margin: "auto",
+
+    color: 'blue'
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 200
+    minWidth: 300,
+  
   }
 }));
 
@@ -39,8 +41,8 @@ function DialogSelect(props) {
   }
 
   return (
-    <div style={{ marginBottom: "20%" }}>
-      <Button style={{ fontSize: "2vh" }} onClick={handleClickOpen}>
+    <div style={{ marginBottom: "10%"}}>
+      <Button variant="contained" color='primary'style={{borderRadius: '20px'}} onClick={handleClickOpen}>
         {props.name}
       </Button>
       <Dialog
@@ -49,34 +51,34 @@ function DialogSelect(props) {
         open={state.open}
       
         onChange={handleClose}
+        
       >
-        <DialogTitle style={{ fontSize: "1vh" }}>
+        <DialogTitle style={{ fontSize: "1vh", backgroundColor: 'yellow' }}>
           Choisissez une {props.name}
         </DialogTitle>
-        <DialogContent>
-          <form className={classes.container}>
-            <FormControl className={classes.formControl}>
+        <DialogContent      style={{backgroundColor: 'red'}}  >
+          <form className={classes.container}     style={{backgroundColor: 'red'}}>
+            <FormControl className={classes.formControl}     style={{backgroundColor: ''}}>
         
               <Select 
                 native
                 onChange={props.handleChange(props.name)}
                 input={<Input />}
-                defaultValue={null}
+                style={{backgroundColor: 'red'}}
+                
         
               >
                 {" "}
                 {props.choices.map((category, index) => (
-                  <option key={index + 1} value={category}>{category}</option>
+                  <option      key={index + 1} value={category}>{category}</option>
                 ))}
               </Select>
             </FormControl>
           </form>
         </DialogContent>
-        <DialogActions>
-         
-        </DialogActions>
+        
       </Dialog>
-      <h1> {props.currentValue}</h1>
+      <h1 style={ props.name === 'difficulté' ? {color: 'white',marginBottom : '15%'} : {color: 'white', marginBottom: '10%'}}> {props.currentValue}</h1>
     </div>
   );
 }

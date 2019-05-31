@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import "firebase/firestore";
 import withFirebaseContext from "../../Firebase/withFirebaseContext";
-import Parcours from './Parcours'
+import Parcours from "./Parcours";
 const useStyles = makeStyles(theme => ({
   container: {
     display: "block",
@@ -14,12 +14,14 @@ const useStyles = makeStyles(theme => ({
     marginRight: "auto",
 
     flexWrap: "wrap",
-    height: "100%"
+    height: "100%",
+    width: '100%',
+   
   },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 200
+    width: 100
   },
   dense: {
     marginTop: 19
@@ -33,16 +35,14 @@ function TextFields(props) {
   const classes = useStyles();
   const [values] = React.useState({
     name: ""
-    
   });
 
   const [state, setState] = React.useState({
-    currentValue :'tous les champs sont requis' 
-    
+    currentValue: "tous les champs sont requis"
   });
 
   function getCategoryFromDB(collection, doc) {
-    let category = ['Choisissez une catégorie'];
+    let category = ["Choisissez une catégorie"];
     const db = firebase.firestore();
     let themRef = db.collection(collection).doc(doc);
     themRef
@@ -63,23 +63,21 @@ function TextFields(props) {
 
     return category;
   }
-    
+
   const handleChange = name => event => {
-  
     setState({ ...state, [name]: event.target.value });
-    
   };
   function createParcours(parcours) {
     const { firestore } = props;
 
     firestore.doc(`parcours/5`).set(
       {
-       name : parcours.name,
-       description : parcours.description,
-       thématique : parcours.thématique,
-       langue : parcours.langue,
-       durée : parcours.durée,
-       difficulté : parcours.difficulté
+        name: parcours.name,
+        description: parcours.description,
+        thématique: parcours.thématique,
+        langue: parcours.langue,
+        durée: parcours.durée,
+        difficulté: parcours.difficulté
       },
       { merge: true }
     );
@@ -87,83 +85,115 @@ function TextFields(props) {
 
   const category = getCategoryFromDB("parcours", "ZaUZ5QfXw9nLWXa0SwIt");
   const language = getCategoryFromDB("parcours", "AkD1DW8HDTZXf7Zmk165");
-  const difficulty = ["Choisissez une difficulté","Facile", "Avancé", "Difficile"];
-  const time = ["Choisissez la durée","1 - 5 minutes", "5 - 25 minutes", "plus de 30 minutes"];
+  const difficulty = [
+    "Choisissez une difficulté",
+    "Facile",
+    "Avancé",
+    "Difficile"
+  ];
+  const time = [
+    "Choisissez la durée",
+    "1 - 5 minutes",
+    "5 - 25 minutes",
+    "plus de 30 minutes"
+  ];
 
- 
   function validateParcours() {
     if (stateIsRequired()) {
-    const currentParcours = new Parcours(state.name, state.description, state.thématique, state.langue,state.durée, state.difficulté)
-    createParcours(currentParcours)
-    return true }
-    else {
-     return
+      const currentParcours = new Parcours(
+        state.name,
+        state.description,
+        state.thématique,
+        state.langue,
+        state.durée,
+        state.difficulté
+      );
+      createParcours(currentParcours);
+      return true;
+    } else {
+      return;
     }
   }
   function stateIsRequired() {
-    if (state.name && state.description && state.thématique && state.langue && state.durée && state.difficulté) {
-      return true
-    }
-
-    else {
+    if (
+      state.name &&
+      state.description &&
+      state.thématique &&
+      state.langue &&
+      state.durée &&
+      state.difficulté
+    ) {
+      return true;
+    } else {
       setState({
-        errorMessage :' Tous les champs sont requis'
-      })
+        errorMessage: " Tous les champs sont requis"
+      });
     }
   }
 
   return (
-    
-    <form className={classes.container} noValidate autoComplete="off">
+    <form className={classes.container}  autoComplete="off">
+    <h1>Création de parcours</h1>
       <TextField
-      required
+        required
         id="standard-name"
         label="Nom du parcours"
         className={classes.textField}
         value={values.text}
         onChange={handleChange("name")}
-        margin="normal"
+        style={{marginTop: '5%', width: '50%'}}
       />
       <TextField
-      required
+        required
         id="filled-multiline-flexible"
         label="Description"
         multiline
         rows="5"
-      
         onChange={handleChange("description")}
         className={classes.textField}
-        margin="normal"
+        style={{marginBottom: '5%', width: '50%'}}
+        
       />
       <SelectField
-      required
+        required
         choices={category}
         name={"thématique"}
         handleChange={handleChange}
         currentValue={state.thématique}
       />
       <SelectField
-      required
+        required
         choices={language}
         name={"langue"}
         handleChange={handleChange}
         currentValue={state.langue}
       />
-      <SelectField  required choices={time} name={"durée"} handleChange={handleChange} currentValue={state.durée}/>
       <SelectField
-      required
-     
+        required
+        choices={time}
+        name={"durée"}
+        handleChange={handleChange}
+        currentValue={state.durée}
+      />
+      <SelectField
+       underlineStyle={{ display: 'none'}}
+       iconStyle={{ fill: '#ff0000' }}
+       labelStyle={{ color: '#ff0000' }}
+        required
         choices={difficulty}
         name={"difficulté"}
         handleChange={handleChange}
         currentValue={state.difficulté}
       />
-    <h1 style={{color: 'red'}}>{state.errorMessage}</h1>
+      <h1 style={{ color: "red" }}>{state.errorMessage}</h1>
       <Button
         fullWidth={true}
         size="large"
-        color="inherit"
+        color="secondary"
         onClick={validateParcours}
+        variant="contained"
+        style={{ position: 'fixed', bottom: '0', left: '0'}}
+       
       >
         Créer mon parcours
       </Button>

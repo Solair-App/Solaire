@@ -1,10 +1,22 @@
-body {
+ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  background-image: linear-gradient(to right top, #55ff72, #00e9d0, #00c7ff, #0094ff, #9a00ff);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+html {
+  height: 100%;
+}
+
+#root {
+  height : 100%
 }
 
 code {

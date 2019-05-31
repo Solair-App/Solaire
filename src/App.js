@@ -9,7 +9,7 @@ class App extends Component {
       <div className="App">
         <BrowserRouter>
           <Switch>
-            <Route path="/CreateSlide" component={textFields} />
+            <Route path="/CreateParcours" component={textFields} />
             <Route exact path="/" component={Welcome} />
           </Switch>
         </BrowserRouter>

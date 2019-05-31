@@ -33,14 +33,16 @@ function TextFields(props) {
   const classes = useStyles();
   const [values] = React.useState({
     name: ""
+    
   });
 
   const [state, setState] = React.useState({
+    currentValue :'tous les champs sont requis' 
     
   });
 
   function getCategoryFromDB(collection, doc) {
-    let category = [];
+    let category = ['Choisissez une catégorie'];
     const db = firebase.firestore();
     let themRef = db.collection(collection).doc(doc);
     themRef
@@ -61,35 +63,55 @@ function TextFields(props) {
 
     return category;
   }
-
+    
   const handleChange = name => event => {
+  
     setState({ ...state, [name]: event.target.value });
     
   };
+  function createParcours(parcours) {
+    const { firestore } = props;
 
+    firestore.doc(`parcours/5`).set(
+      {
+       name : parcours.name,
+       description : parcours.description,
+       thématique : parcours.thématique,
+       langue : parcours.langue,
+       durée : parcours.durée,
+       difficulté : parcours.difficulté
+      },
+      { merge: true }
+    );
+  }
 
-  const category1 = getCategoryFromDB("parcours", "ZaUZ5QfXw9nLWXa0SwIt");
+  const category = getCategoryFromDB("parcours", "ZaUZ5QfXw9nLWXa0SwIt");
   const language = getCategoryFromDB("parcours", "AkD1DW8HDTZXf7Zmk165");
-  const difficulty = ["Facile", "Avancé", "Difficile"];
-  const time = ["1 - 5 minutes", "5 - 25 minutes", "plus de 30 minutes"];
+  const difficulty = ["Choisissez une difficulté","Facile", "Avancé", "Difficile"];
+  const time = ["Choisissez la durée","1 - 5 minutes", "5 - 25 minutes", "plus de 30 minutes"];
 
  
   function validateParcours() {
     if (stateIsRequired()) {
-    const currentParcours = new Parcours(state.name, state.description, state.thématique, state.langue,state.Durée, state.Difficulté)
-    currentParcours.console()
+    const currentParcours = new Parcours(state.name, state.description, state.thématique, state.langue,state.durée, state.difficulté)
+    createParcours(currentParcours)
     return true }
+    else {
+     return
+    }
   }
   function stateIsRequired() {
-    if (state.name && state.description && state.thématique && state.langue && state.Durée && state.Difficulté) {
+    if (state.name && state.description && state.thématique && state.langue && state.durée && state.difficulté) {
       return true
     }
 
     else {
-      return false
+      setState({
+        errorMessage :' Tous les champs sont requis'
+      })
     }
   }
-  console.log(state)
+
   return (
     
     <form className={classes.container} noValidate autoComplete="off">
@@ -108,14 +130,14 @@ function TextFields(props) {
         label="Description"
         multiline
         rows="5"
-        defaultValue=""
+      
         onChange={handleChange("description")}
         className={classes.textField}
         margin="normal"
       />
       <SelectField
       required
-        choices={category1}
+        choices={category}
         name={"thématique"}
         handleChange={handleChange}
         currentValue={state.thématique}
@@ -127,15 +149,16 @@ function TextFields(props) {
         handleChange={handleChange}
         currentValue={state.langue}
       />
-      <SelectField  required choices={time} name={"Durée"} handleChange={handleChange} currentValue={state.Durée}/>
+      <SelectField  required choices={time} name={"durée"} handleChange={handleChange} currentValue={state.durée}/>
       <SelectField
       required
+     
         choices={difficulty}
-        name={"Difficulté"}
+        name={"difficulté"}
         handleChange={handleChange}
-        currentValue={state.Difficulté}
+        currentValue={state.difficulté}
       />
-
+    <h1 style={{color: 'red'}}>{state.errorMessage}</h1>
       <Button
         fullWidth={true}
         size="large"

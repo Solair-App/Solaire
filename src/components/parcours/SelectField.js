@@ -5,7 +5,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import InputLabel from "@material-ui/core/InputLabel";
+
 import Input from "@material-ui/core/Input";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 function DialogSelect(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
-    open: props.handleClose
+    open: false
   });
 
  
@@ -56,15 +56,17 @@ function DialogSelect(props) {
         <DialogContent>
           <form className={classes.container}>
             <FormControl className={classes.formControl}>
-              <InputLabel>{props.name}</InputLabel>
-              <Select
+        
+              <Select 
                 native
                 onChange={props.handleChange(props.name)}
                 input={<Input />}
+                defaultValue={null}
+        
               >
                 {" "}
                 {props.choices.map((category, index) => (
-                  <option  value={category}>{category}</option>
+                  <option key={index + 1} value={category}>{category}</option>
                 ))}
               </Select>
             </FormControl>

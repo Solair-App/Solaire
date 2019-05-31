@@ -7,9 +7,7 @@ class Parcours {
     this.durée = durée;
     this.difficulté = difficulté;
   }
-console(){
-  console.log(this.name)
-}
+
 }
 
 export default Parcours

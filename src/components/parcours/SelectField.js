@@ -7,7 +7,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
-
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
@@ -27,6 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
 function DialogSelect(props) {
 
   const classes = useStyles();
@@ -36,7 +36,7 @@ function DialogSelect(props) {
   });
 
   const handleChange = name => event => {
-    setState({ ...state, [name]: event.target.value });
+    setState({ ...state, name: event.target.value });
   };
 
   function handleClickOpen() {
@@ -46,11 +46,11 @@ function DialogSelect(props) {
   function handleClose() {
     setState({ ...state, open: false });
   }
-console.log(state)
+console.log(state.langue)
   return (
    
     <div style={{marginBottom: '20%'}}>
-      <Button  style={{fontSize: '2vh'}} onClick={handleClickOpen}>Choix de la {props.name}</Button>
+      <Button  style={{fontSize: '2vh'}} onClick={handleClickOpen}>{props.name}</Button>
       <Dialog disableBackdropClick disableEscapeKeyDown open={state.open} onClose={handleClose}>
         <DialogTitle style={{fontSize: '3vh'}}>Choisissez une {props.name}</DialogTitle>
         <DialogContent>
@@ -64,7 +64,8 @@ console.log(state)
                 input={<Input />}
               > {  props.choices.map((category, index)=> <option value={category}>{category}</option> )}
               </Select>
-              <InputLabel></InputLabel>
+              
+            
             </FormControl>
            
           </form>
@@ -73,11 +74,12 @@ console.log(state)
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose}  color="primary">
             Ok
           </Button>
         </DialogActions>
       </Dialog>
+      <h1> </h1>
     </div>
   );
 }

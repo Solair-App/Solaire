@@ -7,7 +7,6 @@ class Parcours {
     this.durée = durée;
     this.difficulté = difficulté;
   }
-
 }
 
-export default Parcours
+export default Parcours;

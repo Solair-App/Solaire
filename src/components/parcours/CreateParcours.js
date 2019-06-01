@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { Link } from 'react-router-dom';
+
 import SelectField from './SelectField';
 import 'firebase/firestore';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
@@ -79,7 +79,10 @@ function CreateParcours(props) {
       },
       { merge: true },
     );
+
+    return window.location.assign('/AddCours');
   }
+
 
   const category = getCategoryFromDB('parcours', 'ZaUZ5QfXw9nLWXa0SwIt');
   const language = getCategoryFromDB('parcours', 'AkD1DW8HDTZXf7Zmk165');
@@ -183,6 +186,8 @@ function CreateParcours(props) {
         currentValue={state.difficulté}
       />
       <h1 style={{ color: 'red', marginBottom: '15%' }}>{state.errorMessage}</h1>
+
+
       <Button
         fullWidth
         size="large"
@@ -194,15 +199,9 @@ function CreateParcours(props) {
         }}
 
       >
-        {' '}
-        {validateParcours ? (
-          <Link to="/AddCours" style={{}}>
-      Créer mon parcours
-          </Link>
-        ) : 'Créer mon parcours' }
-        <Link to="/AddCours" style={{}}>
+
         Créer mon parcours
-        </Link>
+
       </Button>
     </form>
   );

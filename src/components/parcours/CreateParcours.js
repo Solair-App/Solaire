@@ -65,6 +65,12 @@ function CreateParcours(props) {
   const handleChange = name => (event) => {
     setState({ ...state, [name]: event.target.value });
   };
+
+  function redirect() {
+    setTimeout(window.location.assign('/AddCours'), 5000);
+  }
+
+
   function createParcours(parcours) {
     const { firestore } = props;
 
@@ -78,9 +84,11 @@ function CreateParcours(props) {
         difficulté: parcours.difficulté,
       },
       { merge: true },
-    );
 
-    return window.location.assign('/AddCours');
+    ).then(() => {
+      redirect();
+    });
+    return false;
   }
 
 

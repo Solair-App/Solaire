@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import * as firebase from 'firebase';
+import Edit from '@material-ui/icons/Edit';
+import ListCours from './ListCours';
 import TypeCours from './TypeCours';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
+
 
 class Cours extends Component {
   constructor(props) {
@@ -36,6 +39,12 @@ render() {
 
     <div>
       <h1>{data.name}</h1>
+      <Button color="primary">
+        <Edit />
+Modifier les options
+      </Button>
+      <ListCours courseName={data.name} />
+
       <TypeCours />
       <Button
         fullWidth
@@ -44,7 +53,7 @@ render() {
 
         variant="contained"
         style={{
-          position: 'fixed', bottom: '0', left: '0', borderRadius: '20px',
+          position: 'fixed', bottom: '20PX', left: '0', borderRadius: '20px',
         }}
       >
         Valider

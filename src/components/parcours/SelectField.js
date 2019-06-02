@@ -30,7 +30,7 @@ function DialogSelect(props) {
     open: false,
   });
 
-
+  // ferme la boite de dialogue
   function handleClickOpen() {
     setState({ ...state, open: true });
   }

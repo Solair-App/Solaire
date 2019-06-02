@@ -34,16 +34,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
 function CreateParcours(props) {
   const classes = useStyles();
   const [values] = React.useState({
-    name: '',
+
   });
 
   const [state, setState] = React.useState({
     currentValue: 'tous les champs sont requis',
   });
-
+  // Récupération des informations dans la DB
   function getCategoryFromDB(collection, doc) {
     const category = ['Choisissez une catégorie'];
     const db = firebase.firestore();
@@ -61,17 +62,17 @@ function CreateParcours(props) {
 
     return category;
   }
-
+  // Modifications du state
   const handleChange = name => (event) => {
     setState({ ...state, [name]: event.target.value });
   };
-
+  // redirection si le parcours est crée
   function redirect() {
     setTimeout(window.location.assign('/AddCours'), 5000);
   }
 
-
-  function createParcours(parcours) {
+  // Stockage du parcours dans la db
+  function pushParcoursInsideDB(parcours) {
     const { firestore } = props;
 
     firestore.doc('parcours/5').set(
@@ -91,7 +92,7 @@ function CreateParcours(props) {
     return false;
   }
 
-
+  // tableaux de data de la DB, servant à map.
   const category = getCategoryFromDB('parcours', 'ZaUZ5QfXw9nLWXa0SwIt');
   const language = getCategoryFromDB('parcours', 'AkD1DW8HDTZXf7Zmk165');
   const difficulty = [
@@ -106,7 +107,9 @@ function CreateParcours(props) {
     '5 - 25 minutes',
     'plus de 30 minutes',
   ];
-  function stateIsRequired() {
+
+  // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
+  function allStateAreFill() {
     if (
       state.name
       && state.description
@@ -118,12 +121,14 @@ function CreateParcours(props) {
       return true;
     }
     setState({
+      ...state,
       errorMessage: ' Tous les champs sont requis',
     });
     return false;
   }
+  // création de l'objet parcours
   function validateParcours() {
-    if (stateIsRequired()) {
+    if (allStateAreFill()) {
       const currentParcours = new Parcours(
         state.name,
         state.description,
@@ -132,12 +137,13 @@ function CreateParcours(props) {
         state.durée,
         state.difficulté,
       );
-      createParcours(currentParcours);
+      pushParcoursInsideDB(currentParcours);
       return true;
     }
     return false;
   }
 
+  console.log(state);
 
   return (
     <form className={classes.container} autoComplete="off">

@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function CreateParcours(props) {
+function CreateParcours() {
   const classes = useStyles();
   const [values] = React.useState({
 
@@ -73,9 +73,10 @@ function CreateParcours(props) {
 
   // Stockage du parcours dans la db
   function pushParcoursInsideDB(parcours) {
-    const { firestore } = props;
+    const db = firebase.firestore();
+    const parcoursRef = db.collection('parcours').doc();
 
-    firestore.doc('parcours/5').set(
+    parcoursRef.set(
       {
         name: parcours.name,
         description: parcours.description,
@@ -87,6 +88,11 @@ function CreateParcours(props) {
       { merge: true },
 
     ).then(() => {
+      setState({
+        ...state,
+        id: parcoursRef.id,
+      });
+
       redirect();
     });
     return false;
@@ -95,18 +101,8 @@ function CreateParcours(props) {
   // tableaux de data de la DB, servant à map.
   const category = getCategoryFromDB('parcours', 'ZaUZ5QfXw9nLWXa0SwIt');
   const language = getCategoryFromDB('parcours', 'AkD1DW8HDTZXf7Zmk165');
-  const difficulty = [
-    'Choisissez une difficulté',
-    'Facile',
-    'Avancé',
-    'Difficile',
-  ];
-  const time = [
-    'Choisissez la durée',
-    '1 - 5 minutes',
-    '5 - 25 minutes',
-    'plus de 30 minutes',
-  ];
+  const difficulty = getCategoryFromDB('parcours', 'KKj7dhD2axqYjelGHnxx');
+  const time = getCategoryFromDB('parcours', 'pBNtLDEviTPfjzUSWxzL');
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
@@ -143,7 +139,6 @@ function CreateParcours(props) {
     return false;
   }
 
-  console.log(state);
 
   return (
     <form className={classes.container} autoComplete="off">

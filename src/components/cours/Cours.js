@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import * as firebase from 'firebase';
 import Edit from '@material-ui/icons/Edit';
+import { Link } from 'react-router-dom';
 import ListCours from './ListCours';
 import TypeCours from './TypeCours';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
-
 
 class Cours extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class Cours extends Component {
 
 getDataBaseData= () => {
   const db = firebase.firestore();
-  const parcours = db.collection('parcours').doc('5');
+  const parcours = db.collection('parcours').doc('VHt01rf6jgxammI4DjNA');
   parcours
     .get()
     .then((doc) => {
@@ -39,10 +39,13 @@ render() {
 
     <div>
       <h1>{data.name}</h1>
-      <Button color="primary">
-        <Edit />
+      <Link to="CreateParcours">
+        <Button color="primary">
+          <Edit />
 Modifier les options
-      </Button>
+        </Button>
+
+      </Link>
       <ListCours courseName={data.name} />
 
       <TypeCours />

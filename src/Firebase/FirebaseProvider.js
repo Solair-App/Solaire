@@ -1,5 +1,4 @@
 import firebase from 'firebase/app';
-import 'firebase/database';
 import 'firebase/firestore';
 import 'firebase/auth';
 
@@ -25,10 +24,12 @@ class FirebaseProvider extends Component {
         this.auth = firebase.auth();
         this.firestore = firebase.firestore();
         this.googleProvider = new firebase.auth.GoogleAuthProvider();
+        this.facebookProvider = new firebase.auth.FacebookAuthProvider();
         this.state = {
             auth: this.auth,
             firestore: this.firestore,
             googleProvider: this.googleProvider,
+            facebookProvider: this.facebookProvider
         }
     }
     

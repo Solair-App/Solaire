@@ -1,110 +1,100 @@
 import React, { Component } from 'react';
 import withFirebaseContext from './Firebase/withFirebaseContext';
+import { Link } from 'react-router-dom';
 import { withRouter } from "react-router";
-
-
-const INITIAL_STATE = {
-    username: '',
-    email: '',
-    passwordOne: '',
-    passwordTwo: '',
-    error: null,
-  };
 
 class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
-            email: '',
-            passwordOne: '',
-            passwordTwo: '',
-            error: null,
+            user: null,
+        }
+        const { auth } = this.props
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                this.users(user)
+            }
+        });
+    }
+
+    login = (choice) => {
+        const { auth, googleProvider, facebookProvider } = this.props;
+        if (choice === 'google') {
+            // auth.signInWithPopup(googleProvider) //à remplacer sur une app mobile 
+            //     .then((result) => {
+            //         const user = result.user;
+            //         this.setState({
+            //             user
+            //         }, this.users(user));
+            //     });
+            auth.signInWithRedirect(googleProvider)
+                .then(() => { return auth.getRedirectResult(); })
+                .then((result) => {
+                    const user = result.user;
+                    this.setState({
+                        user
+                    });
+                    // this.props.history.push("/dashboard");
+                }).catch((error) => {
+                    const errorMessage = error.message;
+                    console.log(errorMessage)
+                });
+        }
+
+        if (choice === 'facebook') {
+            // auth.signInWithPopup(facebookProvider) //à remplacer sur une app mobile 
+            //     .then((result) => {
+            //         const user = result.user;
+            //         this.setState({
+            //             user
+            //         }, this.users(user));
+            //     });
+            auth.signInWithRedirect(facebookProvider)
+                .then(() => { return auth.getRedirectResult(); })
+                .then((result) => {
+                    const user = result.user;
+                    this.setState({
+                        user
+                    });
+                    // this.props.history.push("/dashboard");
+                }).catch((error) => {
+                    const errorMessage = error.message;
+                    console.log(errorMessage)
+                });
         }
     }
 
+    users = (user) => {
 
-    onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-    };
-
-    onSubmit = event => {
-        const { username, email, passwordOne } = this.state;
-        const { auth } = this.props;
-        auth.createUserWithEmailAndPassword(email, passwordOne)
-            .then((result) => {
-                const user = result.user;
-                console.log(user)
-                this.setState({ ...INITIAL_STATE }, this.users(user, username));
-                this.props.history.push("/dashboard");
-            })
-            .catch(error => {
-                this.setState({ error });
-            });
-
-        event.preventDefault();
-    };
-    
-    users = (user, username) => {
         //Récupération du Firestore grâce à context
         const { firestore } = this.props;
         //Envoi d'infos dans le cloud Firestore
         firestore.doc(`users/${user.uid}`).set({
-            name: username,
+            name: user.displayName,
             uid: user.uid,
         }, { merge: true });
+        this.props.history.push("/dashboard");
     }
 
-    render() {
-        const {
-            username,
-            email,
-            passwordOne,
-            passwordTwo,
-            error, } = this.state;
-        const isInvalid =
-            passwordOne !== passwordTwo ||
-            passwordOne === '' ||
-            email === '' ||
-            username === '';
-        return (
-            <div className="emailLog" style={{ color: 'black' }}>
-                <form onSubmit={this.onSubmit}>
-                    <input
-                        name="username"
-                        value={username}
-                        onChange={this.onChange}
-                        type="text"
-                        placeholder="Full Name"
-                    />
-                    <input
-                        name="email"
-                        value={email}
-                        onChange={this.onChange}
-                        type="text"
-                        placeholder="Email Address"
-                    />
-                    <input
-                        name="passwordOne"
-                        value={passwordOne}
-                        onChange={this.onChange}
-                        type="password"
-                        placeholder="Password"
-                    />
-                    <input
-                        name="passwordTwo"
-                        value={passwordTwo}
-                        onChange={this.onChange}
-                        type="password"
-                        placeholder="Confirm Password"
-                    />
-                    <button disabled={isInvalid} type="submit">
-                        Sign Up
-                    </button>
 
-                    {error && <p>{error.message}</p>}
-                </form>
-            </div>
+    render() {
+        const { user } = this.state;
+        return (
+            <div className="signin" style={{ color: 'black' }}>
+                {user
+                    ? <p>Signed in!</p>
+                    : <>
+                        <p> Please sign in</p>
+                        <button onClick={() => this.login('google')}>Sign up with Google</button>
+                        <button onClick={() => this.login('facebook')}>Sign up with Facebook</button>
+                        <Link to="/signin">
+                            <button>Sign up with Email</button>
+                        </Link>
+                        <p><Link to="/connect">Already have an account?</Link></p>
+                    </>
+                }
+            </div >
+
         );
     }
 }

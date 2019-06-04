@@ -3,6 +3,7 @@ import './App.css';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import Welcome from './Welcome';
 import FirebaseProvider from './Firebase/FirebaseProvider';
+import Signin from './Signin';
 import Signup from './Signup';
 import Dashboard from './Dashboard';
 import Connect from './Connect';
@@ -19,6 +20,7 @@ class App extends Component {
           <HashRouter>
             <Switch>
               <Route exact path="/" component={Welcome} />
+              <Route exact path="/signin" component={Signin} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/connect" component={Connect} />
               <Route exact path="/reset" component={PasswordForget} />

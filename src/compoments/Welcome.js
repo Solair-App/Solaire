@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import withFirebaseContext from './Firebase/withFirebaseContext';
+import withFirebaseContext from '../Firebase/withFirebaseContext';
 
 
 class Welcome extends Component {

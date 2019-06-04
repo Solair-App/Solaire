@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Welcome from './Welcome';
+import Welcome from './compoments/Welcome';
 import FirebaseProvider from './Firebase/FirebaseProvider';
+import Quiz from './compoments/Quiz';
 
 
 class App extends Component {
@@ -16,7 +17,7 @@ class App extends Component {
             </Switch>
           </BrowserRouter>
         </FirebaseProvider>
-
+        <Quiz />
       </div>
     );
   }

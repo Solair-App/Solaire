@@ -99,10 +99,10 @@ function CreateParcours() {
   }
 
   // tableaux de data de la DB, servant à map.
-  const category = getCategoryFromDB('parcours', 'ZaUZ5QfXw9nLWXa0SwIt');
-  const language = getCategoryFromDB('parcours', 'AkD1DW8HDTZXf7Zmk165');
-  const difficulty = getCategoryFromDB('parcours', 'KKj7dhD2axqYjelGHnxx');
-  const time = getCategoryFromDB('parcours', 'pBNtLDEviTPfjzUSWxzL');
+  const category = getCategoryFromDB('parcours', 'bJdXDbnHIKwLUdxTGskW');
+  const language = getCategoryFromDB('parcours', 'HCMRHOU3DoSelrR7iFhy');
+  const difficulty = getCategoryFromDB('parcours', 'NK294sVIv9Tejw2N19bY');
+  const time = getCategoryFromDB('parcours', 'bHeKCjXlUAtK9YruIqm5');
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
@@ -194,19 +194,19 @@ function CreateParcours() {
         handleChange={handleChange}
         currentValue={state.difficulté}
       />
-      <h1 style={{ color: 'red', marginBottom: '15%' }}>{state.errorMessage}</h1>
+      <h3 style={{ color: 'red', marginBottom: '15%' }}>{state.errorMessage}</h3>
 
 
       <Button
         fullWidth
-        size="large"
-        color="secondary"
+        size="medium"
+        color="primary"
         onClick={validateParcours}
         variant="contained"
         style={{
-          position: 'fixed', bottom: '0', left: '0', borderRadius: '20px',
+          position: 'fixed', bottom: '2%', left: '5%', right: '10%', borderRadius: '20px',
         }}
-
+        
       >
 
         Créer mon parcours

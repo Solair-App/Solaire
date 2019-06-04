@@ -81,6 +81,7 @@ class Signup extends Component {
         const { user } = this.state;
         return (
             <div className="signin" style={{ color: 'black' }}>
+            <img src="./assets/logo.png" alt="logo"/>
                 {user
                     ? <p>Signed in!</p>
                     : <>

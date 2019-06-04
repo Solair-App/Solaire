@@ -88,10 +88,7 @@ function CreateParcours() {
       { merge: true },
 
     ).then(() => {
-      setState({
-        ...state,
-        id: parcoursRef.id,
-      });
+      localStorage.setItem('id', parcoursRef.id);
 
       redirect();
     });

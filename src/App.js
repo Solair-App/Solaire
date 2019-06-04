@@ -3,14 +3,14 @@ import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Welcome from './Welcome';
 import CreateParcours from './components/parcours/CreateParcours';
-import Cours from './components/cours/Cours';
+import AddCours from './components/cours/AddCours';
 
 const App = () => (
   <div className="App">
     <BrowserRouter>
       <Switch>
         <Route path="/CreateParcours" component={CreateParcours} />
-        <Route path="/AddCours" component={Cours} />
+        <Route path="/AddCours" component={AddCours} />
         <Route exact path="/" component={Welcome} />
       </Switch>
     </BrowserRouter>

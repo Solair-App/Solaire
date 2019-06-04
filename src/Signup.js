@@ -88,10 +88,10 @@ class Signup extends Component {
                     ? <p>Signed in!</p>
                     : <>
                         <p> Please sign in</p>
-                        <button onClick={() => this.login('google')}>Sign up with Google</button>
-                        <button onClick={() => this.login('facebook')}>Sign up with Facebook</button>
+                        <button onClick={() => this.login('google')}>Sign in with Google</button>
+                        <button onClick={() => this.login('facebook')}>Sign in with Facebook</button>
                         <Link to="/signin">
-                            <button>Sign up with Email</button>
+                            <button>Sign in with Email</button>
                         </Link>
                         <p><Link to="/connect">Already have an account?</Link></p>
                     </>

@@ -4,7 +4,7 @@ import Edit from '@material-ui/icons/Edit';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import LockOpen from '@material-ui/icons/LockOpen';
 
-function ListCours(props) {
+function ListCours() {
   const courseName = ['Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours'];
   return (
 

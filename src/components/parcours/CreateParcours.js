@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 
 import SelectField from './SelectField';
 import 'firebase/firestore';
-import withFirebaseContext from '../../Firebase/withFirebaseContext';
+
 import Parcours from './Parcours';
 
 
@@ -92,7 +92,6 @@ function CreateParcours() {
 
       redirect();
     });
-    return false;
   }
 
   // tableaux de data de la DB, servant à map.
@@ -131,9 +130,7 @@ function CreateParcours() {
         state.difficulté,
       );
       pushParcoursInsideDB(currentParcours);
-      return true;
     }
-    return false;
   }
 
 
@@ -182,9 +179,7 @@ function CreateParcours() {
         currentValue={state.durée}
       />
       <SelectField
-        underlineStyle={{ display: 'none' }}
-        iconStyle={{ fill: '#ff0000' }}
-        labelStyle={{ color: '#ff0000' }}
+
         required
         choices={difficulty}
         name="difficulté"
@@ -213,4 +208,4 @@ function CreateParcours() {
   );
 }
 
-export default withFirebaseContext(CreateParcours);
+export default CreateParcours;

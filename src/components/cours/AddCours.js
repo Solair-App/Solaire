@@ -5,7 +5,7 @@ import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
 import ListCours from './ListCours';
 import TypeCours from './TypeCours';
-import withFirebaseContext from '../../Firebase/withFirebaseContext';
+
 
 class AddCours extends Component {
   constructor(props) {
@@ -66,4 +66,4 @@ Modifier les options
 }
 }
 
-export default withFirebaseContext(AddCours);
+export default AddCours;

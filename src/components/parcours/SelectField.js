@@ -54,20 +54,20 @@ function DialogSelect(props) {
         onChange={handleClose}
 
       >
-        <DialogTitle style={{ fontSize: '1vh', backgroundColor: 'yellow' }}>
+        <DialogTitle style={{ fontSize: '1vh', backgroundColor: '#00A591', color: 'white' }}>
           Choisissez une
           {' '}
           {name}
         </DialogTitle>
-        <DialogContent style={{ backgroundColor: 'red' }}>
-          <form className={classes.container} style={{ backgroundColor: 'red' }}>
+        <DialogContent style={{ backgroundColor: '#EAE6DA' }}>
+          <form className={classes.container} style={{ backgroundColor: '#EAE6DA' }}>
             <FormControl className={classes.formControl} style={{ backgroundColor: '' }}>
 
               <Select
                 native
                 onChange={handleChange(name)}
                 input={<Input />}
-                style={{ backgroundColor: 'red' }}
+                style={{ backgroundColor: '#EAE6DA' }}
 
 
               >

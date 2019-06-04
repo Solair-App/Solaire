@@ -184,16 +184,14 @@ function CreateParcours() {
 
       <Button
         fullWidth
-        size="large"
-        color="secondary"
+        size="medium"
+        color="primary"
         onClick={validateParcours}
         variant="contained"
         style={{
-          position: 'fixed',
-          bottom: '0',
-          left: '0',
-          borderRadius: '20px',
+          position: 'fixed', bottom: '2%', left: '5%', right: '10%', borderRadius: '20px',
         }}
+
       >
         Créer mon parcours
       </Button>

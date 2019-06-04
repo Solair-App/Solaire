@@ -10,9 +10,7 @@ import Add from '@material-ui/icons/Add';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'block',
-    marginLeft: '0',
-    marginRight: '0',
+
 
   },
   formControl: {

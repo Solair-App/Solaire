@@ -5,9 +5,9 @@ import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
 import ListCours from './ListCours';
 import TypeCours from './TypeCours';
-import withFirebaseContext from '../../Firebase/withFirebaseContext';
 
-class Cours extends Component {
+
+class AddCours extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +22,7 @@ class Cours extends Component {
 
 getDataBaseData= () => {
   const db = firebase.firestore();
-  const parcours = db.collection('parcours').doc('VHt01rf6jgxammI4DjNA');
+  const parcours = db.collection('parcours').doc(localStorage.getItem('id'));
   parcours
     .get()
     .then((doc) => {
@@ -46,7 +46,7 @@ Modifier les options
         </Button>
 
       </Link>
-      <ListCours courseName={data.name} />
+      <ListCours courseName={data} />
 
       <TypeCours />
       <Button
@@ -66,4 +66,4 @@ Modifier les options
 }
 }
 
-export default withFirebaseContext(Cours);
+export default AddCours;

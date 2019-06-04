@@ -1,46 +1,49 @@
-import React, { Component } from 'react';
+import React from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import Edit from '@material-ui/icons/Edit';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import LockOpen from '@material-ui/icons/LockOpen';
 
-class ListCours extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { };
-  }
+function ListCours() {
+  const courseName = ['Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours'];
+  return (
 
-  render() {
-    const { courseName } = this.props;
-    return (
+    <div>
+      {' '}
+      {courseName.map(cours => (
+        <>
 
-      <div>
+          <p>
+            <RadioButtonUnchecked style={{ marginRight: '10px' }} />
+            {cours}
+            {' '}
+            <Edit style={{ marginLeft: '10px' }} />
+
+          </p>
+
+          <div>
+            <ArrowDownward />
+          </div>
+          <div>
+            <LockOpen />
+            <div>
+              <ArrowDownward />
+            </div>
+          </div>
+        </>
+      ))}
+      {' '}
+
+      <p style={{ marginTop: '10px' }}>
+        <RadioButtonUnchecked style={{ marginRight: '10px' }} />
+       Certification
         {' '}
-        <p style={{ marginTop: '30px' }}>
-          <RadioButtonUnchecked style={{ marginRight: '10px' }} />
-          {courseName}
-          {' '}
-          <Edit style={{ marginLeft: '10px' }} />
 
-        </p>
-        <div>
-          <ArrowDownward style={{ marginRight: '74px', marginTop: '-10px' }} />
 
-        </div>
-        <LockOpen style={{ marginRight: '74px' }} />
-        <div>
-          <ArrowDownward style={{ marginRight: '74px', marginTop: '10px' }} />
-        </div>
-        <p style={{ marginTop: '10px' }}>
-          <RadioButtonUnchecked style={{ marginRight: '10px' }} />
-          {courseName}
-          {' '}
-          <Edit style={{ marginLeft: '10px' }} />
-
-        </p>
-      </div>
-    );
-  }
+      </p>
+    </div>
+  );
 }
+
 
 export default ListCours;

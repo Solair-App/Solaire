@@ -18,7 +18,6 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
     height: '100%',
     width: '100%',
-
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -33,12 +32,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
 function CreateParcours() {
   const classes = useStyles();
-  const [values] = React.useState({
-
-  });
+  const [values] = React.useState({});
 
   const [state, setState] = React.useState({
     currentValue: 'tous les champs sont requis',
@@ -48,16 +44,13 @@ function CreateParcours() {
     const category = ['Choisissez une catégorie'];
     const db = firebase.firestore();
     const themRef = db.collection(collection).doc(doc);
-    themRef
-      .get()
-      .then((document) => {
-        const dbCategory = document.data();
-        // eslint-disable-next-line no-restricted-syntax
-        for (const [, value] of Object.entries(dbCategory)) {
-          category.push(`${value}`);
-        }
-      });
-
+    themRef.get().then((document) => {
+      const dbCategory = document.data();
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [, value] of Object.entries(dbCategory)) {
+        category.push(`${value}`);
+      }
+    });
 
     return category;
   }
@@ -75,29 +68,32 @@ function CreateParcours() {
     const db = firebase.firestore();
     const parcoursRef = db.collection('parcours').doc();
 
-    parcoursRef.set(
-      {
-        name: parcours.name,
-        description: parcours.description,
-        thématique: parcours.thématique,
-        langue: parcours.langue,
-        durée: parcours.durée,
-        difficulté: parcours.difficulté,
-      },
-      { merge: true },
+    parcoursRef
+      .set(
+        {
+          name: parcours.name,
+          description: parcours.description,
+          thématique: parcours.thématique,
+          langue: parcours.langue,
+          durée: parcours.durée,
+          difficulté: parcours.difficulté,
+        },
+        { merge: true },
+      )
+      .then(() => {
+        localStorage.setItem('id', parcoursRef.id);
 
-    ).then(() => {
-      localStorage.setItem('id', parcoursRef.id);
-
-      redirect();
-    });
+        redirect();
+      });
   }
 
   // tableaux de data de la DB, servant à map.
-  const category = getCategoryFromDB('parcours', 'bJdXDbnHIKwLUdxTGskW');
-  const language = getCategoryFromDB('parcours', 'HCMRHOU3DoSelrR7iFhy');
-  const difficulty = getCategoryFromDB('parcours', 'NK294sVIv9Tejw2N19bY');
-  const time = getCategoryFromDB('parcours', 'bHeKCjXlUAtK9YruIqm5');
+
+  function categoryToArray(doc) {
+    const category = getCategoryFromDB('parcours', doc);
+
+    return category;
+  }
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
@@ -132,7 +128,6 @@ function CreateParcours() {
     }
   }
 
-
   return (
     <form className={classes.container} autoComplete="off">
       <h1>Création de parcours</h1>
@@ -154,39 +149,38 @@ function CreateParcours() {
         onChange={handleChange('description')}
         className={classes.textField}
         style={{ marginBottom: '5%', width: '50%' }}
-
       />
       <SelectField
         required
-        choices={category}
+        choices={categoryToArray('ZaUZ5QfXw9nLWXa0SwIt')}
         name="thématique"
         handleChange={handleChange}
         currentValue={state.thématique}
       />
       <SelectField
         required
-        choices={language}
+        choices={categoryToArray('AkD1DW8HDTZXf7Zmk165')}
         name="langue"
         handleChange={handleChange}
         currentValue={state.langue}
       />
       <SelectField
         required
-        choices={time}
+        choices={categoryToArray('KKj7dhD2axqYjelGHnxx')}
         name="durée"
         handleChange={handleChange}
         currentValue={state.durée}
       />
       <SelectField
-
         required
-        choices={difficulty}
+        choices={categoryToArray('pBNtLDEviTPfjzUSWxzL')}
         name="difficulté"
         handleChange={handleChange}
         currentValue={state.difficulté}
       />
-      <h3 style={{ color: 'red', marginBottom: '15%' }}>{state.errorMessage}</h3>
-
+      <h1 style={{ color: 'red', marginBottom: '15%' }}>
+        {state.errorMessage}
+      </h1>
 
       <Button
         fullWidth
@@ -196,12 +190,10 @@ function CreateParcours() {
         variant="contained"
         style={{
           position: 'fixed', bottom: '2%', left: '5%', right: '10%', borderRadius: '20px',
-        }}
+        }}>
 
       >
-
         Créer mon parcours
-
       </Button>
     </form>
   );

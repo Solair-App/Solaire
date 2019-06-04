@@ -54,7 +54,7 @@ function DialogSelect(props) {
         onChange={handleClose}
 
       >
-        <DialogTitle style={{ fontSize: '1vh', backgroundColor: '#00A591', color: 'white'}}>
+        <DialogTitle style={{ fontSize: '1vh', backgroundColor: '#00A591', color: 'white' }}>
           Choisissez une
           {' '}
           {name}

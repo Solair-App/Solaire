@@ -60,7 +60,7 @@ function CreateParcours() {
   };
   // redirection si le parcours est crée
   function redirect() {
-    setTimeout(window.location.assign('/AddCours'), 5000);
+    window.location.assign('/AddCours');
   }
 
   // Stockage du parcours dans la db

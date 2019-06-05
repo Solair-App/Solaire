@@ -67,13 +67,13 @@ class Signup extends Component {
 
     users = (user) => {
       // Récupération du Firestore grâce à context
-      const { firestore, history } = this.props;
+      const { firestore } = this.props;
       // Envoi d'infos dans le cloud Firestore
       firestore.doc(`users/${user.uid}`).set({
         name: user.displayName,
         uid: user.uid,
       }, { merge: true });
-      history.push('/dashboard');
+      this.props.history.push('/dashboard');
     }
 
 

@@ -8,7 +8,7 @@ class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
+      connected: false,
     };
     const { auth } = this.props;
 
@@ -29,10 +29,12 @@ class Signup extends Component {
     const { auth, googleProvider, facebookProvider } = this.props;
     if (choice === 'google') {
       auth.signInWithRedirect(googleProvider);
+      this.setState({ connected: true });
     }
 
     if (choice === 'facebook') {
       auth.signInWithRedirect(facebookProvider);
+      this.setState({ connected: true });
     }
   }
 
@@ -50,11 +52,11 @@ class Signup extends Component {
 
 
   render() {
-    const { user } = this.state;
+    const { connected } = this.state;
     return (
-      <div className="signin" style={{ color: 'black' }} >
+      <div className="signin" style={{ color: 'black' }}>
         {
-          user
+          connected
             ? <p>Signed in!</p>
             : (
               <>

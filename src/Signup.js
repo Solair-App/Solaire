@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import withFirebaseContext from './Firebase/withFirebaseContext';
 
@@ -94,16 +95,51 @@ class Signup extends Component {
                   fullWidthsize="medium"
                   color="primary"
                   variant="contained"
-                  style={{ position: 'fixed', borderRadius: '20px' }}
+                  style={{
+                    position: 'fixed',
+                    bottom: '22%',
+                    left: '30%',
+                    right: '10%',
+                    borderRadius: '20px',
+                  }}
                   onClick={() => this.login('google')}
                 >
                 Sign in with Google
-
                 </Button>
-                <button onClick={() => this.login('facebook')}>Sign in with Facebook</button>
+
+                <Button
+                  fullWidthsize="medium"
+                  color="primary"
+                  variant="contained"
+                  style={{
+                    position: 'fixed',
+                    bottom: '15%',
+                    left: '30%',
+                    right: '10%',
+                    borderRadius: '20px',
+                  }}
+                  onClick={() => this.login('facebook')}
+                >
+                Sign in with Facebook
+                </Button>
+
                 <Link to="/signin">
-                  <button>Sign in with Email</button>
+                  <Button
+                    ullWidthsize="medium"
+                    color="primary"
+                    variant="contained"
+                    style={{
+                      position: 'fixed',
+                      bottom: '8%',
+                      left: '30%',
+                      right: '10%',
+                      borderRadius: '20px',
+                    }}
+                  >
+                  Sign in with Email
+                  </Button>
                 </Link>
+
                 <p><Link to="/connect">Already have an account?</Link></p>
               </>
             )

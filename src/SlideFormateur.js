@@ -39,8 +39,10 @@ isContentNull = () => {
         });
       } else {
         const db = firebase.firestore();
-        const slideSet = db.collection('slide').doc();
-        slideSet.set({ data: this.state.content });
+        /*besoin creation document cours avec un array vide 'slides' quand le formateur clique sur ajouter un cours'. On a besoin aussi de la clé du parcours et de la clé du cours */
+        const slideSet = db.collection('parcours').doc('mitotynuxmA3GOD57aZ9').collection('cours').doc('jKJq0zFiaBbNZ6aRizAy');
+        slideSet.update({ slides: firebase.firestore.FieldValue.arrayUnion(content) });
+        slideSet.update({ slides: firebase.firestore.FieldValue.arrayRemove(content) });
       }
     }
 

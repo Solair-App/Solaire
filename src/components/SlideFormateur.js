@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CKEditor from 'ckeditor4-react';
+import { Link } from 'react-router-dom';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
 import '../App.scss';
 
@@ -74,6 +75,7 @@ isContentNull = () => {
             ) : ''}
           </div>
           <button onClick={this.saveData} type="submit">Sauvegarder</button>
+          <Link to="/slideApprenant"><p>Voir mes slides</p></Link>
         </div>
       );
     }

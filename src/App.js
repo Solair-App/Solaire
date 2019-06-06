@@ -14,6 +14,7 @@ class App extends Component {
           <BrowserRouter>
             <Switch>
               <Route exact path="/" component={Welcome} />
+              <Route exact path="/quiz" component={Quiz} />
             </Switch>
           </BrowserRouter>
         </FirebaseProvider>

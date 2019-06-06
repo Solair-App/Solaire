@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -8,23 +8,9 @@ import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    display: 'inline-block',
-
-    verticalAlign: 'middle',
-    margin: 'auto',
-
-    color: 'blue',
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 300,
-  },
-}));
-
+import '../../SCSS/SelectField.scss';
 function DialogSelect(props) {
-  const classes = useStyles();
+  
   const [state, setState] = React.useState({
     open: false,
   });
@@ -54,34 +40,25 @@ function DialogSelect(props) {
         disableBackdropClick
         disableEscapeKeyDown
         open={state.open}
-        onChange={handleClose}
-      >
-        <DialogTitle
-          style={{
-            fontSize: '1vh',
-            backgroundColor: '#00A591',
-            color: 'white',
-          }}
-        >
+        onChange={handleClose}>
+
+        <DialogTitle className="DialogTitle">
           Choisissez une
           {' '}
           {name}
         </DialogTitle>
-        <DialogContent style={{ backgroundColor: '#EAE6DA' }}>
-          <form
-            className={classes.container}
-            style={{ backgroundColor: '#EAE6DA' }}
-          >
-            <FormControl
-              className={classes.formControl}
-              style={{ backgroundColor: '' }}
-            >
+
+        <DialogContent className="DialogContent">
+
+          <form className="classesContainer">
+
+            <FormControl className="classesFormControl" >
+
               <Select
                 native
                 onChange={handleChange(name)}
                 input={<Input />}
-                style={{ backgroundColor: '#EAE6DA' }}
-              >
+                className="Select">
                 {' '}
                 {choices.map((category, index) => (
                   <option key={`${index + 1}a`} value={category}>
@@ -89,20 +66,18 @@ function DialogSelect(props) {
                   </option>
                 ))}
               </Select>
+  
             </FormControl>
+
           </form>
+          
         </DialogContent>
-      </Dialog>
-      <h1
-        style={
-          name === 'difficulté'
-            ? { color: 'white', marginBottom: '15%' }
-            : { color: 'white', marginBottom: '10%' }
-        }
-      >
+
+      </Dialog >
+      <h3 style={name === 'difficulté' ? { color: 'white', marginBottom: '15%' } : { color: 'white', marginBottom: '10%' }}>
         {' '}
         {currentValue}
-      </h1>
+      </h3>
     </div>
   );
 }

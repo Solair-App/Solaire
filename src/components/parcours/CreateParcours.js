@@ -1,44 +1,25 @@
 import React from 'react';
 import * as firebase from 'firebase';
-import { makeStyles } from '@material-ui/core/styles';
+
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-
 import SelectField from './SelectField';
 import 'firebase/firestore';
 
 import Parcours from './Parcours';
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    display: 'block',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+import '../../SCSS/CreateParcours.scss';
 
-    flexWrap: 'wrap',
-    height: '100%',
-    width: '100%',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 100,
-  },
-  dense: {
-    marginTop: 19,
-  },
-  menu: {
-    width: 200,
-  },
-}));
+
 
 function CreateParcours() {
-  const classes = useStyles();
+  
   const [values] = React.useState({});
-
+ 
   const [state, setState] = React.useState({
     currentValue: 'tous les champs sont requis',
   });
+
   // Récupération des informations dans la DB
   function getCategoryFromDB(collection, doc) {
     const category = ['Choisissez une catégorie'];
@@ -129,17 +110,18 @@ function CreateParcours() {
   }
 
   return (
-    <form className={classes.container} autoComplete="off">
-      <h1>Création de parcours</h1>
+    <form className="classesContainer" autoComplete="off">
+      <h2 className="h2">Création de parcours</h2>
+      <div> 
       <TextField
         required
         id="standard-name"
         label="Nom du parcours"
-        className={classes.textField}
+        className='textfield'
         value={values.text}
         onChange={handleChange('name')}
-        style={{ marginTop: '5%', width: '50%' }}
-      />
+        style={{ marginTop: '5%', width: '50%' }}/>
+</div> <div> 
       <TextField
         required
         id="filled-multiline-flexible"
@@ -147,54 +129,55 @@ function CreateParcours() {
         multiline
         rows="5"
         onChange={handleChange('description')}
-        className={classes.textField}
-        style={{ marginBottom: '5%', width: '50%' }}
-      />
+        className="textField"
+        style={{ marginBottom: '5%', width: '50%' }}/>
+        
+</div>
       <SelectField
         required
-        choices={categoryToArray('ZaUZ5QfXw9nLWXa0SwIt')}
+        choices={categoryToArray('bJdXDbnHIKwLUdxTGskW')}
         name="thématique"
         handleChange={handleChange}
         currentValue={state.thématique}
-      />
+        className="selectField"
+        style={{borderRadius: '20px'}}/>
+
       <SelectField
         required
-        choices={categoryToArray('AkD1DW8HDTZXf7Zmk165')}
+        choices={categoryToArray('HCMRHOU3DoSelrR7iFhy')}
         name="langue"
         handleChange={handleChange}
         currentValue={state.langue}
-      />
+        class="container"/>
+
       <SelectField
         required
-        choices={categoryToArray('KKj7dhD2axqYjelGHnxx')}
+        choices={categoryToArray('bHeKCjXlUAtK9YruIqm5')}
         name="durée"
         handleChange={handleChange}
         currentValue={state.durée}
-      />
+        class="container"/>
+
       <SelectField
         required
-        choices={categoryToArray('pBNtLDEviTPfjzUSWxzL')}
+        choices={categoryToArray('NK294sVIv9Tejw2N19bY')}
         name="difficulté"
         handleChange={handleChange}
         currentValue={state.difficulté}
-      />
-      <h1 style={{ color: 'red', marginBottom: '15%' }}>
-        {state.errorMessage}
-      </h1>
+        className="selectField"/>
+
+      <h3 className="h3">{state.errorMessage}</h3>
 
       <Button
-        fullWidth
-        size="medium"
+        size="large"
         color="primary"
         onClick={validateParcours}
         variant="contained"
-        style={{
-          position: 'fixed', bottom: '2%', left: '5%', right: '10%', borderRadius: '20px',
-        }}>
-
-      >
+        style={{position: 'fixed', bottom: '1%', left: '20%', right: '0%', borderRadius: '20px'}}
+        className="Button">
         Créer mon parcours
       </Button>
+
     </form>
   );
 }

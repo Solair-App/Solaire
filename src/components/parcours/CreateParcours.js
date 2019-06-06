@@ -173,7 +173,7 @@ function CreateParcours() {
         color="primary"
         onClick={validateParcours}
         variant="contained"
-        style={{position: 'fixed center', bottom: '1%', left: '0%', right: '0%', borderRadius: '20px'}}
+        style={{position: 'fixed center', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px'}}
         className="Button">
         Créer mon parcours
       </Button>

@@ -18,9 +18,9 @@ const App = () => (
     <FirebaseProvider>
       <HashRouter>
         <Switch>
+          <Route exact path="/" component={Welcome} />
           <Route path="/CreateParcours" component={CreateParcours} />
           <Route path="/AddCours" component={AddCours} />
-          <Route exact path="/" component={Welcome} />
           <Route path="/signin" component={Signin} />
           <Route path="/signup" component={Signup} />
           <Route path="/connect" component={Connect} />

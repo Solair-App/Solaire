@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 
 
 class Signup extends Component {
@@ -60,43 +63,76 @@ class Signup extends Component {
       error,
     } = this.state;
     const isInvalid = passwordOne !== passwordTwo
-    || passwordOne === ''
-    || email === ''
-    || username === '';
+      || passwordOne === ''
+      || email === ''
+      || username === '';
     return (
       <div className="emailLog" style={{ color: 'black' }}>
-        <form onSubmit={this.onSubmit}>
-          <input
-            name="username"
-            value={username}
-            onChange={this.onChange}
-            type="text"
-            placeholder="Full Name"
-          />
-          <input
-            name="email"
-            value={email}
-            onChange={this.onChange}
-            type="text"
-            placeholder="Email Address"
-          />
-          <input
-            name="passwordOne"
-            value={passwordOne}
-            onChange={this.onChange}
-            type="password"
-            placeholder="Password"
-          />
-          <input
-            name="passwordTwo"
-            value={passwordTwo}
-            onChange={this.onChange}
-            type="password"
-            placeholder="Confirm Password"
-          />
-          <button disabled={isInvalid} type="submit">
+        <form onSubmit={this.onSubmit} className="classesContainer" autoComplete="off">
+          <Grid container>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="name"
+                label="Full Name"
+                name="username"
+                className='textfield'
+                currentValue={username}
+                onChange={this.onChange}
+                style={{ marginTop: '5%', width: '50%' }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="email"
+                label="Email Address"
+                name="email"
+                className='textfield'
+                currentValue={email}
+                onChange={this.onChange}
+                style={{ marginTop: '5%', width: '50%' }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+
+              <TextField
+                required
+                id="password"
+                label="Password"
+                name="passwordOne"
+                className='textfield'
+                currentValue={passwordOne}
+                type="password"
+                onChange={this.onChange}
+                style={{ marginTop: '5%', width: '50%' }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+
+              <TextField
+                required
+                id="password"
+                label="Confirm Password"
+                name="passwordTwo"
+                className='textfield'
+                currentValue={passwordTwo}
+                type="password"
+                onChange={this.onChange}
+                style={{ marginTop: '5%', width: '50%' }}
+              />
+            </Grid>
+          </Grid>
+          <Button
+            size="large"
+            disabled={isInvalid}
+            type="submit"
+            color="primary"
+            variant="contained"
+            style={{ position: 'fixed center', marginTop:'8%', borderRadius: '20px' }}
+            className="Button">
             Sign Up
-          </button>
+          </Button>
           {error && <p>{error.message}</p>}
         </form>
       </div>

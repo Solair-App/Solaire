@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
+import Button from '@material-ui/core/Button';
 
 
 class Profile extends Component {
@@ -59,14 +60,32 @@ class Profile extends Component {
                 {' '}
                 {userInfo.name}
               </p>
-              <button type="button" onClick={this.logout}>Log Out</button>
+              <Button
+                size="large"
+                type="button"
+                color="primary"
+                onClick={this.logout}
+                variant="contained"
+                style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
+                className="Button">
+                Log Out
+              </Button>
               {error && <p>{error.message}</p>}
             </>
           )
           : (
             <>
               <p>Loading your info</p>
-              <button type="button" onClick={this.logout}>Log Out</button>
+              <Button
+                size="large"
+                type="button"
+                color="primary"
+                onClick={this.logout}
+                variant="contained"
+                style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
+                className="Button">
+                Log Out
+              </Button>
             </>
           )
         }

@@ -137,7 +137,7 @@ function CreateParcours() {
       </div>
       <SelectField
         required
-        choices={categoryToArray('bJdXDbnHIKwLUdxTGskW')}
+        choices={categoryToArray('thématique')}
         name="thématique"
         handleChange={handleChange}
         currentValue={state.thématique}
@@ -147,7 +147,7 @@ function CreateParcours() {
 
       <SelectField
         required
-        choices={categoryToArray('HCMRHOU3DoSelrR7iFhy')}
+        choices={categoryToArray('langue')}
         name="langue"
         handleChange={handleChange}
         currentValue={state.langue}
@@ -156,7 +156,7 @@ function CreateParcours() {
 
       <SelectField
         required
-        choices={categoryToArray('bHeKCjXlUAtK9YruIqm5')}
+        choices={categoryToArray('durée')}
         name="durée"
         handleChange={handleChange}
         currentValue={state.durée}
@@ -165,7 +165,7 @@ function CreateParcours() {
 
       <SelectField
         required
-        choices={categoryToArray('NK294sVIv9Tejw2N19bY')}
+        choices={categoryToArray('difficulté')}
         name="difficulté"
         handleChange={handleChange}
         currentValue={state.difficulté}

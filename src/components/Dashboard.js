@@ -11,7 +11,7 @@ const Dashboard = () => (
       Welcome to your app
     </p>
     <p>
-      <Link to="/profile">
+      <Link to="/CreateParcours">
         <Button
           size="large"
           type="button"
@@ -19,8 +19,21 @@ const Dashboard = () => (
           variant="contained"
           style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
           className="Button">
+          Create Parcours
+        </Button>
+      </Link>
+    </p>
+    <p>
+      <Link to="/profile">
+        <Button
+          size="large"
+          type="button"
+          color="primary"
+          variant="contained"
+          style={{ position: 'fixed center', marginTop: '2%', borderRadius: '20px' }}
+          className="Button">
           My profile
-    </Button>
+        </Button>
       </Link>
     </p>
   </div>

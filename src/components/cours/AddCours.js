@@ -5,13 +5,15 @@ import { Link } from 'react-router-dom';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 import ListCours from './ListCours';
 import TypeCours from './TypeCours';
+import { withRouter } from 'react-router';
+
 
 
 class AddCours extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      cours: '',
       data: {},
     };
   }
@@ -34,6 +36,26 @@ getDataBaseData= () => {
     });
 }
 
+getType = (event) => {
+  const type = event.target.value;
+  const { history } = this.props;
+  let cours;
+  switch (type) {
+    case 'Quizz':
+      cours = 'quizz';
+      break;
+    case 'Vidéo':
+      cours = 'video';
+      break;
+    case 'Slide':
+      cours = 'slide';
+      localStorage.setItem('slideNumb', 0);
+      break;
+    default:
+  }
+  history.push(`/${cours}`);
+}
+
 render() {
   const { data } = this.state;
   return (
@@ -49,12 +71,11 @@ Modifier les options
       </Link>
       <ListCours courseName={data} />
 
-      <TypeCours />
+      <TypeCours getType={this.getType} />
       <Button
         fullWidth
         size="large"
         color="secondary"
-
         variant="contained"
         style={{
           position: 'fixed', bottom: '20PX', left: '0', borderRadius: '20px',
@@ -67,4 +88,4 @@ Modifier les options
 }
 }
 
-export default withFirebaseContext(AddCours);
+export default withRouter(withFirebaseContext(AddCours));

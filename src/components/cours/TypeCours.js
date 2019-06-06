@@ -22,13 +22,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function TypeCours() {
+function TypeCours(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState('Quizz');
+  const [value] = React.useState('Quizz');
 
-  function handleChange(event) {
-    setValue(event.target.value);
-  }
+  const { getType } = props;
 
   return (
     <div className={classes.root}>
@@ -39,7 +37,7 @@ function TypeCours() {
           name="Type"
           className={classes.group}
           value={value}
-          onChange={handleChange}
+          onChange={getType}
 
         >
           <FormControlLabel value="Quizz" control={<Radio />} label="Quizz" style={{ marginBottom: '20px' }} />

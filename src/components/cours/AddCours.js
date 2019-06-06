@@ -55,10 +55,7 @@ Modifier les options
         color="secondary"
 
         variant="contained"
-        style={{
-          position: 'fixed', bottom: '20PX', left: '0', borderRadius: '20px',
-        }}
-      >
+        style={{position: 'fixed center', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px'}}>
         Valider
       </Button>
     </div>

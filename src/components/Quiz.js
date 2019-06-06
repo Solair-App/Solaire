@@ -1,4 +1,5 @@
 import React from 'react';
+import '../SCSS/Quiz.scss';
 
 class Quiz extends React.Component {
     constructor(props) {
@@ -35,6 +36,16 @@ class Quiz extends React.Component {
               ],
               correct: 2
             },
+            {
+              question: " question 4",
+              answers: [
+                "1",
+                "2",
+                "3",
+                "4"
+              ],
+              correct: 3
+            },
       ];
       
       this.state = {current:0, dataSet:dataSet, correct:0, incorrect:0}
@@ -49,7 +60,7 @@ class Quiz extends React.Component {
         this.setState({incorrect: this.state.incorrect + 1})
       }
       
-      if (this.state.current === 9) {
+      if (this.state.current === 3) {
         this.setState({current: 0})
         this.setState({incorrect: 0})
         this.setState({correct: 0})
@@ -69,27 +80,26 @@ class Quiz extends React.Component {
   }
   
   function Question(props) {
-    const style = {
-        width: "50%",
-        height: "50%",
-        color: "black",
-        display: "block",
-        textAlign: "center",
-        boxSizing: "border-box",
-    }
+
     return (
-      <h1 style={style}>{props.dataSet.question}</h1>
+      <h1>{props.dataSet.question}</h1>
     )
   }
   
   function Answer(props) {
     const style = {
-      width: "50%",
-      height: "50%",
-      color: "black",
+      width: "80%",
+      height: "100%",
+      color: "white",
       display: "block",
       textAlign: "center",
-      boxSizing: "border-box",
+      fontSize: "2em",
+      background: "rgba(0, 0, 0, 0.5)",
+      opacity: "0.5",
+      margin: "10%",
+      padding: "5%",
+      borderRadius: "20px",
+
     }
     return(
       <div>
@@ -112,7 +122,7 @@ class Quiz extends React.Component {
   
   function QuizArea(props) {
     const style = {
-      width: "50%",
+      width: "100%",
       display: "block",
       textAlign: "center",
       boxSizing: "border-box",
@@ -129,11 +139,10 @@ class Quiz extends React.Component {
   
   function TotalCorrect(props) {
       const style = {
+      width: "100%",
       display: "inline-block",
       textAlign: "center",
-      padding: "1em",
-      background: "#eee",
-      margin: "0 1em 0 0"
+      
     }
     return(
       <h2 style={style}>Correct: {props.correct}</h2>
@@ -142,11 +151,10 @@ class Quiz extends React.Component {
   
   function TotalIncorrect(props) {
     const style = {
+      width: "100%",
       display: "inline-block", 
-      textAlign: "center",   
-      padding: "1em",
-      background: "#eee",
-      margin: "0 0 0 1em"
+      textAlign: "center", 
+      
     }
     return(
       <h2 style={style}>Incorrect: {props.incorrect}</h2>
@@ -155,11 +163,10 @@ class Quiz extends React.Component {
   
   function ScoreArea(props) {
     const style = {
-      width: "50%",
+      width: "100%",
       display: "block",
       textAlign: "center",
       float: "left",
-      padding: "2em",
     }
     return(
       <div style={style} >

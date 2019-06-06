@@ -180,7 +180,7 @@ function CreateParcours() {
         onClick={validateParcours}
         variant="contained"
         style={{
-          position: 'fixed', bottom: '1%', left: '20%', right: '0%', borderRadius: '20px',
+          position: 'fixed center', bottom: '1%', left: '0%', right: '0%', borderRadius: '20px',
         }}
         className="Button"
       >

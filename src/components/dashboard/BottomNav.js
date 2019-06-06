@@ -7,6 +7,7 @@ import Category from '@material-ui/icons/Category';
 import Folder from '@material-ui/icons/Folder';
 import AccountBox from '@material-ui/icons/AccountBox';
 
+
 const useStyles = makeStyles({
   root: {
 
@@ -16,10 +17,13 @@ const useStyles = makeStyles({
 
   },
 });
+function redirect() {
+  window.location.assign('/#/CreateParcours');
+}
 
 export default function BottomNav() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(1);
 
   return (
     <BottomNavigation
@@ -30,7 +34,7 @@ export default function BottomNav() {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction label="Création" icon={<Edit />} />
+      <BottomNavigationAction onClick={redirect} label="Création" icon={<Edit />} />
       <BottomNavigationAction label="Dashboard" icon={<Category />} />
       <BottomNavigationAction label="Mes cours" icon={<Folder />} />
       <BottomNavigationAction label="Profile" icon={<AccountBox />} />

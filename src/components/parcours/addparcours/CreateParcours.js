@@ -1,6 +1,6 @@
 import React from 'react';
 import * as firebase from 'firebase';
-
+import Cancel from '@material-ui/icons/Cancel';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import SelectField from './SelectField';
@@ -38,8 +38,8 @@ function CreateParcours() {
     setState({ ...state, [name]: event.target.value });
   };
   // redirection si le parcours est crée
-  function redirect() {
-    window.location.assign('/AddCours');
+  function redirect(url) {
+    window.location.assign(url);
   }
 
   // Stockage du parcours dans la db
@@ -62,7 +62,7 @@ function CreateParcours() {
       .then(() => {
         localStorage.setItem('id', parcoursRef.id);
 
-        redirect();
+        redirect('/AddCours');
       });
   }
 
@@ -109,6 +109,7 @@ function CreateParcours() {
 
   return (
     <form className="classesContainer" autoComplete="off">
+      <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { redirect('/#/Dashboard'); }} />
       <h2 className="h2">Création de parcours</h2>
       <div>
         <TextField

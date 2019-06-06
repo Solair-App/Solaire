@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-import UseDashButton from './DashButton';
+import useDashButton from './DashButton';
 import BottomNav from './BottomNav';
+import SearchBar from './SearchBar';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -14,7 +15,8 @@ class Dashboard extends Component {
     return (
 
       <div style={{ display: 'block', textAlign: 'left' }}>
-        <UseDashButton />
+        <SearchBar />
+        <useDashButton />
 
         <BottomNav />
       </div>

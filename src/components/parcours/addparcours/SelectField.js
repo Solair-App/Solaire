@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -23,6 +24,8 @@ function DialogSelect(props) {
   function handleClose() {
     setState({ ...state, open: false });
   }
+
+
   const {
     name, choices, handleChange, currentValue,
   } = props;
@@ -34,6 +37,7 @@ function DialogSelect(props) {
         style={{ borderRadius: '20px' }}
         onClick={handleClickOpen}
       >
+
         {name}
       </Button>
       <Dialog
@@ -48,6 +52,8 @@ function DialogSelect(props) {
           {' '}
           {name}
         </DialogTitle>
+        {' '}
+
 
         <DialogContent className="DialogContent">
 

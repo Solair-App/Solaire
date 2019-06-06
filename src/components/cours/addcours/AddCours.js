@@ -3,9 +3,9 @@ import Button from '@material-ui/core/Button';
 import * as firebase from 'firebase';
 import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
+import Cancel from '@material-ui/icons/Cancel';
 import ListCours from './ListCours';
 import TypeCours from './TypeCours';
-
 
 class AddCours extends Component {
   constructor(props) {
@@ -33,11 +33,16 @@ getDataBaseData= () => {
     });
 }
 
+redirect = (url) => {
+  window.location.assign(url);
+}
+
 render() {
   const { data } = this.state;
   return (
 
     <div>
+      <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { this.redirect('/#/Dashboard'); }} />
       <h1>{data.name}</h1>
       <Link to="CreateParcours">
         <Button color="primary">

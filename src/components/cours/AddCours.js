@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import * as firebase from 'firebase';
 import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
+import withFirebaseContext from '../../Firebase/withFirebaseContext';
 import ListCours from './ListCours';
 import TypeCours from './TypeCours';
 
@@ -21,7 +21,8 @@ class AddCours extends Component {
   }
 
 getDataBaseData= () => {
-  const db = firebase.firestore();
+  const { firestore } = this.props;
+  const db = firestore;
   const parcours = db.collection('parcours').doc(localStorage.getItem('id'));
   parcours
     .get()
@@ -66,4 +67,4 @@ Modifier les options
 }
 }
 
-export default AddCours;
+export default withFirebaseContext(AddCours);

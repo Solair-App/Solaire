@@ -21,7 +21,9 @@ const config = {
 class FirebaseProvider extends Component {
   constructor(props) {
     super(props);
-    firebase.initializeApp(config);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
     this.auth = firebase.auth();
     this.firestore = firebase.firestore();
     this.googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -31,7 +33,7 @@ class FirebaseProvider extends Component {
       firestore: this.firestore,
       googleProvider: this.googleProvider,
       facebookProvider: this.facebookProvider,
-    }
+    };
   }
 
   render() {
@@ -46,4 +48,3 @@ class FirebaseProvider extends Component {
 
 
 export default FirebaseProvider;
-

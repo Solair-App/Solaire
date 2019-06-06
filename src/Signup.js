@@ -109,7 +109,6 @@ class Signup extends Component {
                 <Link to="/signin">
                   <Button
                     variant="contained"
-                    color="secondary"
                   >
                   Sign in with Email
                   </Button>

@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -29,7 +28,12 @@ function DialogSelect(props) {
   } = props;
   return (
     <div style={{ marginBottom: '10%' }}>
-      <Button className="Button" variant="contained" color="primary" onClick={handleClickOpen}>
+      <Button
+        variant="contained"
+        color="primary"
+        style={{ borderRadius: '20px' }}
+        onClick={handleClickOpen}
+      >
         {name}
       </Button>
       <Dialog
@@ -57,7 +61,9 @@ function DialogSelect(props) {
                 className="Select">
                 {' '}
                 {choices.map((category, index) => (
-                  <option key={`${index + 1}a`} value={category}>{category}</option>
+                  <option key={`${index + 1}a`} value={category}>
+                    {category}
+                  </option>
                 ))}
               </Select>
   

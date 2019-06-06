@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import Welcome from './Welcome';
 import FirebaseProvider from './Firebase/FirebaseProvider';
 import CreateParcours from './components/parcours/CreateParcours';
@@ -14,7 +14,8 @@ import Profile from './Profile';
 
 const App = () => (
   <div className="App">
-        <FirebaseProvider>
+      <FirebaseProvider>
+      <HashRouter>
       <Switch>
         <Route path="/CreateParcours" component={CreateParcours} />
         <Route path="/AddCours" component={AddCours} />
@@ -26,6 +27,7 @@ const App = () => (
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/profile" component={Profile} />
       </Switch>
+      </HashRouter>
       </FirebaseProvider>
   </div>
 );

@@ -1,26 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Welcome from './Welcome';
+import CreateParcours from './components/parcours/CreateParcours';
+import AddCours from './components/cours/AddCours';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <div className="App">
+    <BrowserRouter>
+      <Switch>
+        <Route path="/CreateParcours" component={CreateParcours} />
+        <Route path="/AddCours" component={AddCours} />
+        <Route exact path="/" component={Welcome} />
+      </Switch>
+    </BrowserRouter>
+  </div>
+);
+
 
 export default App;

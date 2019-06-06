@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import BottomNav from './BottomNav';
+import List from './List';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class Dashboard extends Component {
 
       <div>
         {' '}
-        {data.map(x => <div>{x.description}</div>)}
+        {data.map(x => <List data={x} />)}
         {' '}
         <BottomNav />
       </div>

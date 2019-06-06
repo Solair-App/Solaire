@@ -4,18 +4,19 @@ import Edit from '@material-ui/icons/Edit';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import LockOpen from '@material-ui/icons/LockOpen';
 
-function ListCours() {
-  const courseName = ['Cours', 'Cours', 'Cours', 'Cours', 'Cours', 'Cours', 'Cours', 'Cours'];
+function ListCours(props) {
+  const { data } = props;
+
   return (
 
     <div>
       {' '}
-      {courseName.map(cours => (
+      {Object.keys(data).map(cours => (
         <>
 
           <p>
             <RadioButtonUnchecked style={{ marginRight: '10px' }} />
-            {cours}
+            {cours.name}
             {' '}
             <Edit style={{ marginLeft: '10px' }} />
 

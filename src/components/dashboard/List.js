@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
   card: {
     minWidth: 275,
+    backgroundColor: 'green',
+    textAlign: 'center',
   },
   bullet: {
     display: 'inline-block',
@@ -27,7 +29,7 @@ const useStyles = makeStyles({
 export default function ListCours(props) {
   const { data } = props;
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
+
 
   return (
     <Card className={classes.card}>
@@ -53,9 +55,6 @@ export default function ListCours(props) {
           {data.description}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
     </Card>
   );
 }

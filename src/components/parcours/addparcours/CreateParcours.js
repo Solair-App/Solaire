@@ -8,14 +8,12 @@ import 'firebase/firestore';
 
 import Parcours from './Parcours';
 
-import '../../SCSS/CreateParcours.scss';
-
+import '../../../SCSS/CreateParcours.scss';
 
 
 function CreateParcours() {
-  
   const [values] = React.useState({});
- 
+
   const [state, setState] = React.useState({
     currentValue: 'tous les champs sont requis',
   });
@@ -112,27 +110,31 @@ function CreateParcours() {
   return (
     <form className="classesContainer" autoComplete="off">
       <h2 className="h2">Création de parcours</h2>
-      <div> 
-      <TextField
-        required
-        id="standard-name"
-        label="Nom du parcours"
-        className='textfield'
-        value={values.text}
-        onChange={handleChange('name')}
-        style={{ marginTop: '5%', width: '50%' }}/>
-</div> <div> 
-      <TextField
-        required
-        id="filled-multiline-flexible"
-        label="Description"
-        multiline
-        rows="5"
-        onChange={handleChange('description')}
-        className="textField"
-        style={{ marginBottom: '5%', width: '50%' }}/>
-        
-</div>
+      <div>
+        <TextField
+          required
+          id="standard-name"
+          label="Nom du parcours"
+          className="textfield"
+          value={values.text}
+          onChange={handleChange('name')}
+          style={{ marginTop: '5%', width: '50%' }}
+        />
+      </div>
+      {' '}
+      <div>
+        <TextField
+          required
+          id="filled-multiline-flexible"
+          label="Description"
+          multiline
+          rows="5"
+          onChange={handleChange('description')}
+          className="textField"
+          style={{ marginBottom: '5%', width: '50%' }}
+        />
+
+      </div>
       <SelectField
         required
         choices={categoryToArray('bJdXDbnHIKwLUdxTGskW')}
@@ -140,7 +142,8 @@ function CreateParcours() {
         handleChange={handleChange}
         currentValue={state.thématique}
         className="selectField"
-        style={{borderRadius: '20px'}}/>
+        style={{ borderRadius: '20px' }}
+      />
 
       <SelectField
         required
@@ -148,7 +151,8 @@ function CreateParcours() {
         name="langue"
         handleChange={handleChange}
         currentValue={state.langue}
-        class="container"/>
+        class="container"
+      />
 
       <SelectField
         required
@@ -156,7 +160,8 @@ function CreateParcours() {
         name="durée"
         handleChange={handleChange}
         currentValue={state.durée}
-        class="container"/>
+        class="container"
+      />
 
       <SelectField
         required
@@ -164,7 +169,8 @@ function CreateParcours() {
         name="difficulté"
         handleChange={handleChange}
         currentValue={state.difficulté}
-        className="selectField"/>
+        className="selectField"
+      />
 
       <h3 className="h3">{state.errorMessage}</h3>
 
@@ -173,8 +179,11 @@ function CreateParcours() {
         color="primary"
         onClick={validateParcours}
         variant="contained"
-        style={{position: 'fixed', bottom: '1%', left: '20%', right: '0%', borderRadius: '20px'}}
-        className="Button">
+        style={{
+          position: 'fixed', bottom: '1%', left: '20%', right: '0%', borderRadius: '20px',
+        }}
+        className="Button"
+      >
         Créer mon parcours
       </Button>
 

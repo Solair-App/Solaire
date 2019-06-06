@@ -5,15 +5,17 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const startApp = () => {
-    ReactDOM.render(<App />, document.getElementById('root'));
-    serviceWorker.register();
-  };
-  
-  if(window.cordova) {
-    document.addEventListener('deviceready', startApp, false);
-  } else {
-    startApp();
-  }
+  ReactDOM.render(
+    <App />, document.getElementById('root'),
+  );
+  serviceWorker.register();
+};
+
+if (window.cordova) {
+  document.addEventListener('deviceready', startApp, false);
+} else {
+  startApp();
+}
 
 
 // If you want your app to work offline and load faster, you can change

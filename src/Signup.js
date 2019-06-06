@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import withFirebaseContext from './Firebase/withFirebaseContext';
 
@@ -92,32 +91,16 @@ class Signup extends Component {
                 <p> Please sign in</p>
 
                 <Button
-                  fullWidthsize="medium"
-                  color="primary"
                   variant="contained"
-                  style={{
-                    position: 'fixed',
-                    bottom: '22%',
-                    left: '30%',
-                    right: '10%',
-                    borderRadius: '20px',
-                  }}
+                  color="primary"
                   onClick={() => this.login('google')}
                 >
                 Sign in with Google
                 </Button>
 
                 <Button
-                  fullWidthsize="medium"
-                  color="primary"
                   variant="contained"
-                  style={{
-                    position: 'fixed',
-                    bottom: '15%',
-                    left: '30%',
-                    right: '10%',
-                    borderRadius: '20px',
-                  }}
+                  color="secondary"
                   onClick={() => this.login('facebook')}
                 >
                 Sign in with Facebook
@@ -125,16 +108,8 @@ class Signup extends Component {
 
                 <Link to="/signin">
                   <Button
-                    ullWidthsize="medium"
-                    color="primary"
                     variant="contained"
-                    style={{
-                      position: 'fixed',
-                      bottom: '8%',
-                      left: '30%',
-                      right: '10%',
-                      borderRadius: '20px',
-                    }}
+                    color="secondary"
                   >
                   Sign in with Email
                   </Button>

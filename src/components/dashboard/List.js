@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 
     backgroundColor: 'green',
     textAlign: 'center',
-    display: 'block',
+    display: 'inline-block',
   },
   bullet: {
     display: 'inline-block',
@@ -52,7 +52,7 @@ export default function ListCours(props) {
         </Typography>
         <Typography variant="body2" component="p">
 
-          <br />
+
           {data.description}
         </Typography>
       </CardContent>

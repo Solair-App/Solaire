@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
 import Cancel from '@material-ui/icons/Cancel';
+import { withRouter } from 'react-router';
 import ListCours from './ListCours';
 import TypeCours from './TypeCours';
 
@@ -34,7 +35,8 @@ getDataBaseData= () => {
 }
 
 redirect = (url) => {
-  window.location.assign(url);
+  const history = this.props;
+  history.push(url);
 }
 
 render() {
@@ -71,4 +73,4 @@ Modifier les options
 }
 }
 
-export default AddCours;
+export default withRouter(AddCours);

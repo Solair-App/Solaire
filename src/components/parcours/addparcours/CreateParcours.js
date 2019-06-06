@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 import Cancel from '@material-ui/icons/Cancel';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { withRouter } from 'react-router';
 import SelectField from './SelectField';
 import 'firebase/firestore';
 
@@ -11,7 +12,7 @@ import Parcours from './Parcours';
 import '../../../SCSS/CreateParcours.scss';
 
 
-function CreateParcours() {
+function CreateParcours(props) {
   const [values] = React.useState({});
 
   const [state, setState] = React.useState({
@@ -39,7 +40,8 @@ function CreateParcours() {
   };
   // redirection si le parcours est crée
   function redirect(url) {
-    window.location.assign(url);
+    const history = props;
+    history.push(url);
   }
 
   // Stockage du parcours dans la db
@@ -192,4 +194,4 @@ function CreateParcours() {
   );
 }
 
-export default CreateParcours;
+export default withRouter(CreateParcours);

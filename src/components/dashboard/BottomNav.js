@@ -6,7 +6,7 @@ import Edit from '@material-ui/icons/Edit';
 import Category from '@material-ui/icons/Category';
 import Folder from '@material-ui/icons/Folder';
 import AccountBox from '@material-ui/icons/AccountBox';
-
+import { withRouter } from 'react-router';
 
 const useStyles = makeStyles({
   root: {
@@ -17,11 +17,11 @@ const useStyles = makeStyles({
 
   },
 });
-function redirect() {
-  window.location.assign('/#/CreateParcours');
-}
-
-export default function BottomNav() {
+function BottomNav(props) {
+  function redirect() {
+    const history = props;
+    history.push('/#/CreateParcours');
+  }
   const classes = useStyles();
   const [value, setValue] = React.useState(1);
 
@@ -41,3 +41,4 @@ export default function BottomNav() {
     </BottomNavigation>
   );
 }
+export default withRouter(BottomNav);

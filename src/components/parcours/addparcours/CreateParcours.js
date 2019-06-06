@@ -62,7 +62,7 @@ function CreateParcours() {
       .then(() => {
         localStorage.setItem('id', parcoursRef.id);
 
-        redirect('/AddCours');
+        redirect('/#/AddCours');
       });
   }
 

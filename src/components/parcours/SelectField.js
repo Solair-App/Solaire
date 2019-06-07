@@ -7,8 +7,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
 import '../../SCSS/SelectField.scss';
+
 function DialogSelect(props) {
   
   const [state, setState] = React.useState({

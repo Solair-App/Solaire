@@ -1,10 +1,10 @@
 import React from 'react';
-import * as firebase from 'firebase';
-
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import withFirebaseContext from '../../Firebase/withFirebaseContext';
 import SelectField from './SelectField';
-import 'firebase/firestore';
+import { withRouter } from 'react-router';
+
 
 import Parcours from './Parcours';
 
@@ -12,10 +12,10 @@ import '../../SCSS/CreateParcours.scss';
 
 
 
-function CreateParcours() {
-  
+function CreateParcours({ firestore, history }) {
+
   const [values] = React.useState({});
- 
+
   const [state, setState] = React.useState({
     currentValue: 'tous les champs sont requis',
   });
@@ -23,7 +23,7 @@ function CreateParcours() {
   // Récupération des informations dans la DB
   function getCategoryFromDB(collection, doc) {
     const category = ['Choisissez une catégorie'];
-    const db = firebase.firestore();
+    const db = firestore;
     const themRef = db.collection(collection).doc(doc);
     themRef.get().then((document) => {
       const dbCategory = document.data();
@@ -41,12 +41,12 @@ function CreateParcours() {
   };
   // redirection si le parcours est crée
   function redirect() {
-    setTimeout(window.location.assign('/AddCours'), 5000);
+    setTimeout(history.push('/AddCours'), 5000);
   }
 
   // Stockage du parcours dans la db
   function pushParcoursInsideDB(parcours) {
-    const db = firebase.firestore();
+    const db = firestore;
     const parcoursRef = db.collection('parcours').doc();
 
     parcoursRef
@@ -112,59 +112,59 @@ function CreateParcours() {
   return (
     <form className="classesContainer" autoComplete="off">
       <h2 className="h2">Création de parcours</h2>
-      <div> 
-      <TextField
-        required
-        id="standard-name"
-        label="Nom du parcours"
-        className='textfield'
-        value={values.text}
-        onChange={handleChange('name')}
-        style={{ marginTop: '5%', width: '50%' }}/>
-</div> <div> 
-      <TextField
-        required
-        id="filled-multiline-flexible"
-        label="Description"
-        multiline
-        rows="5"
-        onChange={handleChange('description')}
-        className="textField"
-        style={{ marginBottom: '5%', width: '50%' }}/>
-        
-</div>
+      <div>
+        <TextField
+          required
+          id="standard-name"
+          label="Nom du parcours"
+          className='textfield'
+          value={values.text}
+          onChange={handleChange('name')}
+          style={{ marginTop: '5%', width: '50%' }} />
+      </div> <div>
+        <TextField
+          required
+          id="filled-multiline-flexible"
+          label="Description"
+          multiline
+          rows="5"
+          onChange={handleChange('description')}
+          className="textField"
+          style={{ marginBottom: '5%', width: '50%' }} />
+
+      </div>
       <SelectField
         required
-        choices={categoryToArray('bJdXDbnHIKwLUdxTGskW')}
+        choices={categoryToArray('thématique')}
         name="thématique"
         handleChange={handleChange}
         currentValue={state.thématique}
         className="selectField"
-        style={{borderRadius: '20px'}}/>
+        style={{ borderRadius: '20px' }} />
 
       <SelectField
         required
-        choices={categoryToArray('HCMRHOU3DoSelrR7iFhy')}
+        choices={categoryToArray('langue')}
         name="langue"
         handleChange={handleChange}
         currentValue={state.langue}
-        class="container"/>
+        class="container" />
 
       <SelectField
         required
-        choices={categoryToArray('bHeKCjXlUAtK9YruIqm5')}
+        choices={categoryToArray('durée')}
         name="durée"
         handleChange={handleChange}
         currentValue={state.durée}
-        class="container"/>
+        class="container" />
 
       <SelectField
         required
-        choices={categoryToArray('NK294sVIv9Tejw2N19bY')}
+        choices={categoryToArray('difficulté')}
         name="difficulté"
         handleChange={handleChange}
         currentValue={state.difficulté}
-        className="selectField"/>
+        className="selectField" />
 
       <h3 className="h3">{state.errorMessage}</h3>
 
@@ -173,7 +173,7 @@ function CreateParcours() {
         color="primary"
         onClick={validateParcours}
         variant="contained"
-        style={{position: 'fixed center', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px'}}
+        style={{ position: 'fixed center', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px' }}
         className="Button">
         Créer mon parcours
       </Button>
@@ -182,4 +182,4 @@ function CreateParcours() {
   );
 }
 
-export default CreateParcours;
+export default withRouter(withFirebaseContext(CreateParcours));

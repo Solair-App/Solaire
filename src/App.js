@@ -7,6 +7,7 @@ import CreateParcours from './components/parcours/addparcours/CreateParcours';
 import AddCours from './components/cours/addcours/AddCours';
 import Signin from './components/Signin';
 import Signup from './components/Signup';
+import Form from './components/Form';
 import Dashboard from './components/Dashboard';
 import Connect from './components/Connect';
 import PasswordForget from './components/PasswordForget';
@@ -22,6 +23,7 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route path="/CreateParcours" component={CreateParcours} />
+          <Route path="/form" component={Form} />
           <Route path="/AddCours" component={AddCours} />
           <Route path="/slideApprenant" component={SlideApprenant} />
           <Route path="/slide" component={SlideFormateur} />

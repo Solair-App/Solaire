@@ -5,7 +5,7 @@ import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import LockOpen from '@material-ui/icons/LockOpen';
 
 function ListCours() {
-  const courseName = ['Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours', 'Incroyable parcours'];
+  const courseName = ['Cours', 'Cours', 'Cours', 'Cours', 'Cours', 'Cours', 'Cours', 'Cours'];
   return (
 
     <div>

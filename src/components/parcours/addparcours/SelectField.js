@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -7,10 +6,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import '../../SCSS/SelectField.scss';
+import '../../../SCSS/SelectField.scss';
 
 function DialogSelect(props) {
-  
   const [state, setState] = React.useState({
     open: false,
   });
@@ -23,6 +21,8 @@ function DialogSelect(props) {
   function handleClose() {
     setState({ ...state, open: false });
   }
+
+
   const {
     name, choices, handleChange, currentValue,
   } = props;
@@ -34,31 +34,36 @@ function DialogSelect(props) {
         style={{ borderRadius: '20px' }}
         onClick={handleClickOpen}
       >
+
         {name}
       </Button>
       <Dialog
         disableBackdropClick
         disableEscapeKeyDown
         open={state.open}
-        onChange={handleClose}>
+        onChange={handleClose}
+      >
 
         <DialogTitle className="DialogTitle">
           Choisissez une
           {' '}
           {name}
         </DialogTitle>
+        {' '}
+
 
         <DialogContent className="DialogContent">
 
           <form className="classesContainer">
 
-            <FormControl className="classesFormControl" >
+            <FormControl className="classesFormControl">
 
               <Select
                 native
                 onChange={handleChange(name)}
                 input={<Input />}
-                className="Select">
+                className="Select"
+              >
                 {' '}
                 {choices.map((category, index) => (
                   <option key={`${index + 1}a`} value={category}>
@@ -66,14 +71,14 @@ function DialogSelect(props) {
                   </option>
                 ))}
               </Select>
-  
+
             </FormControl>
 
           </form>
-          
+
         </DialogContent>
 
-      </Dialog >
+      </Dialog>
       <h3 style={name === 'difficulté' ? { color: 'white', marginBottom: '15%' } : { color: 'white', marginBottom: '10%' }}>
         {' '}
         {currentValue}

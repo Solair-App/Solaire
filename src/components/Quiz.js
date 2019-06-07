@@ -18,7 +18,7 @@ class Quiz extends React.Component {
         correct: 1
       },
       {
-        question: "Qui forme les reacts",
+        question: "Qui forme les reacts ?",
         answers: [
           "Gregory",
           "Alban",

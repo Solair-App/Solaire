@@ -57,14 +57,14 @@ class Signup extends Component {
     return (
       <div className="signin" style={{ color: 'black' }}>
         <img src="./assets/logo.png" alt="logo" />
-        <h1>Elearning</h1>
-        <h3>Apprendre en s’amusant de façon ludique</h3>
+        <h1 style={{ margin: '1%' }}>Elearning</h1>
+        <h3 style={{ margin: '1%' }}>Apprendre en s’amusant de façon ludique</h3>
         {
           connected
             ? <p>Signed in!</p>
             : (
               <>
-                <h3 style={{ color: 'white' }}> Please sign in</h3>
+                <h3 style={{ color: 'white', margin: '1%' }}> Please sign in</h3>
                 <Button
                   size="large"
                   color="primary"

@@ -23,7 +23,7 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route path="/CreateParcours" component={CreateParcours} />
-          <Route path="/form" component={Form} />
+          <Route path="/video" component={Form} />
           <Route path="/AddCours" component={AddCours} />
           <Route path="/slideApprenant" component={SlideApprenant} />
           <Route path="/slide" component={SlideFormateur} />

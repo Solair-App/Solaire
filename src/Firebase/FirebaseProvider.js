@@ -1,5 +1,5 @@
+/* eslint-disable react/no-unused-state */
 import firebase from 'firebase/app';
-import 'firebase/database';
 import 'firebase/firestore';
 import 'firebase/auth';
 
@@ -20,14 +20,18 @@ const config = {
 class FirebaseProvider extends Component {
   constructor(props) {
     super(props);
-    firebase.initializeApp(config);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
     this.auth = firebase.auth();
     this.firestore = firebase.firestore();
     this.googleProvider = new firebase.auth.GoogleAuthProvider();
+    this.facebookProvider = new firebase.auth.FacebookAuthProvider();
     this.state = {
       auth: this.auth,
       firestore: this.firestore,
       googleProvider: this.googleProvider,
+      facebookProvider: this.facebookProvider,
     };
   }
 
@@ -40,5 +44,6 @@ class FirebaseProvider extends Component {
     );
   }
 }
+
 
 export default FirebaseProvider;

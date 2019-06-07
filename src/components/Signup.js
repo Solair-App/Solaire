@@ -58,7 +58,7 @@ class Signup extends Component {
       <div className="signin" style={{ color: 'black' }}>
         <img src="./assets/logo.png" alt="logo" />
         <h1>Elearning</h1>
-        <h3>Apprendre en s’amusant de façon ludique !</h3>
+        <h3>Apprendre en s’amusant de façon ludique</h3>
         {
           connected
             ? <p>Signed in!</p>

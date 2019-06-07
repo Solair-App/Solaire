@@ -11,6 +11,8 @@ import Dashboard from './components/Dashboard';
 import Connect from './components/Connect';
 import PasswordForget from './components/PasswordForget';
 import Profile from './components/Profile';
+import SlideFormateur from './components/SlideFormateur';
+import SlideApprenant from './components/SlideApprenant';
 
 
 const App = () => (
@@ -18,9 +20,11 @@ const App = () => (
     <FirebaseProvider>
       <HashRouter>
         <Switch>
+          <Route exact path="/" component={Welcome} />
           <Route path="/CreateParcours" component={CreateParcours} />
           <Route path="/AddCours" component={AddCours} />
-          <Route exact path="/" component={Welcome} />
+          <Route path="/slideApprenant" component={SlideApprenant} />
+          <Route path="/slide" component={SlideFormateur} />
           <Route path="/signin" component={Signin} />
           <Route path="/signup" component={Signup} />
           <Route path="/connect" component={Connect} />

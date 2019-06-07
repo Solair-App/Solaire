@@ -12,7 +12,6 @@ class AddCours extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
       data: {},
     };
   }
@@ -36,8 +35,28 @@ getDataBaseData= () => {
 }
 
 redirect = (url) => {
-  const history = this.props;
+  const { history } = this.props;
   history.push(url);
+}
+
+getType = (event) => {
+  const type = event.target.value;
+  const { history } = this.props;
+  let cours;
+  switch (type) {
+    case 'Quizz':
+      cours = 'quizz';
+      break;
+    case 'Vidéo':
+      cours = 'video';
+      break;
+    case 'Slide':
+      cours = 'slide';
+      localStorage.setItem('slideNumb', 0);
+      break;
+    default:
+  }
+  history.push(`/${cours}`);
 }
 
 render() {
@@ -45,7 +64,7 @@ render() {
   return (
 
     <div>
-      <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { this.redirect('/#/Dashboard'); }} />
+      <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { this.redirect('/dashboard'); }} />
       <h1>{data.name}</h1>
       <Link to="CreateParcours">
         <Button color="primary">
@@ -56,12 +75,11 @@ Modifier les options
       </Link>
       <ListCours courseName={data} />
 
-      <TypeCours />
+      <TypeCours getType={this.getType} />
       <Button
         fullWidth
         size="large"
         color="secondary"
-
         variant="contained"
         style={{
           position: 'fixed', bottom: '20PX', left: '0', borderRadius: '20px',

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 import withFirebaseContext from '../Firebase/withFirebaseContext';
 
@@ -60,11 +61,34 @@ class Signup extends Component {
             ? <p>Signed in!</p>
             : (
               <>
-                <p> Please sign in</p>
-                <button type="button" onClick={() => this.login('google')}>Sign up with Google</button>
-                <button type="button" onClick={() => this.login('facebook')}>Sign up with Facebook</button>
+                <h2 className="h2"> Please sign in</h2>
+                <Button
+                  size="large"
+                  color="primary"
+                  onClick={() => this.login('google')}
+                  variant="contained"
+                  style={{ position: 'fixed center', marginBottom:'2%', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px' }}
+                  className="Button">
+                  Sign up with Google
+                </Button>
+                <Button
+                  size="large"
+                  color="primary"
+                  onClick={() => this.login('facebook')}
+                  variant="contained"
+                  style={{ position: 'fixed center', marginBottom:'2%', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px' }}
+                  className="Button">
+                  Sign up with Facebook
+                </Button>
                 <Link to="/signin">
-                  <button type="button">Sign up with Email</button>
+                  <Button
+                    size="large"
+                    color="primary"
+                    variant="contained"
+                    style={{ position: 'fixed center', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px' }}
+                    className="Button">
+                    Sign up with Email
+                </Button>
                 </Link>
                 <p><Link to="/connect">Already have an account?</Link></p>
               </>

@@ -41,7 +41,7 @@ function CreateParcours(props) {
   };
   // redirection si le parcours est crée
   function redirect(url) {
-    const history = props;
+    const { history } = props;
     history.push(url);
   }
 
@@ -66,7 +66,7 @@ function CreateParcours(props) {
       .then(() => {
         localStorage.setItem('id', parcoursRef.id);
 
-        redirect('/#/AddCours');
+        redirect('/AddCours');
       });
   }
 

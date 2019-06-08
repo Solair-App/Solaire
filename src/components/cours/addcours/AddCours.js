@@ -35,7 +35,7 @@ getDataBaseData= () => {
 }
 
 redirect = (url) => {
-  const history = this.props;
+  const { history } = this.props;
   history.push(url);
 }
 
@@ -44,7 +44,7 @@ render() {
   return (
 
     <div>
-      <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { this.redirect('/#/Dashboard'); }} />
+      <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { this.redirect('/Dashboard'); }} />
       <h1>{data.name}</h1>
       <Link to="CreateParcours">
         <Button color="primary">

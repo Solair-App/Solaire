@@ -19,8 +19,9 @@ const useStyles = makeStyles({
 });
 function BottomNav(props) {
   function redirect() {
-    const history = props;
-    history.push('/#/CreateParcours');
+    const { history } = props;
+
+    history.push('/CreateParcours');
   }
   const classes = useStyles();
   const [value, setValue] = React.useState(1);

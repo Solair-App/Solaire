@@ -1,16 +1,15 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
 
-import CardContent from '@material-ui/core/CardContent';
+import './List.css';
 
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   card: {
 
-    backgroundColor: 'green',
+
     textAlign: 'center',
     display: 'inline-block',
   },
@@ -28,34 +27,47 @@ const useStyles = makeStyles({
 });
 
 export default function ListCours(props) {
-  const { data } = props;
   const classes = useStyles();
 
-
+  const { data } = props;
   return (
-    <Card className={classes.card}>
-      <CardContent>
-        <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {data.name}
-        </Typography>
-        <Typography variant="h5" component="h2">
-          {data.thématique}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {data.difficulté}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {data.langue}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {data.durée}
-        </Typography>
-        <Typography variant="body2" component="p">
+    <ul className="hs full">
+
+      {data.map(info => (
+        <div>
+          <Typography>
+            {info.thématique}
+            {' '}
+          </Typography>
+          <li className="item">
+
+            <Typography className={classes.title} color="textSecondary" gutterBottom>
+              {info.name}
+            </Typography>
+            <Typography variant="h5" component="h2">
+              {info.thématique}
+            </Typography>
+            <Typography className={classes.pos} color="textSecondary">
+              {info.difficulté}
+            </Typography>
+            <Typography className={classes.pos} color="textSecondary">
+              {info.langue}
+            </Typography>
+            <Typography className={classes.pos} color="textSecondary">
+              {info.durée}
+            </Typography>
+            <Typography variant="body2" component="p">
 
 
-          {data.description}
-        </Typography>
-      </CardContent>
-    </Card>
+              {info.description}
+            </Typography>
+          </li>
+
+        </div>
+      ))}
+
+
+    </ul>
+
   );
 }

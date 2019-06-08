@@ -40,7 +40,7 @@ function CreateParcours(props) {
   };
   // redirection si le parcours est crée
   function redirect(url) {
-    const history = props;
+    const { history } = props;
     history.push(url);
   }
 
@@ -64,14 +64,14 @@ function CreateParcours(props) {
       .then(() => {
         localStorage.setItem('id', parcoursRef.id);
 
-        redirect('/#/AddCours');
+        redirect('/AddCours');
       });
   }
 
   // tableaux de data de la DB, servant à map.
 
   function categoryToArray(doc) {
-    const category = getCategoryFromDB('parcours', doc);
+    const category = getCategoryFromDB('category', doc);
 
     return category;
   }
@@ -111,7 +111,7 @@ function CreateParcours(props) {
 
   return (
     <form className="classesContainer" autoComplete="off">
-      <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { redirect('/#/Dashboard'); }} />
+      <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { redirect('/Dashboard'); }} />
       <h2 className="h2">Création de parcours</h2>
       <div>
         <TextField

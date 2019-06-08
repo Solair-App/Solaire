@@ -33,12 +33,9 @@ export default function ListCours(props) {
   return (
     <ul className="hs full">
 
-      {data.map(info => (
+      {data.filter(info => info.thématique === props.thématique).map(info => (
         <div>
-          <Typography>
-            {info.thématique}
-            {' '}
-          </Typography>
+
           <li className="item">
 
             <Typography className={classes.title} color="textSecondary" gutterBottom>

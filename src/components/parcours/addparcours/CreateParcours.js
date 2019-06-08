@@ -1,11 +1,10 @@
 import React from 'react';
-import * as firebase from 'firebase';
 import Cancel from '@material-ui/icons/Cancel';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
+import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import SelectField from './SelectField';
-import 'firebase/firestore';
 
 import Parcours from './Parcours';
 
@@ -22,7 +21,8 @@ function CreateParcours(props) {
   // Récupération des informations dans la DB
   function getCategoryFromDB(collection, doc) {
     const category = ['Choisissez une catégorie'];
-    const db = firebase.firestore();
+    const { firestore } = props;
+    const db = firestore;
     const themRef = db.collection(collection).doc(doc);
     themRef.get().then((document) => {
       const dbCategory = document.data();
@@ -46,7 +46,8 @@ function CreateParcours(props) {
 
   // Stockage du parcours dans la db
   function pushParcoursInsideDB(parcours) {
-    const db = firebase.firestore();
+    const { firestore } = props;
+    const db = firestore;
     const parcoursRef = db.collection('parcours').doc();
 
     parcoursRef
@@ -194,4 +195,4 @@ function CreateParcours(props) {
   );
 }
 
-export default withRouter(CreateParcours);
+export default withRouter(withFirebaseContext(CreateParcours));

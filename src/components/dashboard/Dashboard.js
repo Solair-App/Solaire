@@ -11,13 +11,10 @@ const mapStateToProps = state => ({
   state,
 });
 
-
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
   }
 
   componentDidMount() {
@@ -30,7 +27,10 @@ class Dashboard extends Component {
 
     const markers = [];
     if (state === undefined) {
-      firebase.firestore().collection('parcours').get()
+      firebase
+        .firestore()
+        .collection('parcours')
+        .get()
         .then((querySnapshot) => {
           querySnapshot.docs.forEach((doc) => {
             markers.push(doc.data());
@@ -41,24 +41,28 @@ class Dashboard extends Component {
     }
   }
 
-
   render() {
     const { state } = this.props;
+    const thématique = ['Science', 'Histoire'];
+
     return (
-
       <div style={{ display: 'block', textAlign: 'left' }}>
-
         {' '}
-
-        { state ? <List data={state} /> : <p>loading.. </p> }
-
-
+        {state ? (
+          thématique.map(category => (
+            <List data={state} thématique={category} />
+          ))
+        ) : (
+          <p>loading.. </p>
+        )}
         <useDashButton />
-
         <BottomNav />
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, { handleParcours })(Dashboard);
+export default connect(
+  mapStateToProps,
+  { handleParcours },
+)(Dashboard);

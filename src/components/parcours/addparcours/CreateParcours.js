@@ -12,7 +12,6 @@ import '../../../SCSS/CreateParcours.scss';
 
 
 function CreateParcours(props) {
-
   const [values] = React.useState({});
 
   const [state, setState] = React.useState({
@@ -42,7 +41,10 @@ function CreateParcours(props) {
   // redirection si le parcours est crée
   function redirect(url) {
     const { history } = props;
-    history.push(url);
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
   }
 
   // Stockage du parcours dans la db

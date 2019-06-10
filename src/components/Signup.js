@@ -48,7 +48,7 @@ class Signup extends Component {
       uid: user.uid,
     }, { merge: true });
     const { history } = this.props;
-    history.push('/dashboard');
+    history.push('/mydashboard');
   }
 
 

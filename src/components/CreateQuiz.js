@@ -9,7 +9,7 @@ class CreateQuiz extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      infoQuiz: [],
+      infoQuiz: {},
     };
     this.getInfo();
   }
@@ -26,15 +26,13 @@ class CreateQuiz extends Component {
 
   getInfo = () => {
     const { firestore } = this.props;
-    console.log(localStorage.getItem('coursId'))
 
     const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(localStorage.getItem('coursId'));
     docRef.get().then((doc) => {
       if (doc.exists) {
         const infoQuiz = doc.data();
-        console.log(infoQuiz);
         this.setState({
-          infoQuiz: [infoQuiz.questions],
+          infoQuiz: infoQuiz.questions,
         });
       } else {
         // doc.data() will be undefined in this case
@@ -47,11 +45,7 @@ class CreateQuiz extends Component {
 
   render() {
     const { infoQuiz } = this.state;
-    if (infoQuiz[0]) {
-      console.log('1', infoQuiz)
-      console.log(infoQuiz[0][1])
-    }
-
+    
     return (
       <Grid container>
         <Grid item xs={12}>
@@ -61,16 +55,17 @@ class CreateQuiz extends Component {
             ? <h2>Aperçu du quiz en cours</h2>
             : <p>Ce quiz ne contient pas encore de questions</p>
           }
-          {infoQuiz.map((question, index) => (
+          {Object.keys(infoQuiz).map((key, index) => (
             <>
-              <p key={question[index + 1].question}>
-                {`${index}/${question[index + 1].question}`}
+              <h3>{`Question ${index}`}</h3>
+              <p key={infoQuiz.key}>
+                {infoQuiz[key].question}
               </p>
-              {question[index + 1].answers.map(answer => <p key={answer}>{`${index}/${answer}`}</p>)}
-              <p>
+              {infoQuiz[key].answers.map(answer => <p key={answer}>{answer}</p>)}
+              <p key={infoQuiz[key]}>
                 Numéro de la bonne réponse :
                 {' '}
-                {question[index + 1].correct}
+                {infoQuiz[key].correct}
               </p>
             </>
           ))}

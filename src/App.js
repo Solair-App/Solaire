@@ -15,6 +15,7 @@ import Profile from './components/Profile';
 import SlideFormateur from './components/SlideFormateur';
 import SlideApprenant from './components/SlideApprenant';
 import CreateQuiz from './components/CreateQuiz';
+import Quiz from './components/Quiz';
 import CreateQuestion from './components/CreateQuestion';
 
 
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/reset" component={PasswordForget} />
           <Route path="/mydashboard" component={Dashboard} />
           <Route path="/profile" component={Profile} />
+          <Route path="/quiz" component={Quiz} />
         </Switch>
       </HashRouter>
     </FirebaseProvider>

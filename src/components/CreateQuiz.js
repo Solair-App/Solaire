@@ -13,9 +13,6 @@ class CreateQuiz extends Component {
     };
     this.getInfo();
   }
-  componentWillMount() {
-    console.log("hello")
-  }
 
   // componentDidMount() {
   //   const { location, history } = this.props;
@@ -52,12 +49,12 @@ class CreateQuiz extends Component {
           <h1>Création de quiz</h1>
 
           {Object.keys(infoQuiz).length > 0
-            ? <h2>Aperçu du quiz en cours</h2>
-            : <p>Ce quiz ne contient pas encore de questions</p>
+            ? <h2 style={{ marginTop: '8px' }}>Aperçu du quiz en cours</h2>
+            : <p style={{ marginTop: '8px' }}>Ce quiz ne contient pas encore de questions</p>
           }
           {Object.keys(infoQuiz).map((key, index) => (
             <>
-              <h3>{`Question ${index}`}</h3>
+              <h3 style={{ marginTop: '8px' }}>{`Question ${index}`}</h3>
               <p key={infoQuiz.key}>
                 {infoQuiz[key].question}
               </p>
@@ -90,7 +87,7 @@ class CreateQuiz extends Component {
             style={{ marginTop: '8%' }}
             className="Button"
           >
-            Publier ce quizz
+            Enregistrer ce cours
           </Button>
         </Grid>
       </Grid>

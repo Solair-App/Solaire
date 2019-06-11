@@ -42,7 +42,7 @@ class CreateQuiz extends Component {
 
   render() {
     const { infoQuiz } = this.state;
-    
+
     return (
       <Grid container>
         <Grid item xs={12}>
@@ -52,7 +52,7 @@ class CreateQuiz extends Component {
             ? <h2 style={{ marginTop: '8px' }}>Aperçu du quiz en cours</h2>
             : <p style={{ marginTop: '8px' }}>Ce quiz ne contient pas encore de questions</p>
           }
-          {Object.keys(infoQuiz).map((key, index) => (
+          {Object.keys(infoQuiz).length > 0 && Object.keys(infoQuiz).map((key, index) => (
             <>
               <h3 style={{ marginTop: '8px' }}>{`Question ${index}`}</h3>
               <p key={infoQuiz.key}>

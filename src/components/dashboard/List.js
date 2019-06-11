@@ -30,6 +30,7 @@ export default function ListCours(props) {
   const classes = useStyles();
 
   const { data } = props;
+
   return (
     <ul className="hs full">
 

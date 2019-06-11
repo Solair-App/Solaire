@@ -3,30 +3,19 @@ import { withRouter } from 'react-router';
 import ReactHtmlParser from 'react-html-parser';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
 import '../App.scss';
-<<<<<<< HEAD
-
-// const regex = /\n/gm;
-// const subst = '<br />';
-
-=======
->>>>>>> 582ff70e834a7af8631c7af254a4b2bbeaba7e9f
 
 class SlideApprenant extends Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
       infoSlide: { slides: [] },
-=======
-      infoSlide: null,
->>>>>>> 582ff70e834a7af8631c7af254a4b2bbeaba7e9f
     };
     this.getInfo();
   }
 
   getInfo = () => {
     const { firestore } = this.props;
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(localStorage.getItem('id'));
+    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(localStorage.getItem('coursId'));
     docRef.get().then((doc) => {
       if (doc.exists) {
         const infoSlide = doc.data();

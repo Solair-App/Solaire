@@ -36,7 +36,7 @@ class SlideApprenant extends Component {
     return (
       <>
         {
-          infoSlide.slides && Object.values(infoSlide.slides).map(sl => <div style={{ color: 'white' }}>{ReactHtmlParser(sl)}</div>)
+          infoSlide.slides && Object.values(infoSlide.slides).map(sl => <div style={{ color: 'black' }}>{ReactHtmlParser(sl)}</div>)
         }
         {/* <pre style={{ border: '2px solid black' }}>
             {infoSlide && ReactHtmlParser(infoSlide.slides[1].replace(regex, subst)) }

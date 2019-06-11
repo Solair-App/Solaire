@@ -1,91 +1,84 @@
 import React from 'react';
 import '../SCSS/Quiz.scss';
+import withFirebaseContext from '../Firebase/withFirebaseContext';
 
 class Quiz extends React.Component {
   constructor(props) {
     super(props);
-
-    const dataSet = [
-      {
-        question: ' 1 + 1 = ?',
-        answers: [
-          '1',
-          '2',
-          '3',
-          '4',
-        ],
-        correct: 1,
-      },
-      {
-        question: 'Qui forme les reacts ?',
-        answers: [
-          'Gregory',
-          'Alban',
-          'Mael',
-          'Google',
-        ],
-        correct: 3,
-      },
-      {
-        question: ' A B C ?',
-        answers: [
-          'E',
-          '9',
-          'D',
-          '&',
-        ],
-        correct: 2,
-      },
-      {
-        question: ' 1 2 3 4 ',
-        answers: [
-          'D',
-          '1234',
-          '0',
-          '5',
-        ],
-        correct: 3,
-      },
-    ];
-
-
-    this.state = { current: 0, dataSet: dataSet, correct: 0, incorrect: 0 };
+    this.state = {
+      current: 0,
+      quiz: null,
+      correct: 0,
+      incorrect: 0,
+    };
     this.handleClick = this.handleClick.bind(this);
+    this.getInfo();
   } // end constructor
 
+  getInfo = () => {
+    const { firestore } = this.props;
+    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(localStorage.getItem('coursId'));
+    docRef.get().then((doc) => {
+      if (doc.exists) {
+        let quiz = doc.data();
+        quiz = quiz.questions;
+        this.setState({ quiz });
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document!');
+      }
+    }).catch((error) => {
+      console.log('Error getting document:', error);
+    });
+  };
+
   handleClick(choice) {
-    if (choice === this.state.dataSet[this.state.current].correct) {
-      this.setState({ correct: this.state.correct + 1 });
+    const {
+      quiz, current, correct, incorrect,
+    } = this.state;
+    if (choice === quiz[current + 1].correct) {
+      this.setState({ correct: correct + 1 });
     } else {
-      this.setState({ incorrect: this.state.incorrect + 1 });
+      this.setState({ incorrect: incorrect + 1 });
     }
 
-    if (this.state.current === 3) {
-      this.setState({ current: 0 });
-      this.setState({ incorrect: 0 });
-      this.setState({ correct: 0 });
-    } else {
-      this.setState({ current: this.state.current + 1 });
-    }
+    // if (current === Object.keys(quiz).length) {
+    //   this.setState({ current: 0 });
+    //   this.setState({ incorrect: 0 });
+    //   this.setState({ correct: 0 });
+    // } else {
+    this.setState({ current: current + 1 });
+    // }
   }
 
   render() {
+    const {
+      quiz, current, correct, incorrect,
+    } = this.state;
     return (
       <div>
-        <ScoreArea correct={this.state.correct} incorrect={this.state.incorrect} />
-        <QuizArea handleClick={this.handleClick} dataSet={this.state.dataSet[this.state.current]} />
+        {quiz && Object.keys(quiz).length > current
+          ? (
+            <>
+              <ScoreArea correct={correct} incorrect={incorrect} />
+              <QuizArea handleClick={this.handleClick} dataSet={quiz[current + 1]} />
+
+            </>
+          )
+          : <ScoreArea correct={correct} incorrect={incorrect} />
+        }
       </div>
     );
   }
 }
 
-function Question(props) {
+function Question({ dataSet }) {
   return (
-    <h1>{props.dataSet.question}</h1>
+    <h1>{dataSet.question}</h1>
   );
 }
 
-function Answer(props) {
+function Answer({ handleClick, answer, choice }) {
   const style = {
     width: '80%',
     height: '100%',
@@ -102,15 +95,17 @@ function Answer(props) {
   };
   return (
     <div>
-      <button style={style} onClick={() => props.handleClick(props.choice)}>{props.answer}</button>
+      <button type="button" style={style} onClick={() => handleClick(choice)}>{answer}</button>
     </div>
   );
 }
 
-function AnswerList(props) {
+function AnswerList({ dataSet, handleClick }) {
   const answers = [];
-  for (let i = 0; i < props.dataSet.answers.length; i++) {
-    answers.push(<Answer choice={i} handleClick={props.handleClick} answer={props.dataSet.answers[i]} />);
+  if (dataSet.answers) {
+    for (let i = 0; i < dataSet.answers.length; i += 1) {
+      answers.push(<Answer choice={i} handleClick={handleClick} answer={dataSet.answers[i]} />);
+    }
   }
   return (
     <div>
@@ -119,24 +114,24 @@ function AnswerList(props) {
   );
 }
 
-function QuizArea(props) {
+function QuizArea({ dataSet, handleClick }) {
   const style = {
     width: '100%',
     display: 'block',
     textAlign: 'center',
     boxSizing: 'border-box',
     float: 'left',
-    padding: '0 2em'
+    padding: '0 2em',
   };
   return (
     <div style={style}>
-      <Question dataSet={props.dataSet} />
-      <AnswerList dataSet={props.dataSet} handleClick={props.handleClick} />
+      <Question dataSet={dataSet} />
+      <AnswerList dataSet={dataSet} handleClick={handleClick} />
     </div>
   );
 }
 
-function TotalCorrect(props) {
+function TotalCorrect({ correct }) {
   const style = {
     width: '100%',
     display: 'inline-block',
@@ -144,11 +139,14 @@ function TotalCorrect(props) {
 
   };
   return (
-    <h2 style={style}>Correct: {props.correct}</h2>
+    <h2 style={style}>
+      Correct:
+      {correct}
+    </h2>
   );
 }
 
-function TotalIncorrect(props) {
+function TotalIncorrect({ incorrect }) {
   const style = {
     width: '100%',
     display: 'inline-block',
@@ -156,11 +154,14 @@ function TotalIncorrect(props) {
 
   };
   return (
-    <h2 style={style}>Incorrect: {props.incorrect}</h2>
+    <h2 style={style}>
+      Incorrect:
+      {incorrect}
+    </h2>
   );
 }
 
-function ScoreArea(props) {
+function ScoreArea({ correct, incorrect }) {
   const style = {
     width: '100%',
     display: 'block',
@@ -170,10 +171,10 @@ function ScoreArea(props) {
   return (
     <div style={style}>
       <h1>Quiz</h1>
-      <TotalCorrect correct={props.correct} />
-      <TotalIncorrect incorrect={props.incorrect} />
+      <TotalCorrect correct={correct} />
+      <TotalIncorrect incorrect={incorrect} />
     </div>
   );
 }
 
-export default Quiz;
+export default withFirebaseContext(Quiz);

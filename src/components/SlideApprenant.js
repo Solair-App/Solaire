@@ -8,7 +8,7 @@ class SlideApprenant extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      infoSlide: null,
+      infoSlide: { slides: [] },
     };
     this.getInfo();
   }
@@ -31,17 +31,19 @@ class SlideApprenant extends Component {
     });
   }
 
-
   render() {
     const { infoSlide } = this.state;
     return (
       <>
-        <div style={{ border: '2px solid black' }}>
-          {infoSlide && ReactHtmlParser(infoSlide.slides[1])}
-        </div>
-        <div style={{ border: '2px solid black' }}>
-          {infoSlide && ReactHtmlParser(infoSlide.slides[2])}
-        </div>
+        {
+          infoSlide.slides && Object.values(infoSlide.slides).map(sl => <div style={{ color: 'white' }}>{ReactHtmlParser(sl)}</div>)
+        }
+        {/* <pre style={{ border: '2px solid black' }}>
+            {infoSlide && ReactHtmlParser(infoSlide.slides[1].replace(regex, subst)) }
+          </pre>
+          <pre style={{ border: '2px solid black' }}>
+            {infoSlide && ReactHtmlParser(infoSlide.slides[2].replace(regex, subst)) }
+          </pre> */}
       </>
     );
   }

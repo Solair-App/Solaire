@@ -3,13 +3,6 @@
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
-<<<<<<< HEAD
-CKEDITOR.editorConfig = function( config ) {
-	// Define changes to default configuration here. For example:
-	// config.language = 'fr';
-	// config.uiColor = '#AADC6E';
-};
-=======
 CKEDITOR.editorConfig = function (config) {
   // Define changes to default configuration here. For example:
   // config.language = 'fr';
@@ -33,4 +26,3 @@ CKEDITOR.on('instanceReady', (ev) => {
     });
   }
 });
->>>>>>> dev

@@ -1,16 +1,7 @@
-<<<<<<< HEAD
-import React, { Component } from 'react';
-import './App.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Welcome from './Welcome';
-import SlideFormateur from './SlideFormateur';
-import SlideApprenant from './SlideApprenant';
-=======
 import React from 'react';
 import './App.scss';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import Welcome from './components/Welcome';
->>>>>>> dev
 import FirebaseProvider from './Firebase/FirebaseProvider';
 import CreateParcours from './components/parcours/CreateParcours';
 import AddCours from './components/cours/AddCours';
@@ -24,21 +15,6 @@ import SlideFormateur from './components/SlideFormateur';
 import SlideApprenant from './components/SlideApprenant';
 
 
-<<<<<<< HEAD
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <FirebaseProvider>
-          <BrowserRouter>
-            <Switch>
-              <Route exact path="/" component={Welcome} />
-              <Route path="/slideFormateur" component={SlideFormateur} />
-              <Route path="/slideApprenant" component={SlideApprenant} />
-            </Switch>
-          </BrowserRouter>
-        </FirebaseProvider>
-=======
 const App = () => (
   <div className="App">
     <FirebaseProvider>
@@ -60,7 +36,6 @@ const App = () => (
     </FirebaseProvider>
   </div>
 );
->>>>>>> dev
 
 
 export default App;

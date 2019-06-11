@@ -52,7 +52,7 @@ class PasswordForget extends Component {
                     required
                     name="email"
                     label="Email Address"
-                    className='textfield'
+                    className="textfield"
                     currentValue={email}
                     type="text"
                     onChange={this.onChange}

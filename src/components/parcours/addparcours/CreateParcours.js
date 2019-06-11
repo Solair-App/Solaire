@@ -1,19 +1,17 @@
 import React from 'react';
+import Cancel from '@material-ui/icons/Cancel';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import withFirebaseContext from '../../Firebase/withFirebaseContext';
-import SelectField from './SelectField';
 import { withRouter } from 'react-router';
-
+import withFirebaseContext from '../../../Firebase/withFirebaseContext';
+import SelectField from './SelectField';
 
 import Parcours from './Parcours';
 
-import '../../SCSS/CreateParcours.scss';
+import '../../../SCSS/CreateParcours.scss';
 
 
-
-function CreateParcours({ firestore, history }) {
-
+function CreateParcours(props) {
   const [values] = React.useState({});
 
   const [state, setState] = React.useState({
@@ -23,6 +21,7 @@ function CreateParcours({ firestore, history }) {
   // Récupération des informations dans la DB
   function getCategoryFromDB(collection, doc) {
     const category = ['Choisissez une catégorie'];
+    const { firestore } = props;
     const db = firestore;
     const themRef = db.collection(collection).doc(doc);
     themRef.get().then((document) => {
@@ -40,12 +39,17 @@ function CreateParcours({ firestore, history }) {
     setState({ ...state, [name]: event.target.value });
   };
   // redirection si le parcours est crée
-  function redirect() {
-    setTimeout(history.push('/AddCours'), 5000);
+  function redirect(url) {
+    const { history } = props;
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
   }
 
   // Stockage du parcours dans la db
   function pushParcoursInsideDB(parcours) {
+    const { firestore } = props;
     const db = firestore;
     const parcoursRef = db.collection('parcours').doc();
 
@@ -64,7 +68,7 @@ function CreateParcours({ firestore, history }) {
       .then(() => {
         localStorage.setItem('id', parcoursRef.id);
 
-        redirect();
+        redirect('/AddCours');
       });
   }
 
@@ -111,17 +115,21 @@ function CreateParcours({ firestore, history }) {
 
   return (
     <form className="classesContainer" autoComplete="off">
+      <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { redirect('/#/Dashboard'); }} />
       <h2 className="h2">Création de parcours</h2>
       <div>
         <TextField
           required
           id="standard-name"
           label="Nom du parcours"
-          className='textfield'
+          className="textfield"
           value={values.text}
           onChange={handleChange('name')}
-          style={{ marginTop: '5%', width: '50%' }} />
-      </div> <div>
+          style={{ marginTop: '5%', width: '50%' }}
+        />
+      </div>
+      {' '}
+      <div>
         <TextField
           required
           id="filled-multiline-flexible"
@@ -130,7 +138,8 @@ function CreateParcours({ firestore, history }) {
           rows="5"
           onChange={handleChange('description')}
           className="textField"
-          style={{ marginBottom: '5%', width: '50%' }} />
+          style={{ marginBottom: '5%', width: '50%' }}
+        />
 
       </div>
       <SelectField
@@ -140,7 +149,8 @@ function CreateParcours({ firestore, history }) {
         handleChange={handleChange}
         currentValue={state.thématique}
         className="selectField"
-        style={{ borderRadius: '20px' }} />
+        style={{ borderRadius: '20px' }}
+      />
 
       <SelectField
         required
@@ -148,7 +158,8 @@ function CreateParcours({ firestore, history }) {
         name="langue"
         handleChange={handleChange}
         currentValue={state.langue}
-        class="container" />
+        class="container"
+      />
 
       <SelectField
         required
@@ -156,7 +167,8 @@ function CreateParcours({ firestore, history }) {
         name="durée"
         handleChange={handleChange}
         currentValue={state.durée}
-        class="container" />
+        class="container"
+      />
 
       <SelectField
         required
@@ -164,7 +176,8 @@ function CreateParcours({ firestore, history }) {
         name="difficulté"
         handleChange={handleChange}
         currentValue={state.difficulté}
-        className="selectField" />
+        className="selectField"
+      />
 
       <h3 className="h3">{state.errorMessage}</h3>
 
@@ -173,8 +186,11 @@ function CreateParcours({ firestore, history }) {
         color="primary"
         onClick={validateParcours}
         variant="contained"
-        style={{ position: 'fixed center', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px' }}
-        className="Button">
+        style={{
+          position: 'fixed center', bottom: '1%', left: '0%', right: '0%', borderRadius: '20px',
+        }}
+        className="Button"
+      >
         Créer mon parcours
       </Button>
 

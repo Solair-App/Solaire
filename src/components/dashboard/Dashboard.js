@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import List from './List';
 import useDashButton from './DashButton';
 import BottomNav from './BottomNav';
-
+import InputBar from './InputBar';
 import { mapDispatchToProps } from '../../actions/action';
 
 const mapStateToProps = state => ({
@@ -15,7 +15,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      searchField: 't',
     };
   }
 
@@ -43,6 +43,11 @@ class Dashboard extends Component {
       });
   }
 
+  handleChange= (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  }
 
   getCategoryFromDB = () => {
     let category = [];
@@ -74,11 +79,18 @@ class Dashboard extends Component {
 
     return (
       <div style={{ display: 'block', textAlign: 'left' }}>
+        <InputBar handleChange={this.handleChange} />
         {' '}
         {state && state.thématique ? (
 
           state.thématique.map(results => (
-            <List data={state.parcours} thématique={results} />
+            <>
+              {' '}
+              <h1>{results}</h1>
+              <List data={state.parcours} thématique={results} currentSearch={this.state.searchField} />
+              {' '}
+
+            </>
           ))
         ) : (
           <p>loading.. </p>

@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
   card: {
 
-
+    height: '40px',
     textAlign: 'center',
     display: 'inline-block',
   },
@@ -34,7 +34,7 @@ export default function ListCours(props) {
   return (
     <ul className="hs full">
 
-      {data.filter(info => info.thématique === props.thématique).map(info => (
+      {data.filter(info => info.thématique === props.thématique && info.name.toUpperCase().includes(props.currentSearch.toUpperCase())).map(info => (
         <div>
 
           <li className="item">

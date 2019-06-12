@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import List from './List';
-import useDashButton from './DashButton';
 import BottomNav from './BottomNav';
 import InputBar from './InputBar';
 import { mapDispatchToProps } from '../../actions/action';
@@ -80,23 +79,28 @@ class Dashboard extends Component {
     const { searchField } = this.state;
     return (
       <div style={{ display: 'block', textAlign: 'left' }}>
-        <InputBar handleChange={this.handleChange} />
+
         {' '}
+        {' '}
+
         {state && state.thématique ? (
+          <div>
+            <InputBar handleChange={this.handleChange} currentValue={searchField} />
+            {state.thématique.map(results => (
+              <>
+                {' '}
+                <h1>{results}</h1>
+                <List data={state.parcours} thématique={results} currentSearch={searchField} />
+                {' '}
 
-          state.thématique.map(results => (
-            <>
-              {' '}
-              <h1>{results}</h1>
-              <List data={state.parcours} thématique={results} currentSearch={searchField} />
-              {' '}
+              </>
+            ))}
 
-            </>
-          ))
+          </div>
         ) : (
           <p>loading.. </p>
         )}
-        <useDashButton />
+
         <BottomNav />
       </div>
     );

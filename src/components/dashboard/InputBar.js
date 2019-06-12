@@ -2,7 +2,9 @@ import React from 'react';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-
+import { connect } from 'react-redux';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,9 +59,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SearchAppBar(props) {
+function SearchAppBar(props) {
   const classes = useStyles();
-  const { handleChange } = props;
+
+  const { handleChange, currentValue } = props;
+
   return (
     <div className={classes.root}>
 
@@ -76,10 +80,41 @@ export default function SearchAppBar(props) {
             input: classes.inputInput,
           }}
           inputProps={{ 'aria-label': 'Search' }}
+          value={currentValue}
         />
+        <TextField
+          id="standard-select-currency"
+          select
+          name="Filter"
+          label="Select"
+          className={classes.textField}
+          value="hey"
+          onChange={handleChange}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+
+
+          margin="normal"
+        >
+
+          {props.state.thématique.length > 1 ? props.state.thématique.map(option => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          )) : <p>loading</p>}
+        </TextField>
+
       </div>
 
 
     </div>
   );
 }
+const mapStateToProps = state => ({
+  state,
+});
+
+export default connect(mapStateToProps)(SearchAppBar);

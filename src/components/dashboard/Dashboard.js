@@ -78,7 +78,10 @@ class Dashboard extends Component {
         {state && state.thématique ? (
 
           state.thématique.map(results => (
-            <List data={state.parcours} thématique={results} />
+            <>
+              <h1>{results}</h1>
+              <List data={state.parcours} thématique={results} />
+            </>
           ))
         ) : (
           <p>loading.. </p>

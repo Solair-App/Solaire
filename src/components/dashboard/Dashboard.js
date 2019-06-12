@@ -15,7 +15,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: [],
+
     };
   }
 
@@ -26,7 +26,7 @@ class Dashboard extends Component {
 
   getMarkers() {
     // eslint-disable-next-line no-shadow
-    const { state, mapDispatchToProps } = this.props;
+    const { mapDispatchToProps } = this.props;
 
     const markers = [];
 
@@ -70,7 +70,7 @@ class Dashboard extends Component {
 
   render() {
     const { state } = this.props;
-    console.log(state);
+
 
     return (
       <div style={{ display: 'block', textAlign: 'left' }}>

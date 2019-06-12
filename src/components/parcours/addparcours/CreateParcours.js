@@ -18,9 +18,6 @@ function CreateParcours(props) {
   });
 
 
-  // Récupération des informations dans la DB
-
-
   // Modifications du state
   const handleChange = name => (event) => {
     setState({ ...state, [name]: event.target.value });
@@ -56,14 +53,6 @@ function CreateParcours(props) {
       });
   }
 
-  // tableaux de data de la DB, servant à map.
-
-  function categoryToArray(doc) {
-    const category = [doc];
-
-
-    return category;
-  }
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
@@ -98,7 +87,9 @@ function CreateParcours(props) {
     }
   }
 
+
   return (
+
     <form className="classesContainer" autoComplete="off">
       <Cancel
         style={{ position: 'fixed', left: '4px', top: '4px' }}
@@ -134,7 +125,7 @@ function CreateParcours(props) {
       </div>
       <SelectField
         required
-        choices={categoryToArray('thématique')}
+        choices={props.state.thématique}
         name="thématique"
         handleChange={handleChange}
         currentValue={state.thématique}
@@ -143,7 +134,7 @@ function CreateParcours(props) {
       />
       <SelectField
         required
-        choices={categoryToArray('langue')}
+        choices={props.state.langue}
         name="langue"
         handleChange={handleChange}
         currentValue={state.langue}
@@ -151,7 +142,7 @@ function CreateParcours(props) {
       />
       <SelectField
         required
-        choices={categoryToArray('durée')}
+        choices={props.state.durée}
         name="durée"
         handleChange={handleChange}
         currentValue={state.durée}
@@ -159,7 +150,7 @@ function CreateParcours(props) {
       />
       <SelectField
         required
-        choices={categoryToArray('difficulté')}
+        choices={props.state.difficulté}
         name="difficulté"
         handleChange={handleChange}
         currentValue={state.difficulté}

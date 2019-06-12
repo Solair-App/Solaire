@@ -17,7 +17,7 @@ function CreateParcours(props) {
     currentValue: 'tous les champs sont requis',
   });
 
-  console.log(value);
+
   // Modifications du state
   const handleChange = name => (event) => {
     setValue({ ...value, [name]: event.target.value });

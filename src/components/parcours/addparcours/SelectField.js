@@ -50,7 +50,7 @@ function DialogSelect(props) {
         label="Select"
         className={classes.textField}
 
-        onChange={handleChange(`${props.name}`)}
+        onChange={handleChange(`${name}`)}
         SelectProps={{
           MenuProps: {
             className: classes.menu,

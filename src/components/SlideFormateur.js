@@ -6,7 +6,6 @@ import '../App.scss';
 
 CKEditor.editorUrl = '/ckeditor/ckeditor.js';
 
-
 class Essai extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +15,7 @@ class Essai extends Component {
     };
   }
 
+<<<<<<< HEAD
   componentDidMount() {
     const { location, history } = this.props;
     if (!location.state || !location.state.cours) {
@@ -54,6 +54,45 @@ class Essai extends Component {
       const slideSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
 
       const slide = slideSet.doc(localStorage.getItem('coursId'));
+=======
+  updateContent = (evt) => {
+    this.setState({ content: evt.editor.getData() });
+  };
+
+  isContentNull = () => {
+    const { content } = this.state;
+
+    if (content === null) {
+      return true;
+    }
+
+    return false;
+  };
+
+  saveData = () => {
+    const { firestore } = this.props;
+
+    let { content } = this.state;
+    content = JSON.stringify(content);
+    if (this.isContentNull()) {
+      this.setState({
+        erreur: " Il n'y a rien à sauvegarder",
+      });
+    } else {
+      const db = firestore;
+      /* besoin creation document cours avec
+       un array vide 'slides' quand le formateur clique sur ajouter un cours'.
+       On a besoin aussi de la clé du parcours et de la clé du cours */
+      /* const slideSet = db.collection
+      ('parcours').doc(localStorage.getItem('id')).collection('cours')
+      .add({ slides: [content] }); */
+      const slideSet = db
+        .collection('parcours')
+        .doc(localStorage.getItem('id'))
+        .collection('cours');
+
+      const slide = slideSet.doc(localStorage.getItem('id'));
+>>>>>>> 05a99078d42d34685cf0082d550b13f128574bfa
       const slideNumber = parseInt(localStorage.getItem('slideNumb'), 10) + 1;
       localStorage.setItem('slideNumb', slideNumber);
       slide.set({ slides: { [slideNumber]: content } }, { merge: true });
@@ -61,9 +100,14 @@ class Essai extends Component {
       // slide.update({ slides: firebase.firestore.FieldValue.arrayUnion(content) });
       // slideSet.update({ slides: firebase.firestore.FieldValue.arrayRemove(content) });
     }
+<<<<<<< HEAD
   }
 
 
+=======
+  };
+
+>>>>>>> 05a99078d42d34685cf0082d550b13f128574bfa
   render() {
     const { content, erreur } = this.state;
     return (
@@ -74,6 +118,7 @@ class Essai extends Component {
           value={content}
           onChange={this.updateContent}
         />
+<<<<<<< HEAD
         <div>
           {erreur ? (
             <p style={{ color: 'red' }}>
@@ -83,6 +128,15 @@ class Essai extends Component {
         </div>
         <button onClick={this.saveData} type="submit">Sauvegarder</button>
         <Link to="/slideApprenant"><p>Voir mes slides</p></Link>
+=======
+        <div>{erreur ? <p style={{ color: 'red' }}>{erreur}</p> : ''}</div>
+        <button onClick={this.saveData} type="submit">
+          Sauvegarder
+        </button>
+        <Link to="/slideApprenant">
+          <p>Voir mes slides</p>
+        </Link>
+>>>>>>> 05a99078d42d34685cf0082d550b13f128574bfa
       </div>
     );
   }

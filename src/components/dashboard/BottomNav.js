@@ -18,6 +18,7 @@ const useStyles = makeStyles({
   },
 });
 function BottomNav(props) {
+<<<<<<< HEAD
   function redirect(choice) {
     const { history } = props;
     switch (choice) {
@@ -30,6 +31,12 @@ function BottomNav(props) {
       default:
         history.push('/mydashboard');
     }
+=======
+  function redirect() {
+    const { history } = props;
+
+    history.push('/CreateParcours');
+>>>>>>> 05a99078d42d34685cf0082d550b13f128574bfa
   }
   const classes = useStyles();
   const [value, setValue] = React.useState(1);

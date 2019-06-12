@@ -25,7 +25,7 @@ class Connect extends Component {
       .then(() => {
         this.setState({ ...INITIAL_STATE });
         const { history } = this.props;
-        history.push('mydashboard');
+        history.push('/dashboard');
       })
       .catch((error) => {
         this.setState({ error });

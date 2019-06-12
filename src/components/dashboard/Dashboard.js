@@ -15,7 +15,8 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchField: 't',
+      searchField: '',
+
     };
   }
 
@@ -76,7 +77,7 @@ class Dashboard extends Component {
   render() {
     const { state } = this.props;
 
-
+    const { searchField } = this.state;
     return (
       <div style={{ display: 'block', textAlign: 'left' }}>
         <InputBar handleChange={this.handleChange} />
@@ -87,7 +88,7 @@ class Dashboard extends Component {
             <>
               {' '}
               <h1>{results}</h1>
-              <List data={state.parcours} thématique={results} currentSearch={this.state.searchField} />
+              <List data={state.parcours} thématique={results} currentSearch={searchField} />
               {' '}
 
             </>

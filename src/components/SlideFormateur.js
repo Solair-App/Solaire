@@ -15,12 +15,12 @@ class Essai extends Component {
     };
   }
 
-  componentDidMount() {
-    const { location, history } = this.props;
-    if (!location.state || !location.state.cours) {
-      history.push('/CreateParcours');
-    }
-  }
+  // componentDidMount() {
+  //   const { location, history } = this.props;
+  //   if (!location.state || !location.state.cours) {
+  //     history.push('/CreateParcours');
+  //   }
+  // }
 
   updateContent = (evt) => {
     this.setState({ content: evt.editor.getData() });
@@ -40,8 +40,8 @@ class Essai extends Component {
   saveData = () => {
     const { firestore } = this.props;
 
-    let { content } = this.state;
-    content = JSON.stringify(content);
+    const { content } = this.state;
+    // content = JSON.stringify(content);
     if (this.isContentNull()) {
       this.setState({
         erreur: ' Il n\'y a rien à sauvegarder',

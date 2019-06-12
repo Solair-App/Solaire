@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 function TypeCours(props) {
   const classes = useStyles();
-  const [value] = React.useState('Quizz');
+  const [value] = React.useState('');
 
   const { getType } = props;
 

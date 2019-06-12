@@ -18,9 +18,18 @@ const useStyles = makeStyles({
   },
 });
 function BottomNav(props) {
-  function redirect() {
-    const history = props;
-    history.push('/#/CreateParcours');
+  function redirect(choice) {
+    const { history } = props;
+    switch (choice) {
+      case 'create':
+        history.push('/CreateParcours');
+        break;
+      case 'profile':
+        history.push('/profile');
+        break;
+      default:
+        history.push('/mydashboard');
+    }
   }
   const classes = useStyles();
   const [value, setValue] = React.useState(1);
@@ -34,10 +43,10 @@ function BottomNav(props) {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction onClick={redirect} label="Création" icon={<Edit />} />
+      <BottomNavigationAction onClick={() => redirect('create')} label="Création" icon={<Edit />} />
       <BottomNavigationAction label="Dashboard" icon={<Category />} />
       <BottomNavigationAction label="Mes cours" icon={<Folder />} />
-      <BottomNavigationAction label="Profile" icon={<AccountBox />} />
+      <BottomNavigationAction onClick={() => redirect('profile')} label="Profile" icon={<AccountBox />} />
     </BottomNavigation>
   );
 }

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Cancel from '@material-ui/icons/Cancel';
 import Button from '@material-ui/core/Button';
@@ -7,7 +8,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
-import SelectField from './SelectField';
 import Parcours from './Parcours';
 
 import '../../../SCSS/CreateParcours.scss';
@@ -41,7 +41,10 @@ function CreateParcours(props) {
   // redirection si le parcours est crée
   function redirect(url) {
     const { history } = props;
-    history.push(url);
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
   }
 
   // Stockage du parcours dans la db

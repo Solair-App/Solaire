@@ -25,7 +25,7 @@ class Connect extends Component {
       .then(() => {
         this.setState({ ...INITIAL_STATE });
         const { history } = this.props;
-        history.push('/dashboard');
+        history.push('mydashboard');
       })
       .catch((error) => {
         this.setState({ error });
@@ -52,7 +52,7 @@ class Connect extends Component {
                 required
                 name="email"
                 label="Email Address"
-                className='textfield'
+                className="textfield"
                 currentValue={email}
                 onChange={this.onChange}
                 style={{ marginTop: '5%', width: '50%' }}
@@ -63,7 +63,7 @@ class Connect extends Component {
                 required
                 name="password"
                 label="password"
-                className='textfield'
+                className="textfield"
                 currentValue={password}
                 type="password"
                 onChange={this.onChange}

@@ -95,7 +95,7 @@ class Form extends Component {
           <Box>
             <Button variant="outlined" className={classes.button}>
               Enregistrer
-          </Button>
+            </Button>
           </Box>
         </form>
       </>

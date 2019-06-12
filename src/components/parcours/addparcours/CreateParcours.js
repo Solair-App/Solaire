@@ -2,19 +2,18 @@ import React from 'react';
 import Cancel from '@material-ui/icons/Cancel';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import SelectField from './SelectField';
-
 import Parcours from './Parcours';
 
 import '../../../SCSS/CreateParcours.scss';
 
 
 function CreateParcours(props) {
-
-  const [values] = React.useState({});
-
   const [state, setState] = React.useState({
     currentValue: 'tous les champs sont requis',
   });
@@ -111,87 +110,253 @@ function CreateParcours(props) {
     }
   }
 
+  const currencies = categoryToArray('thématique');
+  console.log(currencies);
+
+  const useStyles = makeStyles(theme => ({
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
+    dense: {
+      marginTop: theme.spacing(2),
+    },
+    menu: {
+      width: 200,
+    },
+  }));
+
+  const classes = useStyles();
+
+  const [values] = React.useState({
+    name: 'Cat in the Hat',
+    age: '',
+    multiline: 'Controlled',
+    currency: 'EUR',
+  });
+
   return (
     <form className="classesContainer" autoComplete="off">
       <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { redirect('/#/Dashboard'); }} />
-      <h2 className="h2">Création de parcours</h2>
-      <div>
-        <TextField
-          required
-          id="standard-name"
-          label="Nom du parcours"
-          className="textfield"
-          value={values.text}
-          onChange={handleChange('name')}
-          style={{ marginTop: '5%', width: '50%' }}
-        />
-      </div>
-      {' '}
-      <div>
-        <TextField
-          required
-          id="filled-multiline-flexible"
-          label="Description"
-          multiline
-          rows="5"
-          onChange={handleChange('description')}
-          className="textField"
-          style={{ marginBottom: '5%', width: '50%' }}
-        />
-
-      </div>
-      <SelectField
-        required
-        choices={categoryToArray('thématique')}
-        name="thématique"
-        handleChange={handleChange}
-        currentValue={state.thématique}
-        className="selectField"
-        style={{ borderRadius: '20px' }}
-      />
-
-      <SelectField
-        required
-        choices={categoryToArray('langue')}
-        name="langue"
-        handleChange={handleChange}
-        currentValue={state.langue}
-        class="container"
-      />
-
-      <SelectField
-        required
-        choices={categoryToArray('durée')}
-        name="durée"
-        handleChange={handleChange}
-        currentValue={state.durée}
-        class="container"
-      />
-
-      <SelectField
-        required
-        choices={categoryToArray('difficulté')}
-        name="difficulté"
-        handleChange={handleChange}
-        currentValue={state.difficulté}
-        className="selectField"
-      />
-
-      <h3 className="h3">{state.errorMessage}</h3>
-
-      <Button
-        size="large"
-        color="primary"
-        onClick={validateParcours}
-        variant="contained"
-        style={{
-          position: 'fixed center', bottom: '1%', left: '0%', right: '0%', borderRadius: '20px',
-        }}
-        className="Button"
+      <Box
+        width="100%"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
       >
-        Créer mon parcours
-      </Button>
+        <h2
+          className="h2"
+          style={{
+            marginTop: '20px',
+            width: '300px',
+          }}
+        >
+            Création de parcours
+        </h2>
+        <Box>
+          <TextField
+            id="outlined-with-placeholder"
+            label="Nom du parcours *"
+            variant="outlined"
+            className="textField"
+            value={values.text}
+            onChange={handleChange('name')}
+            style={{
+              marginTop: '20px',
+              width: '300px',
+            }}
+          />
+        </Box>
+        <Box>
+          <TextField
+            required
+            id="outlined-textarea"
+            label="Description"
+            multiline
+            variant="outlined"
+            rows="4"
+            onChange={handleChange('description')}
+            className="textField"
+            style={{
+              marginTop: '20px',
+              width: '300px',
+            }}
+          />
+        </Box>
+        <Box>
+          <TextField
+            required
+            id="outlined-select-currency"
+            select
+            name="thématique"
+            label="Select"
+            handleChange={handleChange}
+            className={classes.textField}
+            style={{
+              marginTop: '10px',
+              width: '300px',
+            }}
+            value={state.currencies}
+            onChange={handleChange('currency')}
+            SelectProps={{
+              MenuProps: {
+                className: classes.menu,
+              },
+            }}
+            margin="normal"
+            variant="outlined"
+          >
+            {Object.keys(currencies).map((key, value) => (
+              <MenuItem value={currencies}>
+                {currencies[key]}
+                {console.log(currencies)}
+              </MenuItem>
+            ))}
+          </TextField>
 
+        </Box>
+
+        <Box>
+          {/* <SelectField
+            required
+            choices={categoryToArray('langue')}
+            name="langue"
+            handleChange={handleChange}
+            currentValue={state.langue}
+            class="container"
+          /> */}
+          <TextField
+            required
+            id="outlined-select-currency"
+            select
+            name="langue"
+            label="Select"
+            handleChange={handleChange}
+            className={classes.textField}
+            style={{
+              marginTop: '10px',
+              width: '300px',
+            }}
+            value={state.currencies}
+            onChange={handleChange('currency')}
+            SelectProps={{
+              MenuProps: {
+                className: classes.menu,
+              },
+            }}
+            margin="normal"
+            variant="outlined"
+          >
+            {Object.keys(currencies).map((key, value) => (
+              <MenuItem value={currencies}>
+                {currencies[key]}
+                {console.log(currencies)}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Box>
+
+        <Box>
+          {/* <SelectField
+            required
+            choices={categoryToArray('durée')}
+            name="durée"
+            handleChange={handleChange}
+            currentValue={state.durée}
+            class="container"
+          /> */}
+          <TextField
+            required
+            id="outlined-select-currency"
+            select
+            name="durée"
+            label="Select"
+            handleChange={handleChange}
+            className={classes.textField}
+            style={{
+              marginTop: '10px',
+              width: '300px',
+            }}
+            value={state.currencies}
+            onChange={handleChange('currency')}
+            SelectProps={{
+              MenuProps: {
+                className: classes.menu,
+              },
+            }}
+            margin="normal"
+            variant="outlined"
+          >
+            {Object.keys(currencies).map((key, value) => (
+              <MenuItem value={currencies}>
+                {currencies[key]}
+                {console.log(currencies)}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Box>
+
+        <Box>
+          {/* <SelectField
+            required
+            choices={categoryToArray('difficulté')}
+            name="difficulté"
+            handleChange={handleChange}
+            currentValue={state.difficulté}
+            className="selectField"
+          /> */}
+          <TextField
+            required
+            id="outlined-select-currency"
+            select
+            name="difficulté"
+            label="Select"
+            handleChange={handleChange}
+            className={classes.textField}
+            style={{
+              marginTop: '10px',
+              width: '300px',
+            }}
+            value={state.currencies}
+            onChange={handleChange('currency')}
+            SelectProps={{
+              MenuProps: {
+                className: classes.menu,
+              },
+            }}
+            margin="normal"
+            variant="outlined"
+          >
+            {Object.keys(currencies).map((key, value) => (
+              <MenuItem value={currencies}>
+                {currencies[key]}
+                {console.log(currencies)}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Box>
+        <h3 className="h3">{state.errorMessage}</h3>
+        <Box>
+          <Button
+            variant="outlined"
+            onClick={validateParcours}
+            name="thématique"
+            handleChange={handleChange}
+            currentValue={state.thématique}
+            className="Button"
+            style={{
+              marginTop: '10px',
+              width: '300px',
+            }}
+          >
+            Valider
+          </Button>
+        </Box>
+      </Box>
     </form>
   );
 }

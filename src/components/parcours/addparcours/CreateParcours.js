@@ -13,14 +13,14 @@ import '../../../SCSS/CreateParcours.scss';
 function CreateParcours(props) {
   const [values] = React.useState({});
 
-  const [state, setState] = React.useState({
+  const [value, setValue] = React.useState({
     currentValue: 'tous les champs sont requis',
   });
 
 
   // Modifications du state
   const handleChange = name => (event) => {
-    setState({ ...state, [name]: event.target.value });
+    setValue({ ...value, [name]: event.target.value });
   };
   // redirection si le parcours est crée
   function redirect(url) {
@@ -57,17 +57,17 @@ function CreateParcours(props) {
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
     if (
-      state.name
-      && state.description
-      && state.thématique
-      && state.langue
-      && state.durée
-      && state.difficulté
+      value.name
+      && value.description
+      && value.thématique
+      && value.langue
+      && value.durée
+      && value.difficulté
     ) {
       return true;
     }
-    setState({
-      ...state,
+    setValue({
+      ...value,
       errorMessage: ' Tous les champs sont requis',
     });
     return false;
@@ -76,18 +76,18 @@ function CreateParcours(props) {
   function validateParcours() {
     if (allStateAreFill()) {
       const currentParcours = new Parcours(
-        state.name,
-        state.description,
-        state.thématique,
-        state.langue,
-        state.durée,
-        state.difficulté,
+        value.name,
+        value.description,
+        value.thématique,
+        value.langue,
+        value.durée,
+        value.difficulté,
       );
       pushParcoursInsideDB(currentParcours);
     }
   }
 
-
+  const { state } = props;
   return (
 
     <form className="classesContainer" autoComplete="off">
@@ -125,38 +125,38 @@ function CreateParcours(props) {
       </div>
       <SelectField
         required
-        choices={props.state.thématique}
+        choices={state.thématique}
         name="thématique"
         handleChange={handleChange}
-        currentValue={state.thématique}
+        currentValue={value.thématique}
         className="selectField"
         style={{ borderRadius: '20px' }}
       />
       <SelectField
         required
-        choices={props.state.langue}
+        choices={state.langue}
         name="langue"
         handleChange={handleChange}
-        currentValue={state.langue}
+        currentValue={value.langue}
         class="container"
       />
       <SelectField
         required
-        choices={props.state.durée}
+        choices={state.durée}
         name="durée"
         handleChange={handleChange}
-        currentValue={state.durée}
+        currentValue={value.durée}
         class="container"
       />
       <SelectField
         required
-        choices={props.state.difficulté}
+        choices={state.difficulté}
         name="difficulté"
         handleChange={handleChange}
-        currentValue={state.difficulté}
+        currentValue={value.difficulté}
         className="selectField"
       />
-      <h3 className="h3">{state.errorMessage}</h3>
+      <h3 className="h3">{value.errorMessage}</h3>
       <Button
         size="large"
         color="primary"

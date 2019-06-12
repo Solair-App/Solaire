@@ -26,7 +26,7 @@ function DialogSelect(props) {
   const {
     name, choices, handleChange, currentValue,
   } = props;
-  console.log(choices);
+
   return (
     <div style={{ marginBottom: '10%' }}>
       <Button

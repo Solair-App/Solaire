@@ -100,7 +100,7 @@ class AddCours extends Component {
           }}
         >
           Valider
-      </Button>
+        </Button>
       </div>
     );
   }

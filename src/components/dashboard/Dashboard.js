@@ -15,7 +15,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       searchField: '',
-
+      filter: '',
     };
   }
 
@@ -43,11 +43,11 @@ class Dashboard extends Component {
       });
   }
 
-  handleChange= (e) => {
+  handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
   getCategoryFromDB = () => {
     let category = [];
@@ -70,37 +70,38 @@ class Dashboard extends Component {
         category = [];
       });
     }
-  }
-
+  };
 
   render() {
     const { state } = this.props;
 
-    const { searchField } = this.state;
+    const { searchField, filter } = this.state;
     return (
       <div style={{ display: 'block', textAlign: 'left' }}>
-
         {' '}
-        {' '}
-
         {state && state.thématique ? (
           <div>
-            <InputBar handleChange={this.handleChange} currentValue={searchField} />
-            {state.thématique.map(results => (
+            <InputBar
+              handleChange={this.handleChange}
+              currentValue={searchField}
+
+            />
+            {state.thématique.filter(result => result === filter).map(results => (
               <>
                 {' '}
                 <h1>{results}</h1>
-                <List data={state.parcours} thématique={results} currentSearch={searchField} />
+                <List
+                  data={state.parcours}
+                  thématique={results}
+                  currentSearch={searchField}
+                />
                 {' '}
-
               </>
             ))}
-
           </div>
         ) : (
           <p>loading.. </p>
         )}
-
         <BottomNav />
       </div>
     );

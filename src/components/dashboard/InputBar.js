@@ -62,7 +62,9 @@ const useStyles = makeStyles(theme => ({
 function SearchAppBar(props) {
   const classes = useStyles();
 
-  const { handleChange, currentValue } = props;
+  const {
+    handleChange, currentValue, currentFilterValue, state,
+  } = props;
 
   return (
     <div className={classes.root}>
@@ -85,10 +87,10 @@ function SearchAppBar(props) {
         <TextField
           id="standard-select-currency"
           select
-          name="Filter"
+          name="filter"
           label="Select"
           className={classes.textField}
-          value="hey"
+          value={currentFilterValue}
           onChange={handleChange}
           SelectProps={{
             MenuProps: {
@@ -100,7 +102,7 @@ function SearchAppBar(props) {
           margin="normal"
         >
 
-          {props.state.thématique.length > 1 ? props.state.thématique.map(option => (
+          {state.thématique.length > 1 ? state.thématique.map(option => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>

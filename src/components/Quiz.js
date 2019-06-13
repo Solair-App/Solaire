@@ -13,18 +13,19 @@ class Quiz extends React.Component {
       incorrect: 0,
     };
     this.handleClick = this.handleClick.bind(this);
-    this.getInfo();
-  } // end constructor
-
-  getInfo = () => {
-    let cours;
-    const { firestore, location, history } = this.props;
-    if (location.state) {
-      cours = location.state.id;
+    const { location, history } = this.props;
+    if (location.state && location.state.id) {
+      this.cours = location.state.id;
+      this.getInfo();
     } else {
       history.push('/mydashboard');
     }
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(cours);
+  }
+  // end constructor
+
+  getInfo = () => {
+    const { firestore } = this.props;
+    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(this.cours);
     docRef.get().then((doc) => {
       if (doc.exists) {
         let quiz = doc.data();

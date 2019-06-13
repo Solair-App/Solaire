@@ -18,6 +18,7 @@ import CreateQuiz from './components/CreateQuiz';
 import SeeParcours from './components/parcours/seeparcours/SeeParcours';
 import Quiz from './components/Quiz';
 import CreateQuestion from './components/CreateQuestion';
+import Video from './components/Video';
 
 
 const App = () => (
@@ -28,6 +29,7 @@ const App = () => (
           <Route exact path="/" component={Welcome} />
           <Route path="/CreateParcours" component={CreateParcours} />
           <Route path="/addvideo" component={Form} />
+          <Route path="/video" component={Video} />
           <Route path="/AddCours" component={AddCours} />
           <Route path="/addquiz" component={CreateQuiz} />
           <Route path="/addquestion" component={CreateQuestion} />

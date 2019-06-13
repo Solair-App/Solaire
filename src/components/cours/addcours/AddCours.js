@@ -16,14 +16,14 @@ class AddCours extends Component {
     };
   }
 
-  componentDidMount() {
-    const { location, history } = this.props;
-    if (!location.state || !location.state.parcours) {
-      history.push('/CreateParcours');
-    } else {
-      this.getDataBaseData();
-    }
-  }
+  // componentDidMount() {
+  //   const { location, history } = this.props;
+  //   if (!location.state || !location.state.parcours) {
+  //     history.push('/CreateParcours');
+  //   } else {
+  //     this.getDataBaseData();
+  //   }
+  // }
 
   getDataBaseData = () => {
     const { firestore } = this.props;
@@ -76,7 +76,6 @@ class AddCours extends Component {
   render() {
     const { data } = this.state;
     return (
-
       <div>
         <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { this.redirect('/mydashboard'); }} />
         <h1>{data.name}</h1>

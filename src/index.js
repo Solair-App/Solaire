@@ -2,13 +2,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducers from './reducers/reducers';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+const store = createStore(
+  reducers,
+  // eslint-disable-next-line no-underscore-dangle
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
 
 const startApp = () => {
-  ReactDOM.render(<App />, document.getElementById('root'));
-  serviceWorker.register();
+  ReactDOM.render(
+    <Provider store={store}>
+  
+        <App />
+      
+    </Provider>,
+    document.getElementById('root'),
+  );
 };
 
 if (window.cordova) {

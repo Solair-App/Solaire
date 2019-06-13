@@ -10,11 +10,11 @@ function ListCours() {
 
     <div>
       {' '}
-      {courseName.map(cours => (
-        <>
+      {courseName.map((cours, index) => (
+        <div key={`${index + 1}c`}>
 
           <p>
-            <RadioButtonUnchecked style={{ marginRight: '10px' }} />
+            <RadioButtonUnchecked key={`${index + 1}c`} style={{ marginRight: '10px' }} />
             {cours}
             {' '}
             <Edit style={{ marginLeft: '10px' }} />
@@ -30,7 +30,7 @@ function ListCours() {
               <ArrowDownward />
             </div>
           </div>
-        </>
+        </div>
       ))}
       {' '}
 

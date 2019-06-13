@@ -1,43 +1,27 @@
 
 import React from 'react';
-import Cancel from '@material-ui/icons/Cancel';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import SelectField from './SelectField';
-
 import Parcours from './Parcours';
 
 import '../../../SCSS/CreateParcours.scss';
 
-
 function CreateParcours(props) {
   const [values] = React.useState({});
 
-  const [state, setState] = React.useState({
+  const [value, setValue] = React.useState({
     currentValue: 'tous les champs sont requis',
   });
 
-  // Récupération des informations dans la DB
-  function getCategoryFromDB(collection, doc) {
-    const category = ['Choisissez une catégorie'];
-    const { firestore } = props;
-    const db = firestore;
-    const themRef = db.collection(collection).doc(doc);
-    themRef.get().then((document) => {
-      const dbCategory = document.data();
-      // eslint-disable-next-line no-restricted-syntax
-      for (const [, value] of Object.entries(dbCategory)) {
-        category.push(`${value}`);
-      }
-    });
 
-    return category;
-  }
   // Modifications du state
   const handleChange = name => (event) => {
-    setState({ ...state, [name]: event.target.value });
+    setValue({ ...value, [name]: event.target.value });
   };
   // redirection si le parcours est crée
   function redirect(url) {
@@ -73,28 +57,21 @@ function CreateParcours(props) {
       });
   }
 
-  // tableaux de data de la DB, servant à map.
-
-  function categoryToArray(doc) {
-    const category = getCategoryFromDB('parcours', doc);
-
-    return category;
-  }
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
     if (
-      state.name
-      && state.description
-      && state.thématique
-      && state.langue
-      && state.durée
-      && state.difficulté
+      value.name
+      && value.description
+      && value.thématique
+      && value.langue
+      && value.durée
+      && value.difficulté
     ) {
       return true;
     }
-    setState({
-      ...state,
+    setValue({
+      ...value,
       errorMessage: ' Tous les champs sont requis',
     });
     return false;
@@ -103,21 +80,28 @@ function CreateParcours(props) {
   function validateParcours() {
     if (allStateAreFill()) {
       const currentParcours = new Parcours(
-        state.name,
-        state.description,
-        state.thématique,
-        state.langue,
-        state.durée,
-        state.difficulté,
+        value.name,
+        value.description,
+        value.thématique,
+        value.langue,
+        value.durée,
+        value.difficulté,
       );
       pushParcoursInsideDB(currentParcours);
     }
   }
 
+  const { state } = props;
   return (
+
     <form className="classesContainer" autoComplete="off">
-      <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { redirect('/#/Dashboard'); }} />
-      <h2 className="h2">Création de parcours</h2>
+      <ArrowBack
+        style={{ position: 'fixed', left: '10px', top: '10px' }}
+        onClick={() => {
+          redirect('/mydashboard');
+        }}
+      />
+      <h2 className="h2" style={{ marginTop: '5%' }}>Création de parcours</h2>
       <div>
         <TextField
           required
@@ -139,64 +123,63 @@ function CreateParcours(props) {
           rows="5"
           onChange={handleChange('description')}
           className="textField"
-          style={{ marginBottom: '5%', width: '50%' }}
+          style={{ marginTop: '2%', marginBottom: '5%', width: '50%' }}
         />
-
       </div>
       <SelectField
         required
-        choices={categoryToArray('thématique')}
+        choices={state.thématique}
         name="thématique"
         handleChange={handleChange}
-        currentValue={state.thématique}
+        currentValue={value.thématique}
         className="selectField"
         style={{ borderRadius: '20px' }}
       />
-
       <SelectField
         required
-        choices={categoryToArray('langue')}
+        choices={state.langue}
         name="langue"
         handleChange={handleChange}
-        currentValue={state.langue}
+        currentValue={value.langue}
         class="container"
       />
-
       <SelectField
         required
-        choices={categoryToArray('durée')}
+        choices={state.durée}
         name="durée"
         handleChange={handleChange}
-        currentValue={state.durée}
+        currentValue={value.durée}
         class="container"
       />
-
       <SelectField
         required
-        choices={categoryToArray('difficulté')}
+        choices={state.difficulté}
         name="difficulté"
         handleChange={handleChange}
-        currentValue={state.difficulté}
+        currentValue={value.difficulté}
         className="selectField"
       />
-
-      <h3 className="h3">{state.errorMessage}</h3>
-
+      <h3 className="h3">{value.errorMessage}</h3>
       <Button
-        size="large"
-        color="primary"
+        variant="outlined"
         onClick={validateParcours}
-        variant="contained"
-        style={{
-          position: 'fixed center', bottom: '1%', left: '0%', right: '0%', borderRadius: '20px',
-        }}
+        name="thématique"
         className="Button"
+        style={{
+          margin: '30px 0 30px 0',
+          width: '300px',
+        }}
       >
         Créer mon parcours
       </Button>
-
     </form>
   );
 }
+const mapStateToProps = state => ({
+  state,
+});
 
-export default withRouter(withFirebaseContext(CreateParcours));
+export default connect(
+  mapStateToProps,
+
+)(withRouter(withFirebaseContext(CreateParcours)));

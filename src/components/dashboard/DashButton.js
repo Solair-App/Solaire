@@ -94,7 +94,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function useDashButton() {
+export default function UseDashButton() {
   const classes = useStyles();
 
 

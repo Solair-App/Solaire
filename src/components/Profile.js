@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
 import Button from '@material-ui/core/Button';
+import withFirebaseContext from '../Firebase/withFirebaseContext';
+import ProfilPhoto from './ProfilPhoto';
 
 
 class Profile extends Component {
@@ -52,6 +53,8 @@ class Profile extends Component {
     const { userInfo, error } = this.state;
     return (
       <div>
+        <h1>Mon compte</h1>
+        <ProfilPhoto />
         {userInfo
           ? (
             <>
@@ -67,7 +70,8 @@ class Profile extends Component {
                 onClick={this.logout}
                 variant="contained"
                 style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
-                className="Button">
+                className="Button"
+              >
                 Log Out
               </Button>
               {error && <p>{error.message}</p>}
@@ -83,7 +87,8 @@ class Profile extends Component {
                 onClick={this.logout}
                 variant="contained"
                 style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
-                className="Button">
+                className="Button"
+              >
                 Log Out
               </Button>
             </>

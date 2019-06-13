@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
 
 class CreateQuiz extends Component {
@@ -10,6 +11,8 @@ class CreateQuiz extends Component {
     super(props);
     this.state = {
       infoQuiz: {},
+      name: '',
+      description: '',
     };
     this.getInfo();
   }
@@ -20,6 +23,22 @@ class CreateQuiz extends Component {
   //     history.push('/CreateParcours');
   //   }
   // }
+
+  onChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  saveCours = (event) => {
+    const { name, description } = this.state;
+    const { firestore } = this.props;
+    const db = firestore;
+    const quizSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
+    const quiz = quizSet.doc(localStorage.getItem('coursId'));
+    quiz.set({ name, description, finish: true }, { merge: true });
+    event.preventDefault();
+    const { history } = this.props;
+    history.push('/AddCours');
+  }
 
   getInfo = () => {
     const { firestore } = this.props;
@@ -42,6 +61,7 @@ class CreateQuiz extends Component {
 
   render() {
     const { infoQuiz } = this.state;
+    const { name, description } = this.state;
 
     return (
       <Grid container>
@@ -81,9 +101,34 @@ class CreateQuiz extends Component {
           </Link>
         </Grid>
         <Grid item xs={12}>
+          <TextField
+            required
+            id="name"
+            label="Nom du cours"
+            name="name"
+            className="textfield"
+            value={name}
+            onChange={this.onChange}
+            style={{ marginTop: '5%', width: '50%' }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            id="description"
+            label="Description du cours"
+            name="description"
+            className="textfield"
+            value={description}
+            onChange={this.onChange}
+            style={{ marginTop: '5%', width: '50%' }}
+          />
+        </Grid>
+        <Grid item xs={12}>
           <Button
             size="large"
             variant="contained"
+            onClick={this.saveCours}
             style={{ marginTop: '8%' }}
             className="Button"
           >

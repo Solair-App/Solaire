@@ -39,7 +39,6 @@ class Essai extends Component {
 
   saveData = () => {
     const { firestore } = this.props;
-
     const { content } = this.state;
     // content = JSON.stringify(content);
     if (this.isContentNull()) {
@@ -54,7 +53,6 @@ class Essai extends Component {
       /* const slideSet = db.collection('parcours')
       .doc(localStorage.getItem('id')).collection('cours').add({ slides: [content] }); */
       const slideSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
-
       const slide = slideSet.doc(localStorage.getItem('coursId'));
       const slideNumber = parseInt(localStorage.getItem('slideNumb'), 10) + 1;
       localStorage.setItem('slideNumb', slideNumber);

@@ -15,6 +15,7 @@ import Profile from './components/Profile';
 import SlideFormateur from './components/SlideFormateur';
 import SlideApprenant from './components/SlideApprenant';
 import CreateQuiz from './components/CreateQuiz';
+import SeeParcours from './components/parcours/seeparcours/SeeParcours';
 import Quiz from './components/Quiz';
 import CreateQuestion from './components/CreateQuestion';
 
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/AddCours" component={AddCours} />
           <Route path="/addquiz" component={CreateQuiz} />
           <Route path="/addquestion" component={CreateQuestion} />
+          <Route path="/parcours" component={SeeParcours} />
           <Route path="/slideApprenant" component={SlideApprenant} />
           <Route path="/slide" component={SlideFormateur} />
           <Route path="/signin" component={Signin} />

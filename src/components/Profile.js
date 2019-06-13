@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
-
 
 class Profile extends Component {
   constructor(props) {
@@ -48,10 +48,24 @@ class Profile extends Component {
     });
   }
 
+  redirect = (url) => {
+    const { history } = this.props;
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
+  }
+
   render() {
     const { userInfo, error } = this.state;
     return (
       <div>
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            this.redirect('/mydashboard');
+          }}
+        />
         {userInfo
           ? (
             <>

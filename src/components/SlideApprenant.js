@@ -24,20 +24,25 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const SlideApprenant = ({ firestore }) => {
+const SlideApprenant = ({ firestore, location, history }) => {
   const [infoSlide, setSlide] = useState({ slides: [] });
   useEffect(() => {
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(localStorage.getItem('coursId'));
-    docRef.get().then((doc) => {
-      if (doc.exists) {
-        setSlide(doc.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log('No such document!');
-      }
-    }).catch((error) => {
-      console.log('Error getting document:', error);
-    });
+    if (location.state && location.state.id) {
+      const cours = location.state.id;
+      const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(cours);
+      docRef.get().then((doc) => {
+        if (doc.exists) {
+          setSlide(doc.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log('No such document!');
+        }
+      }).catch((error) => {
+        console.log('Error getting document:', error);
+      });
+    } else {
+      history.push('/mydashboard');
+    }
   });
   const classes = useStyles();
   const theme = useTheme();

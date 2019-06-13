@@ -33,15 +33,21 @@ class ListCours extends Component {
       <div>
         {allCourses.map(cours => (
           <>
-            <p>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <RadioButtonUnchecked />
-              <Link to={{ pathname: `/${cours.data.type}`, state: { id: cours.id } }}>
-                {cours.data.name}
-              </Link>
-            </p>
-            <p>
-              {cours.data.description}
-            </p>
+              <img src={`./assets/${cours.data.type}.png`} style={{ width: '4em' }} alt={cours.data.type} />
+              <div style={{
+                display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',
+              }}
+              >
+                <Link to={{ pathname: `/${cours.data.type}`, state: { id: cours.id } }}>
+                  {cours.data.name}
+                </Link>
+                <p>
+                  {cours.data.description}
+                </p>
+              </div>
+            </div>
             <div>
               <ArrowDownward />
             </div>

@@ -58,7 +58,7 @@ class Form extends Component {
     e.preventDefault();
 
     const { history } = this.props;
-    history.push('/mydashboard');
+    history.push('/addcours');
   }
 
   render() {

@@ -62,7 +62,7 @@ class AddCours extends Component {
         cours = 'addvideo';
         break;
       case 'Slide':
-        cours = 'addslide';
+        cours = 'createslider';
         localStorage.setItem('slideNumb', 0);
         break;
       default:

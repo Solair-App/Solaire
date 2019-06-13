@@ -36,8 +36,9 @@ class seeParcours extends Component {
       <div>
         {allCourses.map(cours => (
           <>
-            <p>
+            <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <RadioButtonUnchecked />
+              <img src={`./assets/${cours.data.type}.png`} style={{ width: '4em' }} alt={cours.data.type} />
               <Link to={{ pathname: `/${cours.data.type}`, state: { id: cours.id } }}>
                 {cours.data.name}
               </Link>

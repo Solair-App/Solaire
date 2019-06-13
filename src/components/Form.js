@@ -134,6 +134,7 @@ class Form extends Component {
                   <YouTube
                     videoId={id}
                     opts={opts}
+                    /* eslint no-underscore-dangle: 0 */
                     onReady={this._onReady}
                   />
                 ) : null}

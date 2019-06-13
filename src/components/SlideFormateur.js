@@ -6,7 +6,6 @@ import '../App.scss';
 
 CKEditor.editorUrl = '/ckeditor/ckeditor.js';
 
-
 class Essai extends Component {
   constructor(props) {
     super(props);
@@ -16,12 +15,12 @@ class Essai extends Component {
     };
   }
 
-  componentDidMount() {
-    const { location, history } = this.props;
-    if (!location.state || !location.state.cours) {
-      history.push('/CreateParcours');
-    }
-  }
+  // componentDidMount() {
+  //   const { location, history } = this.props;
+  //   if (!location.state || !location.state.cours) {
+  //     history.push('/CreateParcours');
+  //   }
+  // }
 
   updateContent = (evt) => {
     this.setState({ content: evt.editor.getData() });
@@ -41,16 +40,19 @@ class Essai extends Component {
   saveData = () => {
     const { firestore } = this.props;
 
-    let { content } = this.state;
-    content = JSON.stringify(content);
+    const { content } = this.state;
+    // content = JSON.stringify(content);
     if (this.isContentNull()) {
       this.setState({
         erreur: ' Il n\'y a rien à sauvegarder',
       });
     } else {
       const db = firestore;
-      /* besoin creation document cours avec un array vide 'slides' quand le formateur clique sur ajouter un cours'. On a besoin aussi de la clé du parcours et de la clé du cours */
-      // const slideSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours').add({ slides: [content] });
+      /* besoin creation document cours avec un array vide 'slides' quand le
+      formateur clique sur ajouter un cours'. On a besoin aussi de la clé du
+      parcours et de la clé du cours */
+      /* const slideSet = db.collection('parcours')
+      .doc(localStorage.getItem('id')).collection('cours').add({ slides: [content] }); */
       const slideSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
 
       const slide = slideSet.doc(localStorage.getItem('coursId'));

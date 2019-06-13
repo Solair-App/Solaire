@@ -59,10 +59,10 @@ class AddCours extends Component {
         localStorage.setItem('questionNumb', 0);
         break;
       case 'Vidéo':
-        cours = 'video';
+        cours = 'addvideo';
         break;
       case 'Slide':
-        cours = 'slide';
+        cours = 'addslide';
         localStorage.setItem('slideNumb', 0);
         break;
       default:

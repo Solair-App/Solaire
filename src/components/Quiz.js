@@ -1,5 +1,6 @@
 import React from 'react';
 import '../SCSS/Quiz.scss';
+import { withRouter } from 'react-router';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
 
 class Quiz extends React.Component {
@@ -16,8 +17,14 @@ class Quiz extends React.Component {
   } // end constructor
 
   getInfo = () => {
-    const { firestore } = this.props;
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(localStorage.getItem('coursId'));
+    let cours;
+    const { firestore, location, history } = this.props;
+    if (location.state) {
+      cours = location.state.id;
+    } else {
+      history.push('/mydashboard');
+    }
+    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(cours);
     docRef.get().then((doc) => {
       if (doc.exists) {
         let quiz = doc.data();
@@ -52,7 +59,6 @@ class Quiz extends React.Component {
   }
 
   render() {
-    console.log(localStorage.getItem('coursId'));
     const {
       quiz, current, correct, incorrect,
     } = this.state;
@@ -178,4 +184,4 @@ function ScoreArea({ correct, incorrect }) {
   );
 }
 
-export default withFirebaseContext(Quiz);
+export default withRouter(withFirebaseContext(Quiz));

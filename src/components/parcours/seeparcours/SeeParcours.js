@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import LockOpen from '@material-ui/icons/LockOpen';
+import { Link } from 'react-router-dom';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
 
@@ -22,7 +23,7 @@ class seeParcours extends Component {
         querySnapshot.forEach((doc) => {
           cours.push({ id: doc.id, data: doc.data() });
           // doc.data() is never undefined for query doc snapshots
-          this.setState({ allCourses: cours }, console.log(this.state.allCourses));
+          this.setState({ allCourses: cours });
         });
       });
   }
@@ -37,7 +38,9 @@ class seeParcours extends Component {
           <>
             <p>
               <RadioButtonUnchecked />
-              {cours.data.name}
+              <Link to={{ pathname: `/${cours.data.type}`, state: { id: cours.id } }}>
+                {cours.data.name}
+              </Link>
             </p>
             <p>
               {cours.data.description}

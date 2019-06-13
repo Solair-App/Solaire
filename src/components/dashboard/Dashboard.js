@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import List from './List';
-import useDashButton from './DashButton';
 import BottomNav from './BottomNav';
-
+import InputBar from './InputBar';
 import { mapDispatchToProps } from '../../actions/action';
 
 const mapStateToProps = state => ({
@@ -15,7 +14,8 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      searchField: '',
+      filter: '',
     };
   }
 
@@ -43,6 +43,18 @@ class Dashboard extends Component {
       });
   }
 
+  handleChange = (e) => {
+    if (e.target.value === 'All') {
+      this.setState({
+        filter: '',
+      });
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value,
+      });
+    }
+  };
+
 
   getCategoryFromDB = () => {
     let category = [];
@@ -65,28 +77,40 @@ class Dashboard extends Component {
         category = [];
       });
     }
-  }
-
+  };
 
   render() {
     const { state } = this.props;
 
-
+    const { searchField, filter } = this.state;
     return (
-      <div style={{ display: 'block', textAlign: 'left' }}>
+      <div key="qsdqsd" style={{ display: 'block', textAlign: 'left' }}>
         {' '}
         {state && state.thématique ? (
+          <div>
+            <InputBar
+              handleChange={this.handleChange}
+              currentFilterValue={filter}
+              currentValue={searchField}
 
-          state.thématique.map(results => (
-            <>
-              <h1>{results}</h1>
-              <List data={state.parcours} thématique={results} />
-            </>
-          ))
+            />
+            {state.thématique.filter(result => result.includes(filter)).map((results, index) => (
+              <>
+                {' '}
+                <h1 key={`${index + 1}b `}>{results}</h1>
+                <List
+                  key={`${index + 1}a`}
+                  data={state.parcours}
+                  thématique={results}
+                  currentSearch={searchField}
+                />
+                {' '}
+              </>
+            ))}
+          </div>
         ) : (
           <p>loading.. </p>
         )}
-        <useDashButton />
         <BottomNav />
       </div>
     );

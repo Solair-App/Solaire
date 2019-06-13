@@ -77,7 +77,7 @@ class AddCours extends Component {
     const { data } = this.state;
     return (
       <div>
-        <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { this.redirect('/Dashboard'); }} />
+        <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { this.redirect('/mydashboard'); }} />
         <h1>{data.name}</h1>
         <Link to="CreateParcours">
           <Button color="primary">

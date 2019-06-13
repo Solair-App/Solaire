@@ -40,7 +40,6 @@ class Essai extends Component {
 
   saveData = () => {
     const { firestore } = this.props;
-
     const { content } = this.state;
     // content = JSON.stringify(content);
     if (this.isContentNull()) {
@@ -52,7 +51,6 @@ class Essai extends Component {
       /* besoin creation document cours avec un array vide 'slides' quand le formateur clique sur ajouter un cours'. On a besoin aussi de la clé du parcours et de la clé du cours */
       // const slideSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours').add({ slides: [content] });
       const slideSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
-
       const slide = slideSet.doc(localStorage.getItem('coursId'));
       const slideNumber = parseInt(localStorage.getItem('slideNumb'), 10) + 1;
       localStorage.setItem('slideNumb', slideNumber);

@@ -37,8 +37,10 @@ class seeParcours extends Component {
           <>
             <p>
               <RadioButtonUnchecked />
-              {cours.id}
-              {' '}
+              {cours.data.name}
+            </p>
+            <p>
+              {cours.data.description}
             </p>
             <div>
               <ArrowDownward />

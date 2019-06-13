@@ -16,14 +16,14 @@ class AddCours extends Component {
     };
   }
 
-  componentDidMount() {
-    const { location, history } = this.props;
-    if (!location.state || !location.state.parcours) {
-      history.push('/CreateParcours');
-    } else {
-      this.getDataBaseData();
-    }
-  }
+  // componentDidMount() {
+  //   const { location, history } = this.props;
+  //   if (!location.state || !location.state.parcours) {
+  //     history.push('/CreateParcours');
+  //   } else {
+  //     this.getDataBaseData();
+  //   }
+  // }
 
   getDataBaseData = () => {
     const { firestore } = this.props;

@@ -37,7 +37,7 @@ class CreateQuiz extends Component {
     quiz.set({ name, description, finish: true }, { merge: true });
     event.preventDefault();
     const { history } = this.props;
-    history.push('/CreateParcours');
+    history.push('/AddCours');
   }
 
   getInfo = () => {

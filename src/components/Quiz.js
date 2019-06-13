@@ -52,6 +52,7 @@ class Quiz extends React.Component {
   }
 
   render() {
+    console.log(localStorage.getItem('coursId'));
     const {
       quiz, current, correct, incorrect,
     } = this.state;

@@ -84,7 +84,7 @@ class Dashboard extends Component {
 
     const { searchField, filter } = this.state;
     return (
-      <div style={{ display: 'block', textAlign: 'left' }}>
+      <div key="qsdqsd" style={{ display: 'block', textAlign: 'left' }}>
         {' '}
         {state && state.thématique ? (
           <div>
@@ -93,11 +93,12 @@ class Dashboard extends Component {
               currentValue={searchField}
 
             />
-            {state.thématique.filter(result => result.includes(filter)).map(results => (
+            {state.thématique.filter(result => result.includes(filter)).map((results, index) => (
               <>
                 {' '}
-                <h1>{results}</h1>
+                <h1 key={`${index + 1}b `}>{results}</h1>
                 <List
+                  key={`${index + 1}a`}
                   data={state.parcours}
                   thématique={results}
                   currentSearch={searchField}

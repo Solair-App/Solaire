@@ -37,9 +37,9 @@ export default function ListCours(props) {
           info => info.thématique === props.thématique
             && info.name.toUpperCase().includes(props.currentSearch.toUpperCase()),
         )
-        .map(info => (
+        .map((info, index) => (
           <div>
-            <li className="item">
+            <li className="item" key={`${index + 1}n`}>
               <Typography
                 className={classes.title}
                 color="textSecondary"

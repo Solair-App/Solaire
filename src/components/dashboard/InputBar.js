@@ -83,6 +83,7 @@ function SearchAppBar(props) {
             input: classes.inputInput,
           }}
           inputProps={{ 'aria-label': 'Search' }}
+
           value={currentValue}
         />
         <TextField

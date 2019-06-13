@@ -44,10 +44,17 @@ class Dashboard extends Component {
   }
 
   handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.value === 'All') {
+      this.setState({
+        filter: '',
+      });
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value,
+      });
+    }
   };
+
 
   getCategoryFromDB = () => {
     let category = [];
@@ -86,7 +93,7 @@ class Dashboard extends Component {
               currentValue={searchField}
 
             />
-            {state.thématique.filter(result => result === filter).map(results => (
+            {state.thématique.filter(result => result.includes(filter)).map(results => (
               <>
                 {' '}
                 <h1>{results}</h1>

@@ -65,6 +65,7 @@ function SearchAppBar(props) {
   const {
     handleChange, currentValue, currentFilterValue, state,
   } = props;
+  const thématique = ['All', ...state.thématique];
 
   return (
     <div className={classes.root}>
@@ -102,7 +103,7 @@ function SearchAppBar(props) {
           margin="normal"
         >
 
-          {state.thématique.length > 1 ? state.thématique.map(option => (
+          {state.thématique.length > 1 ? thématique.map(option => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>

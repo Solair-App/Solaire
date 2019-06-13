@@ -111,16 +111,20 @@ class CreateQuiz extends Component {
             onChange={this.onChange}
             style={{ marginTop: '5%', width: '50%' }}
           />
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             required
-            id="name"
-            label="Nom du cours"
-            name="name"
+            id="description"
+            label="Description du cours"
+            name="description"
             className="textfield"
             value={description}
             onChange={this.onChange}
             style={{ marginTop: '5%', width: '50%' }}
           />
+        </Grid>
+        <Grid item xs={12}>
           <Button
             size="large"
             variant="contained"

@@ -34,7 +34,9 @@ class CreateQuiz extends Component {
     const db = firestore;
     const quizSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
     const quiz = quizSet.doc(localStorage.getItem('coursId'));
-    quiz.set({ name, description, finish: true }, { merge: true });
+    quiz.set({
+      type: 'quiz', name, description, finish: true,
+    }, { merge: true });
     event.preventDefault();
     const { history } = this.props;
     history.push('/AddCours');

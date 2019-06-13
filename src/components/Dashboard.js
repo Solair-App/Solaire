@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
 import Button from '@material-ui/core/Button';
-
+import withFirebaseContext from '../Firebase/withFirebaseContext';
 
 
 const Dashboard = () => (
@@ -18,7 +17,8 @@ const Dashboard = () => (
           color="primary"
           variant="contained"
           style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
-          className="Button">
+          className="Button"
+        >
           Create Parcours
         </Button>
       </Link>
@@ -31,7 +31,8 @@ const Dashboard = () => (
           color="primary"
           variant="contained"
           style={{ position: 'fixed center', marginTop: '2%', borderRadius: '20px' }}
-          className="Button">
+          className="Button"
+        >
           My profile
         </Button>
       </Link>

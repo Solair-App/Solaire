@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Cancel from '@material-ui/icons/Cancel';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
@@ -95,16 +95,15 @@ function CreateParcours(props) {
   return (
 
     <form className="classesContainer" autoComplete="off">
-      <Cancel
-        style={{ position: 'fixed', left: '4px', top: '4px' }}
+      <ArrowBack
+        style={{ position: 'fixed', left: '10px', top: '10px' }}
         onClick={() => {
           redirect('/mydashboard');
         }}
       />
-      <h2 className="h2">Création de parcours</h2>
+      <h2 className="h2" style={{ marginTop: '5%' }}>Création de parcours</h2>
       <div>
         <TextField
-
           required
           id="standard-name"
           label="Nom du parcours"
@@ -124,7 +123,7 @@ function CreateParcours(props) {
           rows="5"
           onChange={handleChange('description')}
           className="textField"
-          style={{ marginBottom: '5%', width: '50%' }}
+          style={{ marginTop: '2%', marginBottom: '5%', width: '50%' }}
         />
       </div>
       <SelectField
@@ -162,18 +161,14 @@ function CreateParcours(props) {
       />
       <h3 className="h3">{value.errorMessage}</h3>
       <Button
-        size="large"
-        color="primary"
+        variant="outlined"
         onClick={validateParcours}
-        variant="contained"
-        style={{
-          position: 'fixed center',
-          bottom: '1%',
-          left: '0%',
-          right: '0%',
-          borderRadius: '20px',
-        }}
+        name="thématique"
         className="Button"
+        style={{
+          margin: '30px 0 30px 0',
+          width: '300px',
+        }}
       >
         Créer mon parcours
       </Button>

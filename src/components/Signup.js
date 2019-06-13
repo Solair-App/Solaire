@@ -66,36 +66,34 @@ class Signup extends Component {
               <>
                 <h3 style={{ color: 'white', margin: '1%' }}> Please sign in</h3>
                 <Button
-                  size="large"
-                  color="primary"
+                  variant="outlined"
                   onClick={() => this.login('google')}
-                  variant="contained"
                   style={{
-                    position: 'fixed center', marginBottom: '2%', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px',
+                    marginTop: '10px',
+                    width: '300px',
                   }}
                   className="Button"
                 >
                   Sign up with Google
                 </Button>
                 <Button
-                  size="large"
-                  color="primary"
+                  variant="outlined"
                   onClick={() => this.login('facebook')}
-                  variant="contained"
                   style={{
-                    position: 'fixed center', marginBottom: '2%', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px',
+                    marginTop: '10px',
+                    width: '300px',
                   }}
                   className="Button"
                 >
                   Sign up with Facebook
                 </Button>
-                <Link to="/signin">
+                <Link to="/signin" style={{ textDecoration: 'none' }}>
                   <Button
-                    size="large"
-                    color="primary"
-                    variant="contained"
+                    variant="outlined"
                     style={{
-                      position: 'fixed center', marginBottom: '2%', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px',
+                      marginTop: '10px',
+                      marginBottom: '20px',
+                      width: '300px',
                     }}
                     className="Button"
                   >

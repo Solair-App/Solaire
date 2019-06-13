@@ -90,6 +90,7 @@ class Dashboard extends Component {
           <div>
             <InputBar
               handleChange={this.handleChange}
+              currentFilterValue={filter}
               currentValue={searchField}
 
             />

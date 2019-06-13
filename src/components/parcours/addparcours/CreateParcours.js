@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Cancel from '@material-ui/icons/Cancel';
 import Button from '@material-ui/core/Button';
@@ -25,7 +26,10 @@ function CreateParcours(props) {
   // redirection si le parcours est crée
   function redirect(url) {
     const { history } = props;
-    history.push(url);
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
   }
 
   // Stockage du parcours dans la db
@@ -94,7 +98,7 @@ function CreateParcours(props) {
       <Cancel
         style={{ position: 'fixed', left: '4px', top: '4px' }}
         onClick={() => {
-          redirect('/Dashboard');
+          redirect('/mydashboard');
         }}
       />
       <h2 className="h2">Création de parcours</h2>

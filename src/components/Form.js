@@ -5,6 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { withRouter } from 'react-router';
+import withFirebaseContext from '../Firebase/withFirebaseContext';
 
 const textStyles = theme => ({
   textField: {
@@ -18,18 +20,53 @@ class Form extends Component {
     super(props);
     this.state = {
       id: '',
+      link: '',
+      name: '',
+      duree: '',
+      description: '',
+
     };
   }
 
+  // componentDidMount() {
+  //   const { location, history } = this.props;
+  //   if (!location.state || !location.state.cours) {
+  //     history.push('/CreateParcours');
+  //   }
+  // }
+
   recoveryId = (e) => {
     const { value } = e.target;
-    this.setState({ id: value.substring(value.lastIndexOf('=') + 1, value.length) });
+    this.setState({ link: value, id: value.substring(value.lastIndexOf('=') + 1, value.length) });
+  }
+
+  onChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  onSubmit = (e) => {
+    const {
+      link, duree, name, description,
+    } = this.state;
+    const { firestore } = this.props;
+    const db = firestore;
+    const videoSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
+    const video = videoSet.doc(localStorage.getItem('coursId'));
+    video.set({
+      link, duree, name, description,
+    }, { merge: true });
+    e.preventDefault();
+
+    const { history } = this.props;
+    history.push('mydashboard');
   }
 
   render() {
     const { classes } = this.props;
-    const { id } = this.state;
-    const { recoveryId } = this;
+    const {
+      id, name, description, duree,
+    } = this.state;
+    const { recoveryId, onChange } = this;
     const opts = {
       height: '200',
       width: '300',
@@ -52,6 +89,9 @@ class Form extends Component {
               <TextField
                 id="outlined-with-placeholder"
                 label="Nom de la vidéo"
+                value={name}
+                name="name"
+                onChange={onChange}
                 variant="outlined"
                 className={classes.textField}
               />
@@ -61,6 +101,9 @@ class Form extends Component {
                 id="outlined-textarea"
                 label="Description de la vidéo"
                 multiline
+                value={description}
+                name="description"
+                onChange={onChange}
                 variant="outlined"
                 className={classes.textField}
               />
@@ -70,6 +113,9 @@ class Form extends Component {
                 id="outlined-with-placeholder"
                 label="Durée de la vidéo"
                 variant="outlined"
+                value={duree}
+                name="duree"
+                onChange={onChange}
                 className={classes.textField}
               />
             </Box>
@@ -88,7 +134,6 @@ class Form extends Component {
                   <YouTube
                     videoId={id}
                     opts={opts}
-                    // eslint-disable-next-line no-underscore-dangle
                     onReady={this._onReady}
                   />
                 ) : null}
@@ -96,7 +141,7 @@ class Form extends Component {
             </Box>
           </Box>
           <Box>
-            <Button variant="outlined" className={classes.button}>
+            <Button variant="outlined" onClick={this.onSubmit} className={classes.button}>
               Enregistrer
             </Button>
           </Box>
@@ -106,4 +151,4 @@ class Form extends Component {
   }
 }
 
-export default withStyles(textStyles)(Form);
+export default withRouter(withFirebaseContext(withStyles(textStyles)(Form)));

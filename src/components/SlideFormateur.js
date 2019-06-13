@@ -6,7 +6,6 @@ import '../App.scss';
 
 CKEditor.editorUrl = '/ckeditor/ckeditor.js';
 
-
 class Essai extends Component {
   constructor(props) {
     super(props);
@@ -49,8 +48,11 @@ class Essai extends Component {
       });
     } else {
       const db = firestore;
-      /* besoin creation document cours avec un array vide 'slides' quand le formateur clique sur ajouter un cours'. On a besoin aussi de la clé du parcours et de la clé du cours */
-      // const slideSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours').add({ slides: [content] });
+      /* besoin creation document cours avec un array vide 'slides' quand le
+      formateur clique sur ajouter un cours'. On a besoin aussi de la clé du
+      parcours et de la clé du cours */
+      /* const slideSet = db.collection('parcours')
+      .doc(localStorage.getItem('id')).collection('cours').add({ slides: [content] }); */
       const slideSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
 
       const slide = slideSet.doc(localStorage.getItem('coursId'));

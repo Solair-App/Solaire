@@ -16,6 +16,7 @@ class Dashboard extends Component {
     this.state = {
       searchField: '',
       filter: '',
+      currentValue: 'All',
     };
   }
 
@@ -44,16 +45,22 @@ class Dashboard extends Component {
   }
 
   handleChange = (e) => {
-    if (e.target.value === 'All') {
+    if (e.target.name === 'Filter' && e.target.value === 'All') {
       this.setState({
         filter: '',
+        currentValue: e.target.value,
+      });
+    } if (e.target.name === 'Filter' && e.target.value !== 'All') {
+      this.setState({
+        currentValue: e.target.value,
+
       });
     } else {
       this.setState({
         [e.target.name]: e.target.value,
       });
     }
-  };
+  }
 
 
   getCategoryFromDB = () => {
@@ -81,7 +88,7 @@ class Dashboard extends Component {
 
   render() {
     const { state } = this.props;
-
+    console.log(this.state);
     const { searchField, filter } = this.state;
     return (
       <div key="qsdqsd" style={{ display: 'block', textAlign: 'left' }}>
@@ -90,7 +97,7 @@ class Dashboard extends Component {
           <div>
             <InputBar
               handleChange={this.handleChange}
-              currentFilterValue={filter}
+              currentFilterValue={this.state.currentValue}
               currentValue={searchField}
 
             />

@@ -1,5 +1,6 @@
 import React from 'react';
 import '../SCSS/Quiz.scss';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
 
@@ -40,6 +41,14 @@ class Quiz extends React.Component {
     });
   };
 
+  redirect = (url) => {
+    const { history } = this.props;
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
+  }
+
   handleClick(choice) {
     const {
       quiz, current, correct, incorrect,
@@ -59,12 +68,19 @@ class Quiz extends React.Component {
     // }
   }
 
+
   render() {
     const {
       quiz, current, correct, incorrect,
     } = this.state;
     return (
       <div>
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            this.redirect('/AddCours');
+          }}
+        />
         {quiz && Object.keys(quiz).length > current
           ? (
             <>

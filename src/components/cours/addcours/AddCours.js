@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
-import Cancel from '@material-ui/icons/Cancel';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import ListCours from './ListCours';
@@ -77,7 +77,12 @@ class AddCours extends Component {
     const { data } = this.state;
     return (
       <div>
-        <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { this.redirect('/mydashboard'); }} />
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            this.redirect('/CreateParcours');
+          }}
+        />
         <h1>{data.name}</h1>
         <Link to="CreateParcours">
           <Button color="primary">
@@ -90,15 +95,15 @@ class AddCours extends Component {
 
         <TypeCours getType={this.getType} />
         <Button
-          fullWidth
-          size="large"
-          color="secondary"
-          variant="contained"
+          variant="outlined"
+          name="thématique"
+          className="Button"
           style={{
-            position: 'fixed', bottom: '20PX', left: '0', borderRadius: '20px',
+            margin: '30px 0 30px 0',
+            width: '300px',
           }}
         >
-          Valider
+          valider
         </Button>
       </div>
     );

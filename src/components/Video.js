@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import YouTube from 'react-youtube';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
+
 
 class Video extends Component {
   constructor(props) {
@@ -39,6 +41,14 @@ class Video extends Component {
     });
   };
 
+  redirect = (url) => {
+    const { history } = this.props;
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
+  }
+
   render() {
     const { video, videoId } = this.state;
     console.log(video);
@@ -51,6 +61,12 @@ class Video extends Component {
     };
     return (
       <div>
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            this.redirect('/AddCours');
+          }}
+        />
         {video
           && (
           <>

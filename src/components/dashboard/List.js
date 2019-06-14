@@ -54,9 +54,6 @@ export default function ListCours(props) {
                   {info.data.name}
                 </Link>
               </Typography>
-              <Typography variant="h5" component="h2">
-                {info.data.thématique}
-              </Typography>
               <Typography className={classes.pos} color="textSecondary">
                 {info.data.difficulté}
               </Typography>
@@ -67,10 +64,7 @@ export default function ListCours(props) {
                 {info.data.durée}
               </Typography>
               <Typography variant="body2" component="p">
-                {info.data.description}
-              </Typography>
-              <Typography variant="body2" component="p">
-              tags :
+                tags :
                 {info.data.tags}
               </Typography>
             </li>

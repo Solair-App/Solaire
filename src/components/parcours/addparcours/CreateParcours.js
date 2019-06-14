@@ -95,7 +95,7 @@ function CreateParcours(props) {
   }
 
   const { state } = props;
-  console.log(value);
+
   return (
 
     <form className="classesContainer" autoComplete="off">

@@ -2,11 +2,10 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import Button from '@material-ui/core/Button';
+
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 
-import Add from '@material-ui/icons/Add';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,9 +23,9 @@ const useStyles = makeStyles(theme => ({
 
 function TypeCours(props) {
   const classes = useStyles();
-  const [value] = React.useState('');
 
-  const { getType } = props;
+
+  const { getType, currentValue } = props;
 
   return (
     <div className={classes.root}>
@@ -36,7 +35,7 @@ function TypeCours(props) {
           aria-label="Type"
           name="Type"
           className={classes.group}
-          value={value}
+          value={currentValue}
           onChange={getType}
 
         >
@@ -46,11 +45,6 @@ function TypeCours(props) {
 
         </RadioGroup>
 
-        <Button>
-          {' '}
-          <Add style={{ marginRight: '10px' }} />
-Ajouter un cours
-        </Button>
       </FormControl>
     </div>
   );

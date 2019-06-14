@@ -4,6 +4,7 @@ import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
 import Cancel from '@material-ui/icons/Cancel';
 import { withRouter } from 'react-router';
+import Add from '@material-ui/icons/Add';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import ListCours from './ListCours';
 import TypeCours from './TypeCours';
@@ -24,6 +25,10 @@ class AddCours extends Component {
   //     this.getDataBaseData();
   //   }
   // }
+  submit = () => {
+    const { history } = this.props;
+    history.push('/mydashboard');
+  }
 
   getDataBaseData = () => {
     const { firestore } = this.props;
@@ -48,9 +53,10 @@ class AddCours extends Component {
     const { firestore } = this.props;
     const db = firestore;
     const type = event.target.value;
-    const { history } = this.props;
+
     const courseSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc();
     localStorage.setItem('coursId', courseSet.id);
+
 
     let cours;
     switch (type) {
@@ -67,6 +73,16 @@ class AddCours extends Component {
         break;
       default:
     }
+    this.setState({
+      cours,
+
+    });
+  }
+
+
+  redirectToLessons = () => {
+    const { history } = this.props;
+    const { cours } = this.state;
     history.push({
       pathname: `/${cours}`,
       state: { cours: true },
@@ -89,9 +105,18 @@ class AddCours extends Component {
         <ListCours courseName={data} />
 
         <TypeCours getType={this.getType} />
+
+        <Button onClick={() => { this.redirectToLessons(); }}>
+          {' '}
+          <Add style={{ marginRight: '10px' }} />
+Ajouter un cours
+        </Button>
         <Button
+
           fullWidth
+
           size="large"
+          onClick={this.submit}
           color="secondary"
           variant="contained"
           style={{
@@ -100,6 +125,7 @@ class AddCours extends Component {
         >
           Valider
         </Button>
+
       </div>
     );
   }

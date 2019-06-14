@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -34,8 +36,11 @@ export default function ListCours(props) {
     <ul className="hs full">
       {data
         .filter(
-          info => info.thématique === props.thématique
-            && info.name.toUpperCase().includes(props.currentSearch.toUpperCase()),
+          /* eslint-disable no-mixed-operators */
+          info => info.data.thématique === props.thématique
+            && info.data.tags
+              .toUpperCase()
+              .includes(props.currentSearch.toUpperCase()),
         )
         .map((info, index) => (
           <div>
@@ -45,22 +50,24 @@ export default function ListCours(props) {
                 color="textSecondary"
                 gutterBottom
               >
-                {info.name}
+                <Link to={{ pathname: '/parcours', state: { parcoursId: info.id } }}>
+                  {info.data.name}
+                </Link>
               </Typography>
               <Typography variant="h5" component="h2">
-                {info.thématique}
+                {info.data.thématique}
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                {info.difficulté}
+                {info.data.difficulté}
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                {info.langue}
+                {info.data.langue}
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                {info.durée}
+                {info.data.durée}
               </Typography>
               <Typography variant="body2" component="p">
-                {info.description}
+                {info.data.description}
               </Typography>
             </li>
           </div>

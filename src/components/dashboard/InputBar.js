@@ -77,7 +77,7 @@ function SearchAppBar(props) {
         <InputBase
           name="searchField"
           onChange={handleChange}
-          placeholder="Search…"
+          placeholder="Search tags..."
           classes={{
             root: classes.inputRoot,
             input: classes.inputInput,

@@ -31,7 +31,7 @@ class ListCours extends Component {
     const { allCourses } = this.state;
     return (
       <div>
-        {allCourses.map(cours => (
+        {allCourses && allCourses.map(cours => (
           <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <RadioButtonUnchecked />

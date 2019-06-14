@@ -123,11 +123,7 @@ Ajouter un cours
 
             size="large"
             onClick={this.submit}
-            color="secondary"
             variant="contained"
-            style={{
-              position: 'fixed', bottom: '20PX', left: '0', borderRadius: '20px',
-            }}
           >
           Valider
           </Button>

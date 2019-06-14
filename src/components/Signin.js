@@ -1,9 +1,10 @@
+/* eslint-disable jsx-quotes */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import withFirebaseContext from '../Firebase/withFirebaseContext';
 
 
 class Signup extends Component {
@@ -51,7 +52,7 @@ class Signup extends Component {
       uid: user.uid,
     }, { merge: true });
     const { history } = this.props;
-    history.push('/dashboard');
+    history.push('/mydashboard');
   }
 
   render() {
@@ -77,7 +78,7 @@ class Signup extends Component {
                 label="Full Name"
                 name="username"
                 className='textfield'
-                currentValue={username}
+                value={username}
                 onChange={this.onChange}
                 style={{ marginTop: '5%', width: '50%' }}
               />
@@ -102,7 +103,7 @@ class Signup extends Component {
                 label="Password"
                 name="passwordOne"
                 className='textfield'
-                currentValue={passwordOne}
+                value={passwordOne}
                 type="password"
                 onChange={this.onChange}
                 style={{ marginTop: '5%', width: '50%' }}
@@ -116,7 +117,7 @@ class Signup extends Component {
                 label="Confirm Password"
                 name="passwordTwo"
                 className='textfield'
-                currentValue={passwordTwo}
+                value={passwordTwo}
                 type="password"
                 onChange={this.onChange}
                 style={{ marginTop: '5%', width: '50%' }}
@@ -129,8 +130,9 @@ class Signup extends Component {
             type="submit"
             color="primary"
             variant="contained"
-            style={{ position: 'fixed center', marginTop:'8%', borderRadius: '20px' }}
-            className="Button">
+            style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
+            className="Button"
+          >
             Sign Up
           </Button>
           {error && <p>{error.message}</p>}

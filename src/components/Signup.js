@@ -48,7 +48,7 @@ class Signup extends Component {
       uid: user.uid,
     }, { merge: true });
     const { history } = this.props;
-    history.push('/dashboard');
+    history.push('/mydashboard');
   }
 
 
@@ -56,19 +56,25 @@ class Signup extends Component {
     const { connected } = this.state;
     return (
       <div className="signin" style={{ color: 'black' }}>
+        <img src="./assets/logo.png" alt="logo" />
+        <h1 style={{ margin: '1%' }}>Elearning</h1>
+        <h3 style={{ margin: '1%' }}>Apprendre en s’amusant de façon ludique</h3>
         {
           connected
             ? <p>Signed in!</p>
             : (
               <>
-                <h2 className="h2"> Please sign in</h2>
+                <h3 style={{ color: 'white', margin: '1%' }}> Please sign in</h3>
                 <Button
                   size="large"
                   color="primary"
                   onClick={() => this.login('google')}
                   variant="contained"
-                  style={{ position: 'fixed center', marginBottom:'2%', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px' }}
-                  className="Button">
+                  style={{
+                    position: 'fixed center', marginBottom: '2%', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px',
+                  }}
+                  className="Button"
+                >
                   Sign up with Google
                 </Button>
                 <Button
@@ -76,8 +82,11 @@ class Signup extends Component {
                   color="primary"
                   onClick={() => this.login('facebook')}
                   variant="contained"
-                  style={{ position: 'fixed center', marginBottom:'2%', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px' }}
-                  className="Button">
+                  style={{
+                    position: 'fixed center', marginBottom: '2%', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px',
+                  }}
+                  className="Button"
+                >
                   Sign up with Facebook
                 </Button>
                 <Link to="/signin">
@@ -85,10 +94,13 @@ class Signup extends Component {
                     size="large"
                     color="primary"
                     variant="contained"
-                    style={{ position: 'fixed center', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px' }}
-                    className="Button">
+                    style={{
+                      position: 'fixed center', marginBottom: '2%', bottom: '2%', left: '0%', right: '0%', borderRadius: '20px',
+                    }}
+                    className="Button"
+                  >
                     Sign up with Email
-                </Button>
+                  </Button>
                 </Link>
                 <p><Link to="/connect">Already have an account?</Link></p>
               </>

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Cancel from '@material-ui/icons/Cancel';
 import Button from '@material-ui/core/Button';
@@ -12,7 +13,6 @@ import '../../../SCSS/CreateParcours.scss';
 
 
 function CreateParcours(props) {
-
   const [values] = React.useState({});
 
   const [state, setState] = React.useState({
@@ -42,7 +42,10 @@ function CreateParcours(props) {
   // redirection si le parcours est crée
   function redirect(url) {
     const { history } = props;
-    history.push(url);
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
   }
 
   // Stockage du parcours dans la db

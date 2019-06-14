@@ -32,10 +32,10 @@ export default function ListCours(props) {
 
   return (
     <ul className="hs full">
-      {data
+      { data
         .filter(
-          info => info.thématique === props.thématique
-            && info.name.toUpperCase().includes(props.currentSearch.toUpperCase()),
+          info => info.data.thématique === props.thématique
+            && info.data.name.toUpperCase().includes(props.currentSearch.toUpperCase()),
         )
         .map((info, index) => (
           <div>
@@ -45,26 +45,29 @@ export default function ListCours(props) {
                 color="textSecondary"
                 gutterBottom
               >
-                {info.name}
+
+                {info.data.name}
               </Typography>
               <Typography variant="h5" component="h2">
-                {info.thématique}
+                {info.data.thématique}
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                {info.difficulté}
+                {info.data.difficulté}
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                {info.langue}
+                {info.data.langue}
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                {info.durée}
+                {info.data.durée}
               </Typography>
               <Typography variant="body2" component="p">
-                {info.description}
+                {info.data.description}
               </Typography>
+
+
             </li>
           </div>
-        ))}
+        )) }
     </ul>
   );
 }

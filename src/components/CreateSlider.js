@@ -87,7 +87,6 @@ const CreateSlider = ({ firestore, history }) => {
         ? <h2 style={{ marginTop: '8px' }}>Aperçu du slider en cours</h2>
         : <p style={{ marginTop: '8px' }}>Ce slider ne contient pas encore de questions</p>
       }
-
       {
         <div className="import">{ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}</div>
       }

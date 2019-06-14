@@ -89,7 +89,7 @@ const CreateSlider = ({ firestore, history }) => {
       }
 
       {
-        infoSlide.slides && Object.values(infoSlide.slides).map(sl => <div className="import">{ReactHtmlParser(sl)[activeStep]}</div>)
+        <div className="import">{ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}</div>
       }
 
       <MobileStepper

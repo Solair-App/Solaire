@@ -32,10 +32,13 @@ export default function ListCours(props) {
 
   return (
     <ul className="hs full">
-      { data
+      {data
         .filter(
+          /* eslint-disable no-mixed-operators */
           info => info.data.thématique === props.thématique
-            && info.data.name.toUpperCase().includes(props.currentSearch.toUpperCase()),
+            && info.data.tags
+              .toUpperCase()
+              .includes(props.currentSearch.toUpperCase()),
         )
         .map((info, index) => (
           <div>
@@ -45,7 +48,6 @@ export default function ListCours(props) {
                 color="textSecondary"
                 gutterBottom
               >
-
                 {info.data.name}
               </Typography>
               <Typography variant="h5" component="h2">
@@ -63,11 +65,9 @@ export default function ListCours(props) {
               <Typography variant="body2" component="p">
                 {info.data.description}
               </Typography>
-
-
             </li>
           </div>
-        )) }
+        ))}
     </ul>
   );
 }

@@ -111,21 +111,22 @@ class AddCours extends Component {
           <Add style={{ marginRight: '10px' }} />
 Ajouter un cours
         </Button>
-        <Button
+        <div>
+          <Button
 
-          fullWidth
+            fullWidth
 
-          size="large"
-          onClick={this.submit}
-          color="secondary"
-          variant="contained"
-          style={{
-            position: 'fixed', bottom: '20PX', left: '0', borderRadius: '20px',
-          }}
-        >
+            size="large"
+            onClick={this.submit}
+            color="secondary"
+            variant="contained"
+            style={{
+              position: 'fixed', bottom: '20PX', left: '0', borderRadius: '20px',
+            }}
+          >
           Valider
-        </Button>
-
+          </Button>
+        </div>
       </div>
     );
   }

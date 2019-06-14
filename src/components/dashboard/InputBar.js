@@ -5,7 +5,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import { StylesProvider } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -76,7 +75,7 @@ function SearchAppBar(props) {
         <InputBase
           name="searchField"
           onChange={handleChange}
-          placeholder="Search…"
+          placeholder="Search tags..."
           classes={{
             root: classes.inputRoot,
             input: classes.inputInput,

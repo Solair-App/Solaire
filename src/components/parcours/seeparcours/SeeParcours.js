@@ -12,13 +12,22 @@ class seeParcours extends Component {
     this.state = {
       allCourses: [],
     };
-    this.getInfo();
+
+    const { location } = this.props;
+
+    if (location.state && location.state.parcoursId) {
+      console.log(location.state.parcoursId);
+      localStorage.setItem('parcoursId', location.state.parcoursId);
+      this.getInfo();
+    } else {
+      this.getInfo();
+    }
   }
 
   getInfo = () => {
     const { firestore } = this.props;
     const cours = [];
-    firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').get()
+    firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           cours.push({ id: doc.id, data: doc.data() });

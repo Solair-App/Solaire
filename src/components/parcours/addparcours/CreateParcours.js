@@ -47,6 +47,7 @@ function CreateParcours(props) {
           langue: parcours.langue,
           durée: parcours.durée,
           difficulté: parcours.difficulté,
+          tags: parcours.tags,
         },
         { merge: true },
       )
@@ -67,6 +68,7 @@ function CreateParcours(props) {
       && value.langue
       && value.durée
       && value.difficulté
+      && value.tags
     ) {
       return true;
     }
@@ -86,12 +88,14 @@ function CreateParcours(props) {
         value.langue,
         value.durée,
         value.difficulté,
+        value.tags,
       );
       pushParcoursInsideDB(currentParcours);
     }
   }
 
   const { state } = props;
+
   return (
 
     <form className="classesContainer" autoComplete="off">
@@ -126,6 +130,19 @@ function CreateParcours(props) {
           style={{ marginTop: '2%', marginBottom: '5%', width: '50%' }}
         />
       </div>
+      <div>
+        <TextField
+          required
+          id="standard-name"
+          label="tags"
+          className="textfield"
+          value={values.tags}
+          onChange={handleChange('tags')}
+          style={{ marginTop: '5%', width: '50%' }}
+        />
+
+
+      </div>
       <SelectField
         required
         choices={state.thématique}
@@ -159,6 +176,7 @@ function CreateParcours(props) {
         currentValue={value.difficulté}
         className="selectField"
       />
+
       <h3 className="h3">{value.errorMessage}</h3>
       <Button
         variant="outlined"

@@ -69,6 +69,10 @@ export default function ListCours(props) {
               <Typography variant="body2" component="p">
                 {info.data.description}
               </Typography>
+              <Typography variant="body2" component="p">
+              tags :
+                {info.data.tags}
+              </Typography>
             </li>
           </div>
         ))}

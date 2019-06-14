@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -45,7 +47,10 @@ export default function ListCours(props) {
                 color="textSecondary"
                 gutterBottom
               >
-                {info.name}
+                <Link to={{ pathname: '/parcours', state: { parcoursId: info.id } }}>
+                  {info.name}
+                  {info.id}
+                </Link>
               </Typography>
               <Typography variant="h5" component="h2">
                 {info.thématique}

@@ -14,7 +14,6 @@ class seeParcours extends Component {
     };
 
     const { location } = this.props;
-    console.log(location.state.parcoursId);
 
     if (location.state && location.state.parcoursId) {
       console.log(location.state.parcoursId);

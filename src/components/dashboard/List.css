@@ -1,7 +1,7 @@
 :root {
   --gutter: 20px;
 }
-
+.element { overflow: -moz-scrollbars-none; }
 .app {
   padding: var(--gutter) 0;
   display: grid;
@@ -9,7 +9,7 @@
   grid-template-columns: var(--gutter) 1fr var(--gutter);
   align-content: start;
 }
-.hs::-webkit-scrollbar {    display: none;}
+.hs{overflow: -moz-scrollbars-none;}
 .app > * {
   grid-column: 2 / -2;
 }

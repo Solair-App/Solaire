@@ -36,7 +36,7 @@ class Dashboard extends Component {
       .get()
       .then((querySnapshot) => {
         querySnapshot.docs.forEach((doc) => {
-          markers.push(doc.data());
+          markers.push({ data: doc.data(), id: doc.id });
         });
 
         mapDispatchToProps(markers, 'parcours');
@@ -97,7 +97,11 @@ class Dashboard extends Component {
             {state.thématique.filter(result => result.includes(filter)).map((results, index) => (
               <>
                 {' '}
-                <h1 key={`${index + 1}b `}>{results}</h1>
+                <h1 key={`${index + 1}b `}>
+                  {results}
+                  {' '}
+
+                </h1>
                 <List
                   key={`${index + 1}a`}
                   data={state.parcours}

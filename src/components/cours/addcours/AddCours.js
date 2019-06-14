@@ -24,6 +24,10 @@ class AddCours extends Component {
   //     this.getDataBaseData();
   //   }
   // }
+  submit = () => {
+    const { history } = this.props;
+    history.push('/mydashboard');
+  }
 
   getDataBaseData = () => {
     const { firestore } = this.props;
@@ -92,6 +96,7 @@ class AddCours extends Component {
         <Button
           fullWidth
           size="large"
+          onClick={this.submit}
           color="secondary"
           variant="contained"
           style={{

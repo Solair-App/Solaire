@@ -17,6 +17,8 @@ class ListCours extends Component {
   getInfo = () => {
     const { firestore } = this.props;
     const cours = [];
+    const idParcours = localStorage.getItem('id');
+    localStorage.setItem('parcoursId', idParcours);
     firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {

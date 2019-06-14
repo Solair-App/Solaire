@@ -25,7 +25,7 @@ class Quiz extends React.Component {
 
   getInfo = () => {
     const { firestore } = this.props;
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(this.cours);
+    const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(this.cours);
     docRef.get().then((doc) => {
       if (doc.exists) {
         let quiz = doc.data();

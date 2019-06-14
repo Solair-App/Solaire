@@ -48,6 +48,7 @@ class Dashboard extends Component {
     if (e.target.value === 'All') {
       this.setState({
         filter: '',
+        currentValue: 'All',
 
       });
     } else {

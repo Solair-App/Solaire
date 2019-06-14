@@ -5,7 +5,8 @@ import LockOpen from '@material-ui/icons/LockOpen';
 import { Link } from 'react-router-dom';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
-class ListCours extends Component {
+
+class seeParcours extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,27 +28,24 @@ class ListCours extends Component {
       });
   }
 
+  // name et type de cours à mettre dans slide, vidéo et quizz
+
   render() {
     const { allCourses } = this.state;
     return (
       <div>
         {allCourses.map(cours => (
           <>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <RadioButtonUnchecked />
               <img src={`./assets/${cours.data.type}.png`} style={{ width: '4em' }} alt={cours.data.type} />
-              <div style={{
-                display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',
-              }}
-              >
-                <Link to={{ pathname: `/${cours.data.type}`, state: { id: cours.id } }}>
-                  {cours.data.name}
-                </Link>
-                <p>
-                  {cours.data.description}
-                </p>
-              </div>
-            </div>
+              <Link to={{ pathname: `/${cours.data.type}`, state: { id: cours.id } }}>
+                {cours.data.name}
+              </Link>
+            </p>
+            <p>
+              {cours.data.description}
+            </p>
             <div>
               <ArrowDownward />
             </div>
@@ -59,14 +57,9 @@ class ListCours extends Component {
             </div>
           </>
         ))}
-
-        <p style={{ marginTop: '10px' }}>
-          <RadioButtonUnchecked style={{ marginRight: '10px' }} />
-          Certification
-        </p>
       </div>
     );
   }
 }
 
-export default withFirebaseContext(ListCours);
+export default withFirebaseContext(seeParcours);

@@ -53,12 +53,12 @@ class Form extends Component {
     const videoSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
     const video = videoSet.doc(localStorage.getItem('coursId'));
     video.set({
-      link, duree, name, description,
+      link, duree, name, description, type: 'video', finish: true,
     }, { merge: true });
     e.preventDefault();
 
     const { history } = this.props;
-    history.push('mydashboard');
+    history.push('/addcours');
   }
 
   render() {
@@ -134,6 +134,7 @@ class Form extends Component {
                   <YouTube
                     videoId={id}
                     opts={opts}
+                    /* eslint no-underscore-dangle: 0 */
                     onReady={this._onReady}
                   />
                 ) : null}

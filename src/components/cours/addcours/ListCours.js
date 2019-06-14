@@ -1,49 +1,72 @@
-import React from 'react';
+import React, { Component } from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
-import Edit from '@material-ui/icons/Edit';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import LockOpen from '@material-ui/icons/LockOpen';
+import { Link } from 'react-router-dom';
+import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
-function ListCours() {
-  const courseName = ['Cours', 'Cours', 'Cours', 'Cours', 'Cours', 'Cours', 'Cours', 'Cours'];
-  return (
+class ListCours extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      allCourses: [],
+    };
+    this.getInfo();
+  }
 
-    <div>
-      {' '}
-      {courseName.map((cours, index) => (
-        <div key={`${index + 1}c`}>
+  getInfo = () => {
+    const { firestore } = this.props;
+    const cours = [];
+    firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          cours.push({ id: doc.id, data: doc.data() });
+          // doc.data() is never undefined for query doc snapshots
+          this.setState({ allCourses: cours });
+        });
+      });
+  }
 
-          <p>
-            <RadioButtonUnchecked key={`${index + 1}c`} style={{ marginRight: '10px' }} />
-            {cours}
-            {' '}
-            <Edit style={{ marginLeft: '10px' }} />
-
-          </p>
-
-          <div>
-            <ArrowDownward />
-          </div>
-          <div>
-            <LockOpen />
+  render() {
+    const { allCourses } = this.state;
+    return (
+      <div>
+        {allCourses.map(cours => (
+          <>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <RadioButtonUnchecked />
+              <img src={`./assets/${cours.data.type}.png`} style={{ width: '4em' }} alt={cours.data.type} />
+              <div style={{
+                display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',
+              }}
+              >
+                <Link to={{ pathname: `/${cours.data.type}`, state: { id: cours.id } }}>
+                  {cours.data.name}
+                </Link>
+                <p>
+                  {cours.data.description}
+                </p>
+              </div>
+            </div>
             <div>
               <ArrowDownward />
             </div>
-          </div>
-        </div>
-      ))}
-      {' '}
+            <div>
+              <LockOpen />
+              <div>
+                <ArrowDownward />
+              </div>
+            </div>
+          </>
+        ))}
 
-      <p style={{ marginTop: '10px' }}>
-        <RadioButtonUnchecked style={{ marginRight: '10px' }} />
-       Certification
-        {' '}
-
-
-      </p>
-    </div>
-  );
+        <p style={{ marginTop: '10px' }}>
+          <RadioButtonUnchecked style={{ marginRight: '10px' }} />
+          Certification
+        </p>
+      </div>
+    );
+  }
 }
 
-
-export default ListCours;
+export default withFirebaseContext(ListCours);

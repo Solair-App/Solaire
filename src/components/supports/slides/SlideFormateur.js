@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CKEditor from 'ckeditor4-react';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
-import '../App.scss';
+import withFirebaseContext from '../../../Firebase/withFirebaseContext';
+import '../../../App.scss';
 
 CKEditor.editorUrl = '/ckeditor/ckeditor.js';
 

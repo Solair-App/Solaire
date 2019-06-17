@@ -4,6 +4,7 @@ import ReactHtmlParser from 'react-html-parser';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
@@ -60,7 +61,12 @@ const SlideApprenant = ({ firestore, location, history }) => {
 
   return (
     <div className={classes.root}>
-
+      <ArrowBack
+        style={{ position: 'fixed', left: '10px', top: '10px' }}
+        onClick={() => {
+          history.goBack();
+        }}
+      />
       {
         <div className="import">{ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}</div>
       }
@@ -75,13 +81,13 @@ const SlideApprenant = ({ firestore, location, history }) => {
             Next
             {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
           </Button>
-)}
+        )}
         backButton={(
           <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
             {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
             Back
           </Button>
-)}
+        )}
       />
     </div>
   );

@@ -73,12 +73,13 @@ class Quiz extends React.Component {
     const {
       quiz, current, correct, incorrect,
     } = this.state;
+    const { history } = this.props;
     return (
       <div>
         <ArrowBack
           style={{ position: 'fixed', left: '10px', top: '10px' }}
           onClick={() => {
-            this.redirect('/AddCours');
+            history.goBack();
           }}
         />
         {quiz && Object.keys(quiz).length > current

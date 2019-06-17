@@ -39,7 +39,6 @@ class Dashboard extends Component {
         querySnapshot.docs.forEach((doc) => {
           markers.push({ data: doc.data(), id: doc.id });
         });
-
         mapDispatchToProps(markers, 'parcours');
       });
   }

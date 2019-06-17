@@ -84,6 +84,9 @@ class Profile extends Component {
               <Button
                 variant="outlined"
                 name="changeprofile"
+                onClick={() => {
+                  this.redirect('/changeprofile');
+                }}
                 className="Button"
                 style={{
                   margin: '30px 0 30px 0',
@@ -99,7 +102,10 @@ class Profile extends Component {
                 color="primary"
                 onClick={this.logout}
                 variant="contained"
-                style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
+                style={{
+                  margin: '30px 0 30px 0',
+                  width: '300px',
+                }}
                 className="Button"
               >
                 Log Out

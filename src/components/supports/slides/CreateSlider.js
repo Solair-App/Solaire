@@ -10,9 +10,9 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import Grid from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
+import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
-import '../App.scss';
+import '../../../App.scss';
 
 const useStyles = makeStyles(theme => ({
   root: {

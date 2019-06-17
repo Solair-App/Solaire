@@ -12,14 +12,14 @@ import Dashboard from './components/dashboard/Dashboard';
 import Connect from './components/Connect';
 import PasswordForget from './components/PasswordForget';
 import Profile from './components/Profile/Profile';
-import SlideFormateur from './components/SlideFormateur';
-import SlideApprenant from './components/SlideApprenant';
+import SlideFormateur from './components/supports/slides/SlideFormateur';
+import SlideApprenant from './components/supports/slides/SlideApprenant';
 import CreateQuiz from './components/CreateQuiz';
 import SeeParcours from './components/parcours/seeparcours/SeeParcours';
 import Quiz from './components/Quiz';
 import CreateQuestion from './components/CreateQuestion';
 import Video from './components/Video';
-import CreateSlider from './components/CreateSlider';
+import CreateSlider from './components/supports/slides/CreateSlider';
 
 
 const App = () => (

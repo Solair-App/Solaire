@@ -48,6 +48,7 @@ function CreateParcours(props) {
           durée: parcours.durée,
           difficulté: parcours.difficulté,
           tags: parcours.tags,
+          isReadable: false,
         },
         { merge: true },
       )

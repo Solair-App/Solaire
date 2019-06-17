@@ -51,6 +51,7 @@ class Video extends Component {
 
   render() {
     const { video, videoId } = this.state;
+    const { history } = this.props;
     console.log(video);
     const opts = {
       height: '260',
@@ -64,7 +65,7 @@ class Video extends Component {
         <ArrowBack
           style={{ position: 'fixed', left: '10px', top: '10px' }}
           onClick={() => {
-            this.redirect('/AddCours');
+            history.goBack();
           }}
         />
         {video

@@ -3,8 +3,8 @@ import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import TextField from '@material-ui/core/TextField';
-import withFirebaseContext from '../../Firebase/withFirebaseContext';
-
+import BottomNav from './dashboard/BottomNav';
+import withFirebaseContext from '../Firebase/withFirebaseContext';
 
 class Profile extends Component {
   constructor(props) {
@@ -161,7 +161,7 @@ class Profile extends Component {
             </>
           )
         }
-
+        <BottomNav />
       </div>
     );
   }

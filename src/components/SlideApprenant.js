@@ -29,7 +29,7 @@ const SlideApprenant = ({ firestore, location, history }) => {
   useEffect(() => {
     if (location.state && location.state.id) {
       const cours = location.state.id;
-      const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(cours);
+      const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(cours);
       docRef.get().then((doc) => {
         if (doc.exists) {
           setSlide(doc.data());

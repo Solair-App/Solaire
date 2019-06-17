@@ -71,9 +71,7 @@ function SearchAppBar(props) {
     <div className={classes.root}>
 
       <div className={classes.search}>
-        <div className={classes.searchIcon}>
-          <SearchIcon />
-        </div>
+        <SearchIcon style={{ margin: '5px', position: 'absolute' }} />
         <InputBase
           name="searchField"
           onChange={handleChange}
@@ -83,14 +81,18 @@ function SearchAppBar(props) {
             input: classes.inputInput,
           }}
           inputProps={{ 'aria-label': 'Search' }}
-
+          style={{
+            margin: '0px 20px 30px -20px',
+            width: '265px',
+            textAlign: 'left',
+            fontSize: '18px',
+          }}
           value={currentValue}
         />
         <TextField
           id="standard-select-currency"
           select
           name="filter"
-          label="Select"
           className={classes.textField}
           value={currentFilterValue}
           onChange={handleChange}
@@ -99,11 +101,12 @@ function SearchAppBar(props) {
               className: classes.menu,
             },
           }}
-
-
+          style={{
+            margin: '0px 0 30px -13px',
+            width: '150px',
+          }}
           margin="normal"
         >
-
           {state.thématique.length > 1 ? thématique.map(option => (
             <MenuItem key={option} value={option}>
               {option}

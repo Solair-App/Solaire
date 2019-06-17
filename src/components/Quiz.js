@@ -1,5 +1,6 @@
 import React from 'react';
 import '../SCSS/Quiz.scss';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
 
@@ -25,7 +26,7 @@ class Quiz extends React.Component {
 
   getInfo = () => {
     const { firestore } = this.props;
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(this.cours);
+    const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(this.cours);
     docRef.get().then((doc) => {
       if (doc.exists) {
         let quiz = doc.data();
@@ -39,6 +40,14 @@ class Quiz extends React.Component {
       console.log('Error getting document:', error);
     });
   };
+
+  redirect = (url) => {
+    const { history } = this.props;
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
+  }
 
   handleClick(choice) {
     const {
@@ -59,12 +68,19 @@ class Quiz extends React.Component {
     // }
   }
 
+
   render() {
     const {
       quiz, current, correct, incorrect,
     } = this.state;
     return (
       <div>
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            this.redirect('/AddCours');
+          }}
+        />
         {quiz && Object.keys(quiz).length > current
           ? (
             <>

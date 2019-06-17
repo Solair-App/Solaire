@@ -86,7 +86,7 @@ class Profile extends Component {
                 src="/assets/github.png"
                 className="avatar"
                 style={{
-                  margin: '60px',
+                  margin: '140px',
                   width: '100px',
                   height: '100px',
                 }}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import TextField from '@material-ui/core/TextField';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 
 
@@ -68,6 +69,7 @@ class Profile extends Component {
           }}
         />
         <h1>Mon compte</h1>
+        {' '}
         {userInfo
           ? (
             <>
@@ -76,6 +78,58 @@ class Profile extends Component {
                 {' '}
                 {userInfo.name}
               </p>
+
+              <div>
+                <TextField
+                  required
+                  id="standard-name"
+                  label="Nom"
+                  className="textfield"
+                  style={{ marginTop: '5%', width: '50%' }}
+                />
+              </div>
+
+              <div>
+                <TextField
+                  required
+                  id="standard-name"
+                  label="Prénom"
+                  className="textfield"
+                  style={{ marginTop: '5%', width: '50%' }}
+                />
+              </div>
+
+              <div>
+                <TextField
+                  required
+                  id="outlined-email-input"
+                  label="Email"
+                  className="textField"
+                  autoComplete="email"
+                  style={{ marginTop: '5%', width: '50%' }}
+                />
+              </div>
+
+              <div>
+                <TextField
+                  id="standard-name"
+                  label="Ville"
+                  className="textfield"
+                  style={{ marginTop: '5%', width: '50%' }}
+                />
+              </div>
+
+              <div>
+                <TextField
+                  id="standard-multiline-flexible"
+                  label="Description"
+                  multiline
+                  rowsMax="4"
+                  className="textField"
+                  style={{ marginTop: '5%', width: '50%' }}
+                />
+              </div>
+
               <Button
                 size="large"
                 type="button"

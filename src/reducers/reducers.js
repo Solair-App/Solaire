@@ -7,6 +7,11 @@ const reducers = (state, action) => {
         ...state,
         parcours: action.payload,
       };
+    case 'HANDLE_COURS':
+      return {
+        ...state,
+        cours: action.payload,
+      };
     case 'HANDLE_CATEGORY':
       return {
         ...state,

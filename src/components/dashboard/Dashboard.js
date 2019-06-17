@@ -27,8 +27,8 @@ class Dashboard extends Component {
 
   getMarkers() {
     const { state } = this.props;
-    if (!state) {
-    // eslint-disable-next-line no-shadow
+    if (!state || !state.parcours) {
+      // eslint-disable-next-line no-shadow
       const { mapDispatchToProps } = this.props;
 
       const markers = [];
@@ -70,7 +70,7 @@ class Dashboard extends Component {
 
   getCategoryFromDB = () => {
     const { state } = this.props;
-    if (!state) {
+    if (!state || !state.thématique) {
       let category = [];
       const forLoop = ['thématique', 'difficulté', 'durée', 'langue'];
       // eslint-disable-next-line no-shadow

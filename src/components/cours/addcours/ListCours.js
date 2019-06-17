@@ -2,38 +2,52 @@ import React, { Component } from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import LockOpen from '@material-ui/icons/LockOpen';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
+import { mapDispatchToProps } from '../../../actions/action';
 
+const mapStateToProps = state => ({
+  state,
+});
 class ListCours extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      allCourses: [],
-    };
     this.getInfo();
   }
 
   getInfo = () => {
-    const { firestore } = this.props;
-    const cours = [];
+    const { state } = this.props;
     const idParcours = localStorage.getItem('id');
     localStorage.setItem('parcoursId', idParcours);
-    firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          cours.push({ id: doc.id, data: doc.data() });
-          // doc.data() is never undefined for query doc snapshots
-          this.setState({ allCourses: cours });
+    if ((state && !state.cours) || !state || (state && state.parcours.id !== idParcours)) {
+      // eslint-disable-next-line no-shadow
+      const { firestore, mapDispatchToProps } = this.props;
+      const cours = [];
+      firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            cours.push({ id: doc.id, data: doc.data() });
+            // doc.data() is never undefined for query doc snapshots
+            mapDispatchToProps(cours, 'cours');
+          });
         });
-      });
+    }
+  }
+
+  goToCourse = (type, data, id) => {
+    const { history } = this.props;
+    localStorage.setItem('coursId', id);
+    history.push({
+      pathname: `/${type}`,
+      state: { data },
+    });
   }
 
   render() {
-    const { allCourses } = this.state;
+    const { state } = this.props;
     return (
       <div>
-        {allCourses && allCourses.map(cours => (
+        {state && state.cours && state.cours.map(cours => (
           <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <RadioButtonUnchecked />
@@ -42,9 +56,13 @@ class ListCours extends Component {
                 display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',
               }}
               >
-                <Link to={{ pathname: `/${cours.data.type}`, state: { id: cours.id } }}>
+                <button
+                  type="button"
+                  onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)}
+                >
                   {cours.data.name}
-                </Link>
+                </button>
+                {' '}
                 <p>
                   {cours.data.description}
                 </p>
@@ -71,4 +89,7 @@ class ListCours extends Component {
   }
 }
 
-export default withFirebaseContext(ListCours);
+export default connect(
+  mapStateToProps,
+  { mapDispatchToProps },
+)(withFirebaseContext(ListCours));

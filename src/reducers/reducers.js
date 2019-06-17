@@ -12,6 +12,7 @@ const reducers = (state, action) => {
         ...state,
         [action.key]: action.payload,
       };
+
     default:
       return state;
   }

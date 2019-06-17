@@ -1,52 +1,90 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router';
 import ReactHtmlParser from 'react-html-parser';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import MobileStepper from '@material-ui/core/MobileStepper';
+import Button from '@material-ui/core/Button';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
 import '../App.scss';
 
-class SlideApprenant extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      infoSlide: { slides: [] },
-    };
-    this.getInfo();
-  }
+const useStyles = makeStyles(theme => ({
+  root: {
+    maxWidth: 400,
+    flexGrow: 1,
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    height: 50,
+    paddingLeft: theme.spacing(4),
+    backgroundColor: theme.palette.background.default,
+  },
 
-  getInfo = () => {
-    const { firestore } = this.props;
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(localStorage.getItem('coursId'));
-    docRef.get().then((doc) => {
-      if (doc.exists) {
-        const infoSlide = doc.data();
-        this.setState({
-          infoSlide,
-        });
-      } else {
-        // doc.data() will be undefined in this case
-        console.log('No such document!');
-      }
-    }).catch((error) => {
-      console.log('Error getting document:', error);
-    });
-  }
+}));
 
-  render() {
-    const { infoSlide } = this.state;
-    return (
-      <>
-        {
-          infoSlide.slides && Object.values(infoSlide.slides).map(sl => <div style={{ color: 'black' }}>{ReactHtmlParser(sl)}</div>)
+const SlideApprenant = ({ firestore, location, history }) => {
+  const [infoSlide, setSlide] = useState({ slides: [] });
+  useEffect(() => {
+    if (location.state && location.state.id) {
+      const cours = location.state.id;
+      const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(cours);
+      docRef.get().then((doc) => {
+        if (doc.exists) {
+          setSlide(doc.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log('No such document!');
         }
-        {/* <pre style={{ border: '2px solid black' }}>
-            {infoSlide && ReactHtmlParser(infoSlide.slides[1].replace(regex, subst)) }
-          </pre>
-          <pre style={{ border: '2px solid black' }}>
-            {infoSlide && ReactHtmlParser(infoSlide.slides[2].replace(regex, subst)) }
-          </pre> */}
-      </>
-    );
+      }).catch((error) => {
+        console.log('Error getting document:', error);
+      });
+    } else {
+      history.push('/mydashboard');
+    }
+  });
+  const classes = useStyles();
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const maxSteps = infoSlide.slides && Object.values(infoSlide.slides).length;
+
+
+  function handleNext() {
+    setActiveStep(prevActiveStep => prevActiveStep + 1);
   }
-}
+
+  function handleBack() {
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  }
+
+  return (
+    <div className={classes.root}>
+
+      {
+        <div className="import">{ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}</div>
+      }
+
+      <MobileStepper
+        steps={maxSteps}
+        position="static"
+        variant="text"
+        activeStep={activeStep}
+        nextButton={(
+          <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
+            Next
+            {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+          </Button>
+)}
+        backButton={(
+          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+            Back
+          </Button>
+)}
+      />
+    </div>
+  );
+};
 
 export default withRouter(withFirebaseContext(SlideApprenant));

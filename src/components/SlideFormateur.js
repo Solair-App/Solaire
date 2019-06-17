@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import CKEditor from 'ckeditor4-react';
-import { Link } from 'react-router-dom';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
 import '../App.scss';
 
@@ -38,8 +37,7 @@ class Essai extends Component {
   }
 
   saveData = () => {
-    const { firestore } = this.props;
-
+    const { firestore, history } = this.props;
     const { content } = this.state;
     // content = JSON.stringify(content);
     if (this.isContentNull()) {
@@ -54,7 +52,6 @@ class Essai extends Component {
       /* const slideSet = db.collection('parcours')
       .doc(localStorage.getItem('id')).collection('cours').add({ slides: [content] }); */
       const slideSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
-
       const slide = slideSet.doc(localStorage.getItem('coursId'));
       const slideNumber = parseInt(localStorage.getItem('slideNumb'), 10) + 1;
       localStorage.setItem('slideNumb', slideNumber);
@@ -63,6 +60,10 @@ class Essai extends Component {
       // slide.update({ slides: firebase.firestore.FieldValue.arrayUnion(content) });
       // slideSet.update({ slides: firebase.firestore.FieldValue.arrayRemove(content) });
     }
+    history.push({
+      pathname: '/createslider',
+      state: { cours: true },
+    });
   }
 
 
@@ -84,7 +85,6 @@ class Essai extends Component {
           ) : ''}
         </div>
         <button onClick={this.saveData} type="submit">Sauvegarder</button>
-        <Link to="/slideApprenant"><p>Voir mes slides</p></Link>
       </div>
     );
   }

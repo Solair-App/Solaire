@@ -16,6 +16,7 @@ class Dashboard extends Component {
     this.state = {
       searchField: '',
       filter: '',
+      currentValue: 'All',
     };
   }
 
@@ -36,7 +37,7 @@ class Dashboard extends Component {
       .get()
       .then((querySnapshot) => {
         querySnapshot.docs.forEach((doc) => {
-          markers.push(doc.data());
+          markers.push({ data: doc.data(), id: doc.id });
         });
 
         mapDispatchToProps(markers, 'parcours');
@@ -47,13 +48,22 @@ class Dashboard extends Component {
     if (e.target.value === 'All') {
       this.setState({
         filter: '',
+        currentValue: 'All',
+
       });
     } else {
       this.setState({
         [e.target.name]: e.target.value,
+
+      });
+    } if (e.target.value !== 'All' && e.target.name === 'filter') {
+      this.setState({
+
+        currentValue: e.target.value,
+        filter: e.target.value,
       });
     }
-  };
+  }
 
 
   getCategoryFromDB = () => {
@@ -82,7 +92,7 @@ class Dashboard extends Component {
   render() {
     const { state } = this.props;
 
-    const { searchField, filter } = this.state;
+    const { searchField, filter, currentValue } = this.state;
     return (
       <div key="qsdqsd" style={{ display: 'block', textAlign: 'left' }}>
         {' '}
@@ -90,14 +100,18 @@ class Dashboard extends Component {
           <div>
             <InputBar
               handleChange={this.handleChange}
-              currentFilterValue={filter}
+              currentFilterValue={currentValue}
               currentValue={searchField}
 
             />
             {state.thématique.filter(result => result.includes(filter)).map((results, index) => (
               <>
                 {' '}
-                <h1 key={`${index + 1}b `}>{results}</h1>
+                <h1 key={`${index + 1}b `}>
+                  {results}
+                  {' '}
+
+                </h1>
                 <List
                   key={`${index + 1}a`}
                   data={state.parcours}

@@ -15,8 +15,11 @@ import Profile from './components/Profile';
 import SlideFormateur from './components/SlideFormateur';
 import SlideApprenant from './components/SlideApprenant';
 import CreateQuiz from './components/CreateQuiz';
+import SeeParcours from './components/parcours/seeparcours/SeeParcours';
 import Quiz from './components/Quiz';
 import CreateQuestion from './components/CreateQuestion';
+import Video from './components/Video';
+import CreateSlider from './components/CreateSlider';
 
 
 const App = () => (
@@ -26,12 +29,15 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route path="/CreateParcours" component={CreateParcours} />
-          <Route path="/video" component={Form} />
+          <Route path="/addvideo" component={Form} />
+          <Route path="/video" component={Video} />
           <Route path="/AddCours" component={AddCours} />
           <Route path="/addquiz" component={CreateQuiz} />
           <Route path="/addquestion" component={CreateQuestion} />
-          <Route path="/slideApprenant" component={SlideApprenant} />
-          <Route path="/slide" component={SlideFormateur} />
+          <Route path="/parcours" component={SeeParcours} />
+          <Route path="/slide" component={SlideApprenant} />
+          <Route path="/createslider" component={CreateSlider} />
+          <Route path="/addslide" component={SlideFormateur} />
           <Route path="/signin" component={Signin} />
           <Route path="/signup" component={Signup} />
           <Route path="/connect" component={Connect} />

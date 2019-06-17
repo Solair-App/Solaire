@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
 
@@ -53,12 +54,20 @@ class Form extends Component {
     const videoSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
     const video = videoSet.doc(localStorage.getItem('coursId'));
     video.set({
-      link, duree, name, description,
+      link, duree, name, description, type: 'video', finish: true,
     }, { merge: true });
     e.preventDefault();
 
     const { history } = this.props;
-    history.push('mydashboard');
+    history.push('/addcours');
+  }
+
+  redirect = (url) => {
+    const { history } = this.props;
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
   }
 
   render() {
@@ -77,6 +86,12 @@ class Form extends Component {
     };
     return (
       <>
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            this.redirect('/AddCours');
+          }}
+        />
         <form className="formFather">
           <Box
             width="100%"

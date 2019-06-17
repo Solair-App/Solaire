@@ -1,5 +1,7 @@
 import React from 'react';
 import '../SCSS/Quiz.scss';
+import ArrowBack from '@material-ui/icons/ArrowBack';
+import { withRouter } from 'react-router';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
 
 class Quiz extends React.Component {
@@ -12,12 +14,19 @@ class Quiz extends React.Component {
       incorrect: 0,
     };
     this.handleClick = this.handleClick.bind(this);
-    this.getInfo();
-  } // end constructor
+    const { location, history } = this.props;
+    if (location.state && location.state.id) {
+      this.cours = location.state.id;
+      this.getInfo();
+    } else {
+      history.push('/mydashboard');
+    }
+  }
+  // end constructor
 
   getInfo = () => {
     const { firestore } = this.props;
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(localStorage.getItem('coursId'));
+    const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(this.cours);
     docRef.get().then((doc) => {
       if (doc.exists) {
         let quiz = doc.data();
@@ -31,6 +40,14 @@ class Quiz extends React.Component {
       console.log('Error getting document:', error);
     });
   };
+
+  redirect = (url) => {
+    const { history } = this.props;
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
+  }
 
   handleClick(choice) {
     const {
@@ -51,12 +68,19 @@ class Quiz extends React.Component {
     // }
   }
 
+
   render() {
     const {
       quiz, current, correct, incorrect,
     } = this.state;
     return (
       <div>
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            this.redirect('/AddCours');
+          }}
+        />
         {quiz && Object.keys(quiz).length > current
           ? (
             <>
@@ -177,4 +201,4 @@ function ScoreArea({ correct, incorrect }) {
   );
 }
 
-export default withFirebaseContext(Quiz);
+export default withRouter(withFirebaseContext(Quiz));

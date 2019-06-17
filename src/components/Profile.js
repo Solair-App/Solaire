@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
 import Button from '@material-ui/core/Button';
-
+import ArrowBack from '@material-ui/icons/ArrowBack';
+import BottomNav from './dashboard/BottomNav';
+import withFirebaseContext from '../Firebase/withFirebaseContext';
 
 class Profile extends Component {
   constructor(props) {
@@ -48,10 +49,24 @@ class Profile extends Component {
     });
   }
 
+  redirect = (url) => {
+    const { history } = this.props;
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
+  }
+
   render() {
     const { userInfo, error } = this.state;
     return (
       <div>
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            this.redirect('/mydashboard');
+          }}
+        />
         {userInfo
           ? (
             <>
@@ -67,7 +82,8 @@ class Profile extends Component {
                 onClick={this.logout}
                 variant="contained"
                 style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
-                className="Button">
+                className="Button"
+              >
                 Log Out
               </Button>
               {error && <p>{error.message}</p>}
@@ -83,13 +99,14 @@ class Profile extends Component {
                 onClick={this.logout}
                 variant="contained"
                 style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
-                className="Button">
+                className="Button"
+              >
                 Log Out
               </Button>
             </>
           )
         }
-
+        <BottomNav />
       </div>
     );
   }

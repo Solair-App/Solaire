@@ -1,10 +1,10 @@
 
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import withFirebaseContext from '../Firebase/withFirebaseContext';
 
 
 const INITIAL_STATE = {
@@ -52,7 +52,7 @@ class PasswordForget extends Component {
                     required
                     name="email"
                     label="Email Address"
-                    className='textfield'
+                    className="textfield"
                     currentValue={email}
                     type="text"
                     onChange={this.onChange}
@@ -67,7 +67,8 @@ class PasswordForget extends Component {
                 color="primary"
                 variant="contained"
                 style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
-                className="Button">
+                className="Button"
+              >
                 Reset My Password
               </Button>
               {error && <p>{error.message}</p>}

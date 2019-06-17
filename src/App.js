@@ -11,7 +11,7 @@ import Form from './components/Form';
 import Dashboard from './components/dashboard/Dashboard';
 import Connect from './components/Connect';
 import PasswordForget from './components/PasswordForget';
-import Profile from './components/Profile';
+import Profile from './components/Profile/Profile';
 import SlideFormateur from './components/SlideFormateur';
 import SlideApprenant from './components/SlideApprenant';
 import CreateQuiz from './components/CreateQuiz';

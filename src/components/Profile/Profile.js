@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
-import ProfilPhoto from './ProfilPhoto';
+import withFirebaseContext from '../../Firebase/withFirebaseContext';
 
 
 class Profile extends Component {
@@ -69,7 +68,6 @@ class Profile extends Component {
           }}
         />
         <h1>Mon compte</h1>
-        <ProfilPhoto />
         {userInfo
           ? (
             <>

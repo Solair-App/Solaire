@@ -26,21 +26,24 @@ class Dashboard extends Component {
   }
 
   getMarkers() {
+    const { state } = this.props;
+    if (!state) {
     // eslint-disable-next-line no-shadow
-    const { mapDispatchToProps } = this.props;
+      const { mapDispatchToProps } = this.props;
 
-    const markers = [];
+      const markers = [];
 
-    firebase
-      .firestore()
-      .collection('parcours')
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.docs.forEach((doc) => {
-          markers.push({ data: doc.data(), id: doc.id });
+      firebase
+        .firestore()
+        .collection('parcours').where('isReadable', '==', true)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.docs.forEach((doc) => {
+            markers.push({ data: doc.data(), id: doc.id });
+          });
+          mapDispatchToProps(markers, 'parcours');
         });
-        mapDispatchToProps(markers, 'parcours');
-      });
+    }
   }
 
   handleChange = (e) => {
@@ -66,25 +69,28 @@ class Dashboard extends Component {
 
 
   getCategoryFromDB = () => {
-    let category = [];
-    const forLoop = ['thématique', 'difficulté', 'durée', 'langue'];
-    // eslint-disable-next-line no-shadow
-    const { mapDispatchToProps } = this.props;
-    const firestore = firebase.firestore();
-    const db = firestore;
-    for (let i = 0; i < forLoop.length; i += 1) {
-      const themRef = db.collection('category').doc(forLoop[i]);
-      // eslint-disable-next-line no-loop-func
-      themRef.get().then((document) => {
-        const dbCategory = document.data();
+    const { state } = this.props;
+    if (!state) {
+      let category = [];
+      const forLoop = ['thématique', 'difficulté', 'durée', 'langue'];
+      // eslint-disable-next-line no-shadow
+      const { mapDispatchToProps } = this.props;
+      const firestore = firebase.firestore();
+      const db = firestore;
+      for (let i = 0; i < forLoop.length; i += 1) {
+        const themRef = db.collection('category').doc(forLoop[i]);
+        // eslint-disable-next-line no-loop-func
+        themRef.get().then((document) => {
+          const dbCategory = document.data();
 
-        // eslint-disable-next-line no-restricted-syntax
-        for (const [, value] of Object.entries(dbCategory)) {
-          category.push(`${value}`);
-        }
-        mapDispatchToProps(category, 'category', forLoop[i]);
-        category = [];
-      });
+          // eslint-disable-next-line no-restricted-syntax
+          for (const [, value] of Object.entries(dbCategory)) {
+            category.push(`${value}`);
+          }
+          mapDispatchToProps(category, 'category', forLoop[i]);
+          category = [];
+        });
+      }
     }
   };
 

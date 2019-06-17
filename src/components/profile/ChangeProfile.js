@@ -9,6 +9,14 @@ class ChangeProfile extends Component {
     this.state = { };
   }
 
+  redirect = (url) => {
+    const { history } = this.props;
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
+  }
+
   render() {
     return (
       <div>
@@ -18,6 +26,7 @@ class ChangeProfile extends Component {
             this.redirect('/profile');
           }}
         />
+        <h1>Modifier mes informations personnelles</h1>
         <div>
           <TextField
             required
@@ -61,13 +70,25 @@ class ChangeProfile extends Component {
         <div>
           <TextField
             id="standard-multiline-flexible"
-            label="Description"
+            label="A propos de moi"
             multiline
             rowsMax="4"
             className="textField"
             style={{ marginTop: '5%', width: '50%' }}
           />
         </div>
+
+        <Button
+          variant="outlined"
+          name="changeprofile"
+          className="Button"
+          style={{
+            margin: '30px 0 30px 0',
+            width: '300px',
+          }}
+        >
+              Valider mes informations
+        </Button>
       </div>
 
     );

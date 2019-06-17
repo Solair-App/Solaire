@@ -74,61 +74,24 @@ class Profile extends Component {
           ? (
             <>
               <p>
-                Name:
+                Hello
                 {' '}
                 {userInfo.name}
+                {' '}
+                !
               </p>
 
-              <div>
-                <TextField
-                  required
-                  id="standard-name"
-                  label="Nom"
-                  className="textfield"
-                  style={{ marginTop: '5%', width: '50%' }}
-                />
-              </div>
-
-              <div>
-                <TextField
-                  required
-                  id="standard-name"
-                  label="Prénom"
-                  className="textfield"
-                  style={{ marginTop: '5%', width: '50%' }}
-                />
-              </div>
-
-              <div>
-                <TextField
-                  required
-                  id="outlined-email-input"
-                  label="Email"
-                  className="textField"
-                  autoComplete="email"
-                  style={{ marginTop: '5%', width: '50%' }}
-                />
-              </div>
-
-              <div>
-                <TextField
-                  id="standard-name"
-                  label="Ville"
-                  className="textfield"
-                  style={{ marginTop: '5%', width: '50%' }}
-                />
-              </div>
-
-              <div>
-                <TextField
-                  id="standard-multiline-flexible"
-                  label="Description"
-                  multiline
-                  rowsMax="4"
-                  className="textField"
-                  style={{ marginTop: '5%', width: '50%' }}
-                />
-              </div>
+              <Button
+                variant="outlined"
+                name="changeprofile"
+                className="Button"
+                style={{
+                  margin: '30px 0 30px 0',
+                  width: '300px',
+                }}
+              >
+              Changer mes informations
+              </Button>
 
               <Button
                 size="large"

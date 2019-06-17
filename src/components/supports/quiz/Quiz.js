@@ -1,8 +1,8 @@
 import React from 'react';
-import '../SCSS/Quiz.scss';
+import '../../../SCSS/Quiz.scss';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
+import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
 class Quiz extends React.Component {
   constructor(props) {

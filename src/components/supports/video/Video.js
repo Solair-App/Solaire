@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import YouTube from 'react-youtube';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
+import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
 
 class Video extends Component {

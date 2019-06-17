@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
+import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
 const textStyles = theme => ({
   textField: {

@@ -5,20 +5,20 @@ import Welcome from './components/Welcome';
 import FirebaseProvider from './Firebase/FirebaseProvider';
 import CreateParcours from './components/parcours/addparcours/CreateParcours';
 import AddCours from './components/cours/addcours/AddCours';
-import Signin from './components/Signin';
-import Signup from './components/Signup';
-import Form from './components/Form';
+import Signin from './components/connexion/Signin';
+import Signup from './components/connexion/Signup';
+import Form from './components/supports/video/Form';
 import Dashboard from './components/dashboard/Dashboard';
-import Connect from './components/Connect';
+import Connect from './components/connexion/Connect';
 import PasswordForget from './components/PasswordForget';
 import Profile from './components/Profile';
 import SlideFormateur from './components/supports/slides/SlideFormateur';
 import SlideApprenant from './components/supports/slides/SlideApprenant';
-import CreateQuiz from './components/CreateQuiz';
+import CreateQuiz from './components/supports/quiz/CreateQuiz';
 import SeeParcours from './components/parcours/seeparcours/SeeParcours';
-import Quiz from './components/Quiz';
-import CreateQuestion from './components/CreateQuestion';
-import Video from './components/Video';
+import Quiz from './components/supports/quiz/Quiz';
+import CreateQuestion from './components/supports/quiz/CreateQuestion';
+import Video from './components/supports/video/Video';
 import CreateSlider from './components/supports/slides/CreateSlider';
 
 

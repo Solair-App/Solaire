@@ -15,7 +15,7 @@ class ChangeProfile extends Component {
         <ArrowBack
           style={{ position: 'fixed', left: '10px', top: '10px' }}
           onClick={() => {
-            this.redirect('/Profile');
+            this.redirect('/profile');
           }}
         />
         <div>

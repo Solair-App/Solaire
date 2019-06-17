@@ -8,8 +8,8 @@ import { connect } from 'react-redux';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import SelectField from './SelectField';
 import Parcours from './Parcours';
-
 import '../../../SCSS/CreateParcours.scss';
+
 
 function CreateParcours(props) {
   const [values] = React.useState({});

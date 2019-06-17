@@ -17,14 +17,7 @@ class AddCours extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   const { location, history } = this.props;
-  //   if (!location.state || !location.state.parcours) {
-  //     history.push('/CreateParcours');
-  //   } else {
-  //     this.getDataBaseData();
-  //   }
-  // }
+
   submit = () => {
     this.makeCourseReadable();
     const { history } = this.props;

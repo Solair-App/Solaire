@@ -3,8 +3,8 @@ import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import LockOpen from '@material-ui/icons/LockOpen';
 import { Link } from 'react-router-dom';
+import * as firebase from 'firebase';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
-
 
 class seeParcours extends Component {
   constructor(props) {
@@ -16,7 +16,6 @@ class seeParcours extends Component {
     const { location } = this.props;
 
     if (location.state && location.state.parcoursId) {
-      console.log(location.state.parcoursId);
       localStorage.setItem('parcoursId', location.state.parcoursId);
       this.getInfo();
     } else {
@@ -25,9 +24,16 @@ class seeParcours extends Component {
   }
 
   getInfo = () => {
-    const { firestore } = this.props;
     const cours = [];
-    firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').get()
+
+
+    firebase.firestore().collection('parcours').doc(localStorage.getItem('parcoursId')).update({
+      apprenants: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('userid')),
+
+
+    });
+    firebase.firestore().collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours')
+      .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           cours.push({ id: doc.id, data: doc.data() });

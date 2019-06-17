@@ -7,7 +7,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { withRouter } from 'react-router';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
+import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
 
 class CreateQuestion extends React.Component {

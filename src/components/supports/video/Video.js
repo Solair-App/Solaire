@@ -2,29 +2,32 @@ import React, { Component } from 'react';
 import YouTube from 'react-youtube';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
+import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
 
 class Video extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      video: null,
-      videoId: null,
-    };
-    const { location, history } = this.props;
-    if (location.state && location.state.id) {
-      this.cours = location.state.id;
-      this.getInfo();
+    const { location } = this.props;
+    if (location.state && location.state.data) {
+      this.cours = location.state.data;
+      this.state = {
+        video: this.cours,
+        videoId: this.cours.link.substring(this.cours.link.lastIndexOf('=') + 1, this.cours.link.length),
+      };
     } else {
-      history.push('/mydashboard');
+      this.getInfo();
+      this.state = {
+        video: [],
+        videoId: null,
+      };
     }
   }
 
   getInfo = () => {
     const { firestore } = this.props;
 
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(this.cours);
+    const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(localStorage.getItem('coursId'));
     docRef.get().then((doc) => {
       if (doc.exists) {
         const video = doc.data();

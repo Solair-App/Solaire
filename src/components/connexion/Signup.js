@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-
-import withFirebaseContext from '../Firebase/withFirebaseContext';
+import withFirebaseContext from '../../Firebase/withFirebaseContext';
 
 class Signup extends Component {
   constructor(props) {
@@ -19,6 +18,7 @@ class Signup extends Component {
           // eslint-disable-next-line prefer-destructuring
           const newuser = result.user;
           if (newuser) {
+            localStorage.setItem('userid', user.uid);
             this.users(newuser);
           }
         });

@@ -28,23 +28,24 @@ const useStyles = makeStyles(theme => ({
 const SlideApprenant = ({ firestore, location, history }) => {
   const [infoSlide, setSlide] = useState({ slides: [] });
   useEffect(() => {
-    if (location.state && location.state.id) {
-      const cours = location.state.id;
-      const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(cours);
+    if (location.state && location.state.data) {
+      const cours = location.state.data;
+      setSlide(cours);
+    } else {
+      const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(localStorage.getItem('coursId'));
       docRef.get().then((doc) => {
         if (doc.exists) {
           setSlide(doc.data());
         } else {
-          // doc.data() will be undefined in this case
+        // doc.data() will be undefined in this case
           console.log('No such document!');
         }
       }).catch((error) => {
         console.log('Error getting document:', error);
       });
-    } else {
-      history.push('/mydashboard');
     }
-  });
+  }, [location.state, history, firestore]);
+
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);

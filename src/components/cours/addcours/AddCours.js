@@ -26,6 +26,7 @@ class AddCours extends Component {
   //   }
   // }
   submit = () => {
+    this.makeCourseReadable();
     const { history } = this.props;
     history.push('/mydashboard');
   }
@@ -77,6 +78,17 @@ class AddCours extends Component {
       cours,
 
     });
+  }
+
+  makeCourseReadable = () => {
+    const { firestore } = this.props;
+    const db = firestore;
+    const courseSet = db.collection('parcours').doc(localStorage.getItem('id'));
+    courseSet.set(
+      {
+        isReadable: true,
+      }, { merge: true },
+    );
   }
 
 

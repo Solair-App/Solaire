@@ -10,12 +10,18 @@ import BottomNav from '../../dashboard/BottomNav';
 class MyLessons extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { };
+    this.state = {
+      currentUser: '',
+      currentValue: 0,
+    };
   }
 
 
   componentDidMount() {
     this.getMarkers();
+    this.setState({
+      currentUser: localStorage.getItem('userid'),
+    });
   }
 
   getMarkers() {
@@ -36,13 +42,21 @@ class MyLessons extends React.Component {
       });
   }
 
+  handleChange = (e, newValue) => {
+    this.setState({
+
+      currentValue: newValue,
+    });
+  }
+
   render() {
     const { state } = this.props;
+    const { currentUser, currentValue } = this.state;
     return (
       <div>
         {' '}
-        <UseTabs />
-        { state ? state.parcours.map((x, i) => <ListLessons data={x} key={`${i + 1}a`} />) : <p>loading..</p>}
+        <UseTabs changeTabs={this.handleChange} currentValue={currentValue} />
+        { state ? state.parcours.filter(parcours => (currentValue === 0 ? parcours.data.créateur === currentUser : parcours.data.créateur === 'lol')).map((x, i) => <ListLessons data={x} key={`${i + 1}a`} />) : <p>loading..</p>}
         <BottomNav />
 
       </div>

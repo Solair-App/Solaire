@@ -19,6 +19,7 @@ class Signup extends Component {
           // eslint-disable-next-line prefer-destructuring
           const newuser = result.user;
           if (newuser) {
+            localStorage.setItem('userid', user.uid);
             this.users(newuser);
           }
         });

@@ -49,6 +49,7 @@ function CreateParcours(props) {
           difficulté: parcours.difficulté,
           tags: parcours.tags,
           isReadable: false,
+          créateur: localStorage.getItem('userid'),
         },
         { merge: true },
       )

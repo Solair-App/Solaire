@@ -33,6 +33,7 @@ class Signup extends Component {
       .then((result) => {
         // eslint-disable-next-line prefer-destructuring
         const user = result.user;
+        localStorage.setItem('userid', user.uid);
         this.users(user);
       })
       .catch((error) => {
@@ -130,7 +131,7 @@ class Signup extends Component {
             type="submit"
             color="primary"
             variant="contained"
-            style={{ position: 'fixed center', marginTop:'8%', borderRadius: '20px' }}
+            style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
             className="Button"
           >
             Sign Up

@@ -12,6 +12,11 @@ const reducers = (state, action) => {
         ...state,
         [action.key]: action.payload,
       };
+    case 'HANDLE_USER_LESSONS':
+      return {
+        ...state,
+        userLessons: action.payload,
+      };
 
     default:
       return state;

@@ -33,9 +33,9 @@ class ListCours extends Component {
     const { allCourses } = this.state;
     return (
       <div>
-        {allCourses && allCourses.map(cours => (
+        {allCourses && allCourses.map((cours, i) => (
           <>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div key={`${i + 1}y`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <RadioButtonUnchecked />
               <img src={`./assets/${cours.data.type}.png`} style={{ width: '4em' }} alt={cours.data.type} />
               <div style={{

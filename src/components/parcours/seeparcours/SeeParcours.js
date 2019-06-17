@@ -43,8 +43,8 @@ class seeParcours extends Component {
     const { allCourses } = this.state;
     return (
       <div>
-        {allCourses.map(cours => (
-          <>
+        {allCourses.map((cours, index) => (
+          <div key={`${index + 1}k`}>
             <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <RadioButtonUnchecked />
               <img src={`./assets/${cours.data.type}.png`} style={{ width: '4em' }} alt={cours.data.type} />
@@ -64,7 +64,7 @@ class seeParcours extends Component {
                 <ArrowDownward />
               </div>
             </div>
-          </>
+          </div>
         ))}
       </div>
     );

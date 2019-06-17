@@ -12,6 +12,11 @@ export function mapDispatchToProps(value, type, key) {
         payload: value,
         key,
       };
+    case 'userLessons':
+      return {
+        type: 'HANDLE_USER_LESSONS',
+        payload: value,
+      };
 
     default: return null;
   }

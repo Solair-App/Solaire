@@ -26,21 +26,24 @@ class Dashboard extends Component {
   }
 
   getMarkers() {
+    const { state } = this.props;
+    if (!state) {
     // eslint-disable-next-line no-shadow
-    const { mapDispatchToProps } = this.props;
+      const { mapDispatchToProps } = this.props;
 
-    const markers = [];
+      const markers = [];
 
-    firebase
-      .firestore()
-      .collection('parcours').where('isReadable', '==', true)
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.docs.forEach((doc) => {
-          markers.push({ data: doc.data(), id: doc.id });
+      firebase
+        .firestore()
+        .collection('parcours').where('isReadable', '==', true)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.docs.forEach((doc) => {
+            markers.push({ data: doc.data(), id: doc.id });
+          });
+          mapDispatchToProps(markers, 'parcours');
         });
-        mapDispatchToProps(markers, 'parcours');
-      });
+    }
   }
 
   handleChange = (e) => {

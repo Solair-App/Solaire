@@ -2,36 +2,33 @@ import React, { Component } from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import LockOpen from '@material-ui/icons/LockOpen';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
-import { mapDispatchToProps } from '../../../actions/action';
 
-const mapStateToProps = state => ({
-  state,
-});
+
 class ListCours extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      allCourses: [],
+    };
     this.getInfo();
   }
 
   getInfo = () => {
-    const { state } = this.props;
     const idParcours = localStorage.getItem('id');
     localStorage.setItem('parcoursId', idParcours);
-    if ((state && !state.cours) || !state || (state && state.parcours.id !== idParcours)) {
-      // eslint-disable-next-line no-shadow
-      const { firestore, mapDispatchToProps } = this.props;
-      const cours = [];
-      firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            cours.push({ id: doc.id, data: doc.data() });
-            // doc.data() is never undefined for query doc snapshots
-            mapDispatchToProps(cours, 'cours');
-          });
+    // eslint-disable-next-line no-shadow
+    const { firestore } = this.props;
+    const cours = [];
+    firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          cours.push({ id: doc.id, data: doc.data() });
         });
-    }
+        // doc.data() is never undefined for query doc snapshots
+        this.setState({ allCourses: cours });
+      });
   }
 
   goToCourse = (type, data, id) => {
@@ -44,12 +41,13 @@ class ListCours extends Component {
   }
 
   render() {
-    const { state } = this.props;
+    const { allCourses } = this.state;
+
     return (
       <div>
-        {state && state.cours && state.cours.map(cours => (
+        {allCourses && allCourses.map((cours, i) => (
           <>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div key={`${i + 1}y`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <RadioButtonUnchecked />
               <img src={`./assets/${cours.data.type}.png`} style={{ width: '4em' }} alt={cours.data.type} />
               <div style={{
@@ -89,7 +87,4 @@ class ListCours extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  { mapDispatchToProps },
-)(withFirebaseContext(ListCours));
+export default withRouter(withFirebaseContext(ListCours));

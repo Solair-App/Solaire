@@ -6,7 +6,7 @@ import BottomNav from './BottomNav';
 import InputBar from './InputBar';
 import { mapDispatchToProps } from '../../actions/action';
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   state,
 });
 
@@ -99,7 +99,7 @@ class Dashboard extends Component {
 
     const { searchField, filter, currentValue } = this.state;
     return (
-      <div key="qsdqsd" style={{ display: 'block', textAlign: 'left' }}>
+      <div style={{ display: 'block', textAlign: 'left' }}>
         {' '}
         {state && state.thématique ? (
           <div>
@@ -110,21 +110,21 @@ class Dashboard extends Component {
 
             />
             {state.thématique.filter(result => result.includes(filter)).map((results, index) => (
-              <>
+              <div key={`${index + 200}q`}>
                 {' '}
-                <h1 key={`${index + 1}b `}>
+                <h1>
                   {results}
                   {' '}
 
                 </h1>
                 <List
-                  key={`${index + 1}a`}
+
                   data={state.parcours}
                   thématique={results}
                   currentSearch={searchField}
                 />
                 {' '}
-              </>
+              </div>
             ))}
           </div>
         ) : (

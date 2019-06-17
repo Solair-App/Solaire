@@ -3,6 +3,7 @@ import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import LockOpen from '@material-ui/icons/LockOpen';
 import { connect } from 'react-redux';
+import * as firebase from 'firebase';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import { mapDispatchToProps } from '../../../actions/action';
 
@@ -24,18 +25,21 @@ class seeParcours extends Component {
 
   getInfo = () => {
     const { state } = this.props;
-
-    if ((state && !state.cours) || !state || state.parcours.id !== localStorage.getItem('parcoursId')) {
+    if ((state && !state.cours) || !state || (state && state.cours[0].id !== localStorage.getItem('parcoursId'))) {
       // eslint-disable-next-line no-shadow
       const { firestore, mapDispatchToProps } = this.props;
       const cours = [];
+      firebase.firestore().collection('parcours').doc(localStorage.getItem('parcoursId')).update({
+        apprenants: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('userid')),
+      });
 
       firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             cours.push({ id: doc.id, data: doc.data() });
           });
-          mapDispatchToProps(cours, 'cours');
+          const currentParcours = [{ id: localStorage.getItem('parcoursId'), content: cours }];
+          mapDispatchToProps(currentParcours, 'cours');
         });
     }
   }
@@ -55,8 +59,8 @@ class seeParcours extends Component {
     const { state } = this.props;
     return (
       <div>
-        {state && state.cours && state.cours.map(cours => (
-          <>
+        {state && state.cours && state.cours[0].content.map((cours, index) => (
+          <div key={`${index + 1}k`}>
             <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <RadioButtonUnchecked />
               <img src={`./assets/${cours.data.type}.png`} style={{ width: '4em' }} alt={cours.data.type} />
@@ -79,7 +83,7 @@ class seeParcours extends Component {
                 <ArrowDownward />
               </div>
             </div>
-          </>
+          </div>
         ))}
       </div>
     );

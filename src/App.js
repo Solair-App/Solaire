@@ -20,7 +20,7 @@ import Quiz from './components/supports/quiz/Quiz';
 import CreateQuestion from './components/supports/quiz/CreateQuestion';
 import Video from './components/supports/video/Video';
 import CreateSlider from './components/supports/slides/CreateSlider';
-
+import MyLessons from './components/cours/mylessons/MyLessons';
 
 const App = () => (
   <div className="App">
@@ -45,6 +45,7 @@ const App = () => (
           <Route path="/mydashboard" component={Dashboard} />
           <Route path="/profile" component={Profile} />
           <Route path="/quiz" component={Quiz} />
+          <Route path="/mylessons" component={MyLessons} />
         </Switch>
       </HashRouter>
     </FirebaseProvider>

@@ -33,6 +33,7 @@ class Signup extends Component {
       .then((result) => {
         // eslint-disable-next-line prefer-destructuring
         const user = result.user;
+        localStorage.setItem('userid', user.uid);
         this.users(user);
       })
       .catch((error) => {

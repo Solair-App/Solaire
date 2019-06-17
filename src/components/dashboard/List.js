@@ -43,7 +43,7 @@ export default function ListCours(props) {
               .includes(props.currentSearch.toUpperCase()),
         )
         .map((info, index) => (
-          <div>
+          <div key={`${index + 1}g`}>
             <li className="item" key={`${index + 1}n`}>
               <Typography
                 className={classes.title}

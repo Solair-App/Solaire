@@ -8,8 +8,8 @@ import { connect } from 'react-redux';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import SelectField from './SelectField';
 import Parcours from './Parcours';
-
 import '../../../SCSS/CreateParcours.scss';
+
 
 function CreateParcours(props) {
   const [values] = React.useState({});
@@ -49,6 +49,7 @@ function CreateParcours(props) {
           difficulté: parcours.difficulté,
           tags: parcours.tags,
           isReadable: false,
+          créateur: localStorage.getItem('userid'),
         },
         { merge: true },
       )

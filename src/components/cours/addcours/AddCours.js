@@ -19,8 +19,9 @@ class AddCours extends Component {
   }
 
   submit = () => {
+    this.makeCourseReadable();
     const { history } = this.props;
-    history.push('/addcours');
+    history.push('/mydashboard');
   }
 
   getDataBaseData = () => {
@@ -71,6 +72,16 @@ class AddCours extends Component {
     });
   }
 
+  makeCourseReadable = () => {
+    const { firestore } = this.props;
+    const db = firestore;
+    const courseSet = db.collection('parcours').doc(localStorage.getItem('id'));
+    courseSet.set(
+      {
+        isReadable: true,
+      }, { merge: true },
+    );
+  }
 
   redirectToLessons = () => {
     const { history } = this.props;

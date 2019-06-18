@@ -52,6 +52,7 @@ function CreateParcours(props) {
           creator: localStorage.getItem('userid'),
           rating: 0,
           votants: [],
+          commentaires: [],
         },
         { merge: true },
       )

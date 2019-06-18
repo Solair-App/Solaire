@@ -173,6 +173,7 @@ class seeParcours extends Component {
         value={3}
         max={5}
         readOnly
+
       />
     );
   };

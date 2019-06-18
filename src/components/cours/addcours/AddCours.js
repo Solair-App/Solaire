@@ -15,8 +15,8 @@ class AddCours extends Component {
     this.state = {
       data: {},
     };
+    this.getDataBaseData();
   }
-
 
   submit = () => {
     this.makeCourseReadable();
@@ -51,7 +51,6 @@ class AddCours extends Component {
     const courseSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc();
     localStorage.setItem('coursId', courseSet.id);
 
-
     let cours;
     switch (type) {
       case 'Quizz':
@@ -84,7 +83,6 @@ class AddCours extends Component {
     );
   }
 
-
   redirectToLessons = () => {
     const { history } = this.props;
     const { cours } = this.state;
@@ -96,12 +94,14 @@ class AddCours extends Component {
 
   render() {
     const { data } = this.state;
+    const { history } = this.props;
+
     return (
       <div>
         <ArrowBack
           style={{ position: 'fixed', left: '10px', top: '10px' }}
           onClick={() => {
-            this.redirect('/CreateParcours');
+            history.goBack();
           }}
         />
         <h1>{data.name}</h1>

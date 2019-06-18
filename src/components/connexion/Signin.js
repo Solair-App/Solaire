@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
+import withFirebaseContext from '../../Firebase/withFirebaseContext';
 
 
 class Signup extends Component {

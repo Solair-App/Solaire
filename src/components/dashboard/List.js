@@ -34,7 +34,7 @@ export default function ListCours(props) {
 
   return (
     <ul className="hs full">
-      {data
+      {data && data
         .filter(
           /* eslint-disable no-mixed-operators */
           info => info.data.thématique === props.thématique

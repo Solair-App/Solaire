@@ -78,7 +78,7 @@ class Dashboard extends Component {
       // eslint-disable-next-line no-loop-func
       themRef.get().then((document) => {
         const dbCategory = document.data();
-
+        console.log(dbCategory);
         // eslint-disable-next-line no-restricted-syntax
         for (const [, value] of Object.entries(dbCategory)) {
           category.push(`${value}`);

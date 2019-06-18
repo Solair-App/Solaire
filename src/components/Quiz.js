@@ -3,6 +3,7 @@ import '../SCSS/Quiz.scss';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
+import QuizAlerte from './QuizAlerte';
 
 class Quiz extends React.Component {
   constructor(props) {
@@ -23,6 +24,14 @@ class Quiz extends React.Component {
     }
   }
   // end constructor
+
+  resetQuiz = () => {
+    this.setState({
+      current: 0,
+      correct: 0,
+      incorrect: 0,
+    });
+  };
 
   getInfo = () => {
     const { firestore } = this.props;
@@ -89,7 +98,12 @@ class Quiz extends React.Component {
 
             </>
           )
-          : <ScoreArea correct={correct} incorrect={incorrect} />
+          : (
+            <>
+              <ScoreArea correct={correct} incorrect={incorrect} />
+              <QuizAlerte resetQuiz={this.resetQuiz} />
+            </>
+          )
         }
       </div>
     );

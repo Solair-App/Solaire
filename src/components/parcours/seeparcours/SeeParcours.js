@@ -4,6 +4,7 @@ import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import LockOpen from '@material-ui/icons/LockOpen';
 import { Link } from 'react-router-dom';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
+import Commentaires from './Commentaires';
 
 
 class seeParcours extends Component {
@@ -57,6 +58,7 @@ class seeParcours extends Component {
             </div>
           </>
         ))}
+        <Commentaires />
       </div>
     );
   }

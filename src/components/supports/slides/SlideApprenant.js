@@ -6,8 +6,8 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
-import '../App.scss';
+import withFirebaseContext from '../../../Firebase/withFirebaseContext';
+import '../../../App.scss';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
+// Récupération des slides de la db
 const SlideApprenant = ({ firestore, location, history }) => {
   const [infoSlide, setSlide] = useState({ slides: [] });
   useEffect(() => {
@@ -58,9 +59,13 @@ const SlideApprenant = ({ firestore, location, history }) => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   }
 
+
   return (
     <div className={classes.root}>
-
+      <div>
+        <h1>{infoSlide.name}</h1>
+        <p>{infoSlide.descritpion}</p>
+      </div>
       {
         <div className="import">{ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}</div>
       }

@@ -7,6 +7,13 @@ import Category from '@material-ui/icons/Category';
 import Folder from '@material-ui/icons/Folder';
 import AccountBox from '@material-ui/icons/AccountBox';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+
+import { mapDispatchToProps } from '../../actions/action';
+
+const mapStateToProps = state => ({
+  state,
+});
 
 const useStyles = makeStyles({
   root: {
@@ -27,27 +34,47 @@ function BottomNav(props) {
       case 'profile':
         history.push('/profile');
         break;
+      case 'dashboard':
+        history.push('/mydashboard');
+        break;
+      case 'mylessons':
+        history.push('/mylessons');
+        break;
       default:
         history.push('/mydashboard');
     }
   }
   const classes = useStyles();
-  const [value, setValue] = React.useState(1);
+  const [value] = React.useState(1);
+  const handleChange = (event, newValue) => {
+    // eslint-disable-next-line no-shadow
+    const { mapDispatchToProps } = props;
+    mapDispatchToProps(newValue, 'bottomNav');
+  };
 
+  React.useEffect(() => {
+    const { state } = props;
+    // eslint-disable-next-line no-shadow
+    const { mapDispatchToProps } = props;
+    if (!state || state.bottomNav === 0) {
+      mapDispatchToProps(1, 'bottomNav');
+    }
+  });
+
+
+  const { state } = props;
   return (
     <BottomNavigation
-      value={value}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}
+      value={state ? state.bottomNav : value}
+      onChange={handleChange}
       showLabels
       className={classes.root}
     >
       <BottomNavigationAction onClick={() => redirect('create')} label="Création" icon={<Edit />} />
-      <BottomNavigationAction label="Dashboard" icon={<Category />} />
-      <BottomNavigationAction label="Mes cours" icon={<Folder />} />
+      <BottomNavigationAction onClick={() => redirect('dashboard')} label="Dashboard" icon={<Category />} />
+      <BottomNavigationAction onClick={() => redirect('mylessons')} label="Mes cours" icon={<Folder />} />
       <BottomNavigationAction onClick={() => redirect('profile')} label="Profile" icon={<AccountBox />} />
     </BottomNavigation>
   );
 }
-export default withRouter(BottomNav);
+export default connect(mapStateToProps, { mapDispatchToProps })(withRouter(BottomNav));

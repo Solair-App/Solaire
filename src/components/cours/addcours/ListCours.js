@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import LockOpen from '@material-ui/icons/LockOpen';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
+
 
 class ListCours extends Component {
   constructor(props) {
@@ -15,34 +16,51 @@ class ListCours extends Component {
   }
 
   getInfo = () => {
+    const idParcours = localStorage.getItem('id');
+    localStorage.setItem('parcoursId', idParcours);
+    // eslint-disable-next-line no-shadow
     const { firestore } = this.props;
     const cours = [];
     firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           cours.push({ id: doc.id, data: doc.data() });
-          // doc.data() is never undefined for query doc snapshots
-          this.setState({ allCourses: cours });
         });
+        // doc.data() is never undefined for query doc snapshots
+        this.setState({ allCourses: cours });
       });
+  }
+
+  goToCourse = (type, data, id) => {
+    const { history } = this.props;
+    localStorage.setItem('coursId', id);
+    history.push({
+      pathname: `/${type}`,
+      state: { data },
+    });
   }
 
   render() {
     const { allCourses } = this.state;
+
     return (
       <div>
-        {allCourses.map(cours => (
+        {allCourses && allCourses.map((cours, i) => (
           <>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div key={`${i + 1}y`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <RadioButtonUnchecked />
               <img src={`./assets/${cours.data.type}.png`} style={{ width: '4em' }} alt={cours.data.type} />
               <div style={{
                 display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',
               }}
               >
-                <Link to={{ pathname: `/${cours.data.type}`, state: { id: cours.id } }}>
+                <button
+                  type="button"
+                  onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)}
+                >
                   {cours.data.name}
-                </Link>
+                </button>
+                {' '}
                 <p>
                   {cours.data.description}
                 </p>
@@ -69,4 +87,4 @@ class ListCours extends Component {
   }
 }
 
-export default withFirebaseContext(ListCours);
+export default withRouter(withFirebaseContext(ListCours));

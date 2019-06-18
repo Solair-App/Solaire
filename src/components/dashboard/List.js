@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -32,35 +34,38 @@ export default function ListCours(props) {
 
   return (
     <ul className="hs full">
-      {data
+      {data && data
         .filter(
-          info => info.thématique === props.thématique
-            && info.name.toUpperCase().includes(props.currentSearch.toUpperCase()),
+          /* eslint-disable no-mixed-operators */
+          info => info.data.thématique === props.thématique
+            && info.data.tags
+              .toUpperCase()
+              .includes(props.currentSearch.toUpperCase()),
         )
         .map((info, index) => (
-          <div>
+          <div key={`${index + 1}g`}>
             <li className="item" key={`${index + 1}n`}>
               <Typography
                 className={classes.title}
                 color="textSecondary"
                 gutterBottom
               >
-                {info.name}
-              </Typography>
-              <Typography variant="h5" component="h2">
-                {info.thématique}
-              </Typography>
-              <Typography className={classes.pos} color="textSecondary">
-                {info.difficulté}
+                <Link to={{ pathname: '/parcours', state: { parcoursId: info.id } }}>
+                  {info.data.name}
+                </Link>
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                {info.langue}
+                {info.data.difficulté}
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                {info.durée}
+                {info.data.langue}
+              </Typography>
+              <Typography className={classes.pos} color="textSecondary">
+                {info.data.durée}
               </Typography>
               <Typography variant="body2" component="p">
-                {info.description}
+                tags :
+                {info.data.tags}
               </Typography>
             </li>
           </div>

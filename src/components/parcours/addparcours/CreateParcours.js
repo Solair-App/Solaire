@@ -8,8 +8,8 @@ import { connect } from 'react-redux';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import SelectField from './SelectField';
 import Parcours from './Parcours';
-
 import '../../../SCSS/CreateParcours.scss';
+
 
 function CreateParcours(props) {
   const [values] = React.useState({});
@@ -47,6 +47,9 @@ function CreateParcours(props) {
           langue: parcours.langue,
           durée: parcours.durée,
           difficulté: parcours.difficulté,
+          tags: parcours.tags,
+          isReadable: false,
+          créateur: localStorage.getItem('userid'),
         },
         { merge: true },
       )
@@ -67,6 +70,7 @@ function CreateParcours(props) {
       && value.langue
       && value.durée
       && value.difficulté
+      && value.tags
     ) {
       return true;
     }
@@ -86,12 +90,14 @@ function CreateParcours(props) {
         value.langue,
         value.durée,
         value.difficulté,
+        value.tags,
       );
       pushParcoursInsideDB(currentParcours);
     }
   }
 
   const { state } = props;
+
   return (
 
     <form className="classesContainer" autoComplete="off">
@@ -119,6 +125,7 @@ function CreateParcours(props) {
           required
           id="filled-multiline-flexible"
           label="Description"
+          value={values.description}
           multiline
           rows="5"
           onChange={handleChange('description')}
@@ -126,12 +133,25 @@ function CreateParcours(props) {
           style={{ marginTop: '2%', marginBottom: '5%', width: '50%' }}
         />
       </div>
+      <div>
+        <TextField
+          required
+          id="standard-name"
+          label="tags"
+          className="textfield"
+          value={values.tags}
+          onChange={handleChange('tags')}
+          style={{ marginTop: '5%', width: '50%' }}
+        />
+
+
+      </div>
       <SelectField
         required
         choices={state.thématique}
         name="thématique"
         handleChange={handleChange}
-        currentValue={value.thématique}
+        value={value.thématique}
         className="selectField"
         style={{ borderRadius: '20px' }}
       />
@@ -140,7 +160,7 @@ function CreateParcours(props) {
         choices={state.langue}
         name="langue"
         handleChange={handleChange}
-        currentValue={value.langue}
+        value={value.langue}
         class="container"
       />
       <SelectField
@@ -148,7 +168,7 @@ function CreateParcours(props) {
         choices={state.durée}
         name="durée"
         handleChange={handleChange}
-        currentValue={value.durée}
+        value={value.durée}
         class="container"
       />
       <SelectField
@@ -156,9 +176,10 @@ function CreateParcours(props) {
         choices={state.difficulté}
         name="difficulté"
         handleChange={handleChange}
-        currentValue={value.difficulté}
+        value={value.difficulté}
         className="selectField"
       />
+
       <h3 className="h3">{value.errorMessage}</h3>
       <Button
         variant="outlined"

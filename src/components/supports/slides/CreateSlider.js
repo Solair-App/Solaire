@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 import ReactHtmlParser from 'react-html-parser';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -79,8 +80,21 @@ const CreateSlider = ({ firestore, history }) => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   }
 
+  function redirect(url) {
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
+  }
+
   return (
     <div className={classes.root}>
+      <ArrowBack
+        style={{ position: 'fixed', left: '10px', top: '10px' }}
+        onClick={() => {
+          redirect('/AddCours');
+        }}
+      />
       <h1>Créer un slider</h1>
       {Object.keys(infoSlide.slides).length > 0
         ? <h2 style={{ marginTop: '8px' }}>Aperçu du slider en cours</h2> && (

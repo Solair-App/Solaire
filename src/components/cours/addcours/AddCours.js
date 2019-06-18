@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
-import Cancel from '@material-ui/icons/Cancel';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
+import Add from '@material-ui/icons/Add';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import ListCours from './ListCours';
 import TypeCours from './TypeCours';
@@ -14,16 +15,14 @@ class AddCours extends Component {
     this.state = {
       data: {},
     };
+    this.getDataBaseData();
   }
 
-  // componentDidMount() {
-  //   const { location, history } = this.props;
-  //   if (!location.state || !location.state.parcours) {
-  //     history.push('/CreateParcours');
-  //   } else {
-  //     this.getDataBaseData();
-  //   }
-  // }
+  submit = () => {
+    this.makeCourseReadable();
+    const { history } = this.props;
+    history.push('/mydashboard');
+  }
 
   getDataBaseData = () => {
     const { firestore } = this.props;
@@ -48,7 +47,7 @@ class AddCours extends Component {
     const { firestore } = this.props;
     const db = firestore;
     const type = event.target.value;
-    const { history } = this.props;
+
     const courseSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc();
     localStorage.setItem('coursId', courseSet.id);
 
@@ -67,6 +66,26 @@ class AddCours extends Component {
         break;
       default:
     }
+    this.setState({
+      cours,
+
+    });
+  }
+
+  makeCourseReadable = () => {
+    const { firestore } = this.props;
+    const db = firestore;
+    const courseSet = db.collection('parcours').doc(localStorage.getItem('id'));
+    courseSet.set(
+      {
+        isReadable: true,
+      }, { merge: true },
+    );
+  }
+
+  redirectToLessons = () => {
+    const { history } = this.props;
+    const { cours } = this.state;
     history.push({
       pathname: `/${cours}`,
       state: { cours: true },
@@ -75,9 +94,16 @@ class AddCours extends Component {
 
   render() {
     const { data } = this.state;
+    const { history } = this.props;
+
     return (
       <div>
-        <Cancel style={{ position: 'fixed', left: '4px', top: '4px' }} onClick={() => { this.redirect('/mydashboard'); }} />
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            history.goBack();
+          }}
+        />
         <h1>{data.name}</h1>
         <Link to="CreateParcours">
           <Button color="primary">
@@ -89,17 +115,24 @@ class AddCours extends Component {
         <ListCours courseName={data} />
 
         <TypeCours getType={this.getType} />
-        <Button
-          fullWidth
-          size="large"
-          color="secondary"
-          variant="contained"
-          style={{
-            position: 'fixed', bottom: '20PX', left: '0', borderRadius: '20px',
-          }}
-        >
-          Valider
+
+        <Button onClick={() => { this.redirectToLessons(); }}>
+          {' '}
+          <Add style={{ marginRight: '10px' }} />
+Ajouter un cours
         </Button>
+        <div>
+          <Button
+
+            fullWidth
+
+            size="large"
+            onClick={this.submit}
+            variant="contained"
+          >
+          Valider
+          </Button>
+        </div>
       </div>
     );
   }

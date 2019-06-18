@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
+import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
 class CreateQuiz extends Component {
   constructor(props) {
@@ -61,12 +62,23 @@ class CreateQuiz extends Component {
     });
   }
 
+  redirect = (url) => {
+    const { history } = this.props;
+    history.push(url);
+  }
+
   render() {
     const { infoQuiz } = this.state;
     const { name, description } = this.state;
 
     return (
       <Grid container>
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            this.redirect('/AddCours');
+          }}
+        />
         <Grid item xs={12}>
           <h1>Création de quiz</h1>
 

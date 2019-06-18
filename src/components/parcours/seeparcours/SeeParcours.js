@@ -20,7 +20,6 @@ class seeParcours extends Component {
     this.state = {
       parcours: [],
       canVote: true,
-
     };
   }
 
@@ -34,7 +33,12 @@ class seeParcours extends Component {
       this.getInfo();
     }
     this.parcours = null;
-    if (localStorage.getItem('canVote') === true && !localStorage.getItem('canVote')) {
+
+    if (
+      localStorage.getItem(`canVote${localStorage.getItem('parcoursId')}`)
+        === true
+      || !localStorage.getItem(`canVote${localStorage.getItem('parcoursId')}`)
+    ) {
       this.setState({
         canVote: true,
       });
@@ -62,23 +66,32 @@ class seeParcours extends Component {
             // doc.data() will be undefined in this case
             console.log('No such document!');
           }
-        })
+        }).then(this.haveUserAlreadyVoted())
         .catch((error) => {
           console.log('Error getting document:', error);
         });
     }
   }
 
+  haveUserAlreadyVoted = () => {
+    const { parcours } = this.state;
+    if (parcours.votants.includes(localStorage.getItem('userid'))) {
+      this.setState({
+        canVote: false,
+      });
+    }
+  }
+
   sendRatings = (rating) => {
     const { parcours } = this.state;
 
-
-    let determineRating = parcours.rating
-        * parcours.votants.length;
+    let determineRating = parcours.rating * parcours.votants.length;
 
     determineRating += rating;
-    const newRating = determineRating / parcours.votants.length + 1;
 
+    determineRating /= (parcours.votants.length + 1);
+
+    const newRating = determineRating;
 
     firebase
       .firestore()
@@ -90,7 +103,10 @@ class seeParcours extends Component {
           localStorage.getItem('userId'),
         ),
       });
-    localStorage.setItem('canVote', false);
+    localStorage.setItem(`canVote${localStorage.getItem('parcoursId')}`, false);
+    this.setState({
+      canVote: false,
+    });
   };
 
   getInfo = () => {
@@ -140,28 +156,39 @@ class seeParcours extends Component {
   };
 
   // name et type de cours à mettre dans slide, vidéo et quizz
+  canUserRate = () => {
+    const { parcours, canVote } = this.state;
+
+    if (canVote === true) {
+      return (
+        <Rating
+          value={parcours.rating}
+          max={5}
+          onChange={value => this.sendRatings(value)}
+        />
+      );
+    }
+    return (
+      <Rating
+        value={3}
+        max={5}
+        readOnly
+      />
+    );
+  };
 
   render() {
     const { state } = this.props;
     const { parcours } = this.state;
 
-
     return (
       <div>
-
-
         <h1>
           {parcours && parcours.name}
           {' '}
           {parcours && parcours.creator === localStorage.getItem('userid') ? (
             <>
               {' '}
-              <Rating
-                value={parcours.rating}
-                max={5}
-
-                onChange={value => this.sendRatings(value)}
-              />
 
               <Edit />
               <DeleteIcon />
@@ -171,11 +198,12 @@ class seeParcours extends Component {
           )}
         </h1>
         <p>{parcours && parcours.description}</p>
-
+        {this.canUserRate()}
         {state
           && state.cours
           && state.cours[0].content.map((cours, index) => (
             <div key={`${index + 1}k`}>
+
               <p
                 style={{
                   display: 'flex',
@@ -194,6 +222,8 @@ class seeParcours extends Component {
                   onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)
                   }
                 >
+                  {' '}
+
                   {cours.data.name}
                 </button>
               </p>

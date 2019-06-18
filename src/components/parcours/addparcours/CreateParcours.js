@@ -50,6 +50,8 @@ function CreateParcours(props) {
           tags: parcours.tags,
           isReadable: false,
           creator: localStorage.getItem('userid'),
+          rating: 0,
+          votants: [],
         },
         { merge: true },
       )

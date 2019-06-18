@@ -4,6 +4,7 @@ import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import LockOpen from '@material-ui/icons/LockOpen';
 import { connect } from 'react-redux';
 import * as firebase from 'firebase';
+import Rating from 'material-ui-rating';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import { mapDispatchToProps } from '../../../actions/action';
 
@@ -21,6 +22,25 @@ class seeParcours extends Component {
     } else {
       this.getInfo();
     }
+  }
+
+  sendRatings = (rating) => {
+    const parcours = [];
+    firebase.firestore().collection('parcours').doc(localStorage.getItem('parcoursId'))
+      .get()
+      .then(
+        (doc) => {
+          console.log(doc.data());
+          parcours.push({ data: doc.data(), id: doc.id });
+        },
+      );
+
+
+    firebase.firestore().collection('parcours').doc(localStorage.getItem('parcoursId')).update({
+      rating: firebase.firestore.FieldValue.arrayUnion(rating),
+      votants: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('userId')),
+
+    });
   }
 
   getInfo = () => {
@@ -59,6 +79,11 @@ class seeParcours extends Component {
     const { state } = this.props;
     return (
       <div>
+        <Rating
+          value={3}
+          max={5}
+          onChange={value => this.sendRatings(value)}
+        />
         {state && state.cours && state.cours[0].content.map((cours, index) => (
           <div key={`${index + 1}k`}>
             <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

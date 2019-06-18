@@ -19,6 +19,7 @@ class seeParcours extends Component {
     super(props);
     this.state = {
       parcours: [],
+      canVote: true,
 
     };
   }
@@ -33,6 +34,15 @@ class seeParcours extends Component {
       this.getInfo();
     }
     this.parcours = null;
+    if (localStorage.getItem('canVote') === true && !localStorage.getItem('canVote')) {
+      this.setState({
+        canVote: true,
+      });
+    } else {
+      this.setState({
+        canVote: false,
+      });
+    }
     if (state && state.parcours) {
       const currentParcours = state.parcours.filter(
         parc => parc.id === localStorage.getItem('parcoursId'),
@@ -80,6 +90,7 @@ class seeParcours extends Component {
           localStorage.getItem('userId'),
         ),
       });
+    localStorage.setItem('canVote', false);
   };
 
   getInfo = () => {
@@ -148,6 +159,7 @@ class seeParcours extends Component {
               <Rating
                 value={parcours.rating}
                 max={5}
+
                 onChange={value => this.sendRatings(value)}
               />
 

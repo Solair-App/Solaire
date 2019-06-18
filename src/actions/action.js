@@ -17,6 +17,11 @@ export function mapDispatchToProps(value, type, key) {
         type: 'HANDLE_USER_LESSONS',
         payload: value,
       };
+    case 'bottomNav':
+      return {
+        type: 'HANDLE_BOTTOM_NAV',
+        payload: value,
+      };
 
     default: return null;
   }

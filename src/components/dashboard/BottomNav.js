@@ -7,6 +7,13 @@ import Category from '@material-ui/icons/Category';
 import Folder from '@material-ui/icons/Folder';
 import AccountBox from '@material-ui/icons/AccountBox';
 import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+
+import { mapDispatchToProps } from '../../actions/action';
+
+const mapStateToProps = state => ({
+  state,
+});
 
 const useStyles = makeStyles({
   root: {
@@ -38,14 +45,19 @@ function BottomNav(props) {
     }
   }
   const classes = useStyles();
-  const [value, setValue] = React.useState(1);
+  const [value] = React.useState(1);
+  const handleChange = (event, newValue) => {
+    // eslint-disable-next-line no-shadow
+    const { mapDispatchToProps } = props;
+    mapDispatchToProps(newValue, 'bottomNav');
+  };
 
+
+  const { state } = props;
   return (
     <BottomNavigation
-      value={value}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}
+      value={state ? state.bottomNav : value}
+      onChange={handleChange}
       showLabels
       className={classes.root}
     >
@@ -56,4 +68,4 @@ function BottomNav(props) {
     </BottomNavigation>
   );
 }
-export default withRouter(BottomNav);
+export default connect(mapStateToProps, { mapDispatchToProps })(withRouter(BottomNav));

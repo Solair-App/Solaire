@@ -30,7 +30,7 @@ const QuizAlerte = ({ history, resetQuiz }) => {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button style={{ marginTop: '20%' }} variant="outlined" color="primary" onClick={handleClickOpen}>
         Fin du quiz
       </Button>
       <Dialog

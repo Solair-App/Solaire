@@ -85,9 +85,9 @@ class Quiz extends React.Component {
     return (
       <div>
         <ArrowBack
-          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          style={{ position: 'fixed', left: '10%', top: '2%' }}
           onClick={() => {
-            this.redirect('/AddCours');
+            this.redirect('/parcours');
           }}
         />
         {quiz && Object.keys(quiz).length > current

@@ -52,6 +52,15 @@ function BottomNav(props) {
     mapDispatchToProps(newValue, 'bottomNav');
   };
 
+  React.useEffect(() => {
+    const { state } = props;
+    // eslint-disable-next-line no-shadow
+    const { mapDispatchToProps } = props;
+    if (!state || state.bottomNav === 0) {
+      mapDispatchToProps(1, 'bottomNav');
+    }
+  });
+
 
   const { state } = props;
   return (

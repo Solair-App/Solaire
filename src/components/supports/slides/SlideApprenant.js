@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const SlideApprenant = ({ firestore, location, history }) => {
+const SlideApprenant = ({ firestore, history, location }) => {
   const [infoSlide, setSlide] = useState({ slides: [] });
   useEffect(() => {
     if (location.state && location.state.data) {
@@ -44,7 +44,7 @@ const SlideApprenant = ({ firestore, location, history }) => {
         console.log('Error getting document:', error);
       });
     }
-  }, [location.state, history, firestore]);
+  }, [firestore, history, location]);
 
   const classes = useStyles();
   const theme = useTheme();
@@ -59,7 +59,6 @@ const SlideApprenant = ({ firestore, location, history }) => {
   function handleBack() {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   }
-
   return (
     <div className={classes.root}>
       <h1>{infoSlide.name}</h1>

@@ -30,6 +30,9 @@ function BottomNav(props) {
       case 'dashboard':
         history.push('/mydashboard');
         break;
+      case 'mylessons':
+        history.push('/mylessons');
+        break;
       default:
         history.push('/mydashboard');
     }
@@ -48,7 +51,7 @@ function BottomNav(props) {
     >
       <BottomNavigationAction onClick={() => redirect('create')} label="Création" icon={<Edit />} />
       <BottomNavigationAction onClick={() => redirect('dashboard')} label="Dashboard" icon={<Category />} />
-      <BottomNavigationAction label="Mes cours" icon={<Folder />} />
+      <BottomNavigationAction onClick={() => redirect('mylessons')} label="Mes cours" icon={<Folder />} />
       <BottomNavigationAction onClick={() => redirect('profile')} label="Profile" icon={<AccountBox />} />
     </BottomNavigation>
   );

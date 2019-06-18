@@ -6,11 +6,21 @@ export function mapDispatchToProps(value, type, key) {
         type: 'HANDLE_PARCOURS',
         payload: value,
       };
+    case 'cours':
+      return {
+        type: 'HANDLE_COURS',
+        payload: value,
+      };
     case 'category':
       return {
         type: 'HANDLE_CATEGORY',
         payload: value,
         key,
+      };
+    case 'userLessons':
+      return {
+        type: 'HANDLE_USER_LESSONS',
+        payload: value,
       };
 
     default: return null;

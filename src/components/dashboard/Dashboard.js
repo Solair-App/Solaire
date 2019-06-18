@@ -6,7 +6,7 @@ import BottomNav from './BottomNav';
 import InputBar from './InputBar';
 import { mapDispatchToProps } from '../../actions/action';
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   state,
 });
 
@@ -27,8 +27,8 @@ class Dashboard extends Component {
 
   getMarkers() {
     const { state } = this.props;
-    if (!state) {
-    // eslint-disable-next-line no-shadow
+    if (!state || !state.parcours) {
+      // eslint-disable-next-line no-shadow
       const { mapDispatchToProps } = this.props;
 
       const markers = [];
@@ -70,7 +70,7 @@ class Dashboard extends Component {
 
   getCategoryFromDB = () => {
     const { state } = this.props;
-    if (!state) {
+    if (!state || !state.thématique) {
       let category = [];
       const forLoop = ['thématique', 'difficulté', 'durée', 'langue'];
       // eslint-disable-next-line no-shadow
@@ -99,7 +99,7 @@ class Dashboard extends Component {
 
     const { searchField, filter, currentValue } = this.state;
     return (
-      <div key="qsdqsd" style={{ display: 'block', textAlign: 'left' }}>
+      <div style={{ display: 'block', textAlign: 'left' }}>
         {' '}
         {state && state.thématique ? (
           <div>
@@ -110,21 +110,21 @@ class Dashboard extends Component {
 
             />
             {state.thématique.filter(result => result.includes(filter)).map((results, index) => (
-              <>
+              <div key={`${index + 200}q`}>
                 {' '}
-                <h1 key={`${index + 1}b `}>
+                <h1>
                   {results}
                   {' '}
 
                 </h1>
                 <List
-                  key={`${index + 1}a`}
+
                   data={state.parcours}
                   thématique={results}
                   currentSearch={searchField}
                 />
                 {' '}
-              </>
+              </div>
             ))}
           </div>
         ) : (

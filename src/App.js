@@ -28,10 +28,10 @@ const App = () => (
       <HashRouter>
         <Switch>
           <Route exact path="/" component={Welcome} />
-          <Route path="/CreateParcours" component={CreateParcours} />
+          <Route path="/createparcours" component={CreateParcours} />
           <Route path="/addvideo" component={Form} />
           <Route path="/video" component={Video} />
-          <Route path="/AddCours" component={AddCours} />
+          <Route path="/addcours" component={AddCours} />
           <Route path="/addquiz" component={CreateQuiz} />
           <Route path="/addquestion" component={CreateQuestion} />
           <Route path="/parcours" component={SeeParcours} />

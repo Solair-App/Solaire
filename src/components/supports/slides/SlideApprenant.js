@@ -8,6 +8,7 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
+
 import '../../../App.scss';
 
 const useStyles = makeStyles(theme => ({
@@ -27,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 
 const SlideApprenant = ({ firestore, history, location }) => {
   const [infoSlide, setSlide] = useState({ slides: [] });
+
   useEffect(() => {
     if (location.state && location.state.data) {
       const cours = location.state.data;

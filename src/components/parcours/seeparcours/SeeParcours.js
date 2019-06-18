@@ -6,6 +6,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
 import { connect } from 'react-redux';
 import * as firebase from 'firebase';
+import { Link } from 'react-router-dom';
+import SimpleModal from './SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import { mapDispatchToProps } from '../../../actions/action';
 
@@ -18,6 +20,7 @@ class seeParcours extends Component {
     super(props);
     this.state = {
       parcours: [],
+      open: false,
     };
   }
 
@@ -29,7 +32,6 @@ class seeParcours extends Component {
     } else {
       this.getInfo();
     }
-    this.parcours = null;
     if (state && state.parcours) {
       const currentParcours = state.parcours.filter(parc => parc.id === localStorage.getItem('parcoursId'));
       this.setState({ parcours: currentParcours[0].data });
@@ -79,21 +81,41 @@ class seeParcours extends Component {
     });
   }
 
+  delete = () => {
+    const { firestore, history } = this.props;
+    firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).delete().then(() => {
+      console.log('Document successfully deleted!');
+    })
+      .catch((error) => {
+        console.error('Error removing document: ', error);
+      });
+    history.push({
+      pathname: '/mydashboard',
+      state: { coursDelete: true },
+    });
+  }
+
+  togleModal = () => {
+    const { open } = this.state;
+    this.setState({ open: !open });
+  }
+
   // name et type de cours à mettre dans slide, vidéo et quizz
 
   render() {
     const { state } = this.props;
-    const { parcours } = this.state;
+    const { parcours, open } = this.state;
     return (
       <div>
+        <SimpleModal open={open} togle={this.togleModal} deleted={this.delete} />
         <h1>
           {parcours && parcours.name}
           {' '}
           {parcours && parcours.creator === localStorage.getItem('userid')
             ? (
               <>
-                <Edit />
-                <DeleteIcon />
+                <Link to="addcours"><Edit /></Link>
+                <DeleteIcon onClick={this.togleModal} />
               </>
             )
             : undefined

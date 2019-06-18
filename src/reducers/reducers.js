@@ -22,6 +22,11 @@ const reducers = (state, action) => {
         ...state,
         userLessons: action.payload,
       };
+    case 'HANDLE_BOTTOM_NAV':
+      return {
+        ...state,
+        bottomNav: action.payload,
+      };
 
     default:
       return state;

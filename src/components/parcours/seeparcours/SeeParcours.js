@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import LockOpen from '@material-ui/icons/LockOpen';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
@@ -15,6 +16,7 @@ import { mapDispatchToProps } from '../../../actions/action';
 const mapStateToProps = state => ({
   state,
 });
+
 
 class seeParcours extends Component {
   constructor(props) {
@@ -66,6 +68,14 @@ class seeParcours extends Component {
         });
     }
   }
+
+  redirect = (url) => {
+    const { history } = this.props;
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
+  };
 
   sendRatings = (rating) => {
     const { parcours } = this.state;
@@ -185,6 +195,12 @@ class seeParcours extends Component {
     const { parcours, open } = this.state;
     return (
       <div>
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            this.redirect('/mydashboard');
+          }}
+        />
         <SimpleModal open={open} togle={this.togleModal} deleted={this.delete} />
         <h1>
           {parcours && parcours.name}

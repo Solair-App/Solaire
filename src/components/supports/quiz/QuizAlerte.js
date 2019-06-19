@@ -7,8 +7,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withRouter } from 'react-router';
 
-
-const QuizAlerte = ({ history, resetQuiz }) => {
+const QuizAlerte = ({
+  history, resetQuiz, parcours, cours,
+}) => {
   const [open, setOpen] = React.useState(false);
 
   function handleClickOpen() {
@@ -18,10 +19,10 @@ const QuizAlerte = ({ history, resetQuiz }) => {
   function handleClose(choose) {
     setOpen(false);
     switch (choose) {
-      case 'end': history.push('/parcours');
+      case 'end': history.push(`/parcours/${parcours}`);
         break;
       case 'again': resetQuiz();
-        history.push('/quiz');
+        history.push(`/parcours/${parcours}/quiz/${cours}`);
         break;
       default:
         break;

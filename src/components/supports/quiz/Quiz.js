@@ -97,7 +97,7 @@ class Quiz extends React.Component {
           : (
             <>
               <ScoreArea correct={correct} incorrect={incorrect} />
-              <QuizAlerte resetQuiz={this.resetQuiz} />
+              <QuizAlerte parcours={this.parcours} cours={this.cours} resetQuiz={this.resetQuiz} />
             </>
           )
         }

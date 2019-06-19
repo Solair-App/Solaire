@@ -81,6 +81,24 @@ class Profile extends Component {
                 !
               </p>
 
+              <p>
+                Email :
+                {' '}
+                {userInfo.email ? userInfo.email : 'Pas renseigné'}
+              </p>
+
+              <p>
+                City :
+                {' '}
+                {userInfo.city ? userInfo.city : 'Pas renseigné'}
+              </p>
+
+              <p>
+                A propos de moi :
+                {' '}
+                {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
+              </p>
+
               <Avatar
                 alt="Profile Photo"
                 src="/assets/github.png"

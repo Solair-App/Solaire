@@ -23,6 +23,7 @@ class seeParcours extends Component {
     };
   }
 
+
   componentDidMount() {
     const { location, state } = this.props;
 
@@ -84,14 +85,19 @@ class seeParcours extends Component {
 
   sendRatings = (rating) => {
     const { parcours } = this.state;
+    let determineRating;
+    if (parcours.votants.length === 0) {
+      determineRating = rating;
+    } else {
+      determineRating = parcours.rating * parcours.votants.length;
 
-    let determineRating = parcours.rating * parcours.votants.length;
+      determineRating += rating;
 
-    determineRating += rating;
-
-    determineRating /= (parcours.votants.length + 1);
-
-    const newRating = determineRating;
+      determineRating /= (parcours.votants.length + 1);
+    } const newRating = determineRating;
+    this.setState({
+      rating: newRating,
+    });
 
     firebase
       .firestore()
@@ -157,20 +163,24 @@ class seeParcours extends Component {
 
   // name et type de cours à mettre dans slide, vidéo et quizz
   canUserRate = () => {
-    const { parcours, canVote } = this.state;
+    const { parcours, canVote, rating } = this.state;
 
-    if (canVote === true) {
+    if (canVote && parcours && parcours.apprenants) {
       return (
-        <Rating
-          value={parcours.rating}
-          max={5}
-          onChange={value => this.sendRatings(value)}
-        />
+        <div>
+          <Rating
+            value={parcours.rating}
+            max={5}
+            onChange={value => this.sendRatings(value)}
+          />
+
+
+        </div>
       );
     }
     return (
       <Rating
-        value={3}
+        value={rating || parcours.rating}
         max={5}
         readOnly
 
@@ -199,7 +209,10 @@ class seeParcours extends Component {
           )}
         </h1>
         <p>{parcours && parcours.description}</p>
+
+
         {this.canUserRate()}
+
         {state
           && state.cours
           && state.cours[0].content.map((cours, index) => (
@@ -233,6 +246,7 @@ class seeParcours extends Component {
                 <ArrowDownward />
               </div>
               <div>
+
                 <LockOpen />
                 <div>
                   <ArrowDownward />

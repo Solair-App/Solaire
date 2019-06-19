@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import LockOpen from '@material-ui/icons/LockOpen';
 import { connect } from 'react-redux';
 import * as firebase from 'firebase';
@@ -10,6 +11,7 @@ import { mapDispatchToProps } from '../../../actions/action';
 const mapStateToProps = state => ({
   state,
 });
+
 
 class seeParcours extends Component {
   constructor(props) {
@@ -44,6 +46,14 @@ class seeParcours extends Component {
     }
   }
 
+  redirect = (url) => {
+    const { history } = this.props;
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
+  };
+
   goToCourse = (type, data, id) => {
     const { history } = this.props;
     localStorage.setItem('coursId', id);
@@ -59,6 +69,12 @@ class seeParcours extends Component {
     const { state } = this.props;
     return (
       <div>
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            this.redirect('/mydashboard');
+          }}
+        />
         {state && state.cours && state.cours[0].content.map((cours, index) => (
           <div key={`${index + 1}k`}>
             <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

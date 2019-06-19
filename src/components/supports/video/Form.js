@@ -49,17 +49,19 @@ class Form extends Component {
     const {
       link, duree, name, description,
     } = this.state;
-    const { firestore } = this.props;
+    const { firestore, match } = this.props;
+    const parcours = match.params.parcoursId;
+    const cours = match.params.coursId;
     const db = firestore;
-    const videoSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
-    const video = videoSet.doc(localStorage.getItem('coursId'));
+    const videoSet = db.collection('parcours').doc(parcours).collection('cours');
+    const video = videoSet.doc(cours);
     video.set({
       link, duree, name, description, type: 'video', finish: true,
     }, { merge: true });
     e.preventDefault();
 
     const { history } = this.props;
-    history.push('/addcours');
+    history.push(`/createparcours/${parcours}/addcours`);
   }
 
   redirect = (url) => {
@@ -71,7 +73,7 @@ class Form extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, history } = this.props;
     const {
       id, name, description, duree,
     } = this.state;
@@ -89,7 +91,7 @@ class Form extends Component {
         <ArrowBack
           style={{ position: 'fixed', left: '10px', top: '10px' }}
           onClick={() => {
-            this.redirect('/AddCours');
+            history.goBack();
           }}
         />
         <form className="formFather">

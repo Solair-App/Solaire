@@ -22,22 +22,20 @@ class seeParcours extends Component {
       parcours: [],
       open: false,
     };
+    const { match } = this.props;
+    this.parcours = match.params.parcoursId;
   }
 
   componentDidMount() {
-    const { location, state } = this.props;
-    if (location.state && location.state.parcoursId) {
-      localStorage.setItem('parcoursId', location.state.parcoursId);
-      this.getInfo();
-    } else {
-      this.getInfo();
-    }
+    const { state } = this.props;
+    this.getInfo();
+
     if (state && state.parcours) {
-      const currentParcours = state.parcours.filter(parc => parc.id === localStorage.getItem('parcoursId'));
+      const currentParcours = state.parcours.filter(parc => parc.id === this.parcours);
       this.setState({ parcours: currentParcours[0].data });
     } else {
       const { firestore } = this.props;
-      const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId'));
+      const docRef = firestore.collection('parcours').doc(this.parcours);
       docRef.get().then((doc) => {
         if (doc.exists) {
           this.setState({ parcours: doc.data() });
@@ -52,38 +50,35 @@ class seeParcours extends Component {
   }
 
   getInfo = () => {
-    const { state } = this.props;
-    if ((state && !state.cours) || !state || (state && state.cours[0].id !== localStorage.getItem('parcoursId'))) {
-      // eslint-disable-next-line no-shadow
-      const { firestore, mapDispatchToProps } = this.props;
-      const cours = [];
-      firebase.firestore().collection('parcours').doc(localStorage.getItem('parcoursId')).update({
-        apprenants: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('userid')),
-      });
+    // eslint-disable-next-line no-shadow
+    const { firestore, mapDispatchToProps } = this.props;
+    const cours = [];
+    firebase.firestore().collection('parcours').doc(this.parcours).update({
+      apprenants: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('userid')),
+    });
 
-      firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            cours.push({ id: doc.id, data: doc.data() });
-          });
-          const currentParcours = [{ id: localStorage.getItem('parcoursId'), content: cours }];
-          mapDispatchToProps(currentParcours, 'cours');
+    firestore.collection('parcours').doc(this.parcours).collection('cours').get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          cours.push({ id: doc.id, data: doc.data() });
         });
-    }
+        const currentParcours = [{ id: this.parcours, content: cours }];
+        mapDispatchToProps(currentParcours, 'cours');
+      });
   }
 
   goToCourse = (type, data, id) => {
     const { history } = this.props;
-    localStorage.setItem('coursId', id);
+    localStorage.setItem('coursData', JSON.stringify(data));
     history.push({
-      pathname: `/${type}`,
+      pathname: `/parcours/${this.parcours}/${type}/${id}`,
       state: { data },
     });
   }
 
   delete = () => {
     const { firestore, history } = this.props;
-    firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).delete().then(() => {
+    firestore.collection('parcours').doc(this.parcours).delete().then(() => {
       console.log('Document successfully deleted!');
     })
       .catch((error) => {
@@ -114,7 +109,7 @@ class seeParcours extends Component {
           {parcours && parcours.creator === localStorage.getItem('userid')
             ? (
               <>
-                <Link to="addcours"><Edit /></Link>
+                <Link to={`/createparcours/${this.parcours}/addcours`}><Edit /></Link>
                 <DeleteIcon onClick={this.togleModal} />
               </>
             )

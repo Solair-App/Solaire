@@ -26,15 +26,18 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const SlideApprenant = ({ firestore, history, location }) => {
+const SlideApprenant = ({
+  firestore, history, location, match,
+}) => {
   const [infoSlide, setSlide] = useState({ slides: [] });
-
+  const parcours = match.params.parcoursId;
+  const currentcours = match.params.coursId;
   useEffect(() => {
-    if (location.state && location.state.data) {
-      const cours = location.state.data;
+    if (localStorage.getItem('coursData')) {
+      const cours = JSON.parse(localStorage.getItem('coursData'));
       setSlide(cours);
     } else {
-      const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(localStorage.getItem('coursId'));
+      const docRef = firestore.collection('parcours').doc(parcours).collection('cours').doc(currentcours);
       docRef.get().then((doc) => {
         if (doc.exists) {
           setSlide(doc.data());
@@ -46,7 +49,7 @@ const SlideApprenant = ({ firestore, history, location }) => {
         console.log('Error getting document:', error);
       });
     }
-  }, [firestore, history, location]);
+  }, [firestore, history, location, match, currentcours, parcours]);
 
   const classes = useStyles();
   const theme = useTheme();

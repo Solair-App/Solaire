@@ -56,7 +56,7 @@ function CreateParcours(props) {
       .then(() => {
         localStorage.setItem('id', parcoursRef.id);
 
-        redirect('/AddCours');
+        redirect(`/createparcours/${parcoursRef.id}/addcours`);
       });
   }
 

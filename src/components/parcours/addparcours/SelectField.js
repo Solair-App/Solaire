@@ -28,7 +28,7 @@ function DialogSelect(props) {
 
   const classes = useStyles();
   const {
-    name, choices, handleChange, currentValue,
+    name, choices, handleChange, value,
   } = props;
 
   return (
@@ -40,7 +40,7 @@ function DialogSelect(props) {
         name={name}
         label={name}
         className={classes.textField}
-        value={currentValue}
+        value={value}
         onChange={handleChange(`${name}`)}
         SelectProps={{
           MenuProps: {

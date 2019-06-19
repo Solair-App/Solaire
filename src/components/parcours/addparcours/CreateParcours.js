@@ -8,8 +8,8 @@ import { connect } from 'react-redux';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import SelectField from './SelectField';
 import Parcours from './Parcours';
-
 import '../../../SCSS/CreateParcours.scss';
+
 
 function CreateParcours(props) {
   const [values] = React.useState({});
@@ -49,6 +49,7 @@ function CreateParcours(props) {
           difficulté: parcours.difficulté,
           tags: parcours.tags,
           isReadable: false,
+          créateur: localStorage.getItem('userid'),
         },
         { merge: true },
       )
@@ -124,6 +125,7 @@ function CreateParcours(props) {
           required
           id="filled-multiline-flexible"
           label="Description"
+          value={values.description}
           multiline
           rows="5"
           onChange={handleChange('description')}
@@ -149,7 +151,7 @@ function CreateParcours(props) {
         choices={state.thématique}
         name="thématique"
         handleChange={handleChange}
-        currentValue={value.thématique}
+        value={value.thématique}
         className="selectField"
         style={{ borderRadius: '20px' }}
       />
@@ -158,7 +160,7 @@ function CreateParcours(props) {
         choices={state.langue}
         name="langue"
         handleChange={handleChange}
-        currentValue={value.langue}
+        value={value.langue}
         class="container"
       />
       <SelectField
@@ -166,7 +168,7 @@ function CreateParcours(props) {
         choices={state.durée}
         name="durée"
         handleChange={handleChange}
-        currentValue={value.durée}
+        value={value.durée}
         class="container"
       />
       <SelectField
@@ -174,7 +176,7 @@ function CreateParcours(props) {
         choices={state.difficulté}
         name="difficulté"
         handleChange={handleChange}
-        currentValue={value.difficulté}
+        value={value.difficulté}
         className="selectField"
       />
 

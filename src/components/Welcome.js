@@ -9,6 +9,7 @@ class Welcome extends Component {
     auth.onAuthStateChanged((user) => {
       if (user) {
         const { history } = this.props;
+        localStorage.setItem('userid', user.uid);
         history.push('/mydashboard');
       } else {
         const { history } = this.props;

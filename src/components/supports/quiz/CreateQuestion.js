@@ -7,8 +7,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { withRouter } from 'react-router';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
-
+import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
 class CreateQuestion extends React.Component {
   constructor(props) {
@@ -29,31 +28,45 @@ class CreateQuestion extends React.Component {
     const { question, correct } = this.state;
     const { firestore } = this.props;
     const db = firestore;
-    const quizSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
+    const quizSet = db
+      .collection('parcours')
+      .doc(localStorage.getItem('id'))
+      .collection('cours');
     const quiz = quizSet.doc(localStorage.getItem('coursId'));
     const questionNumber = parseInt(localStorage.getItem('questionNumb'), 10) + 1;
     localStorage.setItem('questionNumb', questionNumber);
-    quiz.set({ questions: { [questionNumber]: { question, answers: this.answers, correct } } }, { merge: true });
+    quiz.set(
+      {
+        questions: {
+          [questionNumber]: { question, answers: this.answers, correct },
+        },
+      },
+      { merge: true },
+    );
     event.preventDefault();
     const { history } = this.props;
     history.push({
       pathname: '/addquiz',
       state: { cours: true },
     });
-  }
+  };
 
   saveAnswer = () => {
     const { answer } = this.state;
     this.answers.push(answer);
     this.setState({ answer: '' });
-  }
+  };
 
   render() {
     const { question, answer, correct } = this.state;
     const isInvalid = question === '' || this.answers.length === 0 || correct === '';
     return (
       <div>
-        <form onSubmit={this.onSubmit} className="classesContainer" autoComplete="off">
+        <form
+          onSubmit={this.onSubmit}
+          className="classesContainer"
+          autoComplete="off"
+        >
           <Grid container>
             <Grid item xs={12}>
               <h1>Ajouter une question</h1>
@@ -89,14 +102,9 @@ class CreateQuestion extends React.Component {
               >
                 Enregistrer cette réponse
               </Button>
-              {this.answers.length > 0
-                ? <h4>Choix de réponses</h4>
-                : undefined
-              }
+              {this.answers.length > 0 ? <h4>Choix de réponses</h4> : undefined}
               {this.answers.map((ans, index) => (
-                <p>
-                  {`${index}/${ans}`}
-                </p>
+                <p>{`${index}/${ans}`}</p>
               ))}
             </Grid>
             <Grid item xs={12}>
@@ -112,8 +120,7 @@ class CreateQuestion extends React.Component {
                 >
                   {this.answers.map((ans, index) => (
                     <MenuItem value={index}>{`${index}/${ans}`}</MenuItem>
-                  ))
-                  }
+                  ))}
                 </Select>
               </FormControl>
             </Grid>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import BottomNav from './dashboard/BottomNav';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
 
 class Profile extends Component {
@@ -105,7 +106,7 @@ class Profile extends Component {
             </>
           )
         }
-
+        <BottomNav />
       </div>
     );
   }

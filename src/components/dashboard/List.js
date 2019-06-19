@@ -34,7 +34,7 @@ export default function ListCours(props) {
 
   return (
     <ul className="hs full">
-      {data
+      {data && data
         .filter(
           /* eslint-disable no-mixed-operators */
           info => info.data.thématique === props.thématique
@@ -43,7 +43,7 @@ export default function ListCours(props) {
               .includes(props.currentSearch.toUpperCase()),
         )
         .map((info, index) => (
-          <div>
+          <div key={`${index + 1}g`}>
             <li className="item" key={`${index + 1}n`}>
               <Typography
                 className={classes.title}

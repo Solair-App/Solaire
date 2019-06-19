@@ -1,27 +1,28 @@
 import React from 'react';
-import '../SCSS/Quiz.scss';
+import '../../../SCSS/Quiz.scss';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
+import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import QuizAlerte from './QuizAlerte';
 
 class Quiz extends React.Component {
   constructor(props) {
     super(props);
+    const { location } = this.props;
+    this.quiz = [];
+    if (location.state && location.state.data) {
+      this.quiz = location.state.data.questions;
+      // this.getInfo();
+    } else {
+      this.getInfo();
+    }
     this.state = {
       current: 0,
-      quiz: null,
+      quiz: this.quiz,
       correct: 0,
       incorrect: 0,
     };
     this.handleClick = this.handleClick.bind(this);
-    const { location, history } = this.props;
-    if (location.state && location.state.id) {
-      this.cours = location.state.id;
-      this.getInfo();
-    } else {
-      history.push('/mydashboard');
-    }
   }
   // end constructor
 
@@ -35,7 +36,7 @@ class Quiz extends React.Component {
 
   getInfo = () => {
     const { firestore } = this.props;
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(this.cours);
+    const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(localStorage.getItem('coursId'));
     docRef.get().then((doc) => {
       if (doc.exists) {
         let quiz = doc.data();
@@ -82,12 +83,13 @@ class Quiz extends React.Component {
     const {
       quiz, current, correct, incorrect,
     } = this.state;
+    const { history } = this.props;
     return (
       <div>
         <ArrowBack
           style={{ position: 'fixed', left: '10%', top: '2%' }}
           onClick={() => {
-            this.redirect('/parcours');
+            history.goBack();
           }}
         />
         {quiz && Object.keys(quiz).length > current
@@ -214,5 +216,6 @@ function ScoreArea({ correct, incorrect }) {
     </div>
   );
 }
+
 
 export default withRouter(withFirebaseContext(Quiz));

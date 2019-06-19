@@ -15,17 +15,11 @@ class AddCours extends Component {
     this.state = {
       data: {},
     };
+    this.getDataBaseData();
   }
 
-  // componentDidMount() {
-  //   const { location, history } = this.props;
-  //   if (!location.state || !location.state.parcours) {
-  //     history.push('/CreateParcours');
-  //   } else {
-  //     this.getDataBaseData();
-  //   }
-  // }
   submit = () => {
+    this.makeCourseReadable();
     const { history } = this.props;
     history.push('/mydashboard');
   }
@@ -57,7 +51,6 @@ class AddCours extends Component {
     const courseSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc();
     localStorage.setItem('coursId', courseSet.id);
 
-
     let cours;
     switch (type) {
       case 'Quizz':
@@ -79,6 +72,16 @@ class AddCours extends Component {
     });
   }
 
+  makeCourseReadable = () => {
+    const { firestore } = this.props;
+    const db = firestore;
+    const courseSet = db.collection('parcours').doc(localStorage.getItem('id'));
+    courseSet.set(
+      {
+        isReadable: true,
+      }, { merge: true },
+    );
+  }
 
   redirectToLessons = () => {
     const { history } = this.props;
@@ -91,12 +94,14 @@ class AddCours extends Component {
 
   render() {
     const { data } = this.state;
+    const { history } = this.props;
+
     return (
       <div>
         <ArrowBack
           style={{ position: 'fixed', left: '10px', top: '10px' }}
           onClick={() => {
-            this.redirect('/CreateParcours');
+            history.goBack();
           }}
         />
         <h1>{data.name}</h1>

@@ -3,7 +3,6 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-
 import React, { Component } from 'react';
 
 export const FirebaseContext = React.createContext();

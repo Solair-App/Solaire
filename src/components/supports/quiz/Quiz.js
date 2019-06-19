@@ -3,7 +3,7 @@ import '../../../SCSS/Quiz.scss';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
-
+import QuizAlerte from './QuizAlerte';
 
 class Quiz extends React.Component {
   constructor(props) {
@@ -27,6 +27,14 @@ class Quiz extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
   // end constructor
+
+  resetQuiz = () => {
+    this.setState({
+      current: 0,
+      correct: 0,
+      incorrect: 0,
+    });
+  };
 
   getInfo = () => {
     const { firestore } = this.props;
@@ -73,7 +81,7 @@ class Quiz extends React.Component {
     return (
       <div>
         <ArrowBack
-          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          style={{ position: 'fixed', left: '10%', top: '2%' }}
           onClick={() => {
             history.goBack();
           }}
@@ -86,7 +94,12 @@ class Quiz extends React.Component {
 
             </>
           )
-          : <ScoreArea correct={correct} incorrect={incorrect} />
+          : (
+            <>
+              <ScoreArea correct={correct} incorrect={incorrect} />
+              <QuizAlerte parcours={this.parcours} cours={this.cours} resetQuiz={this.resetQuiz} />
+            </>
+          )
         }
       </div>
     );
@@ -197,5 +210,6 @@ function ScoreArea({ correct, incorrect }) {
     </div>
   );
 }
+
 
 export default withRouter(withFirebaseContext(Quiz));

@@ -62,7 +62,7 @@ class Profile extends Component {
     return (
       <div>
         <ArrowBack
-          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          style={{ position: 'fixed', left: '10%', top: '2%' }}
           onClick={() => {
             this.redirect('/mydashboard');
           }}

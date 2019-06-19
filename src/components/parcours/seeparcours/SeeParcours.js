@@ -79,7 +79,6 @@ class seeParcours extends Component {
 
       determineRating /= (parcours.votants.length + 1);
     }
-
     const newRating = determineRating;
     this.setState({
       rating: determineRating,

@@ -7,6 +7,8 @@ import Edit from '@material-ui/icons/Edit';
 import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 import Rating from 'material-ui-rating';
+import { Link } from 'react-router-dom';
+import SimpleModal from './SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import { mapDispatchToProps } from '../../../actions/action';
 
@@ -20,24 +22,21 @@ class seeParcours extends Component {
     this.state = {
       parcours: [],
       canVote: true,
+      open: false,
     };
+    const { match } = this.props;
+    this.parcours = match.params.parcoursId;
   }
 
   componentDidMount() {
-    const { location, state } = this.props;
+    const { state } = this.props;
+    this.getInfo();
 
-    if (location.state && location.state.parcoursId) {
-      localStorage.setItem('parcoursId', location.state.parcoursId);
-      this.getInfo();
-    } else {
-      this.getInfo();
-    }
-    this.parcours = null;
 
     if (
-      localStorage.getItem(`canVote${localStorage.getItem('parcoursId')}`)
+      localStorage.getItem(`canVote${this.parcours}`)
         === true
-      || !localStorage.getItem(`canVote${localStorage.getItem('parcoursId')}`)
+      || !localStorage.getItem(`canVote${this.parcours}`)
     ) {
       this.setState({
         canVote: true,
@@ -47,117 +46,120 @@ class seeParcours extends Component {
         canVote: false,
       });
     }
+
     if (state && state.parcours) {
-      const currentParcours = state.parcours.filter(
-        parc => parc.id === localStorage.getItem('parcoursId'),
-      );
+      const currentParcours = state.parcours.filter(parc => parc.id === this.parcours);
       this.setState({ parcours: currentParcours[0].data });
     } else {
       const { firestore } = this.props;
-      const docRef = firestore
-        .collection('parcours')
-        .doc(localStorage.getItem('parcoursId'));
-      docRef
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            this.setState({ parcours: doc.data() });
-          } else {
-            // doc.data() will be undefined in this case
-            console.log('No such document!');
-          }
-        }).then(this.haveUserAlreadyVoted())
+      const docRef = firestore.collection('parcours').doc(this.parcours);
+      docRef.get().then((doc) => {
+        if (doc.exists) {
+          this.setState({ parcours: doc.data() });
+        } else {
+          // doc.data() will be undefined in this case
+          console.log('No such document!');
+        }
+      }).then(this.haveUserAlreadyVoted())
         .catch((error) => {
           console.log('Error getting document:', error);
         });
     }
   }
 
-  haveUserAlreadyVoted = () => {
-    const { parcours } = this.state;
-    if (parcours.votants.includes(localStorage.getItem('userid'))) {
-      this.setState({
-        canVote: false,
-      });
-    }
-  }
-
   sendRatings = (rating) => {
     const { parcours } = this.state;
+    let determineRating;
+    if (parcours.votants.length === 0) {
+      determineRating = rating;
+    } else {
+      determineRating = parcours.rating * parcours.votants.length;
 
-    let determineRating = parcours.rating * parcours.votants.length;
+      determineRating += rating;
 
-    determineRating += rating;
-
-    determineRating /= (parcours.votants.length + 1);
+      determineRating /= (parcours.votants.length + 1);
+    }
 
     const newRating = determineRating;
+    this.setState({
+      rating: determineRating,
+    });
 
     firebase
       .firestore()
       .collection('parcours')
-      .doc(localStorage.getItem('parcoursId'))
+      .doc(this.parcours)
       .update({
         rating: newRating,
         votants: firebase.firestore.FieldValue.arrayUnion(
           localStorage.getItem('userId'),
         ),
       });
-    localStorage.setItem(`canVote${localStorage.getItem('parcoursId')}`, false);
+    localStorage.setItem(`canVote${this.parcours}`, false);
     this.setState({
       canVote: false,
     });
   };
 
   getInfo = () => {
-    const { state } = this.props;
-    if (
-      (state && !state.cours)
-      || !state
-      || (state && state.cours[0].id !== localStorage.getItem('parcoursId'))
-    ) {
-      // eslint-disable-next-line no-shadow
-      const { firestore, mapDispatchToProps } = this.props;
-      const cours = [];
-      firebase
-        .firestore()
-        .collection('parcours')
-        .doc(localStorage.getItem('parcoursId'))
-        .update({
-          apprenants: firebase.firestore.FieldValue.arrayUnion(
-            localStorage.getItem('userid'),
-          ),
-        });
+    // eslint-disable-next-line no-shadow
+    const { firestore, mapDispatchToProps } = this.props;
+    const cours = [];
+    firebase.firestore().collection('parcours').doc(this.parcours).update({
+      apprenants: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('userid')),
+    });
 
-      firestore
-        .collection('parcours')
-        .doc(localStorage.getItem('parcoursId'))
-        .collection('cours')
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            cours.push({ id: doc.id, data: doc.data() });
-          });
-          const currentParcours = [
-            { id: localStorage.getItem('parcoursId'), content: cours },
-          ];
-          mapDispatchToProps(currentParcours, 'cours');
+    firestore.collection('parcours').doc(this.parcours).collection('cours').get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          cours.push({ id: doc.id, data: doc.data() });
         });
-    }
-  };
+        const currentParcours = [{ id: this.parcours, content: cours }];
+        mapDispatchToProps(currentParcours, 'cours');
+      });
+  }
 
   goToCourse = (type, data, id) => {
     const { history } = this.props;
-    localStorage.setItem('coursId', id);
+    localStorage.setItem('coursData', JSON.stringify(data));
+    console.log(id);
     history.push({
-      pathname: `/${type}`,
+      pathname: `/parcours/${this.parcours}/${type}/${id}`,
       state: { data },
     });
   };
 
+  delete = () => {
+    const { firestore, history } = this.props;
+    firestore.collection('parcours').doc(this.parcours).delete().then(() => {
+      console.log('Document successfully deleted!');
+    })
+      .catch((error) => {
+        console.error('Error removing document: ', error);
+      });
+    history.push({
+      pathname: '/mydashboard',
+      state: { coursDelete: true },
+    });
+  }
+
+  togleModal = () => {
+    const { open } = this.state;
+    this.setState({ open: !open });
+  }
+
+  haveUserAlreadyVoted = () => {
+    const { parcours } = this.state;
+    if (parcours.votants && parcours.votants.includes(localStorage.getItem('userid'))) {
+      this.setState({
+        canVote: false,
+      });
+    }
+  }
+
   // name et type de cours à mettre dans slide, vidéo et quizz
   canUserRate = () => {
-    const { parcours, canVote } = this.state;
+    const { parcours, canVote, rating } = this.state;
 
     if (canVote === true) {
       return (
@@ -170,7 +172,7 @@ class seeParcours extends Component {
     }
     return (
       <Rating
-        value={3}
+        value={rating || parcours.rating}
         max={5}
         readOnly
 
@@ -180,23 +182,22 @@ class seeParcours extends Component {
 
   render() {
     const { state } = this.props;
-    const { parcours } = this.state;
-
+    const { parcours, open } = this.state;
     return (
       <div>
+        <SimpleModal open={open} togle={this.togleModal} deleted={this.delete} />
         <h1>
           {parcours && parcours.name}
           {' '}
-          {parcours && parcours.creator === localStorage.getItem('userid') ? (
-            <>
-              {' '}
-
-              <Edit />
-              <DeleteIcon />
-            </>
-          ) : (
-            undefined
-          )}
+          {parcours && parcours.creator === localStorage.getItem('userid')
+            ? (
+              <>
+                <Link to={`/createparcours/${this.parcours}/addcours`}><Edit /></Link>
+                <DeleteIcon onClick={this.togleModal} />
+              </>
+            )
+            : undefined
+          }
         </h1>
         <p>{parcours && parcours.description}</p>
         {this.canUserRate()}

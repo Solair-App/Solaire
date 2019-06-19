@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import { withRouter } from 'react-router';
+import * as firebase from 'firebase';
+
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -20,41 +23,34 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Commentaires = (props) => {
-  const [values] = useState({});
+  const [values, setValues] = useState({
+    name: '',
+    message: '',
+  });
   const classes = useStyles();
   const [value, setValue] = useState({
-    name: '',
-    age: '',
+
     multiline: 'Controlled',
     currentValue: 'tous les champs sont requis',
   });
 
   // Modifications du state
-  const handleChange1 = name => (event) => {
-    setValue({ ...value, [name]: event.target.value });
+  const handleChange1 = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-  const handleChange2 = message => (event) => {
-    setValue({ ...value, [message]: event.target.value });
-  };
 
   const inputProps = {
     maxLength: '5000',
   };
 
   // Stockage des messages dans la db
-  function pushMessagesInsideDB(messages) {
-    const { firestore } = props;
-    const db = firestore;
-    const messagesRef = db.collection('messages').doc();
-
+  function pushMessagesInsideDB() {
+    const db = firebase.firestore();
+    const messagesRef = db.collection('parcours').doc();
     messagesRef
-      .set(
-        {
-          name: messages.name,
-          message: messages.message,
-        },
-        { merge: true },
+      .update(
+        { commentaires: firebase.firestore.FieldValue.arrayUnion({ pseudo: values.name, commentaire: values.message }) },
       )
       .then(() => {
         localStorage.setItem('id', messagesRef.id);
@@ -94,9 +90,10 @@ const Commentaires = (props) => {
           label="Votre nom ou pseudo"
           className={classes.textField}
           value={values.name}
-          onChange={handleChange1('name')}
+          onChange={handleChange1}
           margin="normal"
           variant="filled"
+          name="name"
         />
         <TextField
           id="filled-textarea"
@@ -108,8 +105,9 @@ const Commentaires = (props) => {
           fullWidth
           margin="normal"
           variant="filled"
+          name="message"
           value={values.message}
-          onChange={handleChange2('name')}
+          onChange={handleChange1}
           inputProps={inputProps}
         />
       </form>
@@ -120,4 +118,4 @@ const Commentaires = (props) => {
   );
 };
 
-export default Commentaires;
+export default withRouter(Commentaires);

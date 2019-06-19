@@ -5,7 +5,8 @@ import LockOpen from '@material-ui/icons/LockOpen';
 import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
-import Commentaires from './Commentaires';
+import PostCommentaires from './PostCommentaires';
+import ViewCommentaires from './ViewCommentaires';
 import { mapDispatchToProps } from '../../../actions/action';
 
 const mapStateToProps = state => ({
@@ -86,7 +87,8 @@ class seeParcours extends Component {
             </div>
           </div>
         ))}
-        <Commentaires />
+        <PostCommentaires />
+        <ViewCommentaires />
       </div>
     );
   }

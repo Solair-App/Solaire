@@ -16,12 +16,13 @@ class ListCours extends Component {
   }
 
   getInfo = () => {
+    const { parcours } = this.props;
     const idParcours = localStorage.getItem('id');
     localStorage.setItem('parcoursId', idParcours);
     // eslint-disable-next-line no-shadow
     const { firestore } = this.props;
     const cours = [];
-    firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').get()
+    firestore.collection('parcours').doc(parcours).collection('cours').get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           cours.push({ id: doc.id, data: doc.data() });
@@ -32,17 +33,29 @@ class ListCours extends Component {
   }
 
   goToCourse = (type, data, id) => {
-    const { history } = this.props;
-    localStorage.setItem('coursId', id);
+    const { history, parcours } = this.props;
+    localStorage.setItem('coursCreated', JSON.stringify(data));
+    let currentType;
+    switch (type) {
+      case 'slide':
+        currentType = 'createslider';
+        break;
+      case 'video':
+        currentType = 'addvideo';
+        break;
+      case 'quiz':
+        currentType = 'addquiz';
+        break;
+      default:
+        break;
+    }
     history.push({
-      pathname: `/${type}`,
-      state: { data },
+      pathname: `/createparcours/${parcours}/${id}/${currentType}`,
     });
   }
 
   render() {
     const { allCourses } = this.state;
-
     return (
       <div>
         {allCourses && allCourses.map((cours, i) => (

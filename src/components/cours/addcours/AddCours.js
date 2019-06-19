@@ -15,6 +15,8 @@ class AddCours extends Component {
     this.state = {
       data: {},
     };
+    const { match } = this.props;
+    this.parcours = match.params.parcoursId;
     this.cours = '';
     this.getDataBaseData();
   }
@@ -26,8 +28,6 @@ class AddCours extends Component {
   }
 
   getDataBaseData = () => {
-    const { match } = this.props;
-    this.parcours = match.params.parcoursId;
     const { firestore } = this.props;
     const db = firestore;
     const parcours = db.collection('parcours').doc(this.parcours);
@@ -78,8 +78,7 @@ class AddCours extends Component {
   }
 
   makeCourseReadable = () => {
-    const { firestore, match } = this.props;
-    this.parcours = match.params.parcoursId;
+    const { firestore } = this.props;
     const db = firestore;
     const courseSet = db.collection('parcours').doc(this.parcours);
     courseSet.set(
@@ -118,7 +117,7 @@ class AddCours extends Component {
           </Button>
 
         </Link>
-        <ListCours courseName={data} />
+        <ListCours courseName={data} parcours={this.parcours} />
 
         <TypeCours getType={this.getType} />
 

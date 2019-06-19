@@ -12,6 +12,9 @@ class Essai extends Component {
       content: null,
       erreur: false,
     };
+    const { match } = this.props;
+    this.parcours = match.params.parcoursId;
+    this.cours = match.params.coursId;
   }
 
   // componentDidMount() {
@@ -51,8 +54,8 @@ class Essai extends Component {
       parcours et de la clé du cours */
       /* const slideSet = db.collection('parcours')
       .doc(localStorage.getItem('id')).collection('cours').add({ slides: [content] }); */
-      const slideSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
-      const slide = slideSet.doc(localStorage.getItem('coursId'));
+      const slideSet = db.collection('parcours').doc(this.parcours).collection('cours');
+      const slide = slideSet.doc(this.cours);
       const slideNumber = parseInt(localStorage.getItem('slideNumb'), 10) + 1;
       localStorage.setItem('slideNumb', slideNumber);
       slide.set({ slides: { [slideNumber]: content } }, { merge: true });
@@ -61,7 +64,7 @@ class Essai extends Component {
       // slideSet.update({ slides: firebase.firestore.FieldValue.arrayRemove(content) });
     }
     history.push({
-      pathname: '/createslider',
+      pathname: `/createparcours/${this.parcours}/${this.cours}/createslider`,
       state: { cours: true },
     });
   }

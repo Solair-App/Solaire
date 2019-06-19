@@ -15,6 +15,7 @@ class AddCours extends Component {
     this.state = {
       data: {},
     };
+    this.cours = '';
     this.getDataBaseData();
   }
 
@@ -25,9 +26,11 @@ class AddCours extends Component {
   }
 
   getDataBaseData = () => {
+    const { match } = this.props;
+    this.parcours = match.params.parcoursId;
     const { firestore } = this.props;
     const db = firestore;
-    const parcours = db.collection('parcours').doc(localStorage.getItem('id'));
+    const parcours = db.collection('parcours').doc(this.parcours);
     parcours
       .get()
       .then((doc) => {
@@ -44,12 +47,14 @@ class AddCours extends Component {
   }
 
   getType = (event) => {
-    const { firestore } = this.props;
+    const { firestore, match } = this.props;
+    this.parcours = match.params.parcoursId;
     const db = firestore;
     const type = event.target.value;
 
-    const courseSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc();
+    const courseSet = db.collection('parcours').doc(this.parcours).collection('cours').doc();
     localStorage.setItem('coursId', courseSet.id);
+    this.cours = courseSet.id;
 
     let cours;
     switch (type) {
@@ -73,9 +78,10 @@ class AddCours extends Component {
   }
 
   makeCourseReadable = () => {
-    const { firestore } = this.props;
+    const { firestore, match } = this.props;
+    this.parcours = match.params.parcoursId;
     const db = firestore;
-    const courseSet = db.collection('parcours').doc(localStorage.getItem('id'));
+    const courseSet = db.collection('parcours').doc(this.parcours);
     courseSet.set(
       {
         isReadable: true,
@@ -87,7 +93,7 @@ class AddCours extends Component {
     const { history } = this.props;
     const { cours } = this.state;
     history.push({
-      pathname: `/${cours}`,
+      pathname: `/createparcours/${this.parcours}/${this.cours}/${cours}`,
       state: { cours: true },
     });
   }

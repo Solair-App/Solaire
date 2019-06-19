@@ -49,14 +49,17 @@ function CreateParcours(props) {
           difficulté: parcours.difficulté,
           tags: parcours.tags,
           isReadable: false,
-          créateur: localStorage.getItem('userid'),
+          creator: localStorage.getItem('userid'),
+          rating: 0,
+          votants: [],
+          commentaires: [],
         },
         { merge: true },
       )
       .then(() => {
         localStorage.setItem('id', parcoursRef.id);
 
-        redirect('/AddCours');
+        redirect(`/createparcours/${parcoursRef.id}/addcours`);
       });
   }
 

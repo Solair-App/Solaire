@@ -15,6 +15,9 @@ class CreateQuiz extends Component {
       name: '',
       description: '',
     };
+    const { match } = this.props;
+    this.parcours = match.params.parcoursId;
+    this.cours = match.params.coursId;
     this.getInfo();
   }
 
@@ -33,20 +36,20 @@ class CreateQuiz extends Component {
     const { name, description } = this.state;
     const { firestore } = this.props;
     const db = firestore;
-    const quizSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
-    const quiz = quizSet.doc(localStorage.getItem('coursId'));
+    const quizSet = db.collection('parcours').doc(this.parcours).collection('cours');
+    const quiz = quizSet.doc(this.cours);
     quiz.set({
       type: 'quiz', name, description, finish: true,
     }, { merge: true });
     event.preventDefault();
     const { history } = this.props;
-    history.push('/AddCours');
+    history.push(`/createparcours/${this.parcours}/addcours`);
   }
 
   getInfo = () => {
     const { firestore } = this.props;
 
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(localStorage.getItem('coursId'));
+    const docRef = firestore.collection('parcours').doc(this.parcours).collection('cours').doc(this.cours);
     docRef.get().then((doc) => {
       if (doc.exists) {
         const infoQuiz = doc.data();
@@ -68,15 +71,15 @@ class CreateQuiz extends Component {
   }
 
   render() {
-    const { infoQuiz } = this.state;
-    const { name, description } = this.state;
+    const { history } = this.props;
+    const { infoQuiz, name, description } = this.state;
 
     return (
       <Grid container>
         <ArrowBack
           style={{ position: 'fixed', left: '10px', top: '10px' }}
           onClick={() => {
-            this.redirect('/AddCours');
+            history.goBack();
           }}
         />
         <Grid item xs={12}>
@@ -103,7 +106,7 @@ class CreateQuiz extends Component {
         </Grid>
 
         <Grid item xs={12}>
-          <Link to="/addquestion">
+          <Link to={`/createparcours/${this.parcours}/${this.cours}/addquestion`}>
             <Button
               size="medium"
               variant="contained"

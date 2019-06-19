@@ -10,7 +10,7 @@ const Dashboard = () => (
       Welcome to your app
     </p>
     <p>
-      <Link to="/CreateParcours">
+      <Link to="/createparcours">
         <Button
           size="large"
           type="button"

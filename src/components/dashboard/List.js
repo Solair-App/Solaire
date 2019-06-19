@@ -50,7 +50,7 @@ export default function ListCours(props) {
                 color="textSecondary"
                 gutterBottom
               >
-                <Link to={{ pathname: '/parcours', state: { parcoursId: info.id } }}>
+                <Link to={`/parcours/${info.id}`}>
                   {info.data.name}
                 </Link>
               </Typography>

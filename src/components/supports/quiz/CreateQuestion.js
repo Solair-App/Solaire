@@ -18,6 +18,9 @@ class CreateQuestion extends React.Component {
       correct: '',
     };
     this.answers = [];
+    const { match } = this.props;
+    this.parcours = match.params.parcoursId;
+    this.cours = match.params.coursId;
   }
 
   onChange = (event) => {
@@ -28,11 +31,8 @@ class CreateQuestion extends React.Component {
     const { question, correct } = this.state;
     const { firestore } = this.props;
     const db = firestore;
-    const quizSet = db
-      .collection('parcours')
-      .doc(localStorage.getItem('id'))
-      .collection('cours');
-    const quiz = quizSet.doc(localStorage.getItem('coursId'));
+    const quizSet = db.collection('parcours').doc(this.parcours).collection('cours');
+    const quiz = quizSet.doc(this.cours);
     const questionNumber = parseInt(localStorage.getItem('questionNumb'), 10) + 1;
     localStorage.setItem('questionNumb', questionNumber);
     quiz.set(
@@ -46,7 +46,7 @@ class CreateQuestion extends React.Component {
     event.preventDefault();
     const { history } = this.props;
     history.push({
-      pathname: '/addquiz',
+      pathname: `/createparcours/${this.parcours}/${this.cours}/addquiz`,
       state: { cours: true },
     });
   };

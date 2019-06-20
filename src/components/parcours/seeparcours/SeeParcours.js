@@ -12,6 +12,8 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import SimpleModal from '../../SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
+import PostCommentaires from './PostCommentaires';
+import ViewCommentaires from './ViewCommentaires';
 import { mapDispatchToProps } from '../../../actions/action';
 
 const mapStateToProps = state => ({
@@ -26,10 +28,12 @@ class seeParcours extends Component {
       parcours: [],
       canVote: true,
       open: false,
+      commentaire: { pseudo: '', commentaire: 'qsd' },
     };
     const { match } = this.props;
     this.parcours = match.params.parcoursId;
   }
+
 
   componentDidMount() {
     const { state } = this.props;
@@ -68,6 +72,12 @@ class seeParcours extends Component {
           console.log('Error getting document:', error);
         });
     }
+  }
+
+  sendCommentaire = (text) => {
+    this.setState({
+      commentaire: { pseudo: text.name, commentaire: text.message },
+    });
   }
 
   redirect = (url) => {
@@ -171,13 +181,17 @@ class seeParcours extends Component {
   canUserRate = () => {
     const { parcours, canVote, rating } = this.state;
 
-    if (canVote === true) {
+    if (canVote && parcours && parcours.apprenants) {
       return (
-        <Rating
-          value={parcours.rating}
-          max={5}
-          onChange={value => this.sendRatings(value)}
-        />
+        <div>
+          <Rating
+            value={parcours.rating}
+            max={5}
+            onChange={value => this.sendRatings(value)}
+          />
+
+
+        </div>
       );
     }
     return (
@@ -192,7 +206,8 @@ class seeParcours extends Component {
 
   render() {
     const { state, history } = this.props;
-    const { parcours, open } = this.state;
+    const { parcours, open, commentaire } = this.state;
+
     return (
       <div>
         <ArrowBack
@@ -216,7 +231,10 @@ class seeParcours extends Component {
           }
         </h1>
         <p>{parcours && parcours.description}</p>
+
+
         {this.canUserRate()}
+
         {state
           && state.cours
           && state.cours[0].content.map((cours, index) => (
@@ -250,6 +268,7 @@ class seeParcours extends Component {
                 <ArrowDownward />
               </div>
               <div>
+
                 <LockOpen />
                 <div>
                   <ArrowDownward />
@@ -257,6 +276,8 @@ class seeParcours extends Component {
               </div>
             </div>
           ))}
+        <PostCommentaires sendCommentaire={this.sendCommentaire} />
+        <ViewCommentaires currentParcours={this.parcours} currentCommentaire={commentaire} />
       </div>
     );
   }

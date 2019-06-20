@@ -102,32 +102,32 @@ const CreateSlider = ({ firestore, history, match }) => {
       />
       <h1>Créer un slider</h1>
       {Object.keys(infoSlide.slides).length > 0
-        ? <h2 style={{ marginTop: '8px' }}>Aperçu du slider en cours</h2>
+        ? <h2 style={{ marginTop: '8px' }}>Aperçu du slider en cours</h2> && (
+          <MobileStepper
+            steps={maxSteps}
+            position="static"
+            variant="text"
+            activeStep={activeStep}
+            nextButton={(
+              <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
+        Suivant
+                {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+              </Button>
+    )}
+            backButton={(
+              <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+       Précédent
+              </Button>
+    )}
+          />
+      )
         : <p style={{ marginTop: '8px' }}>Ce slider ne contient pas encore de questions</p>
-      }
-
+}
       {
         <div className="import">{ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}</div>
-      }
+}
 
-      <MobileStepper
-        steps={maxSteps}
-        position="static"
-        variant="text"
-        activeStep={activeStep}
-        nextButton={(
-          <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-            Next
-            {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-          </Button>
-        )}
-        backButton={(
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-            Back
-          </Button>
-        )}
-      />
       <Grid container>
 
         <Grid item xs={12}>

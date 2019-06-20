@@ -11,7 +11,8 @@ import Form from './components/supports/video/Form';
 import Dashboard from './components/dashboard/Dashboard';
 import Connect from './components/connexion/Connect';
 import PasswordForget from './components/PasswordForget';
-import Profile from './components/Profile';
+import Profile from './components/profile/Profile';
+import ChangeProfile from './components/profile/ChangeProfile';
 import SlideFormateur from './components/supports/slides/SlideFormateur';
 import SlideApprenant from './components/supports/slides/SlideApprenant';
 import CreateQuiz from './components/supports/quiz/CreateQuiz';
@@ -50,6 +51,7 @@ const App = () => (
 
           <Route path="/mydashboard" component={Dashboard} />
           <Route path="/profile" component={Profile} />
+          <Route path="/changeprofile" component={ChangeProfile} />
           <Route path="/mylessons" component={MyLessons} />
         </Switch>
       </HashRouter>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import TextField from '@material-ui/core/TextField';
+import ImageUpload from './ImageUpload';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 
 class ChangeProfile extends Component {
@@ -21,6 +22,13 @@ class ChangeProfile extends Component {
       pathname: url,
       state: { parcours: true },
     });
+  }
+
+  getImage = (url) => {
+    const { firestore } = this.props;
+    firestore.doc(`usersinfo/${localStorage.getItem('userId')}`).set({
+      url,
+    }, { merge: true });
   }
 
   onChange = (event) => {
@@ -73,6 +81,9 @@ class ChangeProfile extends Component {
           }}
         />
         <h1>Modifier mes informations personnelles</h1>
+        <div>
+          <ImageUpload getImage={this.getImage} />
+        </div>
         <div>
           <TextField
             id="standard-name"

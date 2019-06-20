@@ -82,6 +82,12 @@ class Profile extends Component {
               </p>
 
               <p>
+
+                <img alt="Profil img" src={userInfo.url ? userInfo.url : 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png'} />
+
+              </p>
+
+              <p>
                 Email :
                 {' '}
                 {userInfo.email ? userInfo.email : 'Pas renseigné'}
@@ -98,17 +104,6 @@ class Profile extends Component {
                 {' '}
                 {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
               </p>
-
-              <Avatar
-                alt="Profile Photo"
-                src="/assets/github.png"
-                className="avatar"
-                style={{
-                  margin: '140px',
-                  width: '100px',
-                  height: '100px',
-                }}
-              />
 
               <Button
                 variant="outlined"

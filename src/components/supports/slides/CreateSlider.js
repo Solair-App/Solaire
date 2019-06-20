@@ -49,7 +49,16 @@ const CreateSlider = ({ firestore, history, match }) => {
     }).catch((error) => {
       console.log('Error getting document:', error);
     });
-  });
+    if (infoSlide.name) {
+      setName(infoSlide.name);
+      setDescription(infoSlide.description);
+    }
+  }, [cours, parcours, firestore, infoSlide.name, infoSlide.slides.length, infoSlide.description]);
+  // if (localStorage.getItem('coursCreated')) {
+  //   const coursCreated = JSON.parse(localStorage.getItem('coursCreated'));
+  //   this.setState({});
+  // }
+
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -69,7 +78,7 @@ const CreateSlider = ({ firestore, history, match }) => {
     const slideSet = db.collection('parcours').doc(parcours).collection('cours');
     const slide = slideSet.doc(cours);
     slide.set({
-      type: 'slide', name, description, finish: true,
+      type: 'slide', name, description, finish: true, creator: localStorage.getItem('userid'),
     }, { merge: true });
     event.preventDefault();
     history.push(`/createparcours/${parcours}/addcours`);

@@ -38,7 +38,7 @@ const ViewCommentaires = ({
         <h1>{commentaire.pseudo}</h1>
         <p>{commentaire.commentaire}</p>
       </div>
-    ));
+    )).reverse();
   }
 
   return (

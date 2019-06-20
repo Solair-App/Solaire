@@ -7,7 +7,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 
-function SimpleModal({ open, togle, deleted }) {
+function SimpleModal({
+  open, togle, deleted, idCours,
+}) {
   // getModalStyle is not a pure function, we roll the style only on the first render
 
 
@@ -18,15 +20,15 @@ function SimpleModal({ open, togle, deleted }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">Voulez-vous vraiment supprimer ce parcours ?</DialogTitle>
+        <DialogTitle id="alert-dialog-title">Voulez-vous vraiment supprimer cet élément ?</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-                        (Vos changements seront visibles dans quelques heures sur l`application)
-
+            Toute suppression est définitive.
+            (Vos changements seront visibles dans quelques heures sur l`application)
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={() => deleted()}>
+          <Button variant="outlined" onClick={() => deleted(idCours)}>
               Supprimer
           </Button>
           <Button variant="outlined" onClick={() => togle()}>
@@ -37,5 +39,4 @@ function SimpleModal({ open, togle, deleted }) {
     </div>
   );
 }
-
 export default SimpleModal;

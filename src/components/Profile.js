@@ -75,6 +75,11 @@ class Profile extends Component {
                 {' '}
                 {userInfo.name}
               </p>
+              <p>
+                Email:
+                {' '}
+                {userInfo.email ? userInfo.email : 'Pas renseigné'}
+              </p>
               <Button
                 size="large"
                 type="button"

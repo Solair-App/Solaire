@@ -31,12 +31,6 @@ const ViewCommentaires = ({
   function showCommentaire() {
     if (currentCommentaire.commentaire.length > 3) {
       commentaires.push(currentCommentaire);
-      return commentaires.map((commentaire, index) => (
-        <div key={`${index + 1}m`}>
-          <h1>{commentaire.pseudo}</h1>
-          <p>{commentaire.commentaire}</p>
-        </div>
-      ));
     }
 
     return commentaires.map((commentaire, index) => (

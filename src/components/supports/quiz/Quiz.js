@@ -3,22 +3,24 @@ import '../../../SCSS/Quiz.scss';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
-
+import QuizAlerte from './QuizAlerte';
 
 class Quiz extends React.Component {
   constructor(props) {
     super(props);
-    const { location } = this.props;
     this.quiz = [];
-    if (location.state && location.state.data) {
-      this.quiz = location.state.data.questions;
+    const { match } = this.props;
+    this.parcours = match.params.parcoursId;
+    this.cours = match.params.coursId;
+    if (localStorage.getItem('coursData')) {
+      this.quiz = JSON.parse(localStorage.getItem('coursData'));
       // this.getInfo();
     } else {
       this.getInfo();
     }
     this.state = {
       current: 0,
-      quiz: this.quiz,
+      quiz: this.quiz.questions,
       correct: 0,
       incorrect: 0,
     };
@@ -26,9 +28,17 @@ class Quiz extends React.Component {
   }
   // end constructor
 
+  resetQuiz = () => {
+    this.setState({
+      current: 0,
+      correct: 0,
+      incorrect: 0,
+    });
+  };
+
   getInfo = () => {
     const { firestore } = this.props;
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(localStorage.getItem('coursId'));
+    const docRef = firestore.collection('parcours').doc(this.parcours).collection('cours').doc(this.cours);
     docRef.get().then((doc) => {
       if (doc.exists) {
         let quiz = doc.data();
@@ -42,14 +52,6 @@ class Quiz extends React.Component {
       console.log('Error getting document:', error);
     });
   };
-
-  redirect = (url) => {
-    const { history } = this.props;
-    history.push({
-      pathname: url,
-      state: { parcours: true },
-    });
-  }
 
   handleClick(choice) {
     const {
@@ -79,7 +81,7 @@ class Quiz extends React.Component {
     return (
       <div>
         <ArrowBack
-          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          style={{ position: 'fixed', left: '10%', top: '2%' }}
           onClick={() => {
             history.goBack();
           }}
@@ -92,7 +94,12 @@ class Quiz extends React.Component {
 
             </>
           )
-          : <ScoreArea correct={correct} incorrect={incorrect} />
+          : (
+            <>
+              <ScoreArea correct={correct} incorrect={incorrect} />
+              <QuizAlerte parcours={this.parcours} cours={this.cours} resetQuiz={this.resetQuiz} />
+            </>
+          )
         }
       </div>
     );
@@ -203,5 +210,6 @@ function ScoreArea({ correct, incorrect }) {
     </div>
   );
 }
+
 
 export default withRouter(withFirebaseContext(Quiz));

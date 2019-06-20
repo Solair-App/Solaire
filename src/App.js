@@ -28,23 +28,28 @@ const App = () => (
       <HashRouter>
         <Switch>
           <Route exact path="/" component={Welcome} />
-          <Route path="/CreateParcours" component={CreateParcours} />
-          <Route path="/addvideo" component={Form} />
-          <Route path="/video" component={Video} />
-          <Route path="/AddCours" component={AddCours} />
-          <Route path="/addquiz" component={CreateQuiz} />
-          <Route path="/addquestion" component={CreateQuestion} />
-          <Route path="/parcours" component={SeeParcours} />
-          <Route path="/slide" component={SlideApprenant} />
-          <Route path="/createslider" component={CreateSlider} />
-          <Route path="/addslide" component={SlideFormateur} />
+          <Route exact path="/createparcours" component={CreateParcours} />
+          <Route path="/createparcours/:parcoursId?/addcours" component={AddCours} />
+          <Route exact path="/parcours/:parcoursId" component={SeeParcours} />
+
+          <Route path="/createparcours/:parcoursId/:coursId?/addvideo" component={Form} />
+          <Route path="/parcours/:parcoursId?/video/:coursId?" component={Video} />
+
+          <Route path="/createparcours/:parcoursId?/:coursId?/addquiz" component={CreateQuiz} />
+          <Route path="/createparcours/:parcoursId?/:coursId?/addquestion" component={CreateQuestion} />
+          <Route path="/parcours/:parcoursId?/quiz/:coursId?" component={Quiz} />
+
+          <Route path="/createparcours/:parcoursId?/:coursId?/createslider" component={CreateSlider} />
+          <Route path="/parcours/:parcoursId?/slide/:coursId?" component={SlideApprenant} />
+          <Route path="/createparcours/:parcoursId?/:coursId?/addslide" component={SlideFormateur} />
+
           <Route path="/signin" component={Signin} />
           <Route path="/signup" component={Signup} />
           <Route path="/connect" component={Connect} />
           <Route path="/reset" component={PasswordForget} />
+
           <Route path="/mydashboard" component={Dashboard} />
           <Route path="/profile" component={Profile} />
-          <Route path="/quiz" component={Quiz} />
           <Route path="/mylessons" component={MyLessons} />
         </Switch>
       </HashRouter>

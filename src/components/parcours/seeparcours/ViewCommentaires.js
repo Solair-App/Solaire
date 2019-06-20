@@ -8,13 +8,17 @@ const mapStateToProps = state => ({
 
 
 // Récupération des slides de la db
-const ViewCommentaires = (props) => {
-  const [commentaire, setCommentaire] = useState({ commentaires: [] });
+const ViewCommentaires = ({
+  match, firestore, location, currentParcours, currentCommentaire,
+}) => {
+  const parcours = currentParcours;
+  const [commentaires, setCommentaires] = useState('');
   useEffect(() => {
-    const docRef = firebase.firestore().collection('parcours');
+    const docRef = firebase.firestore().collection('parcours').doc(parcours);
     docRef.get().then((doc) => {
       if (doc.exists) {
-        setCommentaire(doc.data());
+        const allFields = doc.data();
+        setCommentaires(allFields.commentaires);
       } else {
         // doc.data() will be undefined in this case
         console.log('No such document!');
@@ -22,19 +26,27 @@ const ViewCommentaires = (props) => {
     }).catch((error) => {
       console.log('Error getting document:', error);
     });
-  });
+    console.log(currentCommentaire);
+
+    if (currentCommentaire.commentaire.length > 2) {
+      console.log('test');
+      const tab2 = JSON.stringify(JSON.parse(commentaires));
+      tab2.push(currentCommentaire);
+      setCommentaires(tab2);
+    }
+  }, [firestore, location, match, parcours]);
+
 
   return (
     <div>
-      <h2>
-        {props.state.parcours[5].data.commentaires.map((commentaires, index) => (
-          <div key={`${index + 1}m`}>
-            <h1 />
-            <h2 />
-          </div>
-        ))}
 
-      </h2>
+      {commentaires && commentaires.map((commentaire, index) => (
+        <div key={`${index + 1}m`}>
+          <h1>{commentaire.pseudo}</h1>
+          <p>{commentaire.commentaire}</p>
+        </div>
+      ))}
+
 
     </div>
   );

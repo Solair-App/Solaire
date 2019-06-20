@@ -56,7 +56,7 @@ class MyLessons extends React.Component {
       <div>
         {' '}
         <UseTabs changeTabs={this.handleChange} currentValue={currentValue} />
-        { state ? state.parcours.filter(parcours => (currentValue === 0 ? parcours.data.créateur === currentUser : Object.entries(parcours.data.apprenants).map(x => x.includes(currentUser)))).map((x, i) => <ListLessons data={x} key={`${i + 1}a`} />) : <p>loading..</p>}
+        { state ? state.parcours.filter(parcours => (currentValue === 0 ? parcours.data.creator === currentUser : Object.entries(parcours.data.apprenants).map(x => x.includes(currentUser)))).map((x, i) => <ListLessons data={x} key={`${i + 1}a`} />) : <p>loading..</p>}
         <BottomNav />
 
       </div>

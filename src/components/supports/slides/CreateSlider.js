@@ -29,13 +29,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const CreateSlider = ({ firestore, history }) => {
+const CreateSlider = ({ firestore, history, match }) => {
   const [infoSlide, setSlide] = useState({ slides: [] });
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
+  const parcours = match.params.parcoursId;
+  const cours = match.params.coursId;
+
   useEffect(() => {
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(localStorage.getItem('coursId'));
+    const docRef = firestore.collection('parcours').doc(parcours).collection('cours').doc(cours);
     docRef.get().then((doc) => {
       if (doc.exists) {
         setSlide(doc.data());
@@ -63,13 +66,13 @@ const CreateSlider = ({ firestore, history }) => {
 
   const saveCours = (event) => {
     const db = firestore;
-    const slideSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
-    const slide = slideSet.doc(localStorage.getItem('coursId'));
+    const slideSet = db.collection('parcours').doc(parcours).collection('cours');
+    const slide = slideSet.doc(cours);
     slide.set({
       type: 'slide', name, description, finish: true,
     }, { merge: true });
     event.preventDefault();
-    history.push('/AddCours');
+    history.push(`/createparcours/${parcours}/addcours`);
   };
 
   function handleNext() {
@@ -80,19 +83,12 @@ const CreateSlider = ({ firestore, history }) => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   }
 
-  function redirect(url) {
-    history.push({
-      pathname: url,
-      state: { parcours: true },
-    });
-  }
-
   return (
     <div className={classes.root}>
       <ArrowBack
         style={{ position: 'fixed', left: '10px', top: '10px' }}
         onClick={() => {
-          redirect('/AddCours');
+          history.goBack();
         }}
       />
       <h1>Créer un slider</h1>
@@ -126,7 +122,7 @@ const CreateSlider = ({ firestore, history }) => {
       <Grid container>
 
         <Grid item xs={12}>
-          <Link to="/addslide">
+          <Link to={`/createparcours/${parcours}/${cours}/addslide`}>
             <Button
               size="medium"
               variant="contained"

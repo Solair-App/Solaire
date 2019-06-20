@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
 import * as firebase from 'firebase';
 
-
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
@@ -44,19 +43,22 @@ const Commentaires = (props) => {
     maxLength: '5000',
   };
 
+  const { match } = props;
+  const parcours = match.params.parcoursId;
   // Stockage des messages dans la db
   function pushMessagesInsideDB() {
     const db = firebase.firestore();
-    const messagesRef = db.collection('parcours').doc();
+    const messagesRef = db.collection('parcours').doc(parcours);
     messagesRef
       .update(
         { commentaires: firebase.firestore.FieldValue.arrayUnion({ pseudo: values.name, commentaire: values.message }) },
       )
       .then(() => {
         localStorage.setItem('id', messagesRef.id);
+        props.sendCommentaire(values);
       });
     const { history } = props;
-    history.push('/parcours');
+    history.push(`/parcours/${parcours}`);
   }
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
@@ -118,4 +120,4 @@ const Commentaires = (props) => {
   );
 };
 
-export default withRouter(Commentaires);
+export default (withRouter(Commentaires));

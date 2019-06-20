@@ -132,7 +132,6 @@ class seeParcours extends Component {
   goToCourse = (type, data, id) => {
     const { history } = this.props;
     localStorage.setItem('coursData', JSON.stringify(data));
-    console.log(id);
     history.push({
       pathname: `/parcours/${this.parcours}/${type}/${id}`,
       state: { data },

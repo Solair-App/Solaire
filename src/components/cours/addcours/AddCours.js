@@ -72,7 +72,6 @@ class AddCours extends Component {
     }
     this.setState({
       cours,
-
     });
   }
 
@@ -107,27 +106,22 @@ class AddCours extends Component {
             <Edit />
             Modifier les options
           </Button>
-
         </Link>
         <ListCours courseName={data} parcours={this.parcours} />
-
         <TypeCours getType={this.getType} />
-
         <Button onClick={() => { this.redirectToLessons(data); }}>
           {' '}
           <Add style={{ marginRight: '10px' }} />
-Ajouter un cours
+          Ajouter un cours
         </Button>
         <div>
           <Button
-
             fullWidth
-
             size="large"
             onClick={this.submit}
             variant="contained"
           >
-          Valider
+            Valider
           </Button>
         </div>
       </div>

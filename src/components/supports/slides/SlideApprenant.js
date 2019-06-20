@@ -33,8 +33,6 @@ const SlideApprenant = ({
   const parcours = match.params.parcoursId;
   const currentcours = match.params.coursId;
   useEffect(() => {
-    console.log('hello');
-
     if (localStorage.getItem('coursData')) {
       const cours = JSON.parse(localStorage.getItem('coursData'));
       setSlide(cours);

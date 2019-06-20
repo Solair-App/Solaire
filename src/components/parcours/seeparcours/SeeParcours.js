@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import LockOpen from '@material-ui/icons/LockOpen';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
 import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 import Rating from 'material-ui-rating';
+import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import SimpleModal from './SimpleModal';
+import SimpleModal from '../../SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import { mapDispatchToProps } from '../../../actions/action';
 
 const mapStateToProps = state => ({
   state,
 });
+
 
 class seeParcours extends Component {
   constructor(props) {
@@ -67,6 +70,14 @@ class seeParcours extends Component {
     }
   }
 
+  redirect = (url) => {
+    const { history } = this.props;
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
+  };
+
   sendRatings = (rating) => {
     const { parcours } = this.state;
     let determineRating;
@@ -79,7 +90,6 @@ class seeParcours extends Component {
 
       determineRating /= (parcours.votants.length + 1);
     }
-
     const newRating = determineRating;
     this.setState({
       rating: determineRating,
@@ -129,10 +139,10 @@ class seeParcours extends Component {
     });
   };
 
-  delete = () => {
+  delete = (idCours) => {
     const { firestore, history } = this.props;
     firestore.collection('parcours').doc(this.parcours).delete().then(() => {
-      console.log('Document successfully deleted!');
+      console.log(`Document ${idCours} successfully deleted!`);
     })
       .catch((error) => {
         console.error('Error removing document: ', error);
@@ -181,11 +191,17 @@ class seeParcours extends Component {
   };
 
   render() {
-    const { state } = this.props;
+    const { state, history } = this.props;
     const { parcours, open } = this.state;
     return (
       <div>
-        <SimpleModal open={open} togle={this.togleModal} deleted={this.delete} />
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            history.goBack();
+          }}
+        />
+        <SimpleModal open={open} idCours="Id" togle={this.togleModal} deleted={this.delete} />
         <h1>
           {parcours && parcours.name}
           {' '}
@@ -249,4 +265,4 @@ class seeParcours extends Component {
 export default connect(
   mapStateToProps,
   { mapDispatchToProps },
-)(withFirebaseContext(seeParcours));
+)(withRouter(withFirebaseContext(seeParcours)));

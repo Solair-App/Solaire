@@ -26,8 +26,8 @@ class Dashboard extends Component {
   }
 
   getMarkers() {
-    const { state } = this.props;
-    if (!state || !state.parcours) {
+    const { state, location } = this.props;
+    if (!state || !state.parcours || (location.state && location.state.coursDelete)) {
       // eslint-disable-next-line no-shadow
       const { mapDispatchToProps } = this.props;
 
@@ -118,7 +118,6 @@ class Dashboard extends Component {
 
                 </h1>
                 <List
-
                   data={state.parcours}
                   thématique={results}
                   currentSearch={searchField}

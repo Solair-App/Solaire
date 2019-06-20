@@ -12,6 +12,7 @@ class CreateQuiz extends Component {
     super(props);
     this.state = {
       infoQuiz: {},
+      quizData: '',
       name: '',
       description: '',
     };
@@ -39,7 +40,7 @@ class CreateQuiz extends Component {
     const quizSet = db.collection('parcours').doc(this.parcours).collection('cours');
     const quiz = quizSet.doc(this.cours);
     quiz.set({
-      type: 'quiz', name, description, finish: true,
+      type: 'quiz', name, description, finish: true, creator: localStorage.getItem('userid'),
     }, { merge: true });
     event.preventDefault();
     const { history } = this.props;
@@ -54,11 +55,17 @@ class CreateQuiz extends Component {
       if (doc.exists) {
         const infoQuiz = doc.data();
         this.setState({
+          quizData: infoQuiz,
           infoQuiz: infoQuiz.questions,
         });
       } else {
         // doc.data() will be undefined in this case
         console.log('No such document!');
+      }
+    }).then(() => {
+      const { quizData } = this.state;
+      if (quizData.name && quizData.description) {
+        this.setState({ name: quizData.name, description: quizData.description });
       }
     }).catch((error) => {
       console.log('Error getting document:', error);

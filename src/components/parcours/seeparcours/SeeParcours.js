@@ -8,8 +8,9 @@ import Edit from '@material-ui/icons/Edit';
 import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 import Rating from 'material-ui-rating';
+import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import SimpleModal from './SimpleModal';
+import SimpleModal from '../../SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import PostCommentaires from './PostCommentaires';
 import ViewCommentaires from './ViewCommentaires';
@@ -99,7 +100,6 @@ class seeParcours extends Component {
 
       determineRating /= (parcours.votants.length + 1);
     }
-
     const newRating = determineRating;
     this.setState({
       rating: determineRating,
@@ -149,10 +149,10 @@ class seeParcours extends Component {
     });
   };
 
-  delete = () => {
+  delete = (idCours) => {
     const { firestore, history } = this.props;
     firestore.collection('parcours').doc(this.parcours).delete().then(() => {
-      console.log('Document successfully deleted!');
+      console.log(`Document ${idCours} successfully deleted!`);
     })
       .catch((error) => {
         console.error('Error removing document: ', error);
@@ -205,7 +205,7 @@ class seeParcours extends Component {
   };
 
   render() {
-    const { state } = this.props;
+    const { state, history } = this.props;
     const { parcours, open, commentaire } = this.state;
 
     return (
@@ -213,10 +213,10 @@ class seeParcours extends Component {
         <ArrowBack
           style={{ position: 'fixed', left: '10px', top: '10px' }}
           onClick={() => {
-            this.redirect('/mydashboard');
+            history.goBack();
           }}
         />
-        <SimpleModal open={open} togle={this.togleModal} deleted={this.delete} />
+        <SimpleModal open={open} idCours="Id" togle={this.togleModal} deleted={this.delete} />
         <h1>
           {parcours && parcours.name}
           {' '}
@@ -286,4 +286,4 @@ class seeParcours extends Component {
 export default connect(
   mapStateToProps,
   { mapDispatchToProps },
-)(withFirebaseContext(seeParcours));
+)(withRouter(withFirebaseContext(seeParcours)));

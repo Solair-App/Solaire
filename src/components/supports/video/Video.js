@@ -4,14 +4,12 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
-
 class Video extends Component {
   constructor(props) {
     super(props);
     const { match } = this.props;
     this.parcours = match.params.parcoursId;
     this.curentcours = match.params.coursId;
-    console.log('hello');
     if (localStorage.getItem('coursData')) {
       this.cours = JSON.parse(localStorage.getItem('coursData'));
       this.state = {

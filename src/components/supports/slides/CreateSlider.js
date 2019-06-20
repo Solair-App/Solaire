@@ -29,13 +29,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const CreateSlider = ({ firestore, history }) => {
+const CreateSlider = ({ firestore, history, match }) => {
   const [infoSlide, setSlide] = useState({ slides: [] });
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
+  const parcours = match.params.parcoursId;
+  const cours = match.params.coursId;
+
   useEffect(() => {
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(localStorage.getItem('coursId'));
+    const docRef = firestore.collection('parcours').doc(parcours).collection('cours').doc(cours);
     docRef.get().then((doc) => {
       if (doc.exists) {
         setSlide(doc.data());
@@ -63,13 +66,13 @@ const CreateSlider = ({ firestore, history }) => {
 
   const saveCours = (event) => {
     const db = firestore;
-    const slideSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
-    const slide = slideSet.doc(localStorage.getItem('coursId'));
+    const slideSet = db.collection('parcours').doc(parcours).collection('cours');
+    const slide = slideSet.doc(cours);
     slide.set({
       type: 'slide', name, description, finish: true,
     }, { merge: true });
     event.preventDefault();
-    history.push('/AddCours');
+    history.push(`/createparcours/${parcours}/addcours`);
   };
 
   function handleNext() {
@@ -80,53 +83,46 @@ const CreateSlider = ({ firestore, history }) => {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   }
 
-  function redirect(url) {
-    history.push({
-      pathname: url,
-      state: { parcours: true },
-    });
-  }
-
   return (
     <div className={classes.root}>
       <ArrowBack
         style={{ position: 'fixed', left: '10px', top: '10px' }}
         onClick={() => {
-          redirect('/AddCours');
+          history.goBack();
         }}
       />
       <h1>Créer un slider</h1>
       {Object.keys(infoSlide.slides).length > 0
-        ? <h2 style={{ marginTop: '8px' }}>Aperçu du slider en cours</h2>
+        ? <h2 style={{ marginTop: '8px' }}>Aperçu du slider en cours</h2> && (
+          <MobileStepper
+            steps={maxSteps}
+            position="static"
+            variant="text"
+            activeStep={activeStep}
+            nextButton={(
+              <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
+        Suivant
+                {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+              </Button>
+    )}
+            backButton={(
+              <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+       Précédent
+              </Button>
+    )}
+          />
+      )
         : <p style={{ marginTop: '8px' }}>Ce slider ne contient pas encore de questions</p>
-      }
-
+}
       {
         <div className="import">{ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}</div>
-      }
+}
 
-      <MobileStepper
-        steps={maxSteps}
-        position="static"
-        variant="text"
-        activeStep={activeStep}
-        nextButton={(
-          <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-            Next
-            {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-          </Button>
-        )}
-        backButton={(
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-            Back
-          </Button>
-        )}
-      />
       <Grid container>
 
         <Grid item xs={12}>
-          <Link to="/addslide">
+          <Link to={`/createparcours/${parcours}/${cours}/addslide`}>
             <Button
               size="medium"
               variant="contained"

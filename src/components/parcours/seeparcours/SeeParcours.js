@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import LockOpen from '@material-ui/icons/LockOpen';
@@ -42,7 +43,7 @@ class seeParcours extends Component {
 
     if (
       localStorage.getItem(`canVote${this.parcours}`)
-        === true
+      === true
       || !localStorage.getItem(`canVote${this.parcours}`)
     ) {
       this.setState({
@@ -53,6 +54,7 @@ class seeParcours extends Component {
         canVote: false,
       });
     }
+
 
     if (state && state.parcours) {
       const currentParcours = state.parcours.filter(parc => parc.id === this.parcours);
@@ -112,7 +114,7 @@ class seeParcours extends Component {
       .update({
         rating: newRating,
         votants: firebase.firestore.FieldValue.arrayUnion(
-          localStorage.getItem('userId'),
+          localStorage.getItem('userid'),
         ),
       });
     localStorage.setItem(`canVote${this.parcours}`, false);
@@ -239,7 +241,6 @@ class seeParcours extends Component {
           && state.cours
           && state.cours[0].content.map((cours, index) => (
             <div key={`${index + 1}k`}>
-
               <p
                 style={{
                   display: 'flex',
@@ -247,7 +248,9 @@ class seeParcours extends Component {
                   justifyContent: 'center',
                 }}
               >
-                <RadioButtonUnchecked />
+                {cours.data.graduate
+                  && cours.data.graduate.includes(localStorage.getItem('userid'))
+                  ? <RadioButtonChecked /> : <RadioButtonUnchecked />}
                 <img
                   src={`./assets/${cours.data.type}.png`}
                   style={{ width: '4em' }}

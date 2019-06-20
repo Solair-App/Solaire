@@ -5,6 +5,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import * as firebase from 'firebase';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
@@ -25,6 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
 
 }));
+
 
 const SlideApprenant = ({
   firestore, history, location, match,
@@ -52,6 +54,20 @@ const SlideApprenant = ({
       });
     }
   }, [firestore, history, location, match, currentcours, parcours]);
+
+  const connectDb = () => {
+    firebase
+      .firestore()
+      .collection('parcours')
+      .doc(parcours).collection('cours')
+      .doc(currentcours)
+      .set({
+        graduate: firebase.firestore.FieldValue.arrayUnion(
+          localStorage.getItem('userid'),
+        ),
+      }, { merge: true });
+    history.push(`/parcours/${parcours}`);
+  };
 
   const classes = useStyles();
   const theme = useTheme();
@@ -98,6 +114,9 @@ const SlideApprenant = ({
           </Button>
         )}
       />
+      <Button variant="outlined" onClick={connectDb}>
+              cours terminé
+      </Button>
     </div>
   );
 };

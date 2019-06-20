@@ -3,6 +3,9 @@ import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import LockOpen from '@material-ui/icons/LockOpen';
 import { withRouter } from 'react-router';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Edit from '@material-ui/icons/Edit';
+import SimpleModal from '../../SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
 
@@ -11,6 +14,8 @@ class ListCours extends Component {
     super(props);
     this.state = {
       allCourses: [],
+      open: false,
+      coursId: '',
     };
     this.getInfo();
   }
@@ -54,10 +59,35 @@ class ListCours extends Component {
     });
   }
 
+  open = (id) => {
+    this.setState({ open: true, coursId: id });
+  }
+
+  toggle = () => {
+    this.setState({ open: false });
+  }
+
+  delete = (idCours) => {
+    const { firestore, parcours } = this.props;
+
+    firestore.collection('parcours').doc(parcours).collection('cours').doc(idCours)
+      .delete()
+      .then(() => {
+        console.log(`Document ${idCours} successfully deleted!`);
+      })
+      .catch((error) => {
+        console.error('Error removing document: ', error);
+      });
+    this.toggle();
+    this.getInfo();
+  }
+
   render() {
-    const { allCourses } = this.state;
+    const { allCourses, open, coursId } = this.state;
     return (
       <div>
+        <SimpleModal open={open} idCours={coursId} togle={this.toggle} deleted={this.delete} />
+
         {allCourses && allCourses.map((cours, i) => (
           <>
             <div key={`${i + 1}y`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -67,13 +97,18 @@ class ListCours extends Component {
                 display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',
               }}
               >
-                <button
-                  type="button"
-                  onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)}
-                >
-                  {cours.data.name}
-                </button>
-                {' '}
+                <div style={{ display: 'flex' }}>
+                  <button
+                    type="button"
+                    onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)}
+                  >
+                    {cours.data.name}
+                    {' '}
+                    <Edit style={{ fontSize: 15 }} />
+                  </button>
+                  {' '}
+                  <DeleteIcon onClick={() => this.open(cours.id)} style={{ fontSize: 20 }} />
+                </div>
                 <p>
                   {cours.data.description}
                 </p>

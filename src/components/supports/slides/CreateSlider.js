@@ -78,7 +78,7 @@ const CreateSlider = ({ firestore, history, match }) => {
     const slideSet = db.collection('parcours').doc(parcours).collection('cours');
     const slide = slideSet.doc(cours);
     slide.set({
-      type: 'slide', name, description, finish: true,
+      type: 'slide', name, description, finish: true, creator: localStorage.getItem('userid'),
     }, { merge: true });
     event.preventDefault();
     history.push(`/createparcours/${parcours}/addcours`);

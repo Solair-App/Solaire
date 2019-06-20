@@ -121,7 +121,7 @@ class AddCours extends Component {
 
         <TypeCours getType={this.getType} />
 
-        <Button onClick={() => { this.redirectToLessons(); }}>
+        <Button onClick={() => { this.redirectToLessons(data); }}>
           {' '}
           <Add style={{ marginRight: '10px' }} />
 Ajouter un cours

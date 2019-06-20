@@ -118,7 +118,6 @@ class Dashboard extends Component {
 
                 </h1>
                 <List
-
                   data={state.parcours}
                   thématique={results}
                   currentSearch={searchField}

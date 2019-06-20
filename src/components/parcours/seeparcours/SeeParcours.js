@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 import Rating from 'material-ui-rating';
 import { Link } from 'react-router-dom';
-import SimpleModal from './SimpleModal';
+import SimpleModal from '../../SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import { mapDispatchToProps } from '../../../actions/action';
 
@@ -128,10 +128,10 @@ class seeParcours extends Component {
     });
   };
 
-  delete = () => {
+  delete = (idCours) => {
     const { firestore, history } = this.props;
     firestore.collection('parcours').doc(this.parcours).delete().then(() => {
-      console.log('Document successfully deleted!');
+      console.log(`Document ${idCours} successfully deleted!`);
     })
       .catch((error) => {
         console.error('Error removing document: ', error);
@@ -184,7 +184,7 @@ class seeParcours extends Component {
     const { parcours, open } = this.state;
     return (
       <div>
-        <SimpleModal open={open} togle={this.togleModal} deleted={this.delete} />
+        <SimpleModal open={open} idCours="Id" togle={this.togleModal} deleted={this.delete} />
         <h1>
           {parcours && parcours.name}
           {' '}

@@ -49,7 +49,8 @@ const SlideApprenant = ({
         console.log('Error getting document:', error);
       });
     }
-  }, [firestore, history, location, match, currentcours, parcours]);
+  }, [firestore, history, location, match,
+    currentcours, parcours]);
 
   const classes = useStyles();
   const theme = useTheme();

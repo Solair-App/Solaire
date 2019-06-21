@@ -64,6 +64,24 @@ const CreateSlider = ({ firestore, history, match }) => {
   //   this.setState({});
   // }
 
+  const getInfo = () => {
+    const docRef = firestore.collection('parcours').doc(parcours).collection('cours').doc(cours);
+    docRef.get().then((doc) => {
+      if (doc.exists) {
+        setSlide(doc.data());
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document!');
+      }
+    }).catch((error) => {
+      console.log('Error getting document:', error);
+    });
+    if (infoSlide.name) {
+      setName(infoSlide.name);
+      setDescription(infoSlide.description);
+    }
+  };
+
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -109,6 +127,7 @@ const CreateSlider = ({ firestore, history, match }) => {
         console.error('Error removing document: ', error);
       });
     closed();
+    getInfo();
   };
 
   function handleNext() {
@@ -137,8 +156,7 @@ const CreateSlider = ({ firestore, history, match }) => {
       {
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <div className="import">{ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}</div>
-          {console.log(Object.keys(infoSlide.slides)[activeStep])}
-          <DeleteIcon onClick={() => opened(Object.keys(infoSlide.slides)[activeStep])} />
+          {Object.values(infoSlide.slides)[activeStep] && <DeleteIcon onClick={() => opened(Object.keys(infoSlide.slides)[activeStep])} />}
         </div>
       }
 

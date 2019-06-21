@@ -149,6 +149,12 @@ const CreateSlider = ({ firestore, history, match }) => {
       <SimpleModal open={open} idCours={id} togle={closed} deleted={deleting} />
       <h1>Créer un slider</h1>
 
+      {
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div className="import">{ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}</div>
+          <DeleteIcon onClick={() => opened(Object.keys(infoSlide.slides)[activeStep])} />
+        </div>
+      }
       {Object.keys(infoSlide.slides).length > 0
 
         ? <h2 style={{ marginTop: '8px' }}>Aperçu du slider en cours</h2> && (
@@ -173,12 +179,7 @@ const CreateSlider = ({ firestore, history, match }) => {
       )
         : <p style={{ marginTop: '8px' }}>Ce slider ne contient pas encore de questions</p>
 }
-      {
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <div className="import">{ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}</div>
-          <DeleteIcon onClick={() => opened(Object.keys(infoSlide.slides)[activeStep])} />
-        </div>
-      }
+
 
       <Grid container>
 

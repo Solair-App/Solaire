@@ -64,6 +64,11 @@ const CreateSlider = ({ firestore, history, match }) => {
   //   this.setState({});
   // }
 
+  const classes = useStyles();
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const maxSteps = infoSlide.slides && Object.values(infoSlide.slides).length;
+
   const getInfo = () => {
     const docRef = firestore.collection('parcours').doc(parcours).collection('cours').doc(cours);
     docRef.get().then((doc) => {
@@ -81,11 +86,6 @@ const CreateSlider = ({ firestore, history, match }) => {
       setDescription(infoSlide.description);
     }
   };
-
-  const classes = useStyles();
-  const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = infoSlide.slides && Object.values(infoSlide.slides).length;
 
   const onChange = (event) => {
     if (event.target.name === 'name') {
@@ -148,36 +148,38 @@ const CreateSlider = ({ firestore, history, match }) => {
       />
       <SimpleModal open={open} idCours={id} togle={closed} deleted={deleting} />
       <h1>Créer un slider</h1>
-      {Object.keys(infoSlide.slides).length > 0
-        ? <h2 style={{ marginTop: '8px' }}>Aperçu du slider en cours</h2>
-        : <p style={{ marginTop: '8px' }}>Ce slider ne contient pas encore de slides</p>
-      }
 
+      {Object.keys(infoSlide.slides).length > 0
+
+        ? <h2 style={{ marginTop: '8px' }}>Aperçu du slider en cours</h2> && (
+        <MobileStepper
+          steps={maxSteps}
+          position="static"
+          variant="text"
+          activeStep={activeStep}
+          nextButton={(
+            <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
+              Suivant
+              {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+            </Button>
+)}
+          backButton={(
+            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+              {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+              Précédent
+            </Button>
+)}
+        />
+      )
+        : <p style={{ marginTop: '8px' }}>Ce slider ne contient pas encore de questions</p>
+}
       {
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <div className="import">{ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}</div>
-          {Object.values(infoSlide.slides)[activeStep] && <DeleteIcon onClick={() => opened(Object.keys(infoSlide.slides)[activeStep])} />}
+          <DeleteIcon onClick={() => opened(Object.keys(infoSlide.slides)[activeStep])} />
         </div>
       }
 
-      <MobileStepper
-        steps={maxSteps}
-        position="static"
-        variant="text"
-        activeStep={activeStep}
-        nextButton={(
-          <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-            Next
-            {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-          </Button>
-        )}
-        backButton={(
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-            Back
-          </Button>
-        )}
-      />
       <Grid container>
 
         <Grid item xs={12}>
@@ -195,7 +197,6 @@ const CreateSlider = ({ firestore, history, match }) => {
         <Grid item xs={12}>
           <TextField
             required
-            id="name"
             label="Nom du cours"
             name="name"
             className="textfield"
@@ -207,7 +208,6 @@ const CreateSlider = ({ firestore, history, match }) => {
         <Grid item xs={12}>
           <TextField
             required
-            id="description"
             label="Description du cours"
             name="description"
             className="textfield"

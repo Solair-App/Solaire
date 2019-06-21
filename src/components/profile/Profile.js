@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import BottomNav from './dashboard/BottomNav';
-import withFirebaseContext from '../Firebase/withFirebaseContext';
+import BottomNav from '../dashboard/BottomNav';
+import withFirebaseContext from '../../Firebase/withFirebaseContext';
 
 class Profile extends Component {
   constructor(props) {
@@ -67,26 +67,68 @@ class Profile extends Component {
             this.redirect('/mydashboard');
           }}
         />
+        <h1>Mon compte</h1>
+        {' '}
         {userInfo
           ? (
             <>
               <p>
-                Name:
+                Hello
                 {' '}
                 {userInfo.name}
+                {' '}
+                !
               </p>
+
               <p>
-                Email:
+
+                <img alt="Profil img" src={userInfo.url ? userInfo.url : 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png'} />
+
+              </p>
+
+              <p>
+                Email :
                 {' '}
                 {userInfo.email ? userInfo.email : 'Pas renseigné'}
               </p>
+
+              <p>
+                City :
+                {' '}
+                {userInfo.city ? userInfo.city : 'Pas renseigné'}
+              </p>
+
+              <p>
+                A propos de moi :
+                {' '}
+                {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
+              </p>
+
+              <Button
+                variant="outlined"
+                name="changeprofile"
+                onClick={() => {
+                  this.redirect('/changeprofile');
+                }}
+                className="Button"
+                style={{
+                  margin: '30px 0 30px 0',
+                  width: '300px',
+                }}
+              >
+              Changer mes informations
+              </Button>
+
               <Button
                 size="large"
                 type="button"
                 color="primary"
                 onClick={this.logout}
                 variant="contained"
-                style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
+                style={{
+                  margin: '30px 0 30px 0',
+                  width: '300px',
+                }}
                 className="Button"
               >
                 Log Out

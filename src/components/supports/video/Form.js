@@ -29,18 +29,19 @@ class Form extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   if (localStorage.getItem('coursCreated')) {
-  //     const cours = JSON.parse(localStorage.getItem('coursCreated'));
-  //     this.setState({
-  //       description: cours.description,
-  //       duree: cours.duree,
-  //       link: cours.link,
-  //       name: cours.name,
-  //       id: cours.link.substring(cours.link.lastIndexOf('=') + 1, cours.link.length),
-  //     });
-  //   }
-  // }
+  componentDidMount() {
+    const { location } = this.props;
+    if (location.state && location.state.video) {
+      const cours = location.state.video;
+      this.setState({
+        description: cours.description,
+        duree: cours.duree,
+        link: cours.link,
+        name: cours.name,
+        id: cours.link.substring(cours.link.lastIndexOf('=') + 1, cours.link.length),
+      });
+    }
+  }
 
   recoveryId = (e) => {
     const { value } = e.target;

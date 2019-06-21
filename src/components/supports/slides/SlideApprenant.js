@@ -35,8 +35,6 @@ const SlideApprenant = ({
   const parcours = match.params.parcoursId;
   const currentcours = match.params.coursId;
   useEffect(() => {
-    console.log('hello');
-
     if (localStorage.getItem('coursData')) {
       const cours = JSON.parse(localStorage.getItem('coursData'));
       setSlide(cours);
@@ -53,7 +51,8 @@ const SlideApprenant = ({
         console.log('Error getting document:', error);
       });
     }
-  }, [firestore, history, location, match, currentcours, parcours]);
+  }, [firestore, history, location, match,
+    currentcours, parcours]);
 
   const connectDb = () => {
     firebase

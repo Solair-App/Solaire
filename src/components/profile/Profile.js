@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import Avatar from '@material-ui/core/Avatar';
 import BottomNav from '../dashboard/BottomNav';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 

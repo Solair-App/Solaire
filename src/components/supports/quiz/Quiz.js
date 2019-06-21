@@ -57,7 +57,7 @@ class Quiz extends React.Component {
     const {
       quiz, current, correct, incorrect,
     } = this.state;
-    if (choice === quiz[current + 1].correct) {
+    if (choice === quiz[Object.keys(quiz)[current]].correct) {
       this.setState({ correct: correct + 1 });
     } else {
       this.setState({ incorrect: incorrect + 1 });
@@ -90,7 +90,8 @@ class Quiz extends React.Component {
           ? (
             <>
               <ScoreArea correct={correct} incorrect={incorrect} />
-              <QuizArea handleClick={this.handleClick} dataSet={quiz[current + 1]} />
+              {console.log(Object.keys(quiz)[current])}
+              <QuizArea handleClick={this.handleClick} dataSet={quiz[Object.keys(quiz)[current]]} />
 
             </>
           )

@@ -39,7 +39,6 @@ class ListCours extends Component {
 
   goToCourse = (type, data, id) => {
     const { history, parcours } = this.props;
-    localStorage.setItem('coursCreated', JSON.stringify(data));
     let currentType;
     switch (type) {
       case 'slide':
@@ -47,6 +46,7 @@ class ListCours extends Component {
         break;
       case 'video':
         currentType = 'addvideo';
+        localStorage.setItem('videoCreated', JSON.stringify(data));
         break;
       case 'quiz':
         currentType = 'addquiz';

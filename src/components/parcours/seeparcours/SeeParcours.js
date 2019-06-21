@@ -214,7 +214,7 @@ class seeParcours extends Component {
         <ArrowBack
           style={{ position: 'fixed', left: '10px', top: '10px' }}
           onClick={() => {
-            history.goBack();
+            history.push('/mydashboard');
           }}
         />
         <SimpleModal open={open} idCours="Id" togle={this.togleModal} deleted={this.delete} />

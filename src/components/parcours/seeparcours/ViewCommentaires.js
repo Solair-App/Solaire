@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as firebase from 'firebase';
 import { connect } from 'react-redux';
+import Rating from 'material-ui-rating';
 
 const mapStateToProps = state => ({
   state,
@@ -9,7 +10,7 @@ const mapStateToProps = state => ({
 
 // Récupération des slides de la db
 const ViewCommentaires = ({
-  match, firestore, location, currentParcours, currentCommentaire,
+  match, firestore, location, currentParcours, currentCommentaire, rating,
 }) => {
   const parcours = currentParcours;
   const [commentaires, setCommentaires] = useState([]);
@@ -33,9 +34,11 @@ const ViewCommentaires = ({
       commentaires.push(currentCommentaire);
     }
 
+
     return commentaires.map((commentaire, index) => (
       <div key={`${index + 1}m`}>
         <h1>{commentaire.pseudo}</h1>
+        <Rating readOnly value={rating || commentaire.rating} />
         <p>{commentaire.commentaire}</p>
       </div>
     )).reverse();

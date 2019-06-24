@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
 import * as firebase from 'firebase';
 
+
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
@@ -51,7 +52,7 @@ const Commentaires = (props) => {
     const messagesRef = db.collection('parcours').doc(parcours);
     messagesRef
       .update(
-        { commentaires: firebase.firestore.FieldValue.arrayUnion({ pseudo: values.name, commentaire: values.message }) },
+        { commentaires: firebase.firestore.FieldValue.arrayUnion({ pseudo: values.name, commentaire: values.message, rating: props.rating }) },
       )
       .then(() => {
         localStorage.setItem('id', messagesRef.id);
@@ -82,10 +83,11 @@ const Commentaires = (props) => {
       pushMessagesInsideDB();
     }
   }
-
+  const { userRate } = props;
   return (
     <div>
       <form className={classes.container} noValidate autoComplete="on">
+
         <TextField
           required
           id="filled-name"
@@ -97,6 +99,8 @@ const Commentaires = (props) => {
           variant="filled"
           name="name"
         />
+        {' '}
+        {userRate()}
         <TextField
           id="filled-textarea"
           label="Votre message"
@@ -113,6 +117,7 @@ const Commentaires = (props) => {
           inputProps={inputProps}
         />
       </form>
+
       <button type="submit" onClick={validateMessages}>
        Envoyer
       </button>

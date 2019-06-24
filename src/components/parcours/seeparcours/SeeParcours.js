@@ -187,7 +187,7 @@ class seeParcours extends Component {
         <div>
           <Rating
             value={parcours.rating}
-            max={5}
+
             onChange={value => this.sendRatings(value)}
           />
 
@@ -197,9 +197,9 @@ class seeParcours extends Component {
     }
     return (
       <Rating
-        value={rating || parcours.rating}
-        max={5}
         readOnly
+        value={rating || parcours.rating}
+
 
       />
     );
@@ -207,7 +207,9 @@ class seeParcours extends Component {
 
   render() {
     const { state, history } = this.props;
-    const { parcours, open, commentaire } = this.state;
+    const {
+      parcours, open, commentaire, rating,
+    } = this.state;
 
     return (
       <div>
@@ -234,7 +236,11 @@ class seeParcours extends Component {
         <p>{parcours && parcours.description}</p>
 
 
-        {this.canUserRate()}
+        <Rating
+          value={rating || parcours.rating}
+
+          readOnly
+        />
 
         {state
           && state.cours
@@ -278,8 +284,8 @@ class seeParcours extends Component {
               </div>
             </div>
           ))}
-        <PostCommentaires sendCommentaire={this.sendCommentaire} />
-        <ViewCommentaires currentParcours={this.parcours} currentCommentaire={commentaire} />
+        <PostCommentaires sendCommentaire={this.sendCommentaire} userRate={this.canUserRate} rating={rating} />
+        <ViewCommentaires currentParcours={this.parcours} currentCommentaire={commentaire} rating={rating} />
       </div>
     );
   }

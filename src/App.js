@@ -29,7 +29,7 @@ const App = () => (
       <HashRouter>
         <Switch>
           <Route exact path="/" component={Welcome} />
-          <Route exact path="/createparcours" component={CreateParcours} />
+          <Route exact path="/createparcours/:parcoursId?" component={CreateParcours} />
           <Route path="/createparcours/:parcoursId?/addcours" component={AddCours} />
           <Route exact path="/parcours/:parcoursId" component={SeeParcours} />
 

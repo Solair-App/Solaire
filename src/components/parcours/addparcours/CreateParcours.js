@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -11,13 +11,35 @@ import Parcours from './Parcours';
 import '../../../SCSS/CreateParcours.scss';
 
 
-function CreateParcours(props) {
-  const [values] = React.useState({});
-
-  const [value, setValue] = React.useState({
+function CreateParcours({
+  firestore, match, history, state,
+}) {
+  const [value, setValue] = useState({
     currentValue: 'tous les champs sont requis',
   });
+  let category;
 
+  useEffect(() => {
+    if (match.params.parcoursId) {
+      const currentparcours = match.params.parcoursId;
+      const db = firestore;
+      const parcours = db.collection('parcours').doc(currentparcours);
+      parcours
+        .get()
+        .then((doc) => {
+          const dataParcours = doc.data();
+          setValue({
+            name: dataParcours.name,
+            description: dataParcours.description,
+            thématique: dataParcours.thématique,
+            langue: dataParcours.langue,
+            durée: dataParcours.durée,
+            difficulté: dataParcours.difficulté,
+            tags: dataParcours.tags,
+          });
+        });
+    }
+  }, [firestore, history, match]);
 
   // Modifications du state
   const handleChange = name => (event) => {
@@ -25,19 +47,17 @@ function CreateParcours(props) {
   };
   // redirection si le parcours est crée
   function redirect(url) {
-    const { history } = props;
     history.push({
       pathname: url,
       state: { parcours: true },
     });
   }
 
+
   // Stockage du parcours dans la db
   function pushParcoursInsideDB(parcours) {
-    const { firestore } = props;
     const db = firestore;
     const parcoursRef = db.collection('parcours').doc();
-
     parcoursRef
       .set(
         {
@@ -57,9 +77,26 @@ function CreateParcours(props) {
         { merge: true },
       )
       .then(() => {
-        localStorage.setItem('id', parcoursRef.id);
-
         redirect(`/createparcours/${parcoursRef.id}/addcours`);
+      });
+  }
+
+  function modifyParcoursInsideDB(parcours, idParcours) {
+    const db = firestore;
+    db.collection('parcours').doc(idParcours).set(
+      {
+        name: parcours.name,
+        description: parcours.description,
+        thématique: parcours.thématique,
+        langue: parcours.langue,
+        durée: parcours.durée,
+        difficulté: parcours.difficulté,
+        tags: parcours.tags,
+      },
+      { merge: true },
+    )
+      .then(() => {
+        redirect(`/createparcours/${idParcours}/addcours`);
       });
   }
 
@@ -95,15 +132,19 @@ function CreateParcours(props) {
         value.difficulté,
         value.tags,
       );
-      pushParcoursInsideDB(currentParcours);
+      let idParcours;
+      if (match.params.parcoursId) {
+        idParcours = match.params.parcoursId;
+        modifyParcoursInsideDB(currentParcours, idParcours);
+      } else {
+        pushParcoursInsideDB(currentParcours);
+      }
     }
   }
-
-  const { state } = props;
-
   return (
 
     <form className="classesContainer" autoComplete="off">
+      {console.log(category)}
       <ArrowBack
         style={{ position: 'fixed', left: '10px', top: '10px' }}
         onClick={() => {
@@ -117,7 +158,7 @@ function CreateParcours(props) {
           id="standard-name"
           label="Nom du parcours"
           className="textfield"
-          value={values.text}
+          value={value.name}
           onChange={handleChange('name')}
           style={{ marginTop: '5%', width: '50%' }}
         />
@@ -128,7 +169,7 @@ function CreateParcours(props) {
           required
           id="filled-multiline-flexible"
           label="Description"
-          value={values.description}
+          value={value.description}
           multiline
           rows="5"
           onChange={handleChange('description')}
@@ -142,12 +183,10 @@ function CreateParcours(props) {
           id="standard-name"
           label="tags"
           className="textfield"
-          value={values.tags}
+          value={value.tags}
           onChange={handleChange('tags')}
           style={{ marginTop: '5%', width: '50%' }}
         />
-
-
       </div>
       <SelectField
         required
@@ -194,7 +233,7 @@ function CreateParcours(props) {
           width: '300px',
         }}
       >
-        Créer mon parcours
+        {match.params.parcoursId ? 'Sauver mes modifications' : 'Créer mon parcours'}
       </Button>
     </form>
   );

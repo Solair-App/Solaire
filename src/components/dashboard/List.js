@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
+import Rating from 'material-ui-rating';
 import { makeStyles } from '@material-ui/core/styles';
 
 import './List.css';
@@ -35,15 +35,12 @@ export default function ListCours(props) {
   return (
     <ul className="hs full">
       {data && data
-        .filter(
-          /* eslint-disable no-mixed-operators */
-          info => info.data.thématique === props.thématique
-            && info.data.tags
-              .toUpperCase()
-              .includes(props.currentSearch.toUpperCase()),
-        )
+
         .map((info, index) => (
+
           <div key={`${index + 1}g`}>
+            {console.log(info.data.name, info.data.rating)}
+            <Rating readOnly value={info.data.rating} />
             <li className="item" key={`${index + 1}n`}>
               <Typography
                 className={classes.title}

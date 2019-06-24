@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Rating from 'material-ui-rating';
 import './List.css';
 
 import Typography from '@material-ui/core/Typography';
@@ -42,6 +42,7 @@ export default function ListCours(props) {
         )
         .map((info, index) => (
           <div key={`${index + 1}g`}>
+            <Rating readOnly value={info.data.rating} />
             <li className="item" key={`${index + 1}n`}>
               <Typography
                 className={classes.title}

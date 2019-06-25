@@ -107,6 +107,7 @@ class seeParcours extends Component {
     const newRating = determineRating;
     this.setState({
       rating,
+      // eslint-disable-next-line react/no-unused-state
       newRating,
     });
 

@@ -116,15 +116,15 @@ class Dashboard extends Component {
                 <div key={`${index + 200}q`}>
                   {' '}
                   <h1>
-{results}
-{' '}
- </h1>
+                    {results}
+                    {' '}
+                  </h1>
                   <List
                     data={state.parcours}
                     thématique={results}
                     currentSearch={searchField}
                   />
-{" "}
+                  {' '}
                 </div>
               ))}
           </div>

@@ -38,6 +38,7 @@ class seeParcours extends Component {
 
   componentDidMount() {
     const { state } = this.props;
+
     this.getInfo();
 
 
@@ -49,7 +50,7 @@ class seeParcours extends Component {
       this.setState({
         canVote: true,
       });
-    } else {
+    } if (!localStorage.getItem(`canVote${this.parcours}` === false)) {
       this.setState({
         canVote: false,
       });
@@ -113,9 +114,10 @@ class seeParcours extends Component {
       .doc(this.parcours)
       .update({
         rating: newRating,
-        votants: firebase.firestore.FieldValue.arrayUnion(
-          localStorage.getItem('userid'),
-        ),
+        votants: firebase.firestore.FieldValue.arrayUnion({
+          id: localStorage.getItem('userid'),
+          userRating: rating,
+        }),
       });
     localStorage.setItem(`canVote${this.parcours}`, false);
     this.setState({
@@ -171,9 +173,16 @@ class seeParcours extends Component {
 
   haveUserAlreadyVoted = () => {
     const { parcours } = this.state;
-    if (parcours.votants && parcours.votants.includes(localStorage.getItem('userid'))) {
+
+
+    if (parcours.votants && parcours.votants.id.includes(localStorage.getItem('userid'))) {
+      console.log('test');
+      const lastRating = parcours.votants.map(votants => votants.id.includes(localStorage.getItem('userid')));
+      console.log(lastRating);
+      console.log(parcours.votants.map(votants => votants.id.includes(localStorage.getItem('userid'))));
       this.setState({
         canVote: false,
+        rating: lastRating.rating,
       });
     }
   }
@@ -182,7 +191,7 @@ class seeParcours extends Component {
   canUserRate = () => {
     const { parcours, canVote, rating } = this.state;
 
-    if (canVote && parcours && parcours.apprenants) {
+    if (canVote === true && parcours && parcours.apprenants) {
       return (
         <div>
           <Rating
@@ -199,8 +208,6 @@ class seeParcours extends Component {
       <Rating
         readOnly
         value={rating || parcours.rating}
-
-
       />
     );
   };
@@ -210,7 +217,6 @@ class seeParcours extends Component {
     const {
       parcours, open, commentaire, rating,
     } = this.state;
-
     return (
       <div>
         <ArrowBack
@@ -226,6 +232,9 @@ class seeParcours extends Component {
           {parcours && parcours.creator === localStorage.getItem('userid')
             ? (
               <>
+                {' '}
+
+
                 <Link to={`/createparcours/${this.parcours}/addcours`}><Edit /></Link>
                 <DeleteIcon onClick={this.togleModal} />
               </>
@@ -237,9 +246,10 @@ class seeParcours extends Component {
 
 
         <Rating
+          readOnly
           value={rating || parcours.rating}
 
-          readOnly
+
         />
 
         {state

@@ -58,7 +58,8 @@ class MyLessons extends React.Component {
           state.parcours
             .filter(parcours => (currentValue === 0
               ? parcours.data.creator === currentUser
-              : parcours.data.apprenants.includes(currentUser) && parcours.data.creator !== currentUser))
+              : parcours.data.apprenants.includes(currentUser)
+                  && parcours.data.creator !== currentUser))
             .map((x, i) => <ListLessons data={x} key={`${i + 1}a`} />)
         ) : (
           <p>loading..</p>

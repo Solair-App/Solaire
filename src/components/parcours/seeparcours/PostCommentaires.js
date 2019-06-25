@@ -98,7 +98,7 @@ const Commentaires = (props) => {
           variant="filled"
           name="name"
         />
-{" "}
+        {' '}
         {userRate()}
         <TextField
           id="filled-textarea"

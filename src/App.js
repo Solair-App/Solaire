@@ -12,6 +12,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import Connect from './components/connexion/Connect';
 import PasswordForget from './components/PasswordForget';
 import Profile from './components/profile/Profile';
+import Admin from './components/Admin';
 import ChangeProfile from './components/profile/ChangeProfile';
 import SlideFormateur from './components/supports/slides/SlideFormateur';
 import SlideApprenant from './components/supports/slides/SlideApprenant';
@@ -28,7 +29,7 @@ const App = () => (
     <FirebaseProvider>
       <HashRouter>
         <Switch>
-          <Route exact path="/" component={Welcome} />
+
           <Route exact path="/createparcours/:parcoursId?" component={CreateParcours} />
           <Route path="/createparcours/:parcoursId?/addcours" component={AddCours} />
           <Route exact path="/parcours/:parcoursId" component={SeeParcours} />
@@ -44,12 +45,14 @@ const App = () => (
           <Route path="/parcours/:parcoursId?/slide/:coursId?" component={SlideApprenant} />
           <Route path="/createparcours/:parcoursId?/:coursId?/addslide" component={SlideFormateur} />
 
+          <Route exact path="/" component={Welcome} />
           <Route path="/signin" component={Signin} />
           <Route path="/signup" component={Signup} />
           <Route path="/connect" component={Connect} />
           <Route path="/reset" component={PasswordForget} />
 
           <Route path="/mydashboard" component={Dashboard} />
+          <Route path="/admin" component={Admin} />
           <Route path="/profile" component={Profile} />
           <Route path="/changeprofile" component={ChangeProfile} />
           <Route path="/mylessons" component={MyLessons} />

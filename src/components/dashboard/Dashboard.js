@@ -96,7 +96,6 @@ class Dashboard extends Component {
 
   render() {
     const { state } = this.props;
-
     const { searchField, filter, currentValue } = this.state;
     return (
       <div style={{ display: 'block', textAlign: 'left' }}>
@@ -107,7 +106,6 @@ class Dashboard extends Component {
               handleChange={this.handleChange}
               currentFilterValue={currentValue}
               currentValue={searchField}
-
             />
             {state.thématique.filter(result => result.includes(filter)).map((results, index) => (
               <div key={`${index + 200}q`}>

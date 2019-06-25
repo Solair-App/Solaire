@@ -37,7 +37,7 @@ class Video extends Component {
       .doc(this.curentcours)
       .set({
         graduate: firebase.firestore.FieldValue.arrayUnion(
-          localStorage.getItem('userid'),
+          localStorage.getItem('userId'),
         ),
       }, { merge: true });
     history.push(`/parcours/${this.parcours}`);

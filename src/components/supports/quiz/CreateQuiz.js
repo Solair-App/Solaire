@@ -45,7 +45,7 @@ class CreateQuiz extends Component {
     const quizSet = db.collection('parcours').doc(this.parcours).collection('cours');
     const quiz = quizSet.doc(this.cours);
     quiz.set({
-      type: 'quiz', name, description, finish: true, creator: localStorage.getItem('userid'),
+      type: 'quiz', name, description, finish: true, creator: localStorage.getItem('userId'),
     }, { merge: true });
     event.preventDefault();
     const { history } = this.props;

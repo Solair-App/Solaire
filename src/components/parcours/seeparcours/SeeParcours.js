@@ -39,7 +39,6 @@ class seeParcours extends Component {
     const { state } = this.props;
 
     this.getInfo();
-
     if (
       localStorage.getItem(`canVote${this.parcours}`) === true
       || !localStorage.getItem(`canVote${this.parcours}`)
@@ -48,7 +47,7 @@ class seeParcours extends Component {
         canVote: true,
       });
     }
-    if (!localStorage.getItem(`canVote${this.parcours}` === false)) {
+    if (localStorage.getItem(`canVote${this.parcours}` === false)) {
       this.setState({
         canVote: false,
       });
@@ -117,7 +116,7 @@ class seeParcours extends Component {
       .update({
         rating: newRating,
         votants: firebase.firestore.FieldValue.arrayUnion({
-          id: localStorage.getItem('userid'),
+          id: localStorage.getItem('userId'),
           userRating: rating,
         }),
       });
@@ -137,7 +136,7 @@ class seeParcours extends Component {
       .doc(this.parcours)
       .update({
         apprenants: firebase.firestore.FieldValue.arrayUnion(
-          localStorage.getItem('userid'),
+          localStorage.getItem('userId'),
         ),
       });
 
@@ -189,13 +188,10 @@ class seeParcours extends Component {
 
   haveUserAlreadyVoted = () => {
     const { parcours } = this.state;
-
     if (
-      parcours.votants.filter(
-        user => user.id === localStorage.getItem('userid'),
-      )
+      parcours.votants.map(item => item.id === localStorage.getItem('userId')).includes(true)
     ) {
-      const lastRating = parcours.votants.filter(votants => votants.id.includes(localStorage.getItem('userid')));
+      const lastRating = parcours.votants.filter(votants => votants.id.includes(localStorage.getItem('userId')));
 
       this.setState({
         canVote: false,
@@ -243,7 +239,7 @@ class seeParcours extends Component {
         <h1>
           {parcours && parcours.name}
           {' '}
-          {parcours && parcours.creator === localStorage.getItem('userid') ? (
+          {parcours && parcours.creator === localStorage.getItem('userId') ? (
             <>
               {' '}
               <Link to={`/createparcours/${this.parcours}/addcours`}>
@@ -273,7 +269,7 @@ class seeParcours extends Component {
                 }}
               >
                 {cours.data.graduate
-                && cours.data.graduate.includes(localStorage.getItem('userid')) ? (
+                && cours.data.graduate.includes(localStorage.getItem('userId')) ? (
                   <RadioButtonChecked />
                   ) : (
                     <RadioButtonUnchecked />

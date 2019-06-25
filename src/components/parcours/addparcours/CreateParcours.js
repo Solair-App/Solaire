@@ -49,7 +49,7 @@ function CreateParcours(props) {
           difficulté: parcours.difficulté,
           tags: parcours.tags,
           isReadable: false,
-          creator: localStorage.getItem('userid'),
+          creator: localStorage.getItem('userId'),
           rating: 0,
           votants: [],
           commentaires: [],

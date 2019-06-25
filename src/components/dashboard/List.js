@@ -42,7 +42,7 @@ export default function ListCours(props) {
                 .includes(props.currentSearch.toUpperCase()),
           )
           .map((info, index) => (
-            <div key={`${index + 1}g`}>
+            <div key={Math.floor(Date.now() / 1000)}>
               <Rating readOnly value={info.data.rating} />
               <li className="item" key={`${index + 1}n`}>
                 <Typography
@@ -63,7 +63,7 @@ export default function ListCours(props) {
                 </Typography>
                 <Typography variant="body2" component="p">
                   tags :
-{info.data.tags}
+                  {info.data.tags}
                 </Typography>
               </li>
             </div>

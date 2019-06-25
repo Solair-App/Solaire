@@ -261,8 +261,8 @@ class seeParcours extends Component {
 
         {state
           && state.cours
-          && state.cours[0].content.map((cours, index) => (
-            <div key={`${index + 1}k`}>
+          && state.cours[0].content.map(cours => (
+            <div key={Math.floor(Date.now() / 1000)}>
               <p
                 style={{
                   display: 'flex',

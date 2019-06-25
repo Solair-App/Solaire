@@ -100,6 +100,7 @@ class Dashboard extends Component {
     const { state } = this.props;
 
     const { searchField, filter, currentValue } = this.state;
+
     return (
       <div style={{ display: 'block', textAlign: 'left' }}>
         {' '}
@@ -112,8 +113,8 @@ class Dashboard extends Component {
             />
             {state.thématique
               .filter(result => result.includes(filter))
-              .map((results, index) => (
-                <div key={`${index + 200}q`}>
+              .map(results => (
+                <div key={Math.floor(Date.now() / 1000)}>
                   {' '}
                   <h1>
                     {results}

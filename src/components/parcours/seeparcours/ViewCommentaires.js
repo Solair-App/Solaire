@@ -44,8 +44,8 @@ const ViewCommentaires = ({
     }
 
     return commentaires
-      .map((commentaire, index) => (
-        <div key={`${index + 1}m`}>
+      .map(commentaire => (
+        <div key={Math.floor(Date.now() / 1000)}>
           <h1>{commentaire.pseudo}</h1>
           <Rating readOnly value={commentaire.rating} />
           <p>{commentaire.commentaire}</p>

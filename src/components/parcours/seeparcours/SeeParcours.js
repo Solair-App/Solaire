@@ -27,6 +27,7 @@ class seeParcours extends Component {
     super(props);
     this.state = {
       parcours: [],
+      userInfo: {},
       canVote: true,
       open: false,
       commentaire: { pseudo: '', commentaire: 'qsd' },
@@ -37,10 +38,22 @@ class seeParcours extends Component {
 
 
   componentDidMount() {
-    const { state } = this.props;
+    const { state, firestore } = this.props;
     this.getInfo();
 
-
+    let userRef;
+    if (localStorage.getItem('userId')) {
+      userRef = firestore.doc(`usersinfo/${localStorage.getItem('userId')}`);
+      this.getUserInfo(userRef);
+    } else {
+      const { auth } = this.props;
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          userRef = firestore.doc(`usersinfo/${user.uid}`);
+          this.getUserInfo(userRef);
+        }
+      });
+    }
     if (
       localStorage.getItem(`canVote${this.parcours}`)
       === true
@@ -55,12 +68,10 @@ class seeParcours extends Component {
       });
     }
 
-
     if (state && state.parcours) {
       const currentParcours = state.parcours.filter(parc => parc.id === this.parcours);
       this.setState({ parcours: currentParcours[0].data });
     } else {
-      const { firestore } = this.props;
       const docRef = firestore.collection('parcours').doc(this.parcours);
       docRef.get().then((doc) => {
         if (doc.exists) {
@@ -74,6 +85,35 @@ class seeParcours extends Component {
           console.log('Error getting document:', error);
         });
     }
+  }
+
+  getInfo = () => {
+    // eslint-disable-next-line no-shadow
+    const { firestore, mapDispatchToProps } = this.props;
+    const cours = [];
+    firebase.firestore().collection('parcours').doc(this.parcours).update({
+      apprenants: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('userId')),
+    });
+
+    firestore.collection('parcours').doc(this.parcours).collection('cours').get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          cours.push({ id: doc.id, data: doc.data() });
+        });
+        const currentParcours = [{ id: this.parcours, content: cours }];
+        mapDispatchToProps(currentParcours, 'cours');
+      });
+  }
+
+  getUserInfo = (userRef) => {
+    userRef.get().then((doc) => {
+      if (doc.exists) {
+        const userInfo = doc.data();
+        this.setState({
+          userInfo,
+        });
+      }
+    });
   }
 
   sendCommentaire = (text) => {
@@ -114,7 +154,7 @@ class seeParcours extends Component {
       .update({
         rating: newRating,
         votants: firebase.firestore.FieldValue.arrayUnion(
-          localStorage.getItem('userid'),
+          localStorage.getItem('userId'),
         ),
       });
     localStorage.setItem(`canVote${this.parcours}`, false);
@@ -123,23 +163,6 @@ class seeParcours extends Component {
     });
   };
 
-  getInfo = () => {
-    // eslint-disable-next-line no-shadow
-    const { firestore, mapDispatchToProps } = this.props;
-    const cours = [];
-    firebase.firestore().collection('parcours').doc(this.parcours).update({
-      apprenants: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('userid')),
-    });
-
-    firestore.collection('parcours').doc(this.parcours).collection('cours').get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          cours.push({ id: doc.id, data: doc.data() });
-        });
-        const currentParcours = [{ id: this.parcours, content: cours }];
-        mapDispatchToProps(currentParcours, 'cours');
-      });
-  }
 
   goToCourse = (type, data, id) => {
     const { history } = this.props;
@@ -171,7 +194,7 @@ class seeParcours extends Component {
 
   haveUserAlreadyVoted = () => {
     const { parcours } = this.state;
-    if (parcours.votants && parcours.votants.includes(localStorage.getItem('userid'))) {
+    if (parcours.votants && parcours.votants.includes(localStorage.getItem('userId'))) {
       this.setState({
         canVote: false,
       });
@@ -207,7 +230,9 @@ class seeParcours extends Component {
 
   render() {
     const { state, history } = this.props;
-    const { parcours, open, commentaire } = this.state;
+    const {
+      parcours, open, commentaire, userInfo,
+    } = this.state;
 
     return (
       <div>
@@ -221,7 +246,7 @@ class seeParcours extends Component {
         <h1>
           {parcours && parcours.name}
           {' '}
-          {parcours && parcours.creator === localStorage.getItem('userid')
+          {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
             ? (
               <>
                 <Link to={`/createparcours/${this.parcours}/addcours`}><Edit /></Link>
@@ -248,7 +273,7 @@ class seeParcours extends Component {
                 }}
               >
                 {cours.data.graduate
-                  && cours.data.graduate.includes(localStorage.getItem('userid'))
+                  && cours.data.graduate.includes(localStorage.getItem('userId'))
                   ? <RadioButtonChecked /> : <RadioButtonUnchecked />}
                 <img
                   src={`./assets/${cours.data.type}.png`}

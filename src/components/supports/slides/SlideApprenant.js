@@ -62,7 +62,7 @@ const SlideApprenant = ({
       .doc(currentcours)
       .set({
         graduate: firebase.firestore.FieldValue.arrayUnion(
-          localStorage.getItem('userid'),
+          localStorage.getItem('userId'),
         ),
       }, { merge: true });
     history.push(`/parcours/${parcours}`);

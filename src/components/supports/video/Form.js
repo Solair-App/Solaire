@@ -63,7 +63,7 @@ class Form extends Component {
     const videoSet = db.collection('parcours').doc(parcours).collection('cours');
     const video = videoSet.doc(cours);
     video.set({
-      link, duree, name, description, type: 'video', finish: true, creator: localStorage.getItem('userid'),
+      link, duree, name, description, type: 'video', finish: true, creator: localStorage.getItem('userId'),
     }, { merge: true });
     e.preventDefault();
 

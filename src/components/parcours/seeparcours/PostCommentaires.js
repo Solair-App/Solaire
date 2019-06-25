@@ -23,9 +23,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Commentaires = (props) => {
+  const { rating } = props;
   const [values, setValues] = useState({
     name: '',
     message: '',
+    rating,
   });
   const classes = useStyles();
   const [value, setValue] = useState({
@@ -67,6 +69,7 @@ const Commentaires = (props) => {
     if (
       values.name
       && values.message
+      && values.rating
     ) {
       return true;
     }

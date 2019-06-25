@@ -30,6 +30,7 @@ class seeParcours extends Component {
       canVote: true,
       open: false,
       commentaire: { pseudo: '', commentaire: 'qsd' },
+      loaded: 0,
     };
     const { match } = this.props;
     this.parcours = match.params.parcoursId;
@@ -59,18 +60,18 @@ class seeParcours extends Component {
 
     if (state && state.parcours) {
       const currentParcours = state.parcours.filter(parc => parc.id === this.parcours);
-      this.setState({ parcours: currentParcours[0].data });
+      this.setState({ parcours: currentParcours[0].data, loaded: 1 });
     } else {
       const { firestore } = this.props;
       const docRef = firestore.collection('parcours').doc(this.parcours);
       docRef.get().then((doc) => {
         if (doc.exists) {
-          this.setState({ parcours: doc.data() });
+          this.setState({ parcours: doc.data(), loaded: 1 });
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');
         }
-      }).then(this.haveUserAlreadyVoted())
+      })
         .catch((error) => {
           console.log('Error getting document:', error);
         });
@@ -79,7 +80,7 @@ class seeParcours extends Component {
 
   sendCommentaire = (text) => {
     this.setState({
-      commentaire: { pseudo: text.name, commentaire: text.message },
+      commentaire: { pseudo: text.name, commentaire: text.message, rating: text.rating },
     });
   }
 
@@ -175,19 +176,18 @@ class seeParcours extends Component {
     const { parcours } = this.state;
 
 
-    if (parcours.votants && parcours.votants.id.includes(localStorage.getItem('userid'))) {
-      console.log('test');
-      const lastRating = parcours.votants.map(votants => votants.id.includes(localStorage.getItem('userid')));
-      console.log(lastRating);
-      console.log(parcours.votants.map(votants => votants.id.includes(localStorage.getItem('userid'))));
+    if (parcours.votants.filter(user => user.id === localStorage.getItem('userid'))) {
+      const lastRating = parcours.votants.filter(votants => votants.id.includes(localStorage.getItem('userid')));
+
       this.setState({
         canVote: false,
-        rating: lastRating.rating,
+        rating: lastRating[0].userRating,
+        loaded: 0,
       });
     }
   }
 
-  // name et type de cours à mettre dans slide, vidéo et quizz
+
   canUserRate = () => {
     const { parcours, canVote, rating } = this.state;
 
@@ -215,7 +215,7 @@ class seeParcours extends Component {
   render() {
     const { state, history } = this.props;
     const {
-      parcours, open, commentaire, rating,
+      parcours, open, commentaire, rating, loaded,
     } = this.state;
     return (
       <div>
@@ -244,6 +244,7 @@ class seeParcours extends Component {
         </h1>
         <p>{parcours && parcours.description}</p>
 
+        {loaded === 1 ? this.haveUserAlreadyVoted() : null}
 
         <Rating
           readOnly

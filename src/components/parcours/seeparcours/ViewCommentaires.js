@@ -35,10 +35,12 @@ const ViewCommentaires = ({
     }
 
 
+
     return commentaires.map((commentaire, index) => (
+
       <div key={`${index + 1}m`}>
         <h1>{commentaire.pseudo}</h1>
-        <Rating readOnly value={rating || commentaire.rating} />
+        <Rating readOnly value={commentaire.rating} />
         <p>{commentaire.commentaire}</p>
       </div>
     )).reverse();

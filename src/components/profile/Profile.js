@@ -15,17 +15,23 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const { auth } = this.props;
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.getInfo(user);
-      }
-    });
+    const { firestore } = this.props;
+    let docRef;
+    if (localStorage.getItem('userId')) {
+      docRef = firestore.doc(`usersinfo/${localStorage.getItem('userId')}`);
+      this.getInfo(docRef);
+    } else {
+      const { auth } = this.props;
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          docRef = firestore.doc(`usersinfo/${user.uid}`);
+          this.getInfo(docRef);
+        }
+      });
+    }
   }
 
-  getInfo = (user) => {
-    const { firestore } = this.props;
-    const docRef = firestore.doc(`usersinfo/${user.uid}`);
+  getInfo = (docRef) => {
     docRef.get().then((doc) => {
       if (doc.exists) {
         const userInfo = doc.data();
@@ -82,7 +88,7 @@ class Profile extends Component {
 
               <p>
 
-                <img alt="Profil img" src={userInfo.url ? userInfo.url : 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png'} />
+                <img style={{ width: '90%' }} alt="Profil img" src={userInfo.url ? userInfo.url : 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png'} />
 
               </p>
 
@@ -116,7 +122,7 @@ class Profile extends Component {
                   width: '300px',
                 }}
               >
-              Changer mes informations
+                Changer mes informations
               </Button>
 
               <Button

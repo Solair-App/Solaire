@@ -50,7 +50,6 @@ class AddCours extends Component {
     this.parcours = match.params.parcoursId;
     const db = firestore;
     const type = event.target.value;
-
     const courseSet = db.collection('parcours').doc(this.parcours).collection('cours').doc();
     localStorage.setItem('coursId', courseSet.id);
     this.cours = courseSet.id;
@@ -101,7 +100,7 @@ class AddCours extends Component {
     return (
       <div>
         <h1>{data.name}</h1>
-        <Link to="CreateParcours">
+        <Link to={`/createparcours/${this.parcours}`}>
           <Button color="primary">
             <Edit />
             Modifier les options

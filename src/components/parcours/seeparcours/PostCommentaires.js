@@ -69,7 +69,7 @@ const Commentaires = (props) => {
     if (
       values.name
       && values.message
-      && values.rating
+
     ) {
       return true;
     }

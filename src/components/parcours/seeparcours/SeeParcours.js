@@ -79,8 +79,9 @@ class seeParcours extends Component {
   }
 
   sendCommentaire = (text) => {
+    const { rating } = this.state;
     this.setState({
-      commentaire: { pseudo: text.name, commentaire: text.message, rating: text.rating },
+      commentaire: { pseudo: text.name, commentaire: text.message, rating },
     });
   }
 

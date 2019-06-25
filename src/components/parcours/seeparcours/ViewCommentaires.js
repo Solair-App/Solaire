@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 
 // Récupération des slides de la db
 const ViewCommentaires = ({
-  match, firestore, location, currentParcours, currentCommentaire, rating,
+  match, firestore, location, currentParcours, currentCommentaire,
 }) => {
   const parcours = currentParcours;
   const [commentaires, setCommentaires] = useState([]);
@@ -33,7 +33,6 @@ const ViewCommentaires = ({
     if (currentCommentaire.commentaire.length > 3) {
       commentaires.push(currentCommentaire);
     }
-
 
 
     return commentaires.map((commentaire, index) => (

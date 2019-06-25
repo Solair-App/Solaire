@@ -27,7 +27,11 @@ class Dashboard extends Component {
 
   getMarkers() {
     const { state, location } = this.props;
-    if (!state || !state.parcours || (location.state && location.state.coursDelete)) {
+    if (
+      !state
+      || !state.parcours
+      || (location.state && location.state.coursDelete)
+    ) {
       // eslint-disable-next-line no-shadow
       const { mapDispatchToProps } = this.props;
 
@@ -35,7 +39,8 @@ class Dashboard extends Component {
 
       firebase
         .firestore()
-        .collection('parcours').where('isReadable', '==', true)
+        .collection('parcours')
+        .where('isReadable', '==', true)
         .get()
         .then((querySnapshot) => {
           querySnapshot.docs.forEach((doc) => {
@@ -51,22 +56,19 @@ class Dashboard extends Component {
       this.setState({
         filter: '',
         currentValue: 'All',
-
       });
     } else {
       this.setState({
         [e.target.name]: e.target.value,
-
       });
-    } if (e.target.value !== 'All' && e.target.name === 'filter') {
+    }
+    if (e.target.value !== 'All' && e.target.name === 'filter') {
       this.setState({
-
         currentValue: e.target.value,
         filter: e.target.value,
       });
     }
-  }
-
+  };
 
   getCategoryFromDB = () => {
     const { state } = this.props;
@@ -107,24 +109,24 @@ class Dashboard extends Component {
               handleChange={this.handleChange}
               currentFilterValue={currentValue}
               currentValue={searchField}
-
             />
-            {state.thématique.filter(result => result.includes(filter)).map((results, index) => (
-              <div key={`${index + 200}q`}>
-                {' '}
-                <h1>
-                  {results}
+            {state.thématique
+              .filter(result => result.includes(filter))
+              .map((results, index) => (
+                <div key={`${index + 200}q`}>
                   {' '}
-
-                </h1>
-                <List
-                  data={state.parcours}
-                  thématique={results}
-                  currentSearch={searchField}
-                />
-                {' '}
-              </div>
-            ))}
+                  <h1>
+{results}
+{' '}
+ </h1>
+                  <List
+                    data={state.parcours}
+                    thématique={results}
+                    currentSearch={searchField}
+                  />
+{" "}
+                </div>
+              ))}
           </div>
         ) : (
           <p>loading.. </p>

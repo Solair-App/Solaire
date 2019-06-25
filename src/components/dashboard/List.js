@@ -32,43 +32,42 @@ export default function ListCours(props) {
 
   return (
     <ul className="hs full">
-      {data && data
-        .filter(
-          /* eslint-disable no-mixed-operators */
-          info => info.data.thématique === props.thématique
-            && info.data.tags
-              .toUpperCase()
-              .includes(props.currentSearch.toUpperCase()),
-        )
-        .map((info, index) => (
-          <div key={`${index + 1}g`}>
-            <Rating readOnly value={info.data.rating} />
-            <li className="item" key={`${index + 1}n`}>
-              <Typography
-                className={classes.title}
-                color="textSecondary"
-                gutterBottom
-              >
-                <Link to={`/parcours/${info.id}`}>
-                  {info.data.name}
-                </Link>
-              </Typography>
-              <Typography className={classes.pos} color="textSecondary">
-                {info.data.difficulté}
-              </Typography>
-              <Typography className={classes.pos} color="textSecondary">
-                {info.data.langue}
-              </Typography>
-              <Typography className={classes.pos} color="textSecondary">
-                {info.data.durée}
-              </Typography>
-              <Typography variant="body2" component="p">
-                tags :
-                {info.data.tags}
-              </Typography>
-            </li>
-          </div>
-        ))}
+      {data
+        && data
+          .filter(
+            /* eslint-disable no-mixed-operators */
+            info => info.data.thématique === props.thématique
+              && info.data.tags
+                .toUpperCase()
+                .includes(props.currentSearch.toUpperCase()),
+          )
+          .map((info, index) => (
+            <div key={`${index + 1}g`}>
+              <Rating readOnly value={info.data.rating} />
+              <li className="item" key={`${index + 1}n`}>
+                <Typography
+                  className={classes.title}
+                  color="textSecondary"
+                  gutterBottom
+                >
+                  <Link to={`/parcours/${info.id}`}>{info.data.name}</Link>
+                </Typography>
+                <Typography className={classes.pos} color="textSecondary">
+                  {info.data.difficulté}
+                </Typography>
+                <Typography className={classes.pos} color="textSecondary">
+                  {info.data.langue}
+                </Typography>
+                <Typography className={classes.pos} color="textSecondary">
+                  {info.data.durée}
+                </Typography>
+                <Typography variant="body2" component="p">
+                  tags :
+{info.data.tags}
+                </Typography>
+              </li>
+            </div>
+          ))}
     </ul>
   );
 }

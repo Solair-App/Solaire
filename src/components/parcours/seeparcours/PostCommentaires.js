@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
 import * as firebase from 'firebase';
 
-
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
@@ -31,7 +30,6 @@ const Commentaires = (props) => {
   });
   const classes = useStyles();
   const [value, setValue] = useState({
-
     multiline: 'Controlled',
     currentValue: 'tous les champs sont requis',
   });
@@ -40,7 +38,6 @@ const Commentaires = (props) => {
   const handleChange1 = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
-
 
   const inputProps = {
     maxLength: '5000',
@@ -53,9 +50,13 @@ const Commentaires = (props) => {
     const db = firebase.firestore();
     const messagesRef = db.collection('parcours').doc(parcours);
     messagesRef
-      .update(
-        { commentaires: firebase.firestore.FieldValue.arrayUnion({ pseudo: values.name, commentaire: values.message, rating: props.rating }) },
-      )
+      .update({
+        commentaires: firebase.firestore.FieldValue.arrayUnion({
+          pseudo: values.name,
+          commentaire: values.message,
+          rating: props.rating,
+        }),
+      })
       .then(() => {
         localStorage.setItem('id', messagesRef.id);
         props.sendCommentaire(values);
@@ -66,11 +67,7 @@ const Commentaires = (props) => {
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
-    if (
-      values.name
-      && values.message
-
-    ) {
+    if (values.name && values.message && props.rating) {
       return true;
     }
 
@@ -90,7 +87,6 @@ const Commentaires = (props) => {
   return (
     <div>
       <form className={classes.container} noValidate autoComplete="on">
-
         <TextField
           required
           id="filled-name"
@@ -102,7 +98,7 @@ const Commentaires = (props) => {
           variant="filled"
           name="name"
         />
-        {' '}
+{" "}
         {userRate()}
         <TextField
           id="filled-textarea"
@@ -122,10 +118,10 @@ const Commentaires = (props) => {
       </form>
 
       <button type="submit" onClick={validateMessages}>
-       Envoyer
+        Envoyer
       </button>
     </div>
   );
 };
 
-export default (withRouter(Commentaires));
+export default withRouter(Commentaires);

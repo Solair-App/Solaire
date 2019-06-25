@@ -106,9 +106,8 @@ class seeParcours extends Component {
     }
     const newRating = determineRating;
     this.setState({
-      rating: determineRating,
-      userRating: rating,
-
+      rating,
+      newRating,
     });
 
     firebase
@@ -222,7 +221,7 @@ class seeParcours extends Component {
   render() {
     const { state, history } = this.props;
     const {
-      parcours, open, commentaire, rating, loaded, userRating,
+      parcours, open, commentaire, rating, loaded,
     } = this.state;
     return (
       <div>
@@ -305,7 +304,7 @@ class seeParcours extends Component {
         <PostCommentaires
           sendCommentaire={this.sendCommentaire}
           userRate={this.canUserRate}
-          rating={userRating}
+          rating={rating}
         />
         <ViewCommentaires
           currentParcours={this.parcours}

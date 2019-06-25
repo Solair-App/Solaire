@@ -43,6 +43,7 @@ const Commentaires = (props) => {
     maxLength: '5000',
   };
 
+
   const { match } = props;
   const parcours = match.params.parcoursId;
   // Stockage des messages dans la db
@@ -67,7 +68,7 @@ const Commentaires = (props) => {
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
-    if (values.name && values.message && props.rating) {
+    if (values.name && values.message) {
       return true;
     }
 

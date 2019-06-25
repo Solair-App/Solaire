@@ -46,6 +46,7 @@ class Signup extends Component {
     firestore.doc(`usersinfo/${user.uid}`).set({
       name: user.displayName,
       email: user.email,
+      is_admin: false,
       uid: user.uid,
     }, { merge: true });
     const { history } = this.props;

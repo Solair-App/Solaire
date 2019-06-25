@@ -20,7 +20,7 @@ const QuizAlerte = ({
       .doc(cours)
       .set({
         graduate: firebase.firestore.FieldValue.arrayUnion(
-          localStorage.getItem('userid'),
+          localStorage.getItem('userId'),
         ),
       }, { merge: true });
     history.push(`/parcours/${parcours}`);

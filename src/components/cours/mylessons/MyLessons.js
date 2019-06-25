@@ -20,7 +20,7 @@ class MyLessons extends React.Component {
   componentDidMount() {
     this.getMarkers();
     this.setState({
-      currentUser: localStorage.getItem('userid'),
+      currentUser: localStorage.getItem('userId'),
     });
   }
 

@@ -39,13 +39,13 @@ const ViewCommentaires = ({
   }, [firestore, location, match, parcours]);
 
   function showCommentaire() {
-    if (currentCommentaire.commentaire.length > 3) {
+    if (currentCommentaire.commentaire.length > 1) {
       commentaires.push(currentCommentaire);
     }
 
     return commentaires
       .map(commentaire => (
-        <div key={Math.floor(Date.now() / 1000)}>
+        <div key={Math.floor(Math.random() * 500000)}>
           <h1>{commentaire.pseudo}</h1>
           <Rating readOnly value={commentaire.rating} />
           <p>{commentaire.commentaire}</p>

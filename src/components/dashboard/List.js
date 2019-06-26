@@ -42,7 +42,7 @@ export default function ListCours(props) {
                 .includes(props.currentSearch.toUpperCase()),
           )
           .map((info, index) => (
-            <div key={Math.floor(Date.now() / 1000)}>
+            <div key={Math.floor(Math.random() * 500000)}>
               <Rating readOnly value={info.data.rating} />
               <li className="item" key={`${index + 1}n`}>
                 <Typography

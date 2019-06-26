@@ -114,7 +114,7 @@ class Dashboard extends Component {
             {state.thématique
               .filter(result => result.includes(filter))
               .map(results => (
-                <div key={Math.floor(Date.now() / 1000)}>
+                <div key={Math.floor(Math.random() * 500000)}>
                   {' '}
                   <h1>
                     {results}

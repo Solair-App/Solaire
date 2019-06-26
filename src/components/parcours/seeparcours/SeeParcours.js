@@ -264,7 +264,7 @@ class seeParcours extends Component {
   render() {
     const { state, history } = this.props;
     const {
-      parcours, open, commentaire, rating, loaded,
+      parcours, open, commentaire, rating, loaded, userInfo,
     } = this.state;
     return (
       <div>
@@ -283,6 +283,14 @@ class seeParcours extends Component {
         <h1>
           {parcours && parcours.name}
           {' '}
+          {' '}
+          {' '}
+          <p>
+nombre d'élèves :
+            {' '}
+
+            { parcours && parcours.apprenants ? parcours.apprenants.length : null}
+          </p>
           {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
             ? (
               <>
@@ -327,6 +335,8 @@ class seeParcours extends Component {
                   {cours.data.name}
                 </button>
               </p>
+
+
               <p>{cours.data.description}</p>
               <div>
                 <ArrowDownward />

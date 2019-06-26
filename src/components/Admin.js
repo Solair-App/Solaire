@@ -1,6 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 
 const forLoop = ['thématique', 'difficulté', 'durée', 'langue'];
 
@@ -13,6 +16,7 @@ class Admin extends Component {
       difficulté: [],
       durée: [],
       langue: [],
+      newItem: '',
       success: null,
     };
     this.thématique = [];
@@ -40,8 +44,25 @@ class Admin extends Component {
     this.getCategoryFromDB();
   }
 
-  addItem = (thématique) => {
+  onChange = (e) => {
+    this.setState({ newItem: e.target.value });
   }
+
+  addItem = (category) => {
+    const { newItem } = this.state;
+    const db = firebase.firestore();
+    const docRef = db.collection('category').doc(category);
+    const UniqueKey = Math.floor(Date.now() / 1000);
+    docRef.set({
+      [UniqueKey]: newItem,
+    }, { merge: true });
+    this.thématique = [];
+    this.difficulté = [];
+    this.durée = [];
+    this.langue = [];
+    this.getCategoryFromDB();
+  }
+
 
   getCategoryFromDB = () => {
     // eslint-disable-next-line no-shadow
@@ -61,18 +82,14 @@ class Admin extends Component {
   };
 
   render() {
-    const { success } = this.state;
+    const { success, newItem } = this.state;
     return (
       <div>
         {success && success}
         <h1>Modifier les catégories</h1>
         {forLoop.map(category => (
-          <div key={category}>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <h2>{category}</h2>
-              {' '}
-              <button onClick={() => this.addItem(category)} type="button">Ajouter</button>
-            </div>
+          <div style={{ marginTop: '3%' }} key={category}>
+            <h2>{category}</h2>
             <>
               {this.state[`${category}`].map(item => (
                 <div key={item.key}>
@@ -81,6 +98,31 @@ class Admin extends Component {
                 </div>
               ))}
             </>
+            <form autoComplete="off">
+              <Grid container>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    id="new"
+                    label={`new ${category}`}
+                    name={`${category}`}
+                    className="textfield"
+                    value={newItem}
+                    onChange={this.onChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="outlined"
+                    type="submit"
+                    onClick={() => this.addItem(category)}
+                    className="Button"
+                  >
+                    Ajouter
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
           </div>
         ))}
       </div>

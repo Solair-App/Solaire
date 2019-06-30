@@ -124,7 +124,24 @@ class Profile extends Component {
               >
                 Changer mes informations
               </Button>
-
+              {userInfo.is_admin
+              && (
+              <Button
+                variant="outlined"
+                name="admin"
+                onClick={() => {
+                  this.redirect('/admin');
+                }}
+                className="Button"
+                style={{
+                  margin: '30px 0 30px 0',
+                  width: '300px',
+                }}
+              >
+                Modifier les catégories de l&apos;application
+              </Button>
+              )
+              }
               <Button
                 size="large"
                 type="button"

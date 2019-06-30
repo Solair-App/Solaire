@@ -31,7 +31,7 @@ function CreateParcours({
           setValue({
             name: dataParcours.name,
             description: dataParcours.description,
-            thématique: dataParcours.thématique,
+            thematique: dataParcours.thematique,
             langue: dataParcours.langue,
             durée: dataParcours.durée,
             difficulté: dataParcours.difficulté,
@@ -63,7 +63,7 @@ function CreateParcours({
         {
           name: parcours.name,
           description: parcours.description,
-          thématique: parcours.thématique,
+          thematique: parcours.thematique,
           langue: parcours.langue,
           durée: parcours.durée,
           difficulté: parcours.difficulté,
@@ -87,7 +87,7 @@ function CreateParcours({
       {
         name: parcours.name,
         description: parcours.description,
-        thématique: parcours.thématique,
+        thematique: parcours.thematique,
         langue: parcours.langue,
         durée: parcours.durée,
         difficulté: parcours.difficulté,
@@ -106,7 +106,7 @@ function CreateParcours({
     if (
       value.name
       && value.description
-      && value.thématique
+      && value.thematique
       && value.langue
       && value.durée
       && value.difficulté
@@ -126,7 +126,7 @@ function CreateParcours({
       const currentParcours = new Parcours(
         value.name,
         value.description,
-        value.thématique,
+        value.thematique,
         value.langue,
         value.durée,
         value.difficulté,
@@ -190,10 +190,10 @@ function CreateParcours({
       </div>
       <SelectField
         required
-        choices={state.thématique}
-        name="thématique"
+        choices={state.thematique}
+        name="thematique"
         handleChange={handleChange}
-        value={value.thématique}
+        value={value.thematique}
         className="selectField"
         style={{ borderRadius: '20px' }}
       />
@@ -226,7 +226,7 @@ function CreateParcours({
       <Button
         variant="outlined"
         onClick={validateParcours}
-        name="thématique"
+        name="thematique"
         className="Button"
         style={{
           margin: '30px 0 30px 0',

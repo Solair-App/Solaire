@@ -4,22 +4,29 @@ import * as firebase from 'firebase';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import ArrowBack from '@material-ui/icons/ArrowBack';
+import { withRouter } from 'react-router';
 
-const forLoop = ['thématique', 'difficulté', 'durée', 'langue'];
+
+const forLoop = ['thematique', 'difficulté', 'durée', 'langue'];
 
 
 class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      thématique: [],
+      thematique: [],
       difficulté: [],
       durée: [],
       langue: [],
+      newthematique: '',
+      newlangue: '',
+      newdurée: '',
+      newdifficulté: '',
       newItem: '',
       success: null,
     };
-    this.thématique = [];
+    this.thematique = [];
     this.difficulté = [];
     this.durée = [];
     this.langue = [];
@@ -33,30 +40,30 @@ class Admin extends Component {
       [`${key}`]: firebase.firestore.FieldValue.delete(),
     }).then(() => {
       this.setState({ success: `Element de ${category} supprimé avec succès` });
+      setTimeout(this.setState({ success: null }), 3000);
     })
       .catch((error) => {
         console.error('Error removing document: ', error);
       });
-    this.thématique = [];
+    this.thematique = [];
     this.difficulté = [];
     this.durée = [];
     this.langue = [];
     this.getCategoryFromDB();
   }
 
-  onChange = (e) => {
-    this.setState({ newItem: e.target.value });
+  onChange = (event) => {
+    this.setState({ [`new${event.target.name}`]: event.target.value });
   }
 
   addItem = (category) => {
-    const { newItem } = this.state;
     const db = firebase.firestore();
     const docRef = db.collection('category').doc(category);
-    const UniqueKey = Math.floor(Date.now() / 1000);
+    const UniqueKey = Math.random().toString(36).substr(2, 3);
     docRef.set({
-      [UniqueKey]: newItem,
+      [UniqueKey]: this.state[`new${category}`],
     }, { merge: true });
-    this.thématique = [];
+    this.thematique = [];
     this.difficulté = [];
     this.durée = [];
     this.langue = [];
@@ -82,9 +89,18 @@ class Admin extends Component {
   };
 
   render() {
-    const { success, newItem } = this.state;
+    const {
+      success,
+    } = this.state;
+    const { history } = this.props;
     return (
       <div>
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            history.push('/profile');
+          }}
+        />
         {success && success}
         <h1>Modifier les catégories</h1>
         {forLoop.map(category => (
@@ -105,18 +121,16 @@ class Admin extends Component {
                     required
                     id="new"
                     label={`new ${category}`}
-                    name={`${category}`}
-                    className="textfield"
-                    value={newItem}
+                    name={category}
+                    value={this.state[`new${category}`]}
                     onChange={this.onChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <Button
                     variant="outlined"
-                    type="submit"
+                    type="button"
                     onClick={() => this.addItem(category)}
-                    className="Button"
                   >
                     Ajouter
                   </Button>
@@ -130,4 +144,4 @@ class Admin extends Component {
   }
 }
 
-export default Admin;
+export default withRouter(Admin);

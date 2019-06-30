@@ -35,7 +35,7 @@ export default function ListCours(props) {
       {data && data
         .filter(
           /* eslint-disable no-mixed-operators */
-          info => info.data.thématique === props.thématique
+          info => info.data.thematique === props.thematique
             && info.data.tags
               .toUpperCase()
               .includes(props.currentSearch.toUpperCase()),

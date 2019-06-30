@@ -70,9 +70,9 @@ class Dashboard extends Component {
 
   getCategoryFromDB = () => {
     const { state } = this.props;
-    if (!state || !state.thématique) {
+    if (!state || !state.thematique) {
       let category = [];
-      const forLoop = ['thématique', 'difficulté', 'durée', 'langue'];
+      const forLoop = ['thematique', 'difficulté', 'durée', 'langue'];
       // eslint-disable-next-line no-shadow
       const { mapDispatchToProps } = this.props;
       const firestore = firebase.firestore();
@@ -82,7 +82,6 @@ class Dashboard extends Component {
         // eslint-disable-next-line no-loop-func
         themRef.get().then((document) => {
           const dbCategory = document.data();
-
           // eslint-disable-next-line no-restricted-syntax
           for (const [, value] of Object.entries(dbCategory)) {
             category.push(`${value}`);
@@ -100,14 +99,14 @@ class Dashboard extends Component {
     return (
       <div style={{ display: 'block', textAlign: 'left' }}>
         {' '}
-        {state && state.thématique ? (
+        {state && state.thematique ? (
           <div>
             <InputBar
               handleChange={this.handleChange}
               currentFilterValue={currentValue}
               currentValue={searchField}
             />
-            {state.thématique.filter(result => result.includes(filter)).map((results, index) => (
+            {state.thematique.filter(result => result.includes(filter)).map((results, index) => (
               <div key={`${index + 200}q`}>
                 {' '}
                 <h1>
@@ -117,7 +116,7 @@ class Dashboard extends Component {
                 </h1>
                 <List
                   data={state.parcours}
-                  thématique={results}
+                  thematique={results}
                   currentSearch={searchField}
                 />
                 {' '}

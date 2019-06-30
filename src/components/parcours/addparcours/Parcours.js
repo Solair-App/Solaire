@@ -1,8 +1,8 @@
 class Parcours {
-  constructor(name, description, thematique, langue, durée, difficulté, tags) {
+  constructor(name, description, thématique, langue, durée, difficulté, tags) {
     this.name = name;
     this.description = description;
-    this.thematique = thematique;
+    this.thématique = thématique;
     this.langue = langue;
     this.durée = durée;
     this.difficulté = difficulté;

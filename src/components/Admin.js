@@ -8,25 +8,25 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 
 
-const forLoop = ['thematique', 'difficulté', 'durée', 'langue'];
+const forLoop = ['thématique', 'difficulté', 'durée', 'langue'];
 
 
 class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      thematique: [],
+      thématique: [],
       difficulté: [],
       durée: [],
       langue: [],
-      newthematique: '',
+      newthématique: '',
       newlangue: '',
       newdurée: '',
       newdifficulté: '',
       newItem: '',
       success: null,
     };
-    this.thematique = [];
+    this.thématique = [];
     this.difficulté = [];
     this.durée = [];
     this.langue = [];
@@ -45,7 +45,7 @@ class Admin extends Component {
       .catch((error) => {
         console.error('Error removing document: ', error);
       });
-    this.thematique = [];
+    this.thématique = [];
     this.difficulté = [];
     this.durée = [];
     this.langue = [];
@@ -63,7 +63,7 @@ class Admin extends Component {
     docRef.set({
       [UniqueKey]: this.state[`new${category}`],
     }, { merge: true });
-    this.thematique = [];
+    this.thématique = [];
     this.difficulté = [];
     this.durée = [];
     this.langue = [];

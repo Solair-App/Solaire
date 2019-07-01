@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import LocationOn from '@material-ui/icons/LocationOn';
+import AlternateEmail from '@material-ui/icons/AlternateEmail';
+import FormatQuote from '@material-ui/icons/FormatQuote';
 import BottomNav from '../dashboard/BottomNav';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 import './profile.scss';
@@ -96,18 +99,24 @@ class Profile extends Component {
 
 
               <p className="infos">
+                <AlternateEmail />
+                {' '}
                 Email :
                 {' '}
                 {userInfo.email ? userInfo.email : 'Pas renseigné'}
               </p>
 
               <p className="infos">
+                <LocationOn />
+                {' '}
                 City :
                 {' '}
                 {userInfo.city ? userInfo.city : 'Pas renseigné'}
               </p>
 
               <p className="infos">
+                <FormatQuote />
+                {' '}
                 A propos de moi :
                 {' '}
                 {userInfo.bio ? userInfo.bio : 'Pas renseigné'}

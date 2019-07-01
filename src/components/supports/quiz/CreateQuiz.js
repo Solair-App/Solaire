@@ -3,8 +3,11 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router';
+import * as firebase from 'firebase';
 import { Link } from 'react-router-dom';
+import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
+import SimpleModal from '../../SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
 class CreateQuiz extends Component {
@@ -12,9 +15,15 @@ class CreateQuiz extends Component {
     super(props);
     this.state = {
       infoQuiz: {},
+      quizData: '',
       name: '',
       description: '',
+      open: false,
+      coursId: 0,
     };
+    const { match } = this.props;
+    this.parcours = match.params.parcoursId;
+    this.cours = match.params.coursId;
     this.getInfo();
   }
 
@@ -33,29 +42,34 @@ class CreateQuiz extends Component {
     const { name, description } = this.state;
     const { firestore } = this.props;
     const db = firestore;
-    const quizSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
-    const quiz = quizSet.doc(localStorage.getItem('coursId'));
+    const quizSet = db.collection('parcours').doc(this.parcours).collection('cours');
+    const quiz = quizSet.doc(this.cours);
     quiz.set({
-      type: 'quiz', name, description, finish: true,
+      type: 'quiz', name, description, finish: true, creator: localStorage.getItem('userId'),
     }, { merge: true });
     event.preventDefault();
     const { history } = this.props;
-    history.push('/AddCours');
+    history.push(`/createparcours/${this.parcours}/addcours`);
   }
 
   getInfo = () => {
     const { firestore } = this.props;
-
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('id')).collection('cours').doc(localStorage.getItem('coursId'));
+    const docRef = firestore.collection('parcours').doc(this.parcours).collection('cours').doc(this.cours);
     docRef.get().then((doc) => {
       if (doc.exists) {
         const infoQuiz = doc.data();
         this.setState({
+          quizData: infoQuiz,
           infoQuiz: infoQuiz.questions,
         });
       } else {
         // doc.data() will be undefined in this case
         console.log('No such document!');
+      }
+    }).then(() => {
+      const { quizData } = this.state;
+      if (quizData.name && quizData.description) {
+        this.setState({ name: quizData.name, description: quizData.description });
       }
     }).catch((error) => {
       console.log('Error getting document:', error);
@@ -67,19 +81,45 @@ class CreateQuiz extends Component {
     history.push(url);
   }
 
+  open = (id) => {
+    this.setState({ open: true, coursId: id });
+  }
+
+  close = () => {
+    this.setState({ open: false });
+  }
+
+  deleting = (number) => {
+    const { firestore } = this.props;
+    const docRef = firestore.collection('parcours').doc(this.parcours).collection('cours').doc(this.cours);
+    docRef.update({
+      [`questions.${number}`]: firebase.firestore.FieldValue.delete(),
+    }).then(() => {
+      console.log(`Document ${number} successfully deleted!`);
+    })
+      .catch((error) => {
+        console.error('Error removing document: ', error);
+      });
+    this.close();
+    this.getInfo();
+  }
+
   render() {
-    const { infoQuiz } = this.state;
-    const { name, description } = this.state;
+    const { history } = this.props;
+    const {
+      infoQuiz, name, description, open, coursId,
+    } = this.state;
 
     return (
       <Grid container>
         <ArrowBack
           style={{ position: 'fixed', left: '10px', top: '10px' }}
           onClick={() => {
-            this.redirect('/AddCours');
+            history.goBack();
           }}
         />
         <Grid item xs={12}>
+          <SimpleModal open={open} idCours={coursId} togle={this.close} deleted={this.deleting} />
           <h1>Création de quiz</h1>
 
           {Object.keys(infoQuiz).length > 0
@@ -88,7 +128,11 @@ class CreateQuiz extends Component {
           }
           {Object.keys(infoQuiz).length > 0 && Object.keys(infoQuiz).map((key, index) => (
             <>
-              <h3 style={{ marginTop: '8px' }}>{`Question ${index}`}</h3>
+              <h3 style={{ marginTop: '8px' }}>
+                {`Question ${index}`}
+                {' '}
+                <span><DeleteIcon onClick={() => this.open(key)} /></span>
+              </h3>
               <p key={infoQuiz.key}>
                 {infoQuiz[key].question}
               </p>
@@ -103,7 +147,7 @@ class CreateQuiz extends Component {
         </Grid>
 
         <Grid item xs={12}>
-          <Link to="/addquestion">
+          <Link to={`/createparcours/${this.parcours}/${this.cours}/addquestion`}>
             <Button
               size="medium"
               variant="contained"

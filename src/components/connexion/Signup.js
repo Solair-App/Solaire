@@ -18,7 +18,7 @@ class Signup extends Component {
           // eslint-disable-next-line prefer-destructuring
           const newuser = result.user;
           if (newuser) {
-            localStorage.setItem('userid', user.uid);
+            localStorage.setItem('userId', user.uid);
             this.users(newuser);
           }
         });
@@ -45,6 +45,8 @@ class Signup extends Component {
     // Envoi d'infos dans le cloud Firestore
     firestore.doc(`usersinfo/${user.uid}`).set({
       name: user.displayName,
+      email: user.email,
+      is_admin: false,
       uid: user.uid,
     }, { merge: true });
     const { history } = this.props;

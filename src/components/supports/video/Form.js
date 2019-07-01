@@ -29,12 +29,19 @@ class Form extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   const { location, history } = this.props;
-  //   if (!location.state || !location.state.cours) {
-  //     history.push('/CreateParcours');
-  //   }
-  // }
+  componentDidMount() {
+    const { location } = this.props;
+    if (location.state && location.state.video) {
+      const cours = location.state.video;
+      this.setState({
+        description: cours.description,
+        duree: cours.duree,
+        link: cours.link,
+        name: cours.name,
+        id: cours.link.substring(cours.link.lastIndexOf('=') + 1, cours.link.length),
+      });
+    }
+  }
 
   recoveryId = (e) => {
     const { value } = e.target;
@@ -49,17 +56,19 @@ class Form extends Component {
     const {
       link, duree, name, description,
     } = this.state;
-    const { firestore } = this.props;
+    const { firestore, match } = this.props;
+    const parcours = match.params.parcoursId;
+    const cours = match.params.coursId;
     const db = firestore;
-    const videoSet = db.collection('parcours').doc(localStorage.getItem('id')).collection('cours');
-    const video = videoSet.doc(localStorage.getItem('coursId'));
+    const videoSet = db.collection('parcours').doc(parcours).collection('cours');
+    const video = videoSet.doc(cours);
     video.set({
-      link, duree, name, description, type: 'video', finish: true,
+      link, duree, name, description, type: 'video', finish: true, creator: localStorage.getItem('userId'),
     }, { merge: true });
     e.preventDefault();
 
     const { history } = this.props;
-    history.push('/addcours');
+    history.push(`/createparcours/${parcours}/addcours`);
   }
 
   redirect = (url) => {
@@ -71,9 +80,9 @@ class Form extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, history } = this.props;
     const {
-      id, name, description, duree,
+      id, name, description, duree, link,
     } = this.state;
     const { recoveryId, onChange } = this;
     const opts = {
@@ -89,7 +98,7 @@ class Form extends Component {
         <ArrowBack
           style={{ position: 'fixed', left: '10px', top: '10px' }}
           onClick={() => {
-            this.redirect('/AddCours');
+            history.goBack();
           }}
         />
         <form className="formFather">
@@ -139,6 +148,7 @@ class Form extends Component {
                 id="outlined-with-placeholder"
                 label="Lien de la vidéo"
                 variant="outlined"
+                value={link}
                 onChange={recoveryId}
                 className={classes.textField}
               />

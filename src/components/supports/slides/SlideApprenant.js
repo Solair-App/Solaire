@@ -5,9 +5,11 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import * as firebase from 'firebase';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
+
 import '../../../App.scss';
 
 const useStyles = makeStyles(theme => ({
@@ -25,14 +27,19 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const SlideApprenant = ({ firestore, location, history }) => {
+
+const SlideApprenant = ({
+  firestore, history, location, match,
+}) => {
   const [infoSlide, setSlide] = useState({ slides: [] });
+  const parcours = match.params.parcoursId;
+  const currentcours = match.params.coursId;
   useEffect(() => {
-    if (location.state && location.state.data) {
-      const cours = location.state.data;
+    if (localStorage.getItem('coursData')) {
+      const cours = JSON.parse(localStorage.getItem('coursData'));
       setSlide(cours);
     } else {
-      const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(localStorage.getItem('coursId'));
+      const docRef = firestore.collection('parcours').doc(parcours).collection('cours').doc(currentcours);
       docRef.get().then((doc) => {
         if (doc.exists) {
           setSlide(doc.data());
@@ -44,7 +51,22 @@ const SlideApprenant = ({ firestore, location, history }) => {
         console.log('Error getting document:', error);
       });
     }
-  }, [location.state, history, firestore]);
+  }, [firestore, history, location, match,
+    currentcours, parcours]);
+
+  const connectDb = () => {
+    firebase
+      .firestore()
+      .collection('parcours')
+      .doc(parcours).collection('cours')
+      .doc(currentcours)
+      .set({
+        graduate: firebase.firestore.FieldValue.arrayUnion(
+          localStorage.getItem('userId'),
+        ),
+      }, { merge: true });
+    history.push(`/parcours/${parcours}`);
+  };
 
   const classes = useStyles();
   const theme = useTheme();
@@ -59,7 +81,6 @@ const SlideApprenant = ({ firestore, location, history }) => {
   function handleBack() {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   }
-
   return (
     <div className={classes.root}>
       <h1>{infoSlide.name}</h1>
@@ -92,6 +113,9 @@ const SlideApprenant = ({ firestore, location, history }) => {
           </Button>
         )}
       />
+      <Button variant="outlined" onClick={connectDb}>
+              cours terminé
+      </Button>
     </div>
   );
 };

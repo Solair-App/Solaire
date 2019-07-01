@@ -27,8 +27,8 @@ class Dashboard extends Component {
   }
 
   getMarkers() {
-    const { state } = this.props;
-    if (!state || !state.parcours) {
+    const { state, location } = this.props;
+    if (!state || !state.parcours || (location.state && location.state.coursDelete)) {
       // eslint-disable-next-line no-shadow
       const { mapDispatchToProps } = this.props;
 
@@ -117,9 +117,9 @@ class Dashboard extends Component {
     const { state } = this.props;
 
     const { searchField, filter, currentValue } = this.state;
+  
     return (
-      <div style={{ display: 'block', textAlign: 'left' }}>
-        {' '}
+      <div style={{ display: 'block', textAlign: 'left', marginBottom: 120 }}>
         {state && state.thématique ? (
           <div>
             <InputBar
@@ -129,7 +129,7 @@ class Dashboard extends Component {
             />
             {Object.entries(this.sortIntoCategory())
               .filter(
-                result => result[0].includes(filter),
+                result => result[0].includes(filter)  
 
 
               )
@@ -137,13 +137,14 @@ class Dashboard extends Component {
                 (
                   <div key={`${index + 200}q`}>
                     {' '}
-                    <h1>
+                    <h1 style={{
+                  fontSize: 19, marginLeft: 5, color: '#4C4C4C', fontWeight: '500',
+                }}>
                       {results[0]}
                       {' '}
 
-
                     </h1>
-                    <List data={results[1]} />
+                    <List data={results[1]} searchField={searchField} />
                     {' '}
                   </div>
                 )

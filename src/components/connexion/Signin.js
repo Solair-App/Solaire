@@ -33,7 +33,7 @@ class Signup extends Component {
       .then((result) => {
         // eslint-disable-next-line prefer-destructuring
         const user = result.user;
-        localStorage.setItem('userid', user.uid);
+        localStorage.setItem('userId', user.uid);
         this.users(user);
       })
       .catch((error) => {
@@ -46,10 +46,12 @@ class Signup extends Component {
   users = (user) => {
     // Récupération du Firestore grâce à context
     const { firestore } = this.props;
-    const { username } = this.state;
+    const { username, email } = this.state;
     // Envoi d'infos dans le cloud Firestore
     firestore.doc(`usersinfo/${user.uid}`).set({
       name: username,
+      email,
+      is_admin: false,
       uid: user.uid,
     }, { merge: true });
     const { history } = this.props;

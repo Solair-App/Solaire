@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import YouTube from 'react-youtube';
+import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
+import * as firebase from 'firebase';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
-
 
 class Video extends Component {
   constructor(props) {
     super(props);
-    const { location } = this.props;
-    if (location.state && location.state.data) {
-      this.cours = location.state.data;
+    const { match } = this.props;
+    this.parcours = match.params.parcoursId;
+    this.curentcours = match.params.coursId;
+    if (localStorage.getItem('coursData')) {
+      this.cours = JSON.parse(localStorage.getItem('coursData'));
       this.state = {
         video: this.cours,
         videoId: this.cours.link.substring(this.cours.link.lastIndexOf('=') + 1, this.cours.link.length),
@@ -24,10 +27,26 @@ class Video extends Component {
     }
   }
 
+  connectDb = () => {
+    const { history } = this.props;
+    console.log(this.curentCours);
+    firebase
+      .firestore()
+      .collection('parcours')
+      .doc(this.parcours).collection('cours')
+      .doc(this.curentcours)
+      .set({
+        graduate: firebase.firestore.FieldValue.arrayUnion(
+          localStorage.getItem('userId'),
+        ),
+      }, { merge: true });
+    history.push(`/parcours/${this.parcours}`);
+  };
+
   getInfo = () => {
     const { firestore } = this.props;
 
-    const docRef = firestore.collection('parcours').doc(localStorage.getItem('parcoursId')).collection('cours').doc(localStorage.getItem('coursId'));
+    const docRef = firestore.collection('parcours').doc(this.parcours).collection('cours').doc(this.currentcours);
     docRef.get().then((doc) => {
       if (doc.exists) {
         const video = doc.data();
@@ -85,6 +104,9 @@ class Video extends Component {
           /* eslint no-underscore-dangle: 0 */
           onReady={this._onReady}
         />
+        <Button variant="outlined" onClick={this.connectDb}>
+              cours terminé
+        </Button>
       </div>
     );
   }

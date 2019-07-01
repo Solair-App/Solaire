@@ -12,7 +12,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import Connect from './components/connexion/Connect';
 import PasswordForget from './components/PasswordForget';
 import Profile from './components/profile/Profile';
-import Admin from './components/Admin';
+import Admin from './components/admin/Admin';
 import ChangeProfile from './components/profile/ChangeProfile';
 import SlideFormateur from './components/supports/slides/SlideFormateur';
 import SlideApprenant from './components/supports/slides/SlideApprenant';

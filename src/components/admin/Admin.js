@@ -1,11 +1,10 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
+import OneCategory from './OneCategory';
 
 
 const forLoop = ['thématique', 'difficulté', 'durée', 'langue'];
@@ -32,6 +31,7 @@ class Admin extends Component {
     this.langue = [];
     this.getCategoryFromDB();
   }
+
 
   deleteItem = (category, key) => {
     const db = firebase.firestore();
@@ -70,6 +70,7 @@ class Admin extends Component {
     this.getCategoryFromDB();
   }
 
+  jsUcfirst = string => string.charAt(0).toUpperCase() + string.slice(1)
 
   getCategoryFromDB = () => {
     // eslint-disable-next-line no-shadow
@@ -89,9 +90,7 @@ class Admin extends Component {
   };
 
   render() {
-    const {
-      success,
-    } = this.state;
+    const { success } = this.state;
     const { history } = this.props;
     return (
       <div>
@@ -103,42 +102,12 @@ class Admin extends Component {
         />
         {success && success}
         <h1>Modifier les catégories</h1>
-        {forLoop.map(category => (
-          <div style={{ marginTop: '3%' }} key={category}>
-            <h2>{category}</h2>
-            <>
-              {this.state[`${category}`].map(item => (
-                <div key={item.key}>
-                  <p>{item.value}</p>
-                  <button onClick={() => this.deleteItem(category, item.key)} type="button">Supprimer</button>
-                </div>
-              ))}
-            </>
-            <form autoComplete="off">
-              <Grid container>
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    id="new"
-                    label={`new ${category}`}
-                    name={category}
-                    value={this.state[`new${category}`]}
-                    onChange={this.onChange}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    variant="outlined"
-                    type="button"
-                    onClick={() => this.addItem(category)}
-                  >
-                    Ajouter
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </div>
-        ))}
+        <Grid container>
+          {forLoop.map(category => (
+            <OneCategory deleteItem={this.deleteItem} addItem={this.addItem} onChange={this.onChange} category={category} jsUcfirst={this.jsUcfirst} state={this.state} />
+          ))}
+
+        </Grid>
       </div>
     );
   }

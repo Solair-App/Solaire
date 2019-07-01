@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import TextField from '@material-ui/core/TextField';
 import ImageUpload from './ImageUpload';
+import './profile.scss';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 
 class ChangeProfile extends Component {
@@ -80,7 +81,7 @@ class ChangeProfile extends Component {
             this.redirect('/profile');
           }}
         />
-        <h1>Modifier mes informations personnelles</h1>
+        <h2 className="titrechange">Modifier mes informations personnelles</h2>
         <div>
           <ImageUpload getImage={this.getImage} />
         </div>

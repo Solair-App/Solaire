@@ -99,7 +99,7 @@ class Profile extends Component {
 
 
               <p className="infos">
-                <AlternateEmail />
+                <AlternateEmail className="coloricon" />
                 {' '}
                 Email :
                 {' '}
@@ -107,7 +107,7 @@ class Profile extends Component {
               </p>
 
               <p className="infos">
-                <LocationOn />
+                <LocationOn className="coloricon" />
                 {' '}
                 Ville :
                 {' '}
@@ -115,7 +115,7 @@ class Profile extends Component {
               </p>
 
               <p className="infos">
-                <FormatQuote />
+                <FormatQuote className="coloricon" />
                 {' '}
                 A propos de moi :
                 {' '}
@@ -130,7 +130,7 @@ class Profile extends Component {
                 }}
                 className="Button"
                 style={{
-                  margin: '20px 0 10px 0',
+                  margin: '30px 0 20px 0',
                   width: '300px',
                   backgroundColor: '#F0EDE5',
                   borderColor: '#AF9483',

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './profile.scss';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 
 class ImageUpload extends Component {
@@ -41,7 +42,7 @@ class ImageUpload extends Component {
         <input type="file" onChange={this.handleChange} />
         <button type="button" onClick={this.handleUpload}>Upload</button>
         {' '}
-        <img src={url} alt="uploaded img" />
+        <img src={url} className="uploadimg" />
       </div>
     );
   }

@@ -23,9 +23,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 function DialogSelect(props) {
-  // ferme la boite de dialogue
-
-
   const classes = useStyles();
   const {
     name, choices, handleChange, value,

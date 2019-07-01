@@ -22,13 +22,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Commentaires = (props) => {
+  const { rating } = props;
   const [values, setValues] = useState({
     name: '',
     message: '',
+    rating,
   });
   const classes = useStyles();
   const [value, setValue] = useState({
-
     multiline: 'Controlled',
     currentValue: 'tous les champs sont requis',
   });
@@ -38,10 +39,10 @@ const Commentaires = (props) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-
   const inputProps = {
     maxLength: '5000',
   };
+
 
   const { match } = props;
   const parcours = match.params.parcoursId;
@@ -50,9 +51,13 @@ const Commentaires = (props) => {
     const db = firebase.firestore();
     const messagesRef = db.collection('parcours').doc(parcours);
     messagesRef
-      .update(
-        { commentaires: firebase.firestore.FieldValue.arrayUnion({ pseudo: values.name, commentaire: values.message }) },
-      )
+      .update({
+        commentaires: firebase.firestore.FieldValue.arrayUnion({
+          pseudo: values.name,
+          commentaire: values.message,
+          rating: props.rating,
+        }),
+      })
       .then(() => {
         localStorage.setItem('id', messagesRef.id);
         props.sendCommentaire(values);
@@ -63,10 +68,7 @@ const Commentaires = (props) => {
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
-    if (
-      values.name
-      && values.message
-    ) {
+    if (values.name && values.message) {
       return true;
     }
 
@@ -82,7 +84,7 @@ const Commentaires = (props) => {
       pushMessagesInsideDB();
     }
   }
-
+  const { userRate } = props;
   return (
     <div>
       <form className={classes.container} noValidate autoComplete="on">
@@ -97,6 +99,8 @@ const Commentaires = (props) => {
           variant="filled"
           name="name"
         />
+        {' '}
+        {userRate()}
         <TextField
           id="filled-textarea"
           label="Votre message"
@@ -113,11 +117,12 @@ const Commentaires = (props) => {
           inputProps={inputProps}
         />
       </form>
+
       <button type="submit" onClick={validateMessages}>
-       Envoyer
+        Envoyer
       </button>
     </div>
   );
 };
 
-export default (withRouter(Commentaires));
+export default withRouter(Commentaires);

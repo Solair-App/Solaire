@@ -94,11 +94,21 @@ class seeParcours extends Component {
     // eslint-disable-next-line no-shadow
     const { firestore, mapDispatchToProps } = this.props;
     const cours = [];
-    firebase.firestore().collection('parcours').doc(this.parcours).update({
-      apprenants: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('userId')),
-    });
+    firebase
+      .firestore()
+      .collection('parcours')
+      .doc(this.parcours)
+      .update({
+        apprenants: firebase.firestore.FieldValue.arrayUnion(
+          localStorage.getItem('userId'),
+        ),
+      });
 
-    firestore.collection('parcours').doc(this.parcours).collection('cours').get()
+    firestore
+      .collection('parcours')
+      .doc(this.parcours)
+      .collection('cours')
+      .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           cours.push({ id: doc.id, data: doc.data() });
@@ -106,7 +116,7 @@ class seeParcours extends Component {
         const currentParcours = [{ id: this.parcours, content: cours }];
         mapDispatchToProps(currentParcours, 'cours');
       });
-  }
+  };
 
   getUserInfo = (userRef) => {
     userRef.get().then((doc) => {
@@ -117,7 +127,7 @@ class seeParcours extends Component {
         });
       }
     });
-  }
+  };
 
   sendCommentaire = (text) => {
     const { rating } = this.state;
@@ -233,9 +243,10 @@ class seeParcours extends Component {
   haveUserAlreadyVoted = () => {
     const { parcours } = this.state;
 
-
     if (
-      parcours.votants.map(item => item.id === localStorage.getItem('userId')).includes(true)
+      parcours.votants
+        .map(item => item.id === localStorage.getItem('userId'))
+        .includes(true)
     ) {
       const lastRating = parcours.votants.filter(votants => votants.id.includes(localStorage.getItem('userId')));
 
@@ -253,10 +264,7 @@ class seeParcours extends Component {
     if (canVote === true && parcours && parcours.apprenants) {
       return (
         <div>
-          <Rating
-            value={0}
-            onChange={value => this.sendRatings(value)}
-          />
+          <Rating value={0} onChange={value => this.sendRatings(value)} />
         </div>
       );
     }
@@ -266,7 +274,12 @@ class seeParcours extends Component {
   render() {
     const { state, history } = this.props;
     const {
-      parcours, open, commentaire, rating, loaded, userInfo,
+      parcours,
+      open,
+      commentaire,
+      rating,
+      loaded,
+      userInfo,
     } = this.state;
     return (
       <div>
@@ -285,23 +298,30 @@ class seeParcours extends Component {
         <h1>
           {parcours && parcours.name}
           {' '}
-          {' '}
-          {' '}
-          <p>
-nombre d'élèves :
-            {' '}
 
-            { parcours && parcours.apprenants ? parcours.apprenants.length : null}
-          </p>
-          {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
+          {' '}
+          {parcours && parcours.apprenants && parcours.creator === localStorage.getItem('userId')
             ? (
-              <>
-                <Link to={`/createparcours/${this.parcours}/addcours`}><Edit /></Link>
-                <DeleteIcon onClick={this.togleModal} />
-              </>
+              <p>
+            nombre d'élèves :
+                { ` ${parcours.apprenants.length}`}
+                {' '}
+
+              </p>
             )
-            : undefined
-          }
+            : null}
+
+          {(parcours && parcours.creator === localStorage.getItem('userId'))
+          || (userInfo && userInfo.is_admin) ? (
+            <>
+              <Link to={`/createparcours/${this.parcours}/addcours`}>
+                <Edit />
+              </Link>
+              <DeleteIcon onClick={this.togleModal} />
+            </>
+            ) : (
+              undefined
+            )}
         </h1>
         <p>{parcours && parcours.description}</p>
 
@@ -313,7 +333,6 @@ nombre d'élèves :
           && state.cours
           && state.cours[0].content.map(cours => (
             <div key={Math.floor(Math.random() * 50000)}>
-           
               <p
                 style={{
                   display: 'flex',
@@ -322,8 +341,11 @@ nombre d'élèves :
                 }}
               >
                 {cours.data.graduate
-                  && cours.data.graduate.includes(localStorage.getItem('userId'))
-                  ? <RadioButtonChecked /> : <RadioButtonUnchecked />}
+                && cours.data.graduate.includes(localStorage.getItem('userId')) ? (
+                  <RadioButtonChecked />
+                  ) : (
+                    <RadioButtonUnchecked />
+                  )}
                 <img
                   src={`./assets/${cours.data.type}.png`}
                   style={{ width: '4em' }}
@@ -338,7 +360,6 @@ nombre d'élèves :
                   {cours.data.name}
                 </button>
               </p>
-
 
               <p>{cours.data.description}</p>
               <div>

@@ -99,8 +99,7 @@ class Dashboard extends Component {
 
     const { searchField, filter, currentValue } = this.state;
     return (
-      <div style={{ display: 'block', textAlign: 'left' }}>
-        {' '}
+      <div style={{ display: 'block', textAlign: 'left', marginBottom: 120 }}>
         {state && state.thématique ? (
           <div>
             <InputBar
@@ -111,18 +110,17 @@ class Dashboard extends Component {
             />
             {state.thématique.filter(result => result.includes(filter)).map((results, index) => (
               <div key={`${index + 200}q`}>
-                {' '}
-                <h1>
+                <h1 style={{
+                  fontSize: 19, marginLeft: 5, color: '#4C4C4C', fontWeight: '500',
+                }}
+                >
                   {results}
-                  {' '}
-
                 </h1>
                 <List
                   data={state.parcours}
                   thématique={results}
                   currentSearch={searchField}
                 />
-                {' '}
               </div>
             ))}
           </div>

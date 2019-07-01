@@ -68,44 +68,46 @@ class Profile extends Component {
     const { userInfo, error } = this.state;
     return (
       <div>
-        <ArrowBack
-          style={{ position: 'fixed', left: '10%', top: '2%' }}
-          onClick={() => {
-            this.redirect('/mydashboard');
-          }}
-        />
-        <h1>Mon compte</h1>
-        {' '}
+
         {userInfo
           ? (
             <>
-              <p>
-                Hello
-                {' '}
-                {userInfo.name}
-                {' '}
-                !
-              </p>
+              <div className="fond">
+                <ArrowBack
+                  style={{
+                    position: 'fixed', left: '10%', top: '2%', color: 'white',
+                  }}
+                  onClick={() => {
+                    this.redirect('/mydashboard');
+                  }}
+                />
+                <h1 className="titreprofil">Mon compte</h1>
 
-              <p>
+                <p>
 
-                <img className="photo" alt="Profil img" src={userInfo.url ? userInfo.url : 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png'} />
+                  <img className="photo" alt="Profil img" src={userInfo.url ? userInfo.url : 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png'} />
 
-              </p>
+                </p>
 
-              <p>
+                <p className="name">
+                  {userInfo.name}
+                </p>
+              </div>
+
+
+              <p className="infos">
                 Email :
                 {' '}
                 {userInfo.email ? userInfo.email : 'Pas renseigné'}
               </p>
 
-              <p>
+              <p className="infos">
                 City :
                 {' '}
                 {userInfo.city ? userInfo.city : 'Pas renseigné'}
               </p>
 
-              <p>
+              <p className="infos">
                 A propos de moi :
                 {' '}
                 {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
@@ -119,8 +121,10 @@ class Profile extends Component {
                 }}
                 className="Button"
                 style={{
-                  margin: '30px 0 30px 0',
+                  margin: '20px 0 10px 0',
                   width: '300px',
+                  backgroundColor: '#F0EDE5',
+                  borderColor: '#AF9483',
                 }}
               >
                 Changer mes informations
@@ -133,7 +137,6 @@ class Profile extends Component {
                 onClick={this.logout}
                 variant="contained"
                 style={{
-                  margin: '30px 0 30px 0',
                   width: '300px',
                 }}
                 className="Button"

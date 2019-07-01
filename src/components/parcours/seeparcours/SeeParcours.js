@@ -21,7 +21,6 @@ const mapStateToProps = state => ({
   state,
 });
 
-
 class seeParcours extends Component {
   constructor(props) {
     super(props);
@@ -31,11 +30,11 @@ class seeParcours extends Component {
       canVote: true,
       open: false,
       commentaire: { pseudo: '', commentaire: 'qsd' },
+      loaded: 0,
     };
     const { match } = this.props;
     this.parcours = match.params.parcoursId;
   }
-
 
   componentDidMount() {
     const { state, firestore } = this.props;
@@ -55,32 +54,36 @@ class seeParcours extends Component {
       });
     }
     if (
-      localStorage.getItem(`canVote${this.parcours}`)
-      === true
+      localStorage.getItem(`canVote${this.parcours}`) === true
       || !localStorage.getItem(`canVote${this.parcours}`)
     ) {
       this.setState({
         canVote: true,
       });
-    } else {
+    }
+    if (localStorage.getItem(`canVote${this.parcours}` === false)) {
       this.setState({
         canVote: false,
       });
     }
 
     if (state && state.parcours) {
-      const currentParcours = state.parcours.filter(parc => parc.id === this.parcours);
-      this.setState({ parcours: currentParcours[0].data });
+      const currentParcours = state.parcours.filter(
+        parc => parc.id === this.parcours,
+      );
+      this.setState({ parcours: currentParcours[0].data, loaded: 1 });
     } else {
       const docRef = firestore.collection('parcours').doc(this.parcours);
-      docRef.get().then((doc) => {
-        if (doc.exists) {
-          this.setState({ parcours: doc.data() });
-        } else {
-          // doc.data() will be undefined in this case
-          console.log('No such document!');
-        }
-      }).then(this.haveUserAlreadyVoted())
+      docRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            this.setState({ parcours: doc.data(), loaded: 1 });
+          } else {
+            // doc.data() will be undefined in this case
+            console.log('No such document!');
+          }
+        })
         .catch((error) => {
           console.log('Error getting document:', error);
         });
@@ -117,10 +120,11 @@ class seeParcours extends Component {
   }
 
   sendCommentaire = (text) => {
+    const { rating } = this.state;
     this.setState({
-      commentaire: { pseudo: text.name, commentaire: text.message },
+      commentaire: { pseudo: text.name, commentaire: text.message, rating },
     });
-  }
+  };
 
   redirect = (url) => {
     const { history } = this.props;
@@ -140,11 +144,13 @@ class seeParcours extends Component {
 
       determineRating += rating;
 
-      determineRating /= (parcours.votants.length + 1);
+      determineRating /= parcours.votants.length + 1;
     }
     const newRating = determineRating;
     this.setState({
-      rating: determineRating,
+      rating,
+      // eslint-disable-next-line react/no-unused-state
+      newRating,
     });
 
     firebase
@@ -153,9 +159,10 @@ class seeParcours extends Component {
       .doc(this.parcours)
       .update({
         rating: newRating,
-        votants: firebase.firestore.FieldValue.arrayUnion(
-          localStorage.getItem('userId'),
-        ),
+        votants: firebase.firestore.FieldValue.arrayUnion({
+          id: localStorage.getItem('userId'),
+          userRating: rating,
+        }),
       });
     localStorage.setItem(`canVote${this.parcours}`, false);
     this.setState({
@@ -163,6 +170,33 @@ class seeParcours extends Component {
     });
   };
 
+  getInfo = () => {
+    // eslint-disable-next-line no-shadow
+    const { firestore, mapDispatchToProps } = this.props;
+    const cours = [];
+    firebase
+      .firestore()
+      .collection('parcours')
+      .doc(this.parcours)
+      .update({
+        apprenants: firebase.firestore.FieldValue.arrayUnion(
+          localStorage.getItem('userId'),
+        ),
+      });
+
+    firestore
+      .collection('parcours')
+      .doc(this.parcours)
+      .collection('cours')
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          cours.push({ id: doc.id, data: doc.data() });
+        });
+        const currentParcours = [{ id: this.parcours, content: cours }];
+        mapDispatchToProps(currentParcours, 'cours');
+      });
+  };
 
   goToCourse = (type, data, id) => {
     const { history } = this.props;
@@ -175,9 +209,13 @@ class seeParcours extends Component {
 
   delete = (idCours) => {
     const { firestore, history } = this.props;
-    firestore.collection('parcours').doc(this.parcours).delete().then(() => {
-      console.log(`Document ${idCours} successfully deleted!`);
-    })
+    firestore
+      .collection('parcours')
+      .doc(this.parcours)
+      .delete()
+      .then(() => {
+        console.log(`Document ${idCours} successfully deleted!`);
+      })
       .catch((error) => {
         console.error('Error removing document: ', error);
       });
@@ -185,55 +223,51 @@ class seeParcours extends Component {
       pathname: '/mydashboard',
       state: { coursDelete: true },
     });
-  }
+  };
 
   togleModal = () => {
     const { open } = this.state;
     this.setState({ open: !open });
-  }
+  };
 
   haveUserAlreadyVoted = () => {
     const { parcours } = this.state;
-    if (parcours.votants && parcours.votants.includes(localStorage.getItem('userId'))) {
+
+
+    if (
+      parcours.votants.map(item => item.id === localStorage.getItem('userId')).includes(true)
+    ) {
+      const lastRating = parcours.votants.filter(votants => votants.id.includes(localStorage.getItem('userId')));
+
       this.setState({
         canVote: false,
+        rating: lastRating[0].userRating,
+        loaded: 0,
       });
     }
-  }
+  };
 
-  // name et type de cours à mettre dans slide, vidéo et quizz
   canUserRate = () => {
     const { parcours, canVote, rating } = this.state;
 
-    if (canVote && parcours && parcours.apprenants) {
+    if (canVote === true && parcours && parcours.apprenants) {
       return (
         <div>
           <Rating
-            value={parcours.rating}
-            max={5}
+            value={0}
             onChange={value => this.sendRatings(value)}
           />
-
-
         </div>
       );
     }
-    return (
-      <Rating
-        value={rating || parcours.rating}
-        max={5}
-        readOnly
-
-      />
-    );
+    return <Rating readOnly value={rating || parcours.rating} />;
   };
 
   render() {
     const { state, history } = this.props;
     const {
-      parcours, open, commentaire, userInfo,
+      parcours, open, commentaire, rating, loaded, userInfo,
     } = this.state;
-
     return (
       <div>
         <ArrowBack
@@ -242,10 +276,23 @@ class seeParcours extends Component {
             history.push('/mydashboard');
           }}
         />
-        <SimpleModal open={open} idCours="Id" togle={this.togleModal} deleted={this.delete} />
+        <SimpleModal
+          open={open}
+          idCours="Id"
+          togle={this.togleModal}
+          deleted={this.delete}
+        />
         <h1>
           {parcours && parcours.name}
           {' '}
+          {' '}
+          {' '}
+          <p>
+nombre d'élèves :
+            {' '}
+
+            { parcours && parcours.apprenants ? parcours.apprenants.length : null}
+          </p>
           {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
             ? (
               <>
@@ -258,13 +305,15 @@ class seeParcours extends Component {
         </h1>
         <p>{parcours && parcours.description}</p>
 
+        {loaded === 1 ? this.haveUserAlreadyVoted() : null}
 
-        {this.canUserRate()}
+        <Rating readOnly value={rating || parcours.rating} />
 
         {state
           && state.cours
-          && state.cours[0].content.map((cours, index) => (
-            <div key={`${index + 1}k`}>
+          && state.cours[0].content.map(cours => (
+            <div key={Math.floor(Math.random() * 50000)}>
+           
               <p
                 style={{
                   display: 'flex',
@@ -286,16 +335,16 @@ class seeParcours extends Component {
                   }
                 >
                   {' '}
-
                   {cours.data.name}
                 </button>
               </p>
+
+
               <p>{cours.data.description}</p>
               <div>
                 <ArrowDownward />
               </div>
               <div>
-
                 <LockOpen />
                 <div>
                   <ArrowDownward />
@@ -303,8 +352,16 @@ class seeParcours extends Component {
               </div>
             </div>
           ))}
-        <PostCommentaires sendCommentaire={this.sendCommentaire} />
-        <ViewCommentaires currentParcours={this.parcours} currentCommentaire={commentaire} />
+        <PostCommentaires
+          sendCommentaire={this.sendCommentaire}
+          userRate={this.canUserRate}
+          rating={rating}
+        />
+        <ViewCommentaires
+          currentParcours={this.parcours}
+          currentCommentaire={commentaire}
+          rating={rating}
+        />
       </div>
     );
   }

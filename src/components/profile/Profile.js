@@ -121,7 +121,6 @@ class Profile extends Component {
                 {' '}
                 {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
               </p>
-
               <Button
                 variant="outlined"
                 name="changeprofile"
@@ -138,13 +137,29 @@ class Profile extends Component {
               >
                 Changer mes informations
               </Button>
-
+              {userInfo.is_admin
+              && (
+              <Button
+                variant="outlined"
+                name="admin"
+                onClick={() => {
+                  this.redirect('/admin');
+                }}
+                className="Button"
+                style={{
+                  margin: '10px 0 30px 0',
+                  width: '300px',
+                }}
+              >
+                Modifier les catégories de l&apos;application
+              </Button>
+              )
+              }
               <Button
                 size="large"
-                type="button"
-                color="primary"
                 onClick={this.logout}
-                variant="contained"
+                variant="outlined"
+                color="primary"
                 style={{
                   width: '300px',
                 }}
@@ -160,11 +175,13 @@ class Profile extends Component {
               <p>Loading your info</p>
               <Button
                 size="large"
-                type="button"
                 color="primary"
                 onClick={this.logout}
-                variant="contained"
-                style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
+                variant="outlined"
+                style={{
+                  margin: '30px 0 30px 0',
+                  width: '300px',
+                }}
                 className="Button"
               >
                 Log Out

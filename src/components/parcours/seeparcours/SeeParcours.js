@@ -28,7 +28,7 @@ class seeParcours extends Component {
       parcours: [],
       canVote: true,
       open: false,
-      commentaire: { pseudo: '', commentaire: 'qsd' },
+      commentaire: { pseudo: '', commentaire: '' },
     };
     const { match } = this.props;
     this.parcours = match.params.parcoursId;
@@ -75,6 +75,12 @@ class seeParcours extends Component {
   }
 
   sendCommentaire = (text) => {
+    this.setState({
+      commentaire: { pseudo: text.name, commentaire: text.message },
+    });
+  }
+
+  answerCommentaire = (text) => {
     this.setState({
       commentaire: { pseudo: text.name, commentaire: text.message },
     });
@@ -206,7 +212,9 @@ class seeParcours extends Component {
 
   render() {
     const { state, history } = this.props;
-    const { parcours, open, commentaire } = this.state;
+    const {
+      parcours, open, commentaire,
+    } = this.state;
 
     return (
       <div>
@@ -259,7 +267,6 @@ class seeParcours extends Component {
                   }
                 >
                   {' '}
-
                   {cours.data.name}
                 </button>
               </p>
@@ -277,7 +284,7 @@ class seeParcours extends Component {
             </div>
           ))}
         <PostCommentaires sendCommentaire={this.sendCommentaire} />
-        <ViewCommentaires currentParcours={this.parcours} currentCommentaire={commentaire} />
+        <ViewCommentaires currentParcours={this.parcours} answerCommentaire={this.answerCommentaire} currentCommentaire={commentaire} />
       </div>
     );
   }

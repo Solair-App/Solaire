@@ -24,8 +24,10 @@ const useStyles = makeStyles(theme => ({
 
 const Commentaires = (props) => {
   const [values, setValues] = useState({
-    name: '',
-    message: '',
+    repCommentaire: {
+      name: '',
+      message: '',
+    },
   });
   const classes = useStyles();
   const [value, setValue] = useState({
@@ -46,26 +48,24 @@ const Commentaires = (props) => {
   const parcours = match.params.parcoursId;
 
   // Stockage des messages dans la db
-  function pushMessagesInsideDB() {
-    const { sendCommentaire } = props;
-    const db = firebase.firestore();
-    const commentaryNumber = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
-    const messagesRef = db.collection('parcours').doc(parcours);
-    messagesRef
-      .set(
-        {
-          commentaires: {
-            [commentaryNumber]: { pseudo: values.name, commentaire: values.message, repCommentaire: [] },
-          },
-        },
-        { merge: true },
-      )
-      .then(() => {
-        localStorage.setItem('id', messagesRef.id);
-        sendCommentaire(values);
-      });
-    const { history } = props;
-    history.push(`/parcours/${parcours}`);
+  //          { commentaires.answerIndex: firebase.firestore.FieldValue.arrayUnion({ repCommentaire: { pseudo: values.name, commentaire: values.message } }) },
+
+  function pushAnswerInsideDB() {
+    const { answerCommentaire, answerIndex } = props;
+    if (answerIndex) {
+      const db = firebase.firestore();
+      const messagesRef = db.collection('parcours').doc(parcours);
+      messagesRef
+        .update(
+          { [`commentaires.${answerIndex}.repCommentaire`]: firebase.firestore.FieldValue.arrayUnion({ pseudo: values.name, commentaire: values.message }) },
+        )
+        .then(() => {
+          localStorage.setItem('index', messagesRef.id);
+          answerCommentaire(values);
+        });
+      const { history } = props;
+      history.push(`/parcours/${parcours}`);
+    }
   }
 
 
@@ -87,7 +87,7 @@ const Commentaires = (props) => {
 
   function validateMessages() {
     if (allStateAreFill()) {
-      pushMessagesInsideDB();
+      pushAnswerInsideDB();
     }
   }
 

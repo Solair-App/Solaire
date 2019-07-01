@@ -163,7 +163,7 @@ class Profile extends Component {
                 style={{
                   width: '300px',
                 }}
-                className="Button"
+                className="logout"
               >
                 Log Out
               </Button>
@@ -182,7 +182,7 @@ class Profile extends Component {
                   margin: '30px 0 30px 0',
                   width: '300px',
                 }}
-                className="Button"
+                className="logout"
               >
                 Log Out
               </Button>

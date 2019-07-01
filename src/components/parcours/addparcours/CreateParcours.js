@@ -42,9 +42,7 @@ function CreateParcours({
   }, [firestore, history, match]);
 
   // Modifications du state
-  const handleChange = name => (event) => {
-    setValue({ ...value, [name]: event.target.value });
-  };
+
   // redirection si le parcours est crée
   function redirect(url) {
     history.push({
@@ -98,7 +96,9 @@ function CreateParcours({
       .then(() => {
         redirect(`/createparcours/${idParcours}/addcours`);
       });
-  }
+  }  const handleChange = name => (event) => {
+    setValue({ ...value, [name]: event.target.value });
+};
 
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur

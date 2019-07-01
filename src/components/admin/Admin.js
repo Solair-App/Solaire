@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 import OneCategory from './OneCategory';
+import SimpleModal from '../SimpleModal';
 
 
 const forLoop = ['thématique', 'difficulté', 'durée', 'langue'];
@@ -15,6 +16,7 @@ class Admin extends Component {
     super(props);
     this.state = {
       thématique: [],
+      open: false,
       difficulté: [],
       durée: [],
       langue: [],
@@ -24,6 +26,8 @@ class Admin extends Component {
       newdifficulté: '',
       newItem: '',
       success: null,
+      deleteCat: null,
+      deleteKey: null,
     };
     this.thématique = [];
     this.difficulté = [];
@@ -32,14 +36,23 @@ class Admin extends Component {
     this.getCategoryFromDB();
   }
 
+  getDelete = (category, key) => {
+    this.setState({
+      deleteCat: category,
+      deleteKey: key,
+      open: true,
+    });
+  }
 
-  deleteItem = (category, key) => {
+  deleteItem = () => {
+    this.setState({ open: false });
+    const { deleteCat, deleteKey } = this.state;
     const db = firebase.firestore();
-    const docRef = db.collection('category').doc(category);
+    const docRef = db.collection('category').doc(deleteCat);
     docRef.update({
-      [`${key}`]: firebase.firestore.FieldValue.delete(),
+      [`${deleteKey}`]: firebase.firestore.FieldValue.delete(),
     }).then(() => {
-      this.setState({ success: `Element de ${category} supprimé avec succès` });
+      this.setState({ success: `Element de ${deleteCat} supprimé avec succès` });
       setTimeout(this.setState({ success: null }), 3000);
     })
       .catch((error) => {
@@ -89,8 +102,14 @@ class Admin extends Component {
     }
   };
 
+  toggle = () => {
+    this.setState({ open: false });
+  }
+
   render() {
-    const { success } = this.state;
+    const {
+      success, open, deleteCat, deleteKey,
+    } = this.state;
     const { history } = this.props;
     return (
       <div>
@@ -100,11 +119,12 @@ class Admin extends Component {
             history.push('/profile');
           }}
         />
+        <SimpleModal open={open} idCours={deleteCat} deleteKey={deleteKey} togle={this.toggle} deleted={this.deleteItem} />
         {success && success}
         <h1>Modifier les catégories</h1>
         <Grid container>
           {forLoop.map(category => (
-            <OneCategory deleteItem={this.deleteItem} addItem={this.addItem} onChange={this.onChange} category={category} jsUcfirst={this.jsUcfirst} state={this.state} />
+            <OneCategory getDelete={this.getDelete} key={category} addItem={this.addItem} onChange={this.onChange} category={category} jsUcfirst={this.jsUcfirst} state={this.state} />
           ))}
 
         </Grid>

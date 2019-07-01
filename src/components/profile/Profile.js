@@ -85,19 +85,14 @@ class Profile extends Component {
                 {' '}
                 !
               </p>
-
               <p>
-
                 <img style={{ width: '90%' }} alt="Profil img" src={userInfo.url ? userInfo.url : 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png'} />
-
               </p>
-
               <p>
                 Email :
                 {' '}
                 {userInfo.email ? userInfo.email : 'Pas renseigné'}
               </p>
-
               <p>
                 City :
                 {' '}
@@ -109,7 +104,6 @@ class Profile extends Component {
                 {' '}
                 {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
               </p>
-
               <Button
                 variant="outlined"
                 name="changeprofile"
@@ -118,7 +112,7 @@ class Profile extends Component {
                 }}
                 className="Button"
                 style={{
-                  margin: '30px 0 30px 0',
+                  margin: '20px 0 10px 0',
                   width: '300px',
                 }}
               >
@@ -134,7 +128,7 @@ class Profile extends Component {
                 }}
                 className="Button"
                 style={{
-                  margin: '30px 0 30px 0',
+                  margin: '10px 0 30px 0',
                   width: '300px',
                 }}
               >
@@ -144,10 +138,9 @@ class Profile extends Component {
               }
               <Button
                 size="large"
-                type="button"
-                color="primary"
                 onClick={this.logout}
-                variant="contained"
+                variant="outlined"
+                color="primary"
                 style={{
                   margin: '30px 0 30px 0',
                   width: '300px',
@@ -164,11 +157,13 @@ class Profile extends Component {
               <p>Loading your info</p>
               <Button
                 size="large"
-                type="button"
                 color="primary"
                 onClick={this.logout}
-                variant="contained"
-                style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
+                variant="outlined"
+                style={{
+                  margin: '30px 0 30px 0',
+                  width: '300px',
+                }}
                 className="Button"
               >
                 Log Out

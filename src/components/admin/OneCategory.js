@@ -18,21 +18,20 @@ const useStyles = makeStyles({
 });
 
 const OneCategory = ({
-  category, jsUcfirst, state, onChange, deleteItem, addItem,
+  category, jsUcfirst, state, onChange, addItem, getDelete,
 }) => {
   const classes = useStyles();
   return (
     <Grid item xs={12} sm={6}>
       <Card className={classes.card}>
         <CardContent>
-          <div style={{ marginTop: '3%' }} key={category}>
+          <div style={{ marginTop: '3%' }}>
             <h2>{jsUcfirst(category)}</h2>
             <>
               <Grid container justify="center">
                 {state[`${category}`].map(item => (
-                  <Grid item xs={12}>
-
-                    <div key={item.key}>
+                  <Grid item xs={12} key={item.key}>
+                    <div>
                       <p style={{
                         marginBottom: '1em', display: 'flex', justifyContent: 'center', alignItems: 'center',
                       }}
@@ -43,7 +42,7 @@ const OneCategory = ({
                           style={{
                             backgroundColor: '#f98181', borderRadius: '200px', fontSize: '1.4em', marginLeft: '0.2em',
                           }}
-                          onClick={() => deleteItem(category, item.key)}
+                          onClick={() => getDelete(category, item.key)}
                           type="button"
                         />
                       </p>
@@ -54,7 +53,7 @@ const OneCategory = ({
 
             </>
             <form autoComplete="off">
-              <Grid item xs={12} justify="center" alignItems="center">
+              <Grid item xs={12}>
                 <TextField
                   required
                   id="new"

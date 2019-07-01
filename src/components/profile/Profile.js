@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import BottomNav from '../dashboard/BottomNav';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
+import './profile.scss';
 
 class Profile extends Component {
   constructor(props) {
@@ -88,7 +89,7 @@ class Profile extends Component {
 
               <p>
 
-                <img style={{ width: '90%' }} alt="Profil img" src={userInfo.url ? userInfo.url : 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png'} />
+                <img className="photo" alt="Profil img" src={userInfo.url ? userInfo.url : 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png'} />
 
               </p>
 

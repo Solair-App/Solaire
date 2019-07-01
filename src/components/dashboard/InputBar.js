@@ -9,9 +9,17 @@ import MenuItem from '@material-ui/core/MenuItem';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  input: {
+    color: 'white',
   },
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  margin: {
+    margin: theme.spacing(1),
   },
   title: {
     flexGrow: 1,
@@ -21,16 +29,14 @@ const useStyles = makeStyles(theme => ({
     },
   },
   search: {
-    position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginLeft: 0,
+    display: 'flex',
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
       width: 'auto',
     },
   },
@@ -69,9 +75,13 @@ function SearchAppBar(props) {
 
   return (
     <div className={classes.root}>
-
-      <div className={classes.search}>
-        <SearchIcon style={{ margin: '5px', position: 'absolute' }} />
+      <div
+        className={classes.search}
+        style={{
+          backgroundColor: '#D3CFC8', color: 'white', borderRadius: 0, height: '50px',
+        }}
+      >
+        <SearchIcon style={{ margin: '10px', position: 'absolute' }} />
         <InputBase
           name="searchField"
           onChange={handleChange}
@@ -82,7 +92,7 @@ function SearchAppBar(props) {
           }}
           inputProps={{ 'aria-label': 'Search' }}
           style={{
-            margin: '0px 20px 30px -20px',
+            margin: '21px 20px 30px -20px',
             width: '265px',
             textAlign: 'left',
             fontSize: '18px',
@@ -93,7 +103,7 @@ function SearchAppBar(props) {
           id="standard-select-currency"
           select
           name="filter"
-          className={classes.textField}
+          className={classes.margin}
           value={currentFilterValue}
           onChange={handleChange}
           SelectProps={{
@@ -102,8 +112,9 @@ function SearchAppBar(props) {
             },
           }}
           style={{
-            margin: '0px 0 30px -13px',
             width: '150px',
+            marginTop: 5,
+            marginRight: 10,
           }}
           margin="normal"
         >
@@ -113,10 +124,7 @@ function SearchAppBar(props) {
             </MenuItem>
           )) : <p>loading</p>}
         </TextField>
-
       </div>
-
-
     </div>
   );
 }

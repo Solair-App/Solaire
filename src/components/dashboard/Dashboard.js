@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import { connect } from 'react-redux';
+
 import List from './List';
 import BottomNav from './BottomNav';
 import InputBar from './InputBar';
@@ -70,6 +71,26 @@ class Dashboard extends Component {
     }
   };
 
+  sortIntoCategory = () => {
+    const { state } = this.props;
+    let sort = [];
+    const parcours = {};
+
+
+    for (let i = 0; i < state.thématique.length; i += 1) {
+      for (let b = 0; b < state.parcours.length; b += 1) {
+        if (state.parcours[b].data.thématique === state.thématique[i]) {
+          sort.push(state.parcours[b]);
+        }
+      }
+
+      parcours[state.thématique[i]] = sort;
+      sort = [];
+    }
+
+    return parcours;
+  };
+
   getCategoryFromDB = () => {
     const { state } = this.props;
     if (!state || !state.thématique) {
@@ -100,10 +121,9 @@ class Dashboard extends Component {
     const { state } = this.props;
 
     const { searchField, filter, currentValue } = this.state;
-
+  
     return (
-      <div style={{ display: 'block', textAlign: 'left' }}>
-        {' '}
+      <div style={{ display: 'block', textAlign: 'left', marginBottom: 120 }}>
         {state && state.thématique ? (
           <div>
             <InputBar
@@ -111,22 +131,27 @@ class Dashboard extends Component {
               currentFilterValue={currentValue}
               currentValue={searchField}
             />
-            {state.thématique
-              .filter(result => result.includes(filter))
-              .map(results => (
-                <div key={Math.floor(Math.random() * 500000)}>
-                  {' '}
-                  <h1>
-                    {results}
+            {Object.entries(this.sortIntoCategory())
+              .filter(
+                result => result[0].includes(filter)  
+
+
+              )
+              .map((results, index) => (
+                (
+                  <div key={`${index + 200}q`}>
                     {' '}
-                  </h1>
-                  <List
-                    data={state.parcours}
-                    thématique={results}
-                    currentSearch={searchField}
-                  />
-                  {' '}
-                </div>
+                    <h1 style={{
+                  fontSize: 19, marginLeft: 5, color: '#4C4C4C', fontWeight: '500',
+                }}>
+                      {results[0]}
+                      {' '}
+
+                    </h1>
+                    <List data={results[1]} searchField={searchField} />
+                    {' '}
+                  </div>
+                )
               ))}
           </div>
         ) : (

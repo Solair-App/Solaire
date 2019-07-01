@@ -232,6 +232,8 @@ class seeParcours extends Component {
 
   haveUserAlreadyVoted = () => {
     const { parcours } = this.state;
+
+
     if (
       parcours.votants.map(item => item.id === localStorage.getItem('userId')).includes(true)
     ) {
@@ -252,7 +254,7 @@ class seeParcours extends Component {
       return (
         <div>
           <Rating
-            value={parcours.rating}
+            value={0}
             onChange={value => this.sendRatings(value)}
           />
         </div>
@@ -310,7 +312,8 @@ nombre d'élèves :
         {state
           && state.cours
           && state.cours[0].content.map(cours => (
-            <div key={Math.floor(Date.now() / 1000)}>
+            <div key={Math.floor(Math.random() * 50000)}>
+           
               <p
                 style={{
                   display: 'flex',

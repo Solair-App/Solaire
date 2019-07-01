@@ -90,6 +90,7 @@ function CreateParcours({
         durée: parcours.durée,
         difficulté: parcours.difficulté,
         tags: parcours.tags,
+        votants : { id : null, rating : null}
       },
       { merge: true },
     )

@@ -9,7 +9,6 @@ export default function UseTabs(props) {
     <Paper square>
       <Tabs centered value={currentValue} indicatorColor="primary" textColor="primary" onChange={changeTabs}>
         <Tab label="Mes parcours" />
-
         <Tab label="Cours suivis" />
       </Tabs>
     </Paper>

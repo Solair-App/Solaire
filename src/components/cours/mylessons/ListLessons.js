@@ -23,7 +23,7 @@ export default function ListLessons(props) {
   return (
     <List dense className={classes.root}>
 
-      <Link to={{ pathname: '/parcours', state: { parcoursId: data.id } }}>
+      <Link to={{ pathname: `/parcours/${data.id}` }}>
 
 
         <ListItem button>

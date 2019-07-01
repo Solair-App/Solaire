@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import YouTube from 'react-youtube';
+import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
+import * as firebase from 'firebase';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
-
 
 class Video extends Component {
   constructor(props) {
@@ -11,7 +12,6 @@ class Video extends Component {
     const { match } = this.props;
     this.parcours = match.params.parcoursId;
     this.curentcours = match.params.coursId;
-    console.log('hello');
     if (localStorage.getItem('coursData')) {
       this.cours = JSON.parse(localStorage.getItem('coursData'));
       this.state = {
@@ -26,6 +26,22 @@ class Video extends Component {
       };
     }
   }
+
+  connectDb = () => {
+    const { history } = this.props;
+    console.log(this.curentCours);
+    firebase
+      .firestore()
+      .collection('parcours')
+      .doc(this.parcours).collection('cours')
+      .doc(this.curentcours)
+      .set({
+        graduate: firebase.firestore.FieldValue.arrayUnion(
+          localStorage.getItem('userId'),
+        ),
+      }, { merge: true });
+    history.push(`/parcours/${this.parcours}`);
+  };
 
   getInfo = () => {
     const { firestore } = this.props;
@@ -88,6 +104,9 @@ class Video extends Component {
           /* eslint no-underscore-dangle: 0 */
           onReady={this._onReady}
         />
+        <Button variant="outlined" onClick={this.connectDb}>
+              cours terminé
+        </Button>
       </div>
     );
   }

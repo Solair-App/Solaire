@@ -29,12 +29,19 @@ class Form extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   const { location, history } = this.props;
-  //   if (!location.state || !location.state.cours) {
-  //     history.push('/CreateParcours');
-  //   }
-  // }
+  componentDidMount() {
+    const { location } = this.props;
+    if (location.state && location.state.video) {
+      const cours = location.state.video;
+      this.setState({
+        description: cours.description,
+        duree: cours.duree,
+        link: cours.link,
+        name: cours.name,
+        id: cours.link.substring(cours.link.lastIndexOf('=') + 1, cours.link.length),
+      });
+    }
+  }
 
   recoveryId = (e) => {
     const { value } = e.target;
@@ -56,7 +63,7 @@ class Form extends Component {
     const videoSet = db.collection('parcours').doc(parcours).collection('cours');
     const video = videoSet.doc(cours);
     video.set({
-      link, duree, name, description, type: 'video', finish: true,
+      link, duree, name, description, type: 'video', finish: true, creator: localStorage.getItem('userId'),
     }, { merge: true });
     e.preventDefault();
 
@@ -75,7 +82,7 @@ class Form extends Component {
   render() {
     const { classes, history } = this.props;
     const {
-      id, name, description, duree,
+      id, name, description, duree, link,
     } = this.state;
     const { recoveryId, onChange } = this;
     const opts = {
@@ -141,6 +148,7 @@ class Form extends Component {
                 id="outlined-with-placeholder"
                 label="Lien de la vidéo"
                 variant="outlined"
+                value={link}
                 onChange={recoveryId}
                 className={classes.textField}
               />

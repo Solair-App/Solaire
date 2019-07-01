@@ -109,7 +109,7 @@ class Profile extends Component {
               <p className="infos">
                 <LocationOn />
                 {' '}
-                City :
+                Ville :
                 {' '}
                 {userInfo.city ? userInfo.city : 'Pas renseigné'}
               </p>

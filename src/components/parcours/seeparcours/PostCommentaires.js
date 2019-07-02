@@ -76,7 +76,7 @@ const Commentaires = (props) => {
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
-    if (values.name && values.message && values.rating) {
+    if (values.name && values.message && rating) {
       return true;
     }
 
@@ -93,6 +93,7 @@ const Commentaires = (props) => {
     }
   }
   const { userRate } = props;
+
   return (
     <div>
       <form className={classes.container} noValidate autoComplete="on">

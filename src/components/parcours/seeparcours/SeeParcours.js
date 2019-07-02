@@ -76,7 +76,7 @@ class seeParcours extends Component {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          this.setState({ parcours: doc.data(), loaded: 1 }, console.log(doc.data()));
+          this.setState({ parcours: doc.data(), loaded: 1 });
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');
@@ -274,13 +274,6 @@ class seeParcours extends Component {
           {' '}
           {' '}
 
-          <p>
-            nombre d'élèves :
-            {' '}
-
-            { parcours && parcours.apprenants ? parcours.apprenants.length : null}
-          </p>
-
           {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
             ? (
               <>
@@ -291,6 +284,12 @@ class seeParcours extends Component {
             : undefined
           }
         </h1>
+        <p>
+            Nombre d&apos;élèves :
+          {' '}
+
+          { parcours && parcours.apprenants ? parcours.apprenants.length : null}
+        </p>
         <p>{parcours && parcours.description}</p>
 
         {loaded === 1 ? this.haveUserAlreadyVoted() : null}

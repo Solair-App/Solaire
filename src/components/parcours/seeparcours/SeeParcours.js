@@ -4,6 +4,7 @@ import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import LockOpen from '@material-ui/icons/LockOpen';
+import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
 import { connect } from 'react-redux';
@@ -27,6 +28,7 @@ class seeParcours extends Component {
     this.state = {
       parcours: [],
       userInfo: {},
+      commentSent: false,
       canVote: true,
       open: false,
       commentaire: { pseudo: '', commentaire: 'qsd' },
@@ -70,7 +72,7 @@ class seeParcours extends Component {
   }
 
   getParcours = () => {
-    const { firestore } = this.props; console.log('hello');
+    const { firestore } = this.props;
     const docRef = firestore.collection('parcours').doc(this.parcours);
     docRef
       .get()
@@ -101,6 +103,7 @@ class seeParcours extends Component {
   sendCommentaire = (text) => {
     const { rating } = this.state;
     this.setState({
+      commentSent: true,
       commentaire: { pseudo: text.name, commentaire: text.message, rating },
     });
   };
@@ -218,7 +221,6 @@ class seeParcours extends Component {
   haveUserAlreadyVoted = () => {
     const { parcours } = this.state;
 
-
     if (
       parcours.votants.map(item => item.id === localStorage.getItem('userId')).includes(true)
     ) {
@@ -248,12 +250,15 @@ class seeParcours extends Component {
     return <Rating readOnly value={rating || parcours.rating} />;
   };
 
+  newComment = () => {
+    this.setState({ commentSent: false });
+  }
+
   render() {
     const { state, history } = this.props;
     const {
-      parcours, open, commentaire, rating, loaded, userInfo,
+      parcours, open, commentaire, commentSent, rating, loaded, userInfo,
     } = this.state;
-    console.log(parcours);
     return (
       <div>
         <ArrowBack
@@ -339,12 +344,33 @@ class seeParcours extends Component {
               </div>
             </div>
           ))}
-        <PostCommentaires
-          sendCommentaire={this.sendCommentaire}
-          userRate={this.canUserRate}
-          rating={rating}
-          getParcours={this.getParcours}
-        />
+        {commentSent
+          ? (
+            <>
+              <p>Commentaire envoyé !</p>
+              <Button
+                variant="outlined"
+                onClick={this.newComment}
+                name="thématique"
+                className="Button"
+                style={{
+                  margin: '30px 0 30px 0',
+                  width: '300px',
+                }}
+              >
+                Nouveau commentaire
+              </Button>
+            </>
+          )
+          : (
+            <PostCommentaires
+              sendCommentaire={this.sendCommentaire}
+              userRate={this.canUserRate}
+              rating={rating}
+              getParcours={this.getParcours}
+            />
+          )
+        }
         <ViewCommentaires
           currentParcours={this.parcours}
           currentCommentaire={commentaire}

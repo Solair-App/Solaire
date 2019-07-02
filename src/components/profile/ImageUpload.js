@@ -42,7 +42,7 @@ class ImageUpload extends Component {
         <input type="file" onChange={this.handleChange} />
         <button type="button" onClick={this.handleUpload}>Upload</button>
         {' '}
-        <img src={url} className="uploadimg" />
+        <img alt="upload" src={url} className="uploadimg" />
       </div>
     );
   }

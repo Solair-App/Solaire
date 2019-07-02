@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import * as firebase from 'firebase';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -11,7 +12,19 @@ const QuizAlerte = ({
   history, resetQuiz, parcours, cours,
 }) => {
   const [open, setOpen] = React.useState(false);
-
+  const connectDb = () => {
+    firebase
+      .firestore()
+      .collection('parcours')
+      .doc(parcours).collection('cours')
+      .doc(cours)
+      .set({
+        graduate: firebase.firestore.FieldValue.arrayUnion(
+          localStorage.getItem('userId'),
+        ),
+      }, { merge: true });
+    history.push(`/parcours/${parcours}`);
+  };
   function handleClickOpen() {
     setOpen(true);
   }
@@ -20,6 +33,7 @@ const QuizAlerte = ({
     setOpen(false);
     switch (choose) {
       case 'end': history.push(`/parcours/${parcours}`);
+        connectDb();
         break;
       case 'again': resetQuiz();
         history.push(`/parcours/${parcours}/quiz/${cours}`);
@@ -28,6 +42,7 @@ const QuizAlerte = ({
         break;
     }
   }
+
 
   return (
     <div>

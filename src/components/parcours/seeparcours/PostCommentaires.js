@@ -23,9 +23,11 @@ const useStyles = makeStyles(theme => ({
 
 
 const Commentaires = (props) => {
+  const { rating } = props;
   const [values, setValues] = useState({
     name: '',
     message: '',
+    rating,
   });
   const classes = useStyles();
   const [value, setValue] = useState({
@@ -42,6 +44,7 @@ const Commentaires = (props) => {
     maxLength: '5000',
   };
 
+
   const { match } = props;
   const parcours = match.params.parcoursId;
 
@@ -55,7 +58,9 @@ const Commentaires = (props) => {
       .set(
         {
           commentaires: {
-            [commentaryNumber]: { pseudo: values.name, commentaire: values.message, repCommentaire: [] },
+            [commentaryNumber]: {
+              pseudo: values.name, rating: props.rating, commentaire: values.message, repCommentaire: [],
+            },
           },
         },
         { merge: true },
@@ -63,18 +68,15 @@ const Commentaires = (props) => {
       .then(() => {
         localStorage.setItem('id', messagesRef.id);
         sendCommentaire(values);
+        const { getParcours } = props;
+        getParcours();
       });
-    const { history } = props;
-    history.push(`/parcours/${parcours}`);
   }
 
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
-    if (
-      values.name
-      && values.message
-    ) {
+    if (values.name && values.message) {
       return true;
     }
 
@@ -90,7 +92,7 @@ const Commentaires = (props) => {
       pushMessagesInsideDB();
     }
   }
-
+  const { userRate } = props;
   return (
     <div>
       <form className={classes.container} noValidate autoComplete="on">
@@ -105,6 +107,8 @@ const Commentaires = (props) => {
           variant="filled"
           name="name"
         />
+        {' '}
+        {userRate()}
         <TextField
           id="filled-textarea"
           label="Votre message"
@@ -121,11 +125,12 @@ const Commentaires = (props) => {
           inputProps={inputProps}
         />
       </form>
+
       <button type="submit" onClick={validateMessages}>
-       Envoyer
+        Envoyer
       </button>
     </div>
   );
 };
 
-export default (withRouter(Commentaires));
+export default withRouter(Commentaires);

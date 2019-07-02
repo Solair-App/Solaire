@@ -50,7 +50,6 @@ class AddCours extends Component {
     this.parcours = match.params.parcoursId;
     const db = firestore;
     const type = event.target.value;
-
     const courseSet = db.collection('parcours').doc(this.parcours).collection('cours').doc();
     localStorage.setItem('coursId', courseSet.id);
     this.cours = courseSet.id;
@@ -72,7 +71,6 @@ class AddCours extends Component {
     }
     this.setState({
       cours,
-
     });
   }
 
@@ -102,32 +100,27 @@ class AddCours extends Component {
     return (
       <div>
         <h1>{data.name}</h1>
-        <Link to="CreateParcours">
+        <Link to={`/createparcours/${this.parcours}`}>
           <Button color="primary">
             <Edit />
             Modifier les options
           </Button>
-
         </Link>
         <ListCours courseName={data} parcours={this.parcours} />
-
         <TypeCours getType={this.getType} />
-
         <Button onClick={() => { this.redirectToLessons(data); }}>
           {' '}
           <Add style={{ marginRight: '10px' }} />
-Ajouter un cours
+          Ajouter un cours
         </Button>
         <div>
           <Button
-
             fullWidth
-
             size="large"
             onClick={this.submit}
             variant="contained"
           >
-          Valider
+            Valider
           </Button>
         </div>
       </div>

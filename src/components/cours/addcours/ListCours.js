@@ -39,14 +39,15 @@ class ListCours extends Component {
 
   goToCourse = (type, data, id) => {
     const { history, parcours } = this.props;
-    localStorage.setItem('coursCreated', JSON.stringify(data));
     let currentType;
+    let video = null;
     switch (type) {
       case 'slide':
         currentType = 'createslider';
         break;
       case 'video':
         currentType = 'addvideo';
+        video = data;
         break;
       case 'quiz':
         currentType = 'addquiz';
@@ -56,6 +57,7 @@ class ListCours extends Component {
     }
     history.push({
       pathname: `/createparcours/${parcours}/${id}/${currentType}`,
+      state: { video },
     });
   }
 

@@ -63,8 +63,8 @@ const Commentaires = (props) => {
           localStorage.setItem('index', messagesRef.id);
           answerCommentaire(values);
         });
-      const { history } = props;
-      history.push(`/parcours/${parcours}`);
+      const { getParcours } = props;
+      getParcours();
     }
   }
 

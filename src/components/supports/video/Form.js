@@ -30,8 +30,9 @@ class Form extends Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem('coursCreated')) {
-      const cours = JSON.parse(localStorage.getItem('coursCreated'));
+    const { location } = this.props;
+    if (location.state && location.state.video) {
+      const cours = location.state.video;
       this.setState({
         description: cours.description,
         duree: cours.duree,
@@ -62,7 +63,7 @@ class Form extends Component {
     const videoSet = db.collection('parcours').doc(parcours).collection('cours');
     const video = videoSet.doc(cours);
     video.set({
-      link, duree, name, description, type: 'video', finish: true, creator: localStorage.getItem('userid'),
+      link, duree, name, description, type: 'video', finish: true, creator: localStorage.getItem('userId'),
     }, { merge: true });
     e.preventDefault();
 

@@ -3,8 +3,11 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router';
+import * as firebase from 'firebase';
 import { Link } from 'react-router-dom';
+import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
+import SimpleModal from '../../SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
 class CreateQuiz extends Component {
@@ -15,6 +18,8 @@ class CreateQuiz extends Component {
       quizData: '',
       name: '',
       description: '',
+      open: false,
+      coursId: 0,
     };
     const { match } = this.props;
     this.parcours = match.params.parcoursId;
@@ -40,7 +45,7 @@ class CreateQuiz extends Component {
     const quizSet = db.collection('parcours').doc(this.parcours).collection('cours');
     const quiz = quizSet.doc(this.cours);
     quiz.set({
-      type: 'quiz', name, description, finish: true, creator: localStorage.getItem('userid'),
+      type: 'quiz', name, description, finish: true, creator: localStorage.getItem('userId'),
     }, { merge: true });
     event.preventDefault();
     const { history } = this.props;
@@ -49,7 +54,6 @@ class CreateQuiz extends Component {
 
   getInfo = () => {
     const { firestore } = this.props;
-
     const docRef = firestore.collection('parcours').doc(this.parcours).collection('cours').doc(this.cours);
     docRef.get().then((doc) => {
       if (doc.exists) {
@@ -77,9 +81,34 @@ class CreateQuiz extends Component {
     history.push(url);
   }
 
+  open = (id) => {
+    this.setState({ open: true, coursId: id });
+  }
+
+  close = () => {
+    this.setState({ open: false });
+  }
+
+  deleting = (number) => {
+    const { firestore } = this.props;
+    const docRef = firestore.collection('parcours').doc(this.parcours).collection('cours').doc(this.cours);
+    docRef.update({
+      [`questions.${number}`]: firebase.firestore.FieldValue.delete(),
+    }).then(() => {
+      console.log(`Document ${number} successfully deleted!`);
+    })
+      .catch((error) => {
+        console.error('Error removing document: ', error);
+      });
+    this.close();
+    this.getInfo();
+  }
+
   render() {
     const { history } = this.props;
-    const { infoQuiz, name, description } = this.state;
+    const {
+      infoQuiz, name, description, open, coursId,
+    } = this.state;
 
     return (
       <Grid container>
@@ -90,6 +119,7 @@ class CreateQuiz extends Component {
           }}
         />
         <Grid item xs={12}>
+          <SimpleModal open={open} idCours={coursId} togle={this.close} deleted={this.deleting} />
           <h1>Création de quiz</h1>
 
           {Object.keys(infoQuiz).length > 0
@@ -98,7 +128,11 @@ class CreateQuiz extends Component {
           }
           {Object.keys(infoQuiz).length > 0 && Object.keys(infoQuiz).map((key, index) => (
             <>
-              <h3 style={{ marginTop: '8px' }}>{`Question ${index}`}</h3>
+              <h3 style={{ marginTop: '8px' }}>
+                {`Question ${index}`}
+                {' '}
+                <span><DeleteIcon onClick={() => this.open(key)} /></span>
+              </h3>
               <p key={infoQuiz.key}>
                 {infoQuiz[key].question}
               </p>

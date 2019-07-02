@@ -93,6 +93,7 @@ const Commentaires = (props) => {
     }
   }
   const { userRate } = props;
+
   return (
     <div>
       <form className={classes.container} noValidate autoComplete="on">

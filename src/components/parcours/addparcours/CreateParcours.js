@@ -90,16 +90,16 @@ function CreateParcours({
         durée: parcours.durée,
         difficulté: parcours.difficulté,
         tags: parcours.tags,
-        votants : { id : null, rating : null}
+        votants: { id: null, rating: null },
       },
       { merge: true },
     )
       .then(() => {
         redirect(`/createparcours/${idParcours}/addcours`);
       });
-  }  const handleChange = name => (event) => {
+  } const handleChange = name => (event) => {
     setValue({ ...value, [name]: event.target.value });
-};
+  };
 
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
@@ -145,7 +145,6 @@ function CreateParcours({
   return (
 
     <form className="classesContainer" autoComplete="off">
-      {console.log(category)}
       <ArrowBack
         style={{ position: 'fixed', left: '10px', top: '10px' }}
         onClick={() => {

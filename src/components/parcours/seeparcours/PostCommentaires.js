@@ -32,7 +32,7 @@ const Commentaires = (props) => {
   const classes = useStyles();
   const [value, setValue] = useState({
     multiline: 'Controlled',
-    currentValue: 'tous les champs sont requis',
+    errorMessage: '',
   });
 
   // Modifications du state
@@ -79,7 +79,6 @@ const Commentaires = (props) => {
     if (values.name && values.message && rating) {
       return true;
     }
-
     setValue({
       ...value,
       errorMessage: ' Tous les champs sont requis',
@@ -126,7 +125,8 @@ const Commentaires = (props) => {
           inputProps={inputProps}
         />
       </form>
-
+      {value.errorMessage}
+      {' '}
       <button type="submit" onClick={validateMessages}>
         Envoyer
       </button>

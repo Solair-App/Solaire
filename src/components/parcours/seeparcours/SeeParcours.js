@@ -76,7 +76,7 @@ class seeParcours extends Component {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          this.setState({ parcours: doc.data(), loaded: 1 }, console.log(doc.data()));
+          this.setState({ parcours: doc.data(), loaded: 1 });
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');

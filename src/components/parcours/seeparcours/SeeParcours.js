@@ -220,7 +220,14 @@ class seeParcours extends Component {
           togle={this.togleModal}
           deleted={this.delete}
         />
-        <ParcoursDetails parcours={parcours} currentParcours={this.parcours} userInfo={userInfo} loaded={loaded} haveUserAlreadyVoted={this.haveUserAlreadyVoted} togleModal={this.togleModal} />
+        <ParcoursDetails
+          parcours={parcours}
+          currentParcours={this.parcours}
+          userInfo={userInfo}
+          loaded={loaded}
+          haveUserAlreadyVoted={this.haveUserAlreadyVoted}
+          togleModal={this.togleModal}
+        />
         <CoursDetails parcours={this.parcours} />
         {commentSent
           ? (
@@ -251,6 +258,8 @@ class seeParcours extends Component {
         }
         <ViewCommentaires
           currentParcours={this.parcours}
+          user={userInfo}
+          parcours={parcours}
           currentCommentaire={commentaire}
           commentaires={parcours.commentaires}
           rating={rating}

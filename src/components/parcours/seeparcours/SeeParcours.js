@@ -37,7 +37,7 @@ class seeParcours extends Component {
   }
 
   componentDidMount() {
-    const { state, firestore } = this.props;
+    const { firestore } = this.props;
     this.getInfo();
 
     let userRef;
@@ -66,45 +66,24 @@ class seeParcours extends Component {
         canVote: false,
       });
     }
-
-    if (state && state.parcours) {
-      const currentParcours = state.parcours.filter(
-        parc => parc.id === this.parcours,
-      );
-      this.setState({ parcours: currentParcours[0].data, loaded: 1 });
-    } else {
-      const docRef = firestore.collection('parcours').doc(this.parcours);
-      docRef
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            this.setState({ parcours: doc.data(), loaded: 1 });
-          } else {
-            // doc.data() will be undefined in this case
-            console.log('No such document!');
-          }
-        })
-        .catch((error) => {
-          console.log('Error getting document:', error);
-        });
-    }
+    this.getParcours();
   }
 
-  getInfo = () => {
-    // eslint-disable-next-line no-shadow
-    const { firestore, mapDispatchToProps } = this.props;
-    const cours = [];
-    firebase.firestore().collection('parcours').doc(this.parcours).update({
-      apprenants: firebase.firestore.FieldValue.arrayUnion(localStorage.getItem('userId')),
-    });
-
-    firestore.collection('parcours').doc(this.parcours).collection('cours').get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          cours.push({ id: doc.id, data: doc.data() });
-        });
-        const currentParcours = [{ id: this.parcours, content: cours }];
-        mapDispatchToProps(currentParcours, 'cours');
+  getParcours = () => {
+    const { firestore } = this.props; console.log('hello');
+    const docRef = firestore.collection('parcours').doc(this.parcours);
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          this.setState({ parcours: doc.data(), loaded: 1 }, console.log(doc.data()));
+        } else {
+          // doc.data() will be undefined in this case
+          console.log('No such document!');
+        }
+      })
+      .catch((error) => {
+        console.log('Error getting document:', error);
       });
   }
 
@@ -125,6 +104,12 @@ class seeParcours extends Component {
       commentaire: { pseudo: text.name, commentaire: text.message, rating },
     });
   };
+
+  answerCommentaire = (text) => {
+    this.setState({
+      commentaire: { pseudo: text.name, commentaire: text.message },
+    });
+  }
 
   redirect = (url) => {
     const { history } = this.props;
@@ -268,6 +253,7 @@ class seeParcours extends Component {
     const {
       parcours, open, commentaire, rating, loaded, userInfo,
     } = this.state;
+    console.log(parcours);
     return (
       <div>
         <ArrowBack
@@ -288,7 +274,7 @@ class seeParcours extends Component {
           {' '}
           {' '}
           <p>
-nombre d'élèves :
+            nombre d'élèves :
             {' '}
 
             { parcours && parcours.apprenants ? parcours.apprenants.length : null}
@@ -313,7 +299,7 @@ nombre d'élèves :
           && state.cours
           && state.cours[0].content.map(cours => (
             <div key={Math.floor(Math.random() * 50000)}>
-           
+
               <p
                 style={{
                   display: 'flex',
@@ -356,11 +342,15 @@ nombre d'élèves :
           sendCommentaire={this.sendCommentaire}
           userRate={this.canUserRate}
           rating={rating}
+          getParcours={this.getParcours}
         />
         <ViewCommentaires
           currentParcours={this.parcours}
           currentCommentaire={commentaire}
+          commentaires={parcours.commentaires}
           rating={rating}
+          getParcours={this.getParcours}
+          answerCommentaire={this.answerCommentaire}
         />
       </div>
     );

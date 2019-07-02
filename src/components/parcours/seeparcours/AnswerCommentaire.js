@@ -23,11 +23,11 @@ const useStyles = makeStyles(theme => ({
 
 
 const Commentaires = (props) => {
-  const { rating } = props;
   const [values, setValues] = useState({
-    name: '',
-    message: '',
-    rating,
+    repCommentaire: {
+      name: '',
+      message: '',
+    },
   });
   const classes = useStyles();
   const [value, setValue] = useState({
@@ -44,39 +44,37 @@ const Commentaires = (props) => {
     maxLength: '5000',
   };
 
-
   const { match } = props;
   const parcours = match.params.parcoursId;
 
   // Stockage des messages dans la db
-  function pushMessagesInsideDB() {
-    const { sendCommentaire } = props;
-    const db = firebase.firestore();
-    const commentaryNumber = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
-    const messagesRef = db.collection('parcours').doc(parcours);
-    messagesRef
-      .set(
-        {
-          commentaires: {
-            [commentaryNumber]: {
-              pseudo: values.name, rating: props.rating, commentaire: values.message, repCommentaire: [],
-            },
-          },
-        },
-        { merge: true },
-      )
-      .then(() => {
-        localStorage.setItem('id', messagesRef.id);
-        sendCommentaire(values);
-        const { getParcours } = props;
-        getParcours();
-      });
+  //          { commentaires.answerIndex: firebase.firestore.FieldValue.arrayUnion({ repCommentaire: { pseudo: values.name, commentaire: values.message } }) },
+
+  function pushAnswerInsideDB() {
+    const { answerCommentaire, answerIndex } = props;
+    if (answerIndex) {
+      const db = firebase.firestore();
+      const messagesRef = db.collection('parcours').doc(parcours);
+      messagesRef
+        .update(
+          { [`commentaires.${answerIndex}.repCommentaire`]: firebase.firestore.FieldValue.arrayUnion({ pseudo: values.name, commentaire: values.message }) },
+        )
+        .then(() => {
+          localStorage.setItem('index', messagesRef.id);
+          answerCommentaire(values);
+        });
+      const { getParcours } = props;
+      getParcours();
+    }
   }
 
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
-    if (values.name && values.message) {
+    if (
+      values.name
+      && values.message
+    ) {
       return true;
     }
 
@@ -89,10 +87,10 @@ const Commentaires = (props) => {
 
   function validateMessages() {
     if (allStateAreFill()) {
-      pushMessagesInsideDB();
+      pushAnswerInsideDB();
     }
   }
-  const { userRate } = props;
+
   return (
     <div>
       <form className={classes.container} noValidate autoComplete="on">
@@ -107,8 +105,6 @@ const Commentaires = (props) => {
           variant="filled"
           name="name"
         />
-        {' '}
-        {userRate()}
         <TextField
           id="filled-textarea"
           label="Votre message"
@@ -125,12 +121,11 @@ const Commentaires = (props) => {
           inputProps={inputProps}
         />
       </form>
-
       <button type="submit" onClick={validateMessages}>
-        Envoyer
+       Envoyer
       </button>
     </div>
   );
 };
 
-export default withRouter(Commentaires);
+export default (withRouter(Commentaires));

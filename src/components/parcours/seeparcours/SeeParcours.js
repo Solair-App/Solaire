@@ -273,12 +273,14 @@ class seeParcours extends Component {
           {' '}
           {' '}
           {' '}
+
           <p>
             nombre d'élèves :
             {' '}
 
             { parcours && parcours.apprenants ? parcours.apprenants.length : null}
           </p>
+
           {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
             ? (
               <>

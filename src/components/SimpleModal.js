@@ -7,11 +7,19 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 
-function SimpleModal({
-  open, togle, deleted, idCours,
-}) {
+function SimpleModal(props) {
   // getModalStyle is not a pure function, we roll the style only on the first render
+  const {
+    open, togle, deleted, idCours,
+  } = props;
 
+  const deleteChoice = () => {
+    if (props.deleteKey) {
+      deleted(idCours, props.deleteKey);
+    } else {
+      deleted(idCours);
+    }
+  };
 
   return (
     <div>
@@ -28,7 +36,7 @@ function SimpleModal({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="outlined" onClick={() => deleted(idCours)}>
+          <Button variant="outlined" onClick={() => deleteChoice()}>
               Supprimer
           </Button>
           <Button variant="outlined" onClick={() => togle()}>

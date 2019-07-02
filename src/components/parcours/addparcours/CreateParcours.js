@@ -70,7 +70,7 @@ function CreateParcours({
           creator: localStorage.getItem('userId'),
           rating: 0,
           votants: [],
-          commentaires: [],
+          commentaires: {},
         },
         { merge: true },
       )

@@ -17,7 +17,6 @@ function CreateParcours({
   const [value, setValue] = useState({
     currentValue: 'tous les champs sont requis',
   });
-  let category;
 
   useEffect(() => {
     if (match.params.parcoursId) {
@@ -90,7 +89,6 @@ function CreateParcours({
         durée: parcours.durée,
         difficulté: parcours.difficulté,
         tags: parcours.tags,
-        votants: { id: null, rating: null },
       },
       { merge: true },
     )

@@ -91,7 +91,7 @@ class ChangeProfile extends Component {
             name="name"
             onChange={this.onChange}
             value={name}
-            label="Full Name"
+            label="Nom"
             className="textfield"
             style={{ marginTop: '5%', width: '50%' }}
           />

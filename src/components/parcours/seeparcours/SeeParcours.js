@@ -295,7 +295,7 @@ class seeParcours extends Component {
 
         {loaded === 1 ? this.haveUserAlreadyVoted() : null}
 
-        <Rating readOnly value={rating || parcours.rating} />
+        <Rating readOnly value={parcours.rating} />
 
         {state
           && state.cours

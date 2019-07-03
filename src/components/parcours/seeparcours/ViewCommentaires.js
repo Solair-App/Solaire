@@ -56,6 +56,9 @@ const ViewCommentaires = ({
   const newReponse = (value) => {
     if (value === true) {
       setNewAnswer(true);
+      setTimeout(() => {
+        setNewAnswer(false);
+      }, 3000);
     } else {
       setNewAnswer(false);
     }

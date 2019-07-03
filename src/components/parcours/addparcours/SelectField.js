@@ -46,7 +46,7 @@ function DialogSelect(props) {
         }}
         margin="normal"
       >
-        {choices.map(option => (
+        {choices && choices.map(option => (
           <MenuItem key={option} value={option}>
             {option}
           </MenuItem>

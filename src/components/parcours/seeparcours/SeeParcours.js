@@ -77,7 +77,7 @@ class seeParcours extends Component {
       .catch((error) => {
         console.log('Error getting document:', error);
       });
-  }
+  };
 
   getUserInfo = (userRef) => {
     userRef.get().then((doc) => {
@@ -88,7 +88,7 @@ class seeParcours extends Component {
         });
       }
     });
-  }
+  };
 
   sendCommentaire = (text) => {
     const { rating } = this.state;
@@ -171,7 +171,9 @@ class seeParcours extends Component {
   haveUserAlreadyVoted = () => {
     const { parcours } = this.state;
     if (
-      parcours.votants.map(item => item.id === localStorage.getItem('userId')).includes(true)
+      parcours.votants
+        .map(item => item.id === localStorage.getItem('userId'))
+        .includes(true)
     ) {
       const lastRating = parcours.votants.filter(votants => votants.id.includes(localStorage.getItem('userId')));
       this.setState({
@@ -187,10 +189,7 @@ class seeParcours extends Component {
     if (canVote === true && parcours && parcours.apprenants) {
       return (
         <div>
-          <Rating
-            value={0}
-            onChange={value => this.sendRatings(value)}
-          />
+          <Rating value={0} onChange={value => this.sendRatings(value)} />
         </div>
       );
     }

@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
 const Commentaires = (props) => {
   const { rating } = props;
   const [values, setValues] = useState({
@@ -31,7 +32,7 @@ const Commentaires = (props) => {
   const classes = useStyles();
   const [value, setValue] = useState({
     multiline: 'Controlled',
-    currentValue: 'tous les champs sont requis',
+    errorMessage: '',
   });
 
   // Modifications du state
@@ -46,32 +47,38 @@ const Commentaires = (props) => {
 
   const { match } = props;
   const parcours = match.params.parcoursId;
+
   // Stockage des messages dans la db
   function pushMessagesInsideDB() {
+    const { sendCommentaire } = props;
     const db = firebase.firestore();
+    const commentaryNumber = Date.now().toString() + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
     const messagesRef = db.collection('parcours').doc(parcours);
     messagesRef
-      .update({
-        commentaires: firebase.firestore.FieldValue.arrayUnion({
-          pseudo: values.name,
-          commentaire: values.message,
-          rating: props.rating,
-        }),
-      })
+      .set(
+        {
+          commentaires: {
+            [commentaryNumber]: {
+              pseudo: values.name, date: Date(Date.now()).toString(), rating: props.rating, commentaire: values.message, repCommentaire: [],
+            },
+          },
+        },
+        { merge: true },
+      )
       .then(() => {
         localStorage.setItem('id', messagesRef.id);
-        props.sendCommentaire(values);
+        sendCommentaire(values);
+        const { getParcours } = props;
+        getParcours();
       });
-    const { history } = props;
-    history.push(`/parcours/${parcours}`);
   }
+
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
-    if (values.name && values.message) {
+    if (values.name && values.message && rating) {
       return true;
     }
-
     setValue({
       ...value,
       errorMessage: ' Tous les champs sont requis',
@@ -85,6 +92,7 @@ const Commentaires = (props) => {
     }
   }
   const { userRate } = props;
+
   return (
     <div>
       <form className={classes.container} noValidate autoComplete="on">
@@ -117,7 +125,8 @@ const Commentaires = (props) => {
           inputProps={inputProps}
         />
       </form>
-
+      {value.errorMessage}
+      {' '}
       <button type="submit" onClick={validateMessages}>
         Envoyer
       </button>

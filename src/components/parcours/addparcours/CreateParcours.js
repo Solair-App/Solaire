@@ -17,7 +17,6 @@ function CreateParcours({
   const [value, setValue] = useState({
     currentValue: 'tous les champs sont requis',
   });
-  let category;
 
   useEffect(() => {
     if (match.params.parcoursId) {
@@ -70,7 +69,7 @@ function CreateParcours({
           creator: localStorage.getItem('userId'),
           rating: 0,
           votants: [],
-          commentaires: [],
+          commentaires: {},
         },
         { merge: true },
       )
@@ -90,7 +89,6 @@ function CreateParcours({
         durée: parcours.durée,
         difficulté: parcours.difficulté,
         tags: parcours.tags,
-        votants: { id: null, rating: null },
       },
       { merge: true },
     )
@@ -145,7 +143,6 @@ function CreateParcours({
   return (
 
     <form className="classesContainer" autoComplete="off">
-      {console.log(category)}
       <ArrowBack
         style={{ position: 'fixed', left: '10px', top: '10px' }}
         onClick={() => {

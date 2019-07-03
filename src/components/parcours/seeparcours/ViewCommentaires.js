@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import * as firebase from 'firebase';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+
+
 import Rating from 'material-ui-rating';
 import AnswerCommentaire from './AnswerCommentaire';
 
-
-const mapStateToProps = state => ({
-  state,
-});
 
 // Récupération des slides de la db
 const ViewCommentaires = ({
@@ -16,7 +12,7 @@ const ViewCommentaires = ({
   getParcours,
 }) => {
   const [answer, setAnswer] = useState({ });
-  const [addCommentary, setAddComentary] = useState();
+  const [, setAddComentary] = useState();
 
   function showCommentaire() {
     return Object.entries(commentaires).map(([key, value]) => (
@@ -47,4 +43,4 @@ const ViewCommentaires = ({
   );
 };
 
-export default connect(mapStateToProps)(ViewCommentaires);
+export default ViewCommentaires;

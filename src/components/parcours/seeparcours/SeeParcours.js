@@ -6,7 +6,7 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import LockOpen from '@material-ui/icons/LockOpen';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
-import { connect } from 'react-redux';
+
 import * as firebase from 'firebase';
 import Rating from 'material-ui-rating';
 import { withRouter } from 'react-router';
@@ -15,11 +15,7 @@ import SimpleModal from '../../SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import PostCommentaires from './PostCommentaires';
 import ViewCommentaires from './ViewCommentaires';
-import { mapDispatchToProps } from '../../../actions/action';
 
-const mapStateToProps = state => ({
-  state,
-});
 
 class seeParcours extends Component {
   constructor(props) {
@@ -157,7 +153,7 @@ class seeParcours extends Component {
 
   getInfo = () => {
     // eslint-disable-next-line no-shadow
-    const { firestore, mapDispatchToProps } = this.props;
+    const { firestore } = this.props;
     const cours = [];
     firebase
       .firestore()
@@ -179,7 +175,9 @@ class seeParcours extends Component {
           cours.push({ id: doc.id, data: doc.data() });
         });
         const currentParcours = [{ id: this.parcours, content: cours }];
-        mapDispatchToProps(currentParcours, 'cours');
+        this.setState({
+          cours: currentParcours,
+        });
       });
   };
 
@@ -234,7 +232,9 @@ class seeParcours extends Component {
   };
 
   canUserRate = () => {
-    const { parcours, canVote, rating } = this.state;
+    const {
+      parcours, canVote, rating,
+    } = this.state;
 
     if (canVote === true && parcours && parcours.apprenants) {
       return (
@@ -247,7 +247,7 @@ class seeParcours extends Component {
   };
 
   render() {
-    const { state, history } = this.props;
+    const { history } = this.props;
     const {
       parcours,
       open,
@@ -255,6 +255,7 @@ class seeParcours extends Component {
       rating,
       loaded,
       userInfo,
+      cours,
     } = this.state;
     return (
       <div>
@@ -311,9 +312,9 @@ class seeParcours extends Component {
 
         <Rating readOnly value={rating || parcours.rating} />
 
-        {state
-          && state.cours
-          && state.cours[0].content.map(cours => (
+        {
+          cours && cours[0]
+          && cours[0].content.map(lesson => (
             <div key={Math.floor(Math.random() * 50000)}>
               <p
                 style={{
@@ -322,28 +323,28 @@ class seeParcours extends Component {
                   justifyContent: 'center',
                 }}
               >
-                {cours.data.graduate
-                && cours.data.graduate.includes(localStorage.getItem('userId')) ? (
+                {lesson.data.graduate
+                && lesson.data.graduate.includes(localStorage.getItem('userId')) ? (
                   <RadioButtonChecked />
                   ) : (
                     <RadioButtonUnchecked />
                   )}
                 <img
-                  src={`./assets/${cours.data.type}.png`}
+                  src={`./assets/${lesson.data.type}.png`}
                   style={{ width: '4em' }}
-                  alt={cours.data.type}
+                  alt={lesson.data.type}
                 />
                 <button
                   type="button"
-                  onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)
+                  onClick={() => this.goToCourse(lesson.data.type, lesson.data, lesson.id)
                   }
                 >
                   {' '}
-                  {cours.data.name}
+                  {lesson.data.name}
                 </button>
               </p>
 
-              <p>{cours.data.description}</p>
+              <p>{lesson.data.description}</p>
               <div>
                 <ArrowDownward />
               </div>
@@ -374,7 +375,4 @@ class seeParcours extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  { mapDispatchToProps },
-)(withRouter(withFirebaseContext(seeParcours)));
+export default withRouter(withFirebaseContext(seeParcours));

@@ -8,14 +8,21 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+    backgroundColor: '#58e0d3',
   },
-  textField: {
+
+  input: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
+    backgroundColor: 'grey',
+    opacity: 1,
   },
+
+
   dense: {
     marginTop: 16,
   },
+
   menu: {
     width: 200,
   },
@@ -97,19 +104,22 @@ const Commentaires = (props) => {
   return (
     <div>
       <form className={classes.container} noValidate autoComplete="on">
+        {' '}
+        {userRate()}
         <TextField
+          fullWidth
           required
+          input
           id="filled-name"
           label="Votre nom ou pseudo"
-          className={classes.textField}
+          className={`${classes.textField} ${classes.input}`}
           value={values.name}
           onChange={handleChange1}
+          style={{ margin: 8 }}
           margin="normal"
           variant="filled"
           name="name"
         />
-        {' '}
-        {userRate()}
         <TextField
           id="filled-textarea"
           label="Votre message"

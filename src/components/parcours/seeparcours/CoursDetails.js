@@ -44,42 +44,43 @@ class CoursDetails extends Component {
     return (
       <>
         {coursFromParcours
-        && coursFromParcours[0]
-        && coursFromParcours[0].content.map(cours => (
-          <div key={Math.floor(Math.random() * 50000)}>
-
-            <p
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              {cours.data.graduate
-                && cours.data.graduate.includes(localStorage.getItem('userId'))
-                ? <RadioButtonChecked /> : <RadioButtonUnchecked />}
-              <img
-                src={`./assets/${cours.data.type}.png`}
-                style={{ width: '4em' }}
-                alt={cours.data.type}
-              />
-              <button
-                type="button"
-                onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)
-                }
+          && coursFromParcours[0]
+          && coursFromParcours[0].content.map(cours => (
+            <div key={Math.floor(Math.random() * 50000)}>
+              <p
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
               >
-                {' '}
-                {cours.data.name}
-              </button>
-            </p>
+                {cours.data.graduate
+                && cours.data.graduate.includes(localStorage.getItem('userId')) ? (
+                  <RadioButtonChecked />
+                  ) : (
+                    <RadioButtonUnchecked />
+                  )}
+                <img
+                  src={`./assets/${cours.data.type}.png`}
+                  style={{ width: '4em' }}
+                  alt={cours.data.type}
+                />
+                <button
+                  type="button"
+                  onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)
+                  }
+                >
+                  {' '}
+                  {cours.data.name}
+                </button>
+              </p>
 
-
-            <p>{cours.data.description}</p>
-            <div>
-              <ArrowDownward />
+              <p>{cours.data.description}</p>
+              <div>
+                <ArrowDownward />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </>
     );
   }

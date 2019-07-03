@@ -83,7 +83,7 @@ class Dashboard extends Component {
       sort = [];
     }
 
-    console.log(sortedCourse);
+
     return sortedCourse;
   };
 
@@ -131,11 +131,14 @@ class Dashboard extends Component {
             />
 
             {Object.entries(this.sortIntoCategory())
-              .filter(result => result[0].includes(filter) && result[1].filter(res => res.data.tags.includes(searchField)).length > 0)
+              .filter(
+                result => result[0].includes(filter)
+                  && result[1].filter(res => res.data.tags.includes(searchField))
+                    .length > 0,
+              )
               .map((results, index) => (
                 <div key={`${index + 200}q`}>
                   {' '}
-
                   {results[1].length > 0 ? (
                     <h1
                       style={{
@@ -148,12 +151,9 @@ class Dashboard extends Component {
                       {' '}
                       {results[0]}
                       {' '}
-
                     </h1>
                   ) : null}
-
                   {' '}
-
                   <List data={results[1]} searchField={searchField} />
                   {' '}
                 </div>

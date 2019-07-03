@@ -10,7 +10,7 @@ import PostCommentaires from './PostCommentaires';
 import ViewCommentaires from './ViewCommentaires';
 import ParcoursDetails from './ParcoursDetails';
 import CoursDetails from './CoursDetails';
-
+import ShareIcon from './ShareIcon';
 
 class seeParcours extends Component {
   constructor(props) {
@@ -228,6 +228,7 @@ class seeParcours extends Component {
           togleModal={this.togleModal}
         />
         <CoursDetails parcours={this.parcours} />
+        <ShareIcon />
         {commentSent
           ? (
             <>

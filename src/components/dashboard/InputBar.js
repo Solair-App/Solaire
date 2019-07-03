@@ -78,7 +78,7 @@ function SearchAppBar(props) {
       <div
         className={classes.search}
         style={{
-          backgroundColor: '#D3CFC8', color: 'white', borderRadius: 0, height: '50px',
+          backgroundColor: '#58e0d3', color: 'white', borderRadius: 0, height: '50px',
         }}
       >
         <SearchIcon style={{ margin: '10px', position: 'absolute' }} />
@@ -96,6 +96,7 @@ function SearchAppBar(props) {
             width: '265px',
             textAlign: 'left',
             fontSize: '18px',
+            backgroundColor: '#58e0d3',
           }}
           value={currentValue}
         />

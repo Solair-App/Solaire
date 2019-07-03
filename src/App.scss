@@ -18,3 +18,20 @@ h1{
     max-width: 90%;
   }
 }
+
+body {
+  background-color: #F0EDE5;
+}
+
+
+.MuiBottomNavigationAction-root.Mui-selected {
+  color: #FF6F61 !important;
+}
+
+.MuiTab-textColorPrimary.Mui-selected {
+  color: #FF6F61 !important;
+}
+
+.PrivateTabIndicator-colorPrimary-203 {
+  background-color: #FF6F61 !important;
+}

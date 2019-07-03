@@ -121,9 +121,12 @@ class Dashboard extends Component {
     const { state } = this.props;
 
     const { searchField, filter, currentValue } = this.state;
-  
+
     return (
-      <div style={{ display: 'block', textAlign: 'left', marginBottom: 120 }}>
+      <div style={{
+        display: 'block', textAlign: 'left', marginBottom: 120, backgroundColor: '#F0EDE5',
+      }}
+      >
         {state && state.thématique ? (
           <div>
             <InputBar
@@ -133,7 +136,7 @@ class Dashboard extends Component {
             />
             {Object.entries(this.sortIntoCategory())
               .filter(
-                result => result[0].includes(filter)  
+                result => result[0].includes(filter),
 
 
               )
@@ -142,8 +145,9 @@ class Dashboard extends Component {
                   <div key={`${index + 200}q`}>
                     {' '}
                     <h1 style={{
-                  fontSize: 19, marginLeft: 5, color: '#4C4C4C', fontWeight: '500',
-                }}>
+                      fontSize: 19, marginLeft: 5, color: '#4C4C4C', fontWeight: '500',
+                    }}
+                    >
                       {results[0]}
                       {' '}
 

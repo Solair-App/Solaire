@@ -4,6 +4,7 @@ import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
+import ShareIcon from './ShareIcon';
 
 class CoursDetails extends Component {
   constructor(props) {
@@ -81,6 +82,7 @@ class CoursDetails extends Component {
               </div>
             </div>
           ))}
+        <ShareIcon />
       </>
     );
   }

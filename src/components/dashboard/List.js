@@ -48,7 +48,7 @@ export default function ListCours(props) {
                   <Link to={`/parcours/${info.id}`} className="link">
                     <CardMedia
                       className={classes.media}
-                      image="https://image.noelshack.com/fichiers/2019/26/2/1561453439-992481.png"
+                      image={info.data.url}
                       title="Contemplative Reptile"
                     />
                   </Link>

@@ -5,17 +5,21 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import * as firebase from 'firebase';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import SelectField from './SelectField';
 import Parcours from './Parcours';
 import '../../../SCSS/CreateParcours.scss';
+import ImageUpload from '../../profile/ImageUpload';
 
 
 function CreateParcours({
-  firestore, match, history, state,
+  firestore, match, history,
 }) {
+  const [cat, setCat] = useState({});
   const [value, setValue] = useState({
     currentValue: 'tous les champs sont requis',
+    url: 'https://firebasestorage.googleapis.com/v0/b/shared-elearning.appspot.com/o/images%2Flearning%20placeholder.jpg?alt=media&token=bed153fa-efd4-443a-abaa-a76af868a60f',
   });
 
   useEffect(() => {
@@ -38,7 +42,34 @@ function CreateParcours({
           });
         });
     }
-  }, [firestore, history, match]);
+    let category = [];
+    if ((!cat.thématique && !cat.difficulté && !cat.durée && !cat.langue)
+      || (cat.thématique.length < 2 && cat.difficulté.length < 2
+        && cat.durée.length < 2 && cat.langue.length < 2)) {
+      const forLoop = ['thématique', 'difficulté', 'durée', 'langue'];
+      // eslint-disable-next-line no-shadow
+      const firestore = firebase.firestore();
+      const db = firestore;
+      let catTmp = {};
+      for (let i = 0; i < forLoop.length; i += 1) {
+        const themRef = db.collection('category').doc(forLoop[i]);
+        // eslint-disable-next-line no-loop-func
+        themRef.get().then((document) => {
+          const dbCategory = document.data();
+
+          // eslint-disable-next-line no-restricted-syntax
+          for (const [, val] of Object.entries(dbCategory)) {
+            category.push(`${val}`);
+          }
+          catTmp = { ...catTmp, [forLoop[i]]: category };
+          category = [];
+          setCat(catTmp);
+        });
+      }
+    }
+  }, [firestore, history, match, cat.length,
+    cat.difficulté, cat.durée,
+    cat.langue, cat.thématique]);
 
   // Modifications du state
 
@@ -70,6 +101,8 @@ function CreateParcours({
           rating: 0,
           votants: [],
           commentaires: {},
+          apprenants: [],
+          url: parcours.url,
         },
         { merge: true },
       )
@@ -89,6 +122,7 @@ function CreateParcours({
         durée: parcours.durée,
         difficulté: parcours.difficulté,
         tags: parcours.tags,
+        url: parcours.url,
       },
       { merge: true },
     )
@@ -98,7 +132,6 @@ function CreateParcours({
   } const handleChange = name => (event) => {
     setValue({ ...value, [name]: event.target.value });
   };
-
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
@@ -119,6 +152,10 @@ function CreateParcours({
     });
     return false;
   }
+  // récupération url
+  const getImage = (url) => {
+    setValue({ ...value, url });
+  };
   // création de l'objet parcours
   function validateParcours() {
     if (allStateAreFill()) {
@@ -130,6 +167,7 @@ function CreateParcours({
         value.durée,
         value.difficulté,
         value.tags,
+        value.url,
       );
       let idParcours;
       if (match.params.parcoursId) {
@@ -140,6 +178,7 @@ function CreateParcours({
       }
     }
   }
+
   return (
 
     <form className="classesContainer" autoComplete="off">
@@ -150,6 +189,9 @@ function CreateParcours({
         }}
       />
       <h2 className="h2" style={{ marginTop: '5%' }}>Création de parcours</h2>
+      <div style={{ marginTop: '1.5em' }}>
+        <ImageUpload getImage={getImage} />
+      </div>
       <div>
         <TextField
           required
@@ -186,40 +228,53 @@ function CreateParcours({
           style={{ marginTop: '5%', width: '50%' }}
         />
       </div>
-      <SelectField
-        required
-        choices={state.thématique}
-        name="thématique"
-        handleChange={handleChange}
-        value={value.thématique}
-        className="selectField"
-        style={{ borderRadius: '20px' }}
-      />
-      <SelectField
-        required
-        choices={state.langue}
-        name="langue"
-        handleChange={handleChange}
-        value={value.langue}
-        class="container"
-      />
-      <SelectField
-        required
-        choices={state.durée}
-        name="durée"
-        handleChange={handleChange}
-        value={value.durée}
-        class="container"
-      />
-      <SelectField
-        required
-        choices={state.difficulté}
-        name="difficulté"
-        handleChange={handleChange}
-        value={value.difficulté}
-        className="selectField"
-      />
-
+      {cat.thématique && (
+        <SelectField
+          required
+          choices={cat.thématique}
+          name="thématique"
+          handleChange={handleChange}
+          value={value.thématique}
+          className="selectField"
+          style={{ borderRadius: '20px' }}
+        />
+      )}
+      {cat.langue
+        && (
+          <SelectField
+            required
+            choices={cat.langue}
+            name="langue"
+            handleChange={handleChange}
+            value={value.langue}
+            class="container"
+          />
+        )
+      }
+      {cat.durée
+        && (
+          <SelectField
+            required
+            choices={cat.durée}
+            name="durée"
+            handleChange={handleChange}
+            value={value.durée}
+            class="container"
+          />
+        )
+      }
+      {cat.difficulté
+        && (
+          <SelectField
+            required
+            choices={cat.difficulté}
+            name="difficulté"
+            handleChange={handleChange}
+            value={value.difficulté}
+            className="selectField"
+          />
+        )
+      }
       <h3 className="h3">{value.errorMessage}</h3>
       <Button
         variant="outlined"

@@ -18,38 +18,32 @@ class Dashboard extends Component {
       searchField: '',
       filter: '',
       currentValue: 'All',
+      parcours: [],
     };
   }
 
   componentDidMount() {
     this.getMarkers();
-    this.getCategoryFromDB();
   }
 
   getMarkers() {
-    const { state, location } = this.props;
-    if (
-      !state
-      || !state.parcours
-      || (location.state && location.state.coursDelete)
-    ) {
-      // eslint-disable-next-line no-shadow
-      const { mapDispatchToProps } = this.props;
+    // eslint-disable-next-line no-shadow
 
-      const markers = [];
+    const markers = [];
 
-      firebase
-        .firestore()
-        .collection('parcours')
-        .where('isReadable', '==', true)
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.docs.forEach((doc) => {
-            markers.push({ data: doc.data(), id: doc.id });
-          });
-          mapDispatchToProps(markers, 'parcours');
+    firebase
+      .firestore()
+      .collection('parcours')
+      .where('isReadable', '==', true)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.docs.forEach((doc) => {
+          markers.push({ data: doc.data(), id: doc.id });
         });
-    }
+        this.setState({
+          parcours: markers,
+        });
+      });
   }
 
   handleChange = (e) => {
@@ -72,86 +66,63 @@ class Dashboard extends Component {
   };
 
   sortIntoCategory = () => {
+    const { parcours } = this.state;
     const { state } = this.props;
+    const sortedCourse = {};
     let sort = [];
-    const parcours = {};
-
 
     for (let i = 0; i < state.thématique.length; i += 1) {
-      for (let b = 0; b < state.parcours.length; b += 1) {
-        if (state.parcours[b].data.thématique === state.thématique[i]) {
-          sort.push(state.parcours[b]);
+      for (let b = 0; b < parcours.length; b += 1) {
+        if (parcours[b].data.thématique === state.thématique[i]) {
+          sort.push(parcours[b]);
         }
       }
 
-      parcours[state.thématique[i]] = sort;
+      sortedCourse[state.thématique[i]] = sort;
       sort = [];
     }
 
-    return parcours;
+
+    return sortedCourse;
   };
 
-  getCategoryFromDB = () => {
-    const { state } = this.props;
-    if (!state || !state.thématique) {
-      let category = [];
-      const forLoop = ['thématique', 'difficulté', 'durée', 'langue'];
-      // eslint-disable-next-line no-shadow
-      const { mapDispatchToProps } = this.props;
-      const firestore = firebase.firestore();
-      const db = firestore;
-      for (let i = 0; i < forLoop.length; i += 1) {
-        const themRef = db.collection('category').doc(forLoop[i]);
-        // eslint-disable-next-line no-loop-func
-        themRef.get().then((document) => {
-          const dbCategory = document.data();
-
-          // eslint-disable-next-line no-restricted-syntax
-          for (const [, value] of Object.entries(dbCategory)) {
-            category.push(`${value}`);
-          }
-          mapDispatchToProps(category, 'category', forLoop[i]);
-          category = [];
-        });
-      }
-    }
-  };
 
   render() {
     const { state } = this.props;
 
-    const { searchField, filter, currentValue } = this.state;
-  
+    const {
+      searchField, filter, currentValue, parcours,
+    } = this.state;
+
     return (
       <div style={{ display: 'block', textAlign: 'left', marginBottom: 120 }}>
-        {state && state.thématique ? (
+        {parcours && state && state.thématique ? (
           <div>
             <InputBar
               handleChange={this.handleChange}
               currentFilterValue={currentValue}
               currentValue={searchField}
             />
+
             {Object.entries(this.sortIntoCategory())
-              .filter(
-                result => result[0].includes(filter)  
-
-
-              )
+              .filter(result => result[0].includes(filter))
               .map((results, index) => (
-                (
-                  <div key={`${index + 200}q`}>
+                <div key={`${index + 200}q`}>
+                  {' '}
+                  <h1
+                    style={{
+                      fontSize: 19,
+                      marginLeft: 5,
+                      color: '#4C4C4C',
+                      fontWeight: '500',
+                    }}
+                  >
+                    {results[0]}
                     {' '}
-                    <h1 style={{
-                  fontSize: 19, marginLeft: 5, color: '#4C4C4C', fontWeight: '500',
-                }}>
-                      {results[0]}
-                      {' '}
-
-                    </h1>
-                    <List data={results[1]} searchField={searchField} />
-                    {' '}
-                  </div>
-                )
+                  </h1>
+                  <List data={parcours} searchField={searchField} />
+                  {' '}
+                </div>
               ))}
           </div>
         ) : (

@@ -22,7 +22,6 @@ class ImageUpload extends Component {
     const { image } = this.state;
     const { storage, getImage } = this.props;
 
-
     storage.ref(`images/${image.name}`).put(image).then(() => {
       storage.ref('images').child(image.name).getDownloadURL().then((url) => {
         console.log(url);
@@ -42,7 +41,7 @@ class ImageUpload extends Component {
         <input type="file" onChange={this.handleChange} />
         <button type="button" onClick={this.handleUpload}>Upload</button>
         {' '}
-        <img alt="upload" src={url} className="uploadimg" />
+        {url && <img alt="upload" src={url} className="uploadimg" />}
       </div>
     );
   }

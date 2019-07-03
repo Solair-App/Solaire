@@ -20,6 +20,9 @@ const ViewCommentaires = ({
   const newReponse = (value) => {
     if (value === true) {
       setNewAnswer(true);
+      setTimeout(() => {
+        setNewAnswer(false);
+      }, 3000);
     } else {
       setNewAnswer(false);
     }
@@ -44,18 +47,16 @@ const ViewCommentaires = ({
       <div key={`${key + 1}m`}>
         <h1>
           {value.pseudo}
-          {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
+          {(value.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
             ? (<DeleteIcon onClick={() => deleting(key)} />)
             : undefined
         }
         </h1>
         <Rating readOnly value={value.rating} />
         <p>{value.commentaire}</p>
-        {!newAnswer && (
         <button type="submit" onClick={() => { setAnswer({ [key]: !answer[key] }); }}>
        Répondre
         </button>
-        )}
         {answer[key] && <AnswerCommentaire newAnswer={newAnswer} newReponse={newReponse} answerCommentaire={answerCommentaire} answerIndex={key} getParcours={getParcours} />}
         {value.repCommentaire.map(commentaire => (
           <div>

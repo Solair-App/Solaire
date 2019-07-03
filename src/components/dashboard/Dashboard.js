@@ -131,12 +131,12 @@ class Dashboard extends Component {
             />
 
             {Object.entries(this.sortIntoCategory())
-              .filter(result => result[0].includes(filter))
+              .filter(result => result[0].includes(filter) && result[1].filter(res => res.data.tags.includes(searchField)).length > 0)
               .map((results, index) => (
                 <div key={`${index + 200}q`}>
                   {' '}
 
-                  {results[1].length > 0 && results[1].filter(res => res.data.tags.includes(searchField)).length > 1 ? (
+                  {results[1].length > 0 ? (
                     <h1
                       style={{
                         fontSize: 19,

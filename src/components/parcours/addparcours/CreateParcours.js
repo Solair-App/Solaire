@@ -141,7 +141,6 @@ function CreateParcours({
       && value.difficulté
       && value.tags
     ) {
-      console.log('value', value);
       return true;
     }
     setValue({

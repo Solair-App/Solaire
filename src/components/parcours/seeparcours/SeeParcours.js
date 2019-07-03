@@ -16,6 +16,7 @@ import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import PostCommentaires from './PostCommentaires';
 import ViewCommentaires from './ViewCommentaires';
 import { mapDispatchToProps } from '../../../actions/action';
+import './SeeParcours.scss';
 
 const mapStateToProps = state => ({
   state,

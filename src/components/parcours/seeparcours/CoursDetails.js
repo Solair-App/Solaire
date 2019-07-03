@@ -4,6 +4,7 @@ import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
+import './SeeParcours.scss';
 
 class CoursDetails extends Component {
   constructor(props) {
@@ -57,7 +58,7 @@ class CoursDetails extends Component {
             >
               {cours.data.graduate
                 && cours.data.graduate.includes(localStorage.getItem('userId'))
-                ? <RadioButtonChecked /> : <RadioButtonUnchecked />}
+                ? <RadioButtonChecked className="check" /> : <RadioButtonUnchecked className="check" />}
               <img
                 src={`./assets/${cours.data.type}.png`}
                 style={{ width: '4em' }}

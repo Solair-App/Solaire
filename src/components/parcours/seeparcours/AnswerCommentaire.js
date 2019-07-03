@@ -58,7 +58,7 @@ const Commentaires = (props) => {
       const messagesRef = db.collection('parcours').doc(parcours);
       messagesRef
         .update(
-          { [`commentaires.${answerIndex}.repCommentaire`]: firebase.firestore.FieldValue.arrayUnion({ pseudo: values.name, commentaire: values.message }) },
+          { [`commentaires.${answerIndex}.repCommentaire`]: firebase.firestore.FieldValue.arrayUnion({ pseudo: values.name, creator: localStorage.getItem('userId'), commentaire: values.message }) },
         )
         .then(() => {
           localStorage.setItem('index', messagesRef.id);
@@ -94,49 +94,41 @@ const Commentaires = (props) => {
     }
   }
 
-  const { newAnswer } = props;
-
   return (
     <div>
-      {!newAnswer
-        ? (
-          <>
-            <form className={classes.container} noValidate autoComplete="on">
-              <TextField
-                required
-                id="filled-name"
-                label="Votre nom ou pseudo"
-                className={classes.textField}
-                value={values.name}
-                onChange={handleChange1}
-                margin="normal"
-                variant="filled"
-                name="name"
-              />
-              <TextField
-                id="filled-textarea"
-                label="Votre message"
-                placeholder="Placeholder"
-                className={classes.textField}
-                style={{ margin: 8 }}
-                multiline
-                fullWidth
-                margin="normal"
-                variant="filled"
-                name="message"
-                value={values.message}
-                onChange={handleChange1}
-                inputProps={inputProps}
-              />
-            </form>
-            <button type="submit" onClick={validateMessages}>
+      <>
+        <form className={classes.container} noValidate autoComplete="on">
+          <TextField
+            required
+            id="filled-name"
+            label="Votre nom ou pseudo"
+            className={classes.textField}
+            value={values.name}
+            onChange={handleChange1}
+            margin="normal"
+            variant="filled"
+            name="name"
+          />
+          <TextField
+            id="filled-textarea"
+            label="Votre message"
+            placeholder="Placeholder"
+            className={classes.textField}
+            style={{ margin: 8 }}
+            multiline
+            fullWidth
+            margin="normal"
+            variant="filled"
+            name="message"
+            value={values.message}
+            onChange={handleChange1}
+            inputProps={inputProps}
+          />
+        </form>
+        <button type="submit" onClick={validateMessages}>
             Envoyer
-            </button>
-          </>
-        )
-        : (
-          <p>Commentaire envoyé !</p>
-        )}
+        </button>
+      </>
     </div>
   );
 };

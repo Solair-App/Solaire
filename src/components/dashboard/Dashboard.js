@@ -78,6 +78,7 @@ class Dashboard extends Component {
           sort.push(parcours[b]);
         }
       }
+
       sortedCourse[state.thématique[i]] = sort;
       sort = [];
     }
@@ -118,7 +119,10 @@ class Dashboard extends Component {
     } = this.state;
 
     return (
-      <div style={{ display: 'block', textAlign: 'left', marginBottom: 120 }}>
+      <div style={{
+        backgroundColor: '#ffe2d5', display: 'block', textAlign: 'left', paddingBottom: 60,
+      }}
+      >
         {parcours && state && state.thématique ? (
           <div>
             <InputBar
@@ -126,28 +130,20 @@ class Dashboard extends Component {
               currentFilterValue={currentValue}
               currentValue={searchField}
             />
+
             {Object.entries(this.sortIntoCategory())
               .filter(result => result[0].includes(filter) && result[1].filter(res => res.data.tags.includes(searchField)).length > 0)
               .map((results, index) => (
-                <div key={`${index + 200}q`}>
-                  {' '}
+                <div className="bloc" key={`${index + 200}q`}>
                   {results[1].length > 0 ? (
-                    <h1
-                      style={{
-                        fontSize: 19,
-                        marginLeft: 5,
-                        color: '#4C4C4C',
-                        fontWeight: '500',
-                      }}
-                    >
-                      {' '}
-                      {results[0]}
-                      {' '}
-                    </h1>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <h1>
+                        {results[0]}
+                      </h1>
+                      <p style={{ color: '#E15920', paddingRight: '14px', paddingTop: '20px' }}>PLUS</p>
+                    </div>
                   ) : null}
-                  {' '}
                   <List data={results[1]} searchField={searchField} />
-                  {' '}
                 </div>
               ))}
           </div>

@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
 import * as firebase from 'firebase';
-import Button from '@material-ui/core/Button';
 
 
 const useStyles = makeStyles(theme => ({
@@ -95,7 +94,7 @@ const Commentaires = (props) => {
     }
   }
 
-  const { newReponse, newAnswer } = props;
+  const { newAnswer } = props;
 
   return (
     <div>
@@ -136,21 +135,7 @@ const Commentaires = (props) => {
           </>
         )
         : (
-          <>
-            <p>Commentaire envoyé !</p>
-            <Button
-              variant="outlined"
-              onClick={() => newReponse(false)}
-              name="thématique"
-              className="Button"
-              style={{
-                margin: '30px 0 30px 0',
-                width: '300px',
-              }}
-            >
-          Nouvelle réponse
-            </Button>
-          </>
+          <p>Commentaire envoyé !</p>
         )}
     </div>
   );

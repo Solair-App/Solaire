@@ -1,10 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import SelectField from './SelectField';
@@ -19,7 +17,7 @@ function CreateParcours({
   const [cat, setCat] = useState({});
   const [value, setValue] = useState({
     currentValue: 'tous les champs sont requis',
-    url: 'https://firebasestorage.googleapis.com/v0/b/shared-elearning.appspot.com/o/images%2Flearning%20placeholder.jpg?alt=media&token=bed153fa-efd4-443a-abaa-a76af868a60f',
+    url: 'https://firebasestorage.googleapis.com/v0/b/shared-elearning.appspot.com/o/images%2Flearning%20placeholder.jpg?alt=media&token=61160392-656c-4810-9fdc-ccb4542279d4',
   });
 
   useEffect(() => {
@@ -291,11 +289,5 @@ function CreateParcours({
     </form>
   );
 }
-const mapStateToProps = state => ({
-  state,
-});
 
-export default connect(
-  mapStateToProps,
-
-)(withRouter(withFirebaseContext(CreateParcours)));
+export default withRouter(withFirebaseContext(CreateParcours));

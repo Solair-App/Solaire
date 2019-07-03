@@ -57,7 +57,7 @@ const Commentaires = (props) => {
         {
           commentaires: {
             [commentaryNumber]: {
-              pseudo: values.name, date: Date(Date.now()).toString(), rating: props.rating, commentaire: values.message, repCommentaire: [],
+              pseudo: values.name, creator: localStorage.getItem('userId'), date: Date(Date.now()).toString(), rating: props.rating, commentaire: values.message, repCommentaire: [],
             },
           },
         },

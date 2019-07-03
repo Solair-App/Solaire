@@ -253,12 +253,13 @@ class seeParcours extends Component {
               userRate={this.canUserRate}
               rating={rating}
               getParcours={this.getParcours}
+              userInfo={userInfo}
             />
           )
         }
         <ViewCommentaires
           currentParcours={this.parcours}
-          user={userInfo}
+          userInfo={userInfo}
           parcours={parcours}
           currentCommentaire={commentaire}
           commentaires={parcours.commentaires}

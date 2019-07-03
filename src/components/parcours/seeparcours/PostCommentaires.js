@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Fab from '@material-ui/core/Fab';
+import NavigationIcon from '@material-ui/icons/Navigation';
 import { withRouter } from 'react-router';
 import * as firebase from 'firebase';
 
@@ -14,10 +16,8 @@ const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    backgroundColor: 'grey',
-    opacity: 1,
+    backgroundColor: 'white',
   },
-
 
   dense: {
     marginTop: 16,
@@ -25,6 +25,11 @@ const useStyles = makeStyles(theme => ({
 
   menu: {
     width: 200,
+  },
+
+  note: {
+    display: 'flex',
+    alignItems: 'center',
   },
 }));
 
@@ -66,7 +71,7 @@ const Commentaires = (props) => {
         {
           commentaires: {
             [commentaryNumber]: {
-              pseudo: values.name, date: Date(Date.now()).toString(), rating: props.rating, commentaire: values.message, repCommentaire: [],
+              image: props.userInfo.url, pseudo: values.name, date: Date(Date.now()).toString(), rating: props.rating, commentaire: values.message, repCommentaire: [],
             },
           },
         },
@@ -103,8 +108,20 @@ const Commentaires = (props) => {
   return (
     <div>
       <form className={classes.container} noValidate autoComplete="on">
-        {' '}
-        {userRate()}
+
+        <div className={classes.note}>
+          {' '}
+          <p>
+            {' '}
+            {' '}
+Votre Note :
+
+          </p>
+          <p>
+            {userRate()}
+          </p>
+        </div>
+
         <TextField
           fullWidth
           required
@@ -123,8 +140,9 @@ const Commentaires = (props) => {
           id="filled-textarea"
           label="Votre message"
           placeholder="Placeholder"
-          className={classes.textField}
+          className={`${classes.textField} ${classes.input}`}
           style={{ margin: 8 }}
+          input
           multiline
           fullWidth
           margin="normal"
@@ -137,9 +155,18 @@ const Commentaires = (props) => {
       </form>
       {value.errorMessage}
       {' '}
-      <button type="submit" onClick={validateMessages}>
-        Envoyer
-      </button>
+      <Fab
+        type="submit"
+        variant="extended"
+        size="medium"
+        color="primary"
+        aria-label="Add"
+        className={classes.align}
+        onClick={validateMessages}
+      >
+        <NavigationIcon className={classes.extendedIcon} />
+          Envoyer
+      </Fab>
     </div>
   );
 };

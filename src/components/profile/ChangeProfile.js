@@ -66,6 +66,8 @@ class ChangeProfile extends Component {
     console.log(localStorage.getItem('userId'));
 
     event.preventDefault();
+    const { history } = this.props;
+    history.push('/profile');
   }
 
   render() {

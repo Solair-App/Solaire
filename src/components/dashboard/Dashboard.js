@@ -96,7 +96,7 @@ class Dashboard extends Component {
 
     return (
       <div style={{ display: 'block', textAlign: 'left', marginBottom: 120 }}>
-        {parcours && state && state.thématique ? (
+        {parcours ? (
           <div>
             <InputBar
               handleChange={this.handleChange}

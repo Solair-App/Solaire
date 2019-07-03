@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
+
 import * as firebase from 'firebase';
-import { mapDispatchToProps } from '../../../actions/action';
-import { mapStateToProps } from '../../dashboard/Dashboard';
+
 import UseTabs from './UseTabs';
 import ListLessons from './ListLessons';
 import BottomNav from '../../dashboard/BottomNav';
@@ -17,15 +16,15 @@ class MyLessons extends React.Component {
   }
 
   componentDidMount() {
-    this.getMarkers();
+    this.getUserLessons();
     this.setState({
       currentUser: localStorage.getItem('userId'),
     });
   }
 
-  getMarkers() {
+  getUserLessons() {
     // eslint-disable-next-line no-shadow
-    const { mapDispatchToProps } = this.props;
+
 
     const markers = [];
 
@@ -37,7 +36,9 @@ class MyLessons extends React.Component {
         querySnapshot.docs.forEach((doc) => {
           markers.push({ data: doc.data(), id: doc.id });
         });
-        mapDispatchToProps(markers, 'userLessons');
+        this.setState({
+          userLessons: markers,
+        });
       });
   }
 
@@ -48,14 +49,13 @@ class MyLessons extends React.Component {
   };
 
   render() {
-    const { state } = this.props;
-    const { currentUser, currentValue } = this.state;
+    const { currentUser, currentValue, userLessons } = this.state;
     return (
       <div>
         {' '}
         <UseTabs changeTabs={this.handleChange} currentValue={currentValue} />
-        {state ? (
-          state.parcours
+        {userLessons ? (
+          userLessons
             .filter(parcours => (currentValue === 0
               ? parcours.data.creator === currentUser
               : parcours.data.apprenants.includes(currentUser)
@@ -70,7 +70,4 @@ class MyLessons extends React.Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  { mapDispatchToProps },
-)(MyLessons);
+export default MyLessons;

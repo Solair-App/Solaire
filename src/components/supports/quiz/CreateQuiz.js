@@ -27,12 +27,6 @@ class CreateQuiz extends Component {
     this.getInfo();
   }
 
-  // componentDidMount() {
-  //   const { location, history } = this.props;
-  //   if (!location.state || !location.state.cours) {
-  //     history.push('/CreateParcours');
-  //   }
-  // }
 
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });

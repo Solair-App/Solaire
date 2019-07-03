@@ -135,18 +135,25 @@ class Dashboard extends Component {
               .map((results, index) => (
                 <div key={`${index + 200}q`}>
                   {' '}
-                  <h1
-                    style={{
-                      fontSize: 19,
-                      marginLeft: 5,
-                      color: '#4C4C4C',
-                      fontWeight: '500',
-                    }}
-                  >
-                    {results[0]}
-                
-                    {' '}
-                  </h1>
+
+                  {results[1].length > 0 && results[1].filter(res => res.data.tags.includes(searchField)).length > 1 ? (
+                    <h1
+                      style={{
+                        fontSize: 19,
+                        marginLeft: 5,
+                        color: '#4C4C4C',
+                        fontWeight: '500',
+                      }}
+                    >
+                      {' '}
+                      {results[0]}
+                      {' '}
+
+                    </h1>
+                  ) : null}
+
+                  {' '}
+
                   <List data={results[1]} searchField={searchField} />
                   {' '}
                 </div>

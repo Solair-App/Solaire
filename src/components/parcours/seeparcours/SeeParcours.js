@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
-import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
-import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import LockOpen from '@material-ui/icons/LockOpen';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Edit from '@material-ui/icons/Edit';
-
+import Button from '@material-ui/core/Button';
 import * as firebase from 'firebase';
 import Rating from 'material-ui-rating';
 import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
 import SimpleModal from '../../SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import PostCommentaires from './PostCommentaires';
 import ViewCommentaires from './ViewCommentaires';
+import ParcoursDetails from './ParcoursDetails';
+import CoursDetails from './CoursDetails';
 
 
 class seeParcours extends Component {
@@ -23,6 +18,7 @@ class seeParcours extends Component {
     this.state = {
       parcours: [],
       userInfo: {},
+      commentSent: false,
       canVote: true,
       open: false,
       commentaire: { pseudo: '', commentaire: 'qsd' },
@@ -34,7 +30,7 @@ class seeParcours extends Component {
 
   componentDidMount() {
     const { firestore } = this.props;
-    this.getInfo();
+    this.sendApprenant();
 
     let userRef;
     if (localStorage.getItem('userId')) {
@@ -66,13 +62,13 @@ class seeParcours extends Component {
   }
 
   getParcours = () => {
-    const { firestore } = this.props; console.log('hello');
+    const { firestore } = this.props;
     const docRef = firestore.collection('parcours').doc(this.parcours);
     docRef
       .get()
       .then((doc) => {
         if (doc.exists) {
-          this.setState({ parcours: doc.data(), loaded: 1 }, console.log(doc.data()));
+          this.setState({ parcours: doc.data(), loaded: 1 });
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');
@@ -97,6 +93,7 @@ class seeParcours extends Component {
   sendCommentaire = (text) => {
     const { rating } = this.state;
     this.setState({
+      commentSent: true,
       commentaire: { pseudo: text.name, commentaire: text.message, rating },
     });
   };
@@ -107,14 +104,6 @@ class seeParcours extends Component {
     });
   }
 
-  redirect = (url) => {
-    const { history } = this.props;
-    history.push({
-      pathname: url,
-      state: { parcours: true },
-    });
-  };
-
   sendRatings = (rating) => {
     const { parcours } = this.state;
     let determineRating;
@@ -122,9 +111,7 @@ class seeParcours extends Component {
       determineRating = rating;
     } else {
       determineRating = parcours.rating * parcours.votants.length;
-
       determineRating += rating;
-
       determineRating /= parcours.votants.length + 1;
     }
     const newRating = determineRating;
@@ -151,10 +138,7 @@ class seeParcours extends Component {
     });
   };
 
-  getInfo = () => {
-    // eslint-disable-next-line no-shadow
-    const { firestore } = this.props;
-    const cours = [];
+  sendApprenant = () => {
     firebase
       .firestore()
       .collection('parcours')
@@ -164,30 +148,6 @@ class seeParcours extends Component {
           localStorage.getItem('userId'),
         ),
       });
-
-    firestore
-      .collection('parcours')
-      .doc(this.parcours)
-      .collection('cours')
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          cours.push({ id: doc.id, data: doc.data() });
-        });
-        const currentParcours = [{ id: this.parcours, content: cours }];
-        this.setState({
-          cours: currentParcours,
-        });
-      });
-  };
-
-  goToCourse = (type, data, id) => {
-    const { history } = this.props;
-    localStorage.setItem('coursData', JSON.stringify(data));
-    history.push({
-      pathname: `/parcours/${this.parcours}/${type}/${id}`,
-      state: { data },
-    });
   };
 
   delete = (idCours) => {
@@ -196,16 +156,11 @@ class seeParcours extends Component {
       .collection('parcours')
       .doc(this.parcours)
       .delete()
-      .then(() => {
-        console.log(`Document ${idCours} successfully deleted!`);
-      })
+      .then(() => { })
       .catch((error) => {
-        console.error('Error removing document: ', error);
+        console.error(`Error removing document ${idCours}`, error);
       });
-    history.push({
-      pathname: '/mydashboard',
-      state: { coursDelete: true },
-    });
+    history.push('/mydashboard');
   };
 
   togleModal = () => {
@@ -215,14 +170,12 @@ class seeParcours extends Component {
 
   haveUserAlreadyVoted = () => {
     const { parcours } = this.state;
-
     if (
       parcours.votants
         .map(item => item.id === localStorage.getItem('userId'))
         .includes(true)
     ) {
       const lastRating = parcours.votants.filter(votants => votants.id.includes(localStorage.getItem('userId')));
-
       this.setState({
         canVote: false,
         rating: lastRating[0].userRating,
@@ -232,10 +185,7 @@ class seeParcours extends Component {
   };
 
   canUserRate = () => {
-    const {
-      parcours, canVote, rating,
-    } = this.state;
-
+    const { parcours, canVote, rating } = this.state;
     if (canVote === true && parcours && parcours.apprenants) {
       return (
         <div>
@@ -246,16 +196,14 @@ class seeParcours extends Component {
     return <Rating readOnly value={rating || parcours.rating} />;
   };
 
+  newComment = () => {
+    this.setState({ commentSent: false });
+  }
+
   render() {
     const { history } = this.props;
     const {
-      parcours,
-      open,
-      commentaire,
-      rating,
-      loaded,
-      userInfo,
-      cours,
+      parcours, open, commentaire, commentSent, rating, loaded, userInfo,
     } = this.state;
     return (
       <div>
@@ -271,99 +219,46 @@ class seeParcours extends Component {
           togle={this.togleModal}
           deleted={this.delete}
         />
-        <h1>
-          {parcours && parcours.name}
-          {' '}
-
-        </h1>
-        {' '}
-        {' '}
-        {' '}
-
-        {' '}
-
-        {' '}
-        {parcours && parcours.apprenants && parcours.creator.includes(localStorage.getItem('userId'))
+        <ParcoursDetails
+          parcours={parcours}
+          currentParcours={this.parcours}
+          userInfo={userInfo}
+          loaded={loaded}
+          haveUserAlreadyVoted={this.haveUserAlreadyVoted}
+          togleModal={this.togleModal}
+        />
+        <CoursDetails parcours={this.parcours} />
+        {commentSent
           ? (
-            <p>
-            nombre d'élèves :
-              {parcours.apprenants.length}
-              {' '}
-
-            </p>
-          )
-          : null}
-
-        {(parcours && parcours.creator === localStorage.getItem('userId'))
-          || (userInfo && userInfo.is_admin) ? (
             <>
-              <Link to={`/createparcours/${this.parcours}/addcours`}>
-                <Edit />
-              </Link>
-              <DeleteIcon onClick={this.togleModal} />
-            </>
-          ) : (
-            undefined
-          )}
-
-        <p>{parcours && parcours.description}</p>
-
-        {loaded === 1 ? this.haveUserAlreadyVoted() : null}
-
-        <Rating readOnly value={rating || parcours.rating} />
-
-        {
-          cours && cours[0]
-          && cours[0].content.map(lesson => (
-            <div key={Math.floor(Math.random() * 50000)}>
-              <p
+              <p>Commentaire envoyé !</p>
+              <Button
+                variant="outlined"
+                onClick={this.newComment}
+                name="thématique"
+                className="Button"
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  margin: '30px 0 30px 0',
+                  width: '300px',
                 }}
               >
-                {lesson.data.graduate
-                && lesson.data.graduate.includes(localStorage.getItem('userId')) ? (
-                  <RadioButtonChecked />
-                  ) : (
-                    <RadioButtonUnchecked />
-                  )}
-                <img
-                  src={`./assets/${lesson.data.type}.png`}
-                  style={{ width: '4em' }}
-                  alt={lesson.data.type}
-                />
-                <button
-                  type="button"
-                  onClick={() => this.goToCourse(lesson.data.type, lesson.data, lesson.id)
-                  }
-                >
-                  {' '}
-                  {lesson.data.name}
-                </button>
-              </p>
-
-              <p>{lesson.data.description}</p>
-              <div>
-                <ArrowDownward />
-              </div>
-              <div>
-                <LockOpen />
-                <div>
-                  <ArrowDownward />
-                </div>
-              </div>
-            </div>
-          ))}
-        <PostCommentaires
-          sendCommentaire={this.sendCommentaire}
-          userRate={this.canUserRate}
-          rating={rating}
-          getParcours={this.getParcours}
-        />
+                Nouveau commentaire
+              </Button>
+            </>
+          )
+          : (
+            <PostCommentaires
+              sendCommentaire={this.sendCommentaire}
+              userRate={this.canUserRate}
+              rating={rating}
+              getParcours={this.getParcours}
+            />
+          )
+        }
         <ViewCommentaires
           currentParcours={this.parcours}
+          user={userInfo}
+          parcours={parcours}
           currentCommentaire={commentaire}
           commentaires={parcours.commentaires}
           rating={rating}

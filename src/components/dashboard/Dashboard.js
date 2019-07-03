@@ -24,7 +24,6 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.getMarkers();
-    this.getCategoryFromDB();
   }
 
   getMarkers() {
@@ -83,35 +82,10 @@ class Dashboard extends Component {
       sort = [];
     }
 
-    console.log(sortedCourse);
+
     return sortedCourse;
   };
 
-  getCategoryFromDB = () => {
-    const { state } = this.props;
-    if (!state || !state.thématique) {
-      let category = [];
-      const forLoop = ['thématique', 'difficulté', 'durée', 'langue'];
-      // eslint-disable-next-line no-shadow
-      const { mapDispatchToProps } = this.props;
-      const firestore = firebase.firestore();
-      const db = firestore;
-      for (let i = 0; i < forLoop.length; i += 1) {
-        const themRef = db.collection('category').doc(forLoop[i]);
-        // eslint-disable-next-line no-loop-func
-        themRef.get().then((document) => {
-          const dbCategory = document.data();
-
-          // eslint-disable-next-line no-restricted-syntax
-          for (const [, value] of Object.entries(dbCategory)) {
-            category.push(`${value}`);
-          }
-          mapDispatchToProps(category, 'category', forLoop[i]);
-          category = [];
-        });
-      }
-    }
-  };
 
   render() {
     const { state } = this.props;

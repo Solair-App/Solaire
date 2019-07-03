@@ -31,7 +31,7 @@ const Commentaires = (props) => {
   const classes = useStyles();
   const [value, setValue] = useState({
     multiline: 'Controlled',
-    currentValue: 'tous les champs sont requis',
+    errorMessage: '',
   });
 
   // Modifications du state
@@ -50,20 +50,14 @@ const Commentaires = (props) => {
   function pushMessagesInsideDB() {
     const { sendCommentaire } = props;
     const db = firebase.firestore();
-    const commentaryNumber = Math.random()
-      .toString(36)
-      .replace(/[^a-z]+/g, '')
-      .substr(0, 5);
+    const commentaryNumber = Date.now().toString() + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
     const messagesRef = db.collection('parcours').doc(parcours);
     messagesRef
       .set(
         {
           commentaires: {
             [commentaryNumber]: {
-              pseudo: values.name,
-              rating: props.rating,
-              commentaire: values.message,
-              repCommentaire: [],
+              pseudo: values.name, date: Date(Date.now()).toString(), rating: props.rating, commentaire: values.message, repCommentaire: [],
             },
           },
         },
@@ -79,10 +73,9 @@ const Commentaires = (props) => {
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
-    if (values.name && values.message) {
+    if (values.name && values.message && rating) {
       return true;
     }
-
     setValue({
       ...value,
       errorMessage: ' Tous les champs sont requis',
@@ -96,6 +89,7 @@ const Commentaires = (props) => {
     }
   }
   const { userRate } = props;
+
   return (
     <div>
       <form className={classes.container} noValidate autoComplete="on">
@@ -128,7 +122,8 @@ const Commentaires = (props) => {
           inputProps={inputProps}
         />
       </form>
-
+      {value.errorMessage}
+      {' '}
       <button type="submit" onClick={validateMessages}>
         Envoyer
       </button>

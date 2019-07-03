@@ -37,6 +37,7 @@ function CreateParcours({
             durée: dataParcours.durée,
             difficulté: dataParcours.difficulté,
             tags: dataParcours.tags,
+            url: dataParcours.url,
           });
         });
     }

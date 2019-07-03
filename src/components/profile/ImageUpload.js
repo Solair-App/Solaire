@@ -8,7 +8,7 @@ class ImageUpload extends Component {
     this.state = {
       image: null,
       url: null,
-      imgError: null,
+      error: null,
     };
   }
 
@@ -30,21 +30,23 @@ class ImageUpload extends Component {
         getImage(url);
       })
         .catch((error) => {
-          this.setState({ imgError: 'Les images doivent faire moins de 5MB' });
-          console.log(error);
+          this.setState({ error: error.message });
         });
+    }).catch((error) => {
+      console.log(error);
+      this.setState({ error: 'Les images doivent faire moins de 1mb' });
     });
   }
 
   render() {
-    const { url, imgError } = this.state;
+    const { url, error } = this.state;
     return (
       <div>
         <input type="file" onChange={this.handleChange} />
         <button type="button" onClick={this.handleUpload}>Upload</button>
         {' '}
         {url && <img alt="upload" src={url} className="uploadimg" />}
-        {imgError && imgError}
+        {error && <p>{error}</p>}
       </div>
     );
   }

@@ -17,7 +17,7 @@ function CreateParcours({
   const [cat, setCat] = useState({});
   const [value, setValue] = useState({
     currentValue: 'tous les champs sont requis',
-    url: 'https://firebasestorage.googleapis.com/v0/b/shared-elearning.appspot.com/o/images%2Flearning%20placeholder.jpg?alt=media&token=bed153fa-efd4-443a-abaa-a76af868a60f',
+    url: 'https://firebasestorage.googleapis.com/v0/b/shared-elearning.appspot.com/o/images%2Flearning%20placeholder.jpg?alt=media&token=61160392-656c-4810-9fdc-ccb4542279d4',
   });
 
   useEffect(() => {
@@ -99,6 +99,7 @@ function CreateParcours({
           rating: 0,
           votants: [],
           commentaires: {},
+          apprenants: [],
           url: parcours.url,
         },
         { merge: true },

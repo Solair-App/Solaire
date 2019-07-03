@@ -72,7 +72,7 @@ export default function ListCours(props) {
                         className={classes.pos}
                         color="textSecondary"
                       >
-                        {info.data.difficulté}
+                        {info.data.difficulte}
                       </Typography>
                       <Typography
                         variant="body2"
@@ -88,7 +88,7 @@ export default function ListCours(props) {
                         className={classes.pos}
                         color="textSecondary"
                       >
-                        {info.data.durée}
+                        {info.data.duree}
                       </Typography>
                     </Link>
                   </CardContent>

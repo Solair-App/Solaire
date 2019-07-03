@@ -83,7 +83,7 @@ class Dashboard extends Component {
       sort = [];
     }
 
-
+    console.log(sortedCourse);
     return sortedCourse;
   };
 
@@ -144,9 +144,10 @@ class Dashboard extends Component {
                     }}
                   >
                     {results[0]}
+                
                     {' '}
                   </h1>
-                  <List data={parcours} searchField={searchField} />
+                  <List data={results[1]} searchField={searchField} />
                   {' '}
                 </div>
               ))}

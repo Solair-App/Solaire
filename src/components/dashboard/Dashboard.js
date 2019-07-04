@@ -120,7 +120,7 @@ class Dashboard extends Component {
 
     return (
       <div style={{
-        backgroundColor: '#ffe2d5', display: 'block', textAlign: 'left', paddingBottom: 60,
+        display: 'block', textAlign: 'left', paddingBottom: 60,
       }}
       >
         {parcours && state && state.thématique ? (
@@ -131,7 +131,7 @@ class Dashboard extends Component {
               currentValue={searchField}
             />
             <div style={{ textAlign: 'center' }}>
-              <img className="banner" alt="test" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXEVglmR9xQwU3yk3RWTWI_pcAcjdyeyhiKbMVKvgd8142WWM9" />
+              <img className="banner" alt="test" src="https://i.ibb.co/Dpn9ZK0/pattern-solair.png" />
             </div>
             {Object.entries(this.sortIntoCategory())
               .filter(result => result[0].includes(filter) && result[1].filter(res => res.data.tags.includes(searchField)).length > 0)

@@ -5,24 +5,47 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import Fab from '@material-ui/core/Fab';
 import * as firebase from 'firebase';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
-
 import '../../../App.scss';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 400,
-    flexGrow: 1,
+    maxWidth: '100vw',
+    height: '98vh',
+    width: '200vw',
+    overflow: 'hiden',
+    backgroundColor: '#FAFAFA',
   },
   header: {
-    display: 'flex',
-    alignItems: 'center',
-    height: 50,
-    paddingLeft: theme.spacing(4),
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: '#4ca9a9',
+    height: '8vh',
+    overflow: 'hidden',
+  },
+  title: {
+    paddingTop: '10px',
+    marginTop: '0px',
+    paddingBottom: 5,
+    color: 'white',
+    fontSize: '1.5em',
+  },
+  container: {
+    height: '87vh',
+    overflowY: 'scroll',
+    textAlign: 'left',
+  },
+  steppeur: {
+    position: 'absolute',
+    bottom: 0,
+    zIndex: 1,
+  },
+  button: {
+    position: 'absolute',
+    bottom: 55,
+    left: '8.4%',
   },
 
 }));
@@ -83,23 +106,33 @@ const SlideApprenant = ({
   }
   return (
     <div className={classes.root}>
-      <h1>{infoSlide.name}</h1>
-      <p>{infoSlide.description}</p>
-      <ArrowBack
-        style={{ position: 'fixed', left: '10px', top: '10px' }}
-        onClick={() => {
-          history.goBack();
-        }}
-      />
-      {
-        <div className="import">{ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}</div>
-      }
+      <div className={classes.header}>
+        <ArrowBack
+          style={{
+            position: 'fixed', left: '2vw', top: '2vh', width: '30%', color: 'white',
+          }}
+          onClick={() => {
+            history.goBack();
+          }}
+        />
+        <h1 className={classes.title}>{infoSlide.name}</h1>
+      </div>
+      <div className={classes.container}>
+        <div
+          className="import"
+          style={{
+            width: '100vw', height: '84.5vh', overflowY: 'scroll',
+          }}
+        >
+          {ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}
 
+        </div>
+      </div>
       <MobileStepper
         steps={maxSteps}
-        position="static"
         variant="text"
         activeStep={activeStep}
+        className={classes.steppeur}
         nextButton={(
           <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
             Next
@@ -113,9 +146,20 @@ const SlideApprenant = ({
           </Button>
         )}
       />
-      <Button variant="outlined" onClick={connectDb}>
-              cours terminé
-      </Button>
+      <Fab
+        variant="extended"
+        size="medium"
+        aria-label="Add"
+        className={classes.button}
+        onClick={connectDb}
+        style={{
+          width: '300px',
+          color: 'white',
+          backgroundColor: '#E15920',
+        }}
+      >
+          Cours terminé
+      </Fab>
     </div>
   );
 };

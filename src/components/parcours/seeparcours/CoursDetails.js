@@ -35,6 +35,7 @@ class CoursDetails extends Component {
       });
   }
 
+  // eslint-disable-next-line consistent-return
   canUserShare = () => {
     const { coursFromParcours } = this.state;
     let graduatedLessons = 0;
@@ -93,6 +94,7 @@ class CoursDetails extends Component {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+
                 }}
               >
                 {cours.data.graduate

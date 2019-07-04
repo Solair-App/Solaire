@@ -185,6 +185,8 @@ class Profile extends Component {
                   width: '300px',
                   color: 'white',
                   backgroundColor: '#E15920',
+
+
                 }}
               >
           Deconnexion

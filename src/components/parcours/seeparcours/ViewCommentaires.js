@@ -54,48 +54,6 @@ const ViewCommentaires = ({
   };
 
   function showCommentaire() {
-<<<<<<< HEAD
-    return Object.entries(commentaires)
-      .map(([key, value]) => (
-        <div key={`${key + 1}m`}>
-          <h1>
-            {value.pseudo}
-            {value.creator === localStorage.getItem('userId')
-            || (userInfo && userInfo.is_admin) ? (
-              <DeleteIcon onClick={() => deleting(key)} />
-              ) : (
-                undefined
-              )}
-          </h1>
-          <Rating readOnly value={value.rating} />
-          <p>{value.commentaire}</p>
-          <button
-            type="submit"
-            onClick={() => {
-              setAnswer({ [key]: !answer[key] });
-            }}
-          >
-            Répondre
-          </button>
-          {answer[key] && (
-            <AnswerCommentaire
-              newAnswer={newAnswer}
-              newReponse={newReponse}
-              answerCommentaire={answerCommentaire}
-              answerIndex={key}
-              getParcours={getParcours}
-            />
-          )}
-          {value.repCommentaire.map(commentaire => (
-            <div>
-              <p>{commentaire.pseudo}</p>
-              <p>{commentaire.commentaire}</p>
-            </div>
-          ))}
-        </div>
-      ))
-      .reverse();
-=======
     return Object.entries(commentaires).map(([key, value]) => (
       <div key={`${key + 1}m`}>
         <h1>
@@ -128,7 +86,6 @@ const ViewCommentaires = ({
         ))}
       </div>
     )).reverse();
->>>>>>> dev
   }
 
   return <div>{commentaires && showCommentaire()}</div>;

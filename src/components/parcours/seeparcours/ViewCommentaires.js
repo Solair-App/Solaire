@@ -10,7 +10,6 @@ const ViewCommentaires = ({
   commentaires,
   answerCommentaire,
   getParcours,
-  parcours,
   currentParcours,
   userInfo,
 }) => {
@@ -39,27 +38,48 @@ const ViewCommentaires = ({
     getParcours();
   };
 
+  const deleteAnswer = (commentaire, key) => {
+    const db = firebase.firestore();
+    const docRef = db.collection('parcours').doc(currentParcours);
+    docRef.update({
+      [`commentaires.${key}.repCommentaire`]: firebase.firestore.FieldValue.arrayRemove(commentaire),
+    }).then(() => {
+      console.log(`Document ${key} successfully deleted!`);
+    })
+      .catch((error) => {
+        console.error('Error removing document: ', error);
+      });
+    getParcours();
+  };
+
   function showCommentaire() {
     return Object.entries(commentaires).map(([key, value]) => (
       <div key={`${key + 1}m`}>
         <h1>
           {value.pseudo}
-          {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
+          {(value.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
             ? (<DeleteIcon onClick={() => deleting(key)} />)
             : undefined
         }
         </h1>
         <Rating readOnly value={value.rating} />
         <p>{value.commentaire}</p>
-        {!newAnswer && (
-        <button type="submit" onClick={() => { setAnswer({ [key]: !answer[key] }); }}>
+        <button
+          type="submit"
+          onClick={() => {
+            setAnswer({ [key]: true });
+            setNewAnswer(false);
+          }}
+        >
        Répondre
         </button>
-        )}
-        {answer[key] && <AnswerCommentaire newAnswer={newAnswer} newReponse={newReponse} answerCommentaire={answerCommentaire} answerIndex={key} getParcours={getParcours} />}
+        {answer[key] && !newAnswer && <AnswerCommentaire newReponse={newReponse} answerCommentaire={answerCommentaire} answerIndex={key} getParcours={getParcours} />}
         {value.repCommentaire.map(commentaire => (
           <div>
-            <p>{commentaire.pseudo}</p>
+            <div>
+              <p>{commentaire.pseudo}</p>
+              <DeleteIcon onClick={() => deleteAnswer(commentaire, key)} />
+            </div>
             <p>{commentaire.commentaire}</p>
           </div>
         ))}

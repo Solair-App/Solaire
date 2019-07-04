@@ -17,15 +17,17 @@ const mapStateToProps = state => ({
 
 const useStyles = makeStyles({
   root: {
-
     position: 'fixed',
     bottom: '0',
     width: '100%',
-    boxShadow: '0 6px 20px grey',
-    backgroundColor: '#4BAFAF',
-
+    boxShadow: '0 2px 20px grey',
+  },
+  selected: {
+    color: '#138787',
   },
 });
+
+
 function BottomNav(props) {
   function redirect(choice) {
     const { history } = props;
@@ -71,12 +73,17 @@ function BottomNav(props) {
       value={state ? state.bottomNav : value}
       onChange={handleChange}
       showLabels
-      className={classes.root}
+      style={{
+        position: 'fixed',
+        bottom: '0',
+        width: '100%',
+        boxShadow: '0 2px 10px grey',
+      }}
     >
-      <BottomNavigationAction onClick={() => redirect('create')} label="Création" icon={<Edit />} />
-      <BottomNavigationAction onClick={() => redirect('dashboard')} label="Dashboard" icon={<Category />} />
-      <BottomNavigationAction onClick={() => redirect('mylessons')} label="Mes cours" icon={<Folder />} />
-      <BottomNavigationAction onClick={() => redirect('profile')} label="Profile" icon={<AccountBox />} />
+      <BottomNavigationAction className={classes.selected} onClick={() => redirect('create')} label="Création" icon={<Edit />} />
+      <BottomNavigationAction className={classes.selected} onClick={() => redirect('dashboard')} label="Dashboard" icon={<Category />} />
+      <BottomNavigationAction className={classes.selected} onClick={() => redirect('mylessons')} label="Mes cours" icon={<Folder />} />
+      <BottomNavigationAction className={classes.selected} onClick={() => redirect('profile')} label="Profile" icon={<AccountBox />} />
     </BottomNavigation>
   );
 }

@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
 const Commentaires = (props) => {
   const { rating } = props;
   const [values, setValues] = useState({
@@ -44,7 +43,6 @@ const Commentaires = (props) => {
     maxLength: '5000',
   };
 
-
   const { match } = props;
   const parcours = match.params.parcoursId;
 
@@ -59,7 +57,7 @@ const Commentaires = (props) => {
         {
           commentaires: {
             [commentaryNumber]: {
-              pseudo: values.name, date: Date(Date.now()).toString(), rating: props.rating, commentaire: values.message, repCommentaire: [],
+              pseudo: values.name, creator: localStorage.getItem('userId'), date: Date(Date.now()).toString(), rating: props.rating, commentaire: values.message, repCommentaire: [],
             },
           },
         },
@@ -72,7 +70,6 @@ const Commentaires = (props) => {
         getParcours();
       });
   }
-
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {

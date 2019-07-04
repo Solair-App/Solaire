@@ -7,7 +7,7 @@ border-radius: 440px;
 .fond{
   padding-top: 3%;
   padding-bottom: 3%;
-  background-color: #4BAFAF;
+  background-color: #138787;
 }
 
 .titreprofil{
@@ -23,10 +23,15 @@ border-radius: 440px;
 
 .infos{
   padding-top: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 15%;
 }
 
 .coloricon{
-  color: #4BAFAF;
+  color: #138787;
+  padding-right: 2%;
 }
 
 .uploadimg{
@@ -39,8 +44,6 @@ border-radius: 440px;
   padding-bottom: 10%;
 }
 
-.logout{
-  background-color: #C0AB8E !important;
-  border-color: #C0AB8E !important;
-  color: white !important;
+.saveicon{
+  padding-right: 2%;
 }

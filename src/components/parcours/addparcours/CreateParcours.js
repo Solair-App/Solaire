@@ -187,7 +187,7 @@ function CreateParcours({
           redirect('/mydashboard');
         }}
       />
-      <h2 className="h2" style={{ marginTop: '5%' }}>Création de parcours</h2>
+      <h2 className="h2" style={{ paddingTop: '5%' }}>Création de parcours</h2>
       <div style={{ marginTop: '1.5em' }}>
         <ImageUpload getImage={getImage} />
       </div>

@@ -6,6 +6,7 @@ import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import ShareIcon from './ShareIcon';
+import './SeeParcours.scss';
 
 class CoursDetails extends Component {
   constructor(props) {
@@ -93,8 +94,8 @@ class CoursDetails extends Component {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-
+                  justifyContent: 'left',
+                  paddingLeft: '10%',
                 }}
               >
                 {cours.data.graduate
@@ -105,7 +106,7 @@ class CoursDetails extends Component {
                   )}
                 <img
                   src={`./assets/${cours.data.type}.png`}
-                  style={{ width: '4em' }}
+                  style={{ width: '4em', paddingLeft: '10%' }}
                   alt={cours.data.type}
                 />
                 <button
@@ -119,7 +120,7 @@ class CoursDetails extends Component {
               </p>
 
               <p>{cours.data.description}</p>
-              <div>
+              <div className="check">
                 <ArrowDownward />
               </div>
             </div>

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import TextField from '@material-ui/core/TextField';
+import Fab from '@material-ui/core/Fab';
+import SaveIcon from '@material-ui/icons/Save';
 import ImageUpload from './ImageUpload';
 import './profile.scss';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
@@ -89,7 +90,7 @@ class ChangeProfile extends Component {
             name="name"
             onChange={this.onChange}
             value={name}
-            label="Full Name"
+            label="Nom"
             className="textfield"
             style={{ marginTop: '5%', width: '50%' }}
           />
@@ -134,18 +135,21 @@ class ChangeProfile extends Component {
           />
         </div>
 
-        <Button
-          variant="outlined"
-          name="changeprofile"
-          className="Button"
+        <Fab
+          variant="extended"
+          size="medium"
+          aria-label="Add"
           onClick={this.onSubmit}
           style={{
             margin: '30px 0 30px 0',
             width: '300px',
+            color: 'white',
+            backgroundColor: '#E15920',
           }}
         >
-              Valider mes informations
-        </Button>
+          <SaveIcon className="saveicon" />
+          Valider mes informations
+        </Fab>
       </div>
 
     );

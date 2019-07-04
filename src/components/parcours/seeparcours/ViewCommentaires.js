@@ -4,7 +4,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import * as firebase from 'firebase';
 import AnswerCommentaire from './AnswerCommentaire';
 
-
 // Récupération des slides de la db
 const ViewCommentaires = ({
   commentaires,
@@ -13,7 +12,7 @@ const ViewCommentaires = ({
   currentParcours,
   userInfo,
 }) => {
-  const [answer, setAnswer] = useState({ });
+  const [answer, setAnswer] = useState({});
   const [newAnswer, setNewAnswer] = useState(false);
 
   const newReponse = (value) => {
@@ -27,11 +26,13 @@ const ViewCommentaires = ({
   const deleting = (key) => {
     const db = firebase.firestore();
     const docRef = db.collection('parcours').doc(currentParcours);
-    docRef.update({
-      [`commentaires.${key}`]: firebase.firestore.FieldValue.delete(),
-    }).then(() => {
-      console.log(`Document ${key} successfully deleted!`);
-    })
+    docRef
+      .update({
+        [`commentaires.${key}`]: firebase.firestore.FieldValue.delete(),
+      })
+      .then(() => {
+        console.log(`Document ${key} successfully deleted!`);
+      })
       .catch((error) => {
         console.error('Error removing document: ', error);
       });
@@ -87,13 +88,7 @@ const ViewCommentaires = ({
     )).reverse();
   }
 
-  return (
-    <div>
-      {
-        commentaires && showCommentaire()
-      }
-    </div>
-  );
+  return <div>{commentaires && showCommentaire()}</div>;
 };
 
 export default ViewCommentaires;

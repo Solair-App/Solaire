@@ -234,7 +234,7 @@ function CreateParcours({
         <SelectField
           required
           choices={cat.thématique}
-          name="thématique*"
+          name="thématique"
           handleChange={handleChange}
           value={value.thématique}
           className="selectField"
@@ -245,7 +245,7 @@ function CreateParcours({
           <SelectField
             required
             choices={cat.langue}
-            name="langue*"
+            name="langue"
             handleChange={handleChange}
             value={value.langue}
             class="container"
@@ -257,7 +257,7 @@ function CreateParcours({
           <SelectField
             required
             choices={cat.durée}
-            name="durée*"
+            name="durée"
             handleChange={handleChange}
             value={value.durée}
             class="container"
@@ -269,7 +269,7 @@ function CreateParcours({
           <SelectField
             required
             choices={cat.difficulté}
-            name="difficulté*"
+            name="difficulté"
             handleChange={handleChange}
             value={value.difficulté}
             className="selectField"

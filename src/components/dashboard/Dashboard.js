@@ -25,6 +25,10 @@ class Dashboard extends Component {
   componentDidMount() {
     this.getMarkers();
     this.getCategoryFromDB();
+
+    // eslint-disable-next-line no-shadow
+    const { mapDispatchToProps } = this.props;
+    mapDispatchToProps(1, 'bottomNav');
   }
 
   getMarkers() {

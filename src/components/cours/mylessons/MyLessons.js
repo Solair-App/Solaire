@@ -1,6 +1,7 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
 import * as firebase from 'firebase';
+import { mapDispatchToProps } from '../../../actions/action';
 
 import UseTabs from './UseTabs';
 import ListLessons from './ListLessons';
@@ -20,6 +21,11 @@ class MyLessons extends React.Component {
     this.setState({
       currentUser: localStorage.getItem('userId'),
     });
+
+    // eslint-disable-next-line no-shadow
+    const { mapDispatchToProps } = this.props;
+
+    mapDispatchToProps(2, 'bottomNav');
   }
 
   getUserLessons() {
@@ -70,4 +76,7 @@ class MyLessons extends React.Component {
   }
 }
 
-export default MyLessons;
+export const mapStateToProps = state => ({
+  state,
+});
+export default connect(mapStateToProps, { mapDispatchToProps })(MyLessons);

@@ -1,0 +1,29 @@
+.allParcours {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.parcours {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.allParcours li{
+  margin: 5px 0 0 5px;
+}
+
+.link{
+  text-decoration: none;
+}
+
+.boxTitle{
+  height: 40px;
+}
+
+.MuiSvgIcon-root {
+  width: 0.7em  !important ;
+}

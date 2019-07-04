@@ -70,7 +70,7 @@ class Profile extends Component {
   render() {
     const { userInfo, error } = this.state;
     return (
-      <div>
+      <div style={{ paddingBottom: '70px' }}>
 
         {userInfo
           ? (
@@ -131,7 +131,7 @@ class Profile extends Component {
                 style={{
                   margin: '30px 0 20px 0',
                   width: '300px',
-                  backgroundColor: '#F0EDE5',
+                  backgroundColor: '#FDE9E2',
                   borderColor: '#AF9483',
                 }}
               >

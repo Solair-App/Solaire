@@ -9,8 +9,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    display: 'flex',
     flexWrap: 'wrap',
+    width: '100%',
   },
   input: {
     color: 'white',
@@ -78,27 +78,29 @@ function SearchAppBar(props) {
       <div
         className={classes.search}
         style={{
-          backgroundColor: '#D3CFC8', color: 'white', borderRadius: 0, height: '50px',
+          display: 'flex', justifyContent: 'space-around', backgroundColor: '#138787', color: 'white', borderRadius: 0, height: '50px',
         }}
       >
-        <SearchIcon style={{ margin: '10px', position: 'absolute' }} />
-        <InputBase
-          name="searchField"
-          onChange={handleChange}
-          placeholder="Search tags..."
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput,
-          }}
-          inputProps={{ 'aria-label': 'Search' }}
-          style={{
-            margin: '21px 20px 30px -20px',
-            width: '265px',
-            textAlign: 'left',
-            fontSize: '18px',
-          }}
-          value={currentValue}
-        />
+        <div style={{ display: 'flex' }}>
+          <SearchIcon style={{ margin: '10px', position: 'absolute' }} />
+          <InputBase
+            name="searchField"
+            onChange={handleChange}
+            placeholder="Rechercher..."
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ 'aria-label': 'Search' }}
+            style={{
+              margin: '21px 20px 30px -20px',
+              width: '265px',
+              textAlign: 'left',
+              fontSize: '18px',
+            }}
+            value={currentValue}
+          />
+        </div>
         <TextField
           id="standard-select-currency"
           select
@@ -113,8 +115,12 @@ function SearchAppBar(props) {
           }}
           style={{
             width: '150px',
-            marginTop: 5,
+            marginTop: 6,
             marginRight: 10,
+            backgroundColor: '#4ca9a9',
+            // /*#F67E4B*/
+            borderRadius: '4px',
+            paddingLeft: '4px',
           }}
           margin="normal"
         >

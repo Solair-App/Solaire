@@ -69,6 +69,7 @@ function BottomNav(props) {
   const { state } = props;
   return (
     <BottomNavigation
+      style={{ color: 'white' }}
       value={state ? state.bottomNav : value}
       onChange={handleChange}
       showLabels

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
@@ -28,8 +29,41 @@ class CoursDetails extends Component {
         });
         const currentParcours = [{ id: this.parcours, content: cours }];
         this.setState({ coursFromParcours: currentParcours });
+      })
+      .then(() => {
+        this.canUserShare();
       });
   }
+
+  canUserShare = () => {
+    const { coursFromParcours } = this.state;
+    let graduatedLessons = 0;
+    for (let i = 0; i < coursFromParcours[0].content.length; i += 1) {
+      for (
+        let b = 0;
+        b < coursFromParcours[0].content[i].data.graduate.length;
+        b += 1
+      ) {
+        if (
+          coursFromParcours[0].content[i].data.graduate[b]
+          === localStorage.getItem('userId')
+        ) {
+          graduatedLessons += 1;
+        }
+      }
+    }
+    if (graduatedLessons === coursFromParcours[0].content.length) {
+      this.setState({
+        allCourseCompleted: true,
+      });
+      return true;
+    }
+    this.setState({
+      allCourseCompleted: false,
+      graduatedLessons,
+      coursLength: coursFromParcours[0].content.length,
+    });
+  };
 
   goToCourse = (type, data, id) => {
     const { history, parcours } = this.props;
@@ -41,13 +75,19 @@ class CoursDetails extends Component {
   };
 
   render() {
-    const { coursFromParcours } = this.state;
+    const {
+      coursFromParcours,
+      allCourseCompleted,
+      graduatedLessons,
+      coursLength,
+    } = this.state;
     return (
       <>
         {coursFromParcours
           && coursFromParcours[0]
           && coursFromParcours[0].content.map(cours => (
             <div key={Math.floor(Math.random() * 50000)}>
+
               <p
                 style={{
                   display: 'flex',
@@ -82,7 +122,29 @@ class CoursDetails extends Component {
               </div>
             </div>
           ))}
-        <ShareIcon />
+
+        {allCourseCompleted === true ? (
+          <>
+            {' '}
+            <p>Vous pouvez maintenant partager votre réussite !</p>
+            {' '}
+            <ShareIcon gray={0} />
+            {' '}
+          </>
+        ) : (
+          <>
+            {' '}
+            <p>
+              Complétez encore
+              {' '}
+              {`${coursLength - graduatedLessons} `}
+              {' '}
+cours pour
+              pouvoir partager la complétion de ce cours !
+            </p>
+            <ShareIcon gray={1} />
+          </>
+        )}
       </>
     );
   }

@@ -8,10 +8,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Fab from '@material-ui/core/Fab';
 import NavigationIcon from '@material-ui/icons/Navigation';
-import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import * as firebase from 'firebase';
 import AnswerCommentaire from './AnswerCommentaire';
 
@@ -19,23 +18,35 @@ const useStyles = makeStyles(theme => ({
   avatar: {
     margin: 10,
   },
+
   container: {
     backgroundColor: '#58e0d3',
+
   },
+
   pseudo: {
     color: 'white',
   },
+
   input: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     backgroundColor: 'white',
     opacity: 0.5,
   },
+
   align: {
-    textAlign: 'none',
+    marginBottom: '2%',
+    textAlign: 'left',
+    marginLeft: '10%',
   },
+
   extendedIcon: {
     marginRight: theme.spacing(1),
+  },
+
+  root: {
+    paddingLeft: '5%',
   },
 
 }));
@@ -81,7 +92,7 @@ const ViewCommentaires = ({
   function showCommentaire() {
     return Object.entries(commentaires).map(([key, value]) => (
       <div key={`${key + 1}m`}>
-        <List className={classes.root}>
+        <List className={classes.root} alignItems="flex-start">
           <ListItem alignItems="flex-start">
             <ListItemAvatar>
               <Avatar alt="imageProfil" src={value.image} />
@@ -112,23 +123,21 @@ const ViewCommentaires = ({
                 </React.Fragment>
 )}
             />
-
           </ListItem>
         </List>
-
         {!newAnswer && (
-        <Fab
-          variant="extended"
-          size="medium"
-          color="primary"
-          aria-label="Add"
-          className={classes.align}
-          onClick={() => { setAnswer({ [key]: !answer[key] }); }}
-        >
-          <NavigationIcon className={classes.extendedIcon} />
-           Répondre
-        </Fab>
-
+          <div className={classes.align}>
+            <Fab
+              variant="extended"
+              size="medium"
+              color="primary"
+              aria-label="Add"
+              onClick={() => { setAnswer({ [key]: !answer[key] }); }}
+            >
+              <NavigationIcon className={classes.extendedIcon} />
+                 Répondre
+            </Fab>
+          </div>
         )}
         {answer[key] && <AnswerCommentaire newAnswer={newAnswer} newReponse={newReponse} answerCommentaire={answerCommentaire} answerIndex={key} getParcours={getParcours} />}
         {value.repCommentaire.map(commentaire => (
@@ -137,6 +146,7 @@ const ViewCommentaires = ({
             <p>{commentaire.commentaire}</p>
           </div>
         ))}
+        <Divider variant="inset" />
       </div>
     )).reverse();
   }

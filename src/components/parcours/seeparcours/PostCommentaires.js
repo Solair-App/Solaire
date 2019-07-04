@@ -8,8 +8,6 @@ import * as firebase from 'firebase';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    display: 'flex',
-    flexWrap: 'wrap',
     backgroundColor: '#58e0d3',
   },
 
@@ -30,6 +28,12 @@ const useStyles = makeStyles(theme => ({
   note: {
     display: 'flex',
     alignItems: 'center',
+  },
+  align: {
+    marginTop: '1%',
+    marginBottom: '1%',
+    textAlign: 'left',
+    marginLeft: '5%',
   },
 }));
 
@@ -103,7 +107,7 @@ const Commentaires = (props) => {
   const { userRate } = props;
 
   return (
-    <div>
+    <div className={classes.container}>
       <form className={classes.container} noValidate autoComplete="on">
 
         <div className={classes.note}>
@@ -152,18 +156,20 @@ Votre Note :
       </form>
       {value.errorMessage}
       {' '}
-      <Fab
-        type="submit"
-        variant="extended"
-        size="medium"
-        color="primary"
-        aria-label="Add"
-        className={classes.align}
-        onClick={validateMessages}
-      >
-        <NavigationIcon className={classes.extendedIcon} />
+      <div className={classes.align}>
+        <Fab
+          type="submit"
+          variant="extended"
+          size="medium"
+          color="primary"
+          aria-label="Add"
+          className={classes.align}
+          onClick={validateMessages}
+        >
+          <NavigationIcon className={classes.extendedIcon} />
           Envoyer
-      </Fab>
+        </Fab>
+      </div>
     </div>
   );
 };

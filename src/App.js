@@ -29,7 +29,6 @@ const App = () => (
     <FirebaseProvider>
       <HashRouter>
         <Switch>
-
           <Route exact path="/createparcours/:parcoursId?" component={CreateParcours} />
           <Route path="/createparcours/:parcoursId?/addcours" component={AddCours} />
           <Route exact path="/parcours/:parcoursId" component={SeeParcours} />

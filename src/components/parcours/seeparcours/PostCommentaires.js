@@ -50,7 +50,11 @@ const Commentaires = (props) => {
   function pushMessagesInsideDB() {
     const { sendCommentaire } = props;
     const db = firebase.firestore();
-    const commentaryNumber = Date.now().toString() + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+    const commentaryNumber = Date.now().toString()
+      + Math.random()
+        .toString(36)
+        .replace(/[^a-z]+/g, '')
+        .substr(0, 5);
     const messagesRef = db.collection('parcours').doc(parcours);
     messagesRef
       .set(

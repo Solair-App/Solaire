@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router-dom';
 import List from './List';
 import BottomNav from './BottomNav';
 import InputBar from './InputBar';
@@ -134,7 +134,11 @@ class Dashboard extends Component {
               <img className="banner" alt="test" src="https://i.ibb.co/Dpn9ZK0/pattern-solair.png" />
             </div>
             {Object.entries(this.sortIntoCategory())
-              .filter(result => result[0].includes(filter) && result[1].filter(res => res.data.tags.includes(searchField)).length > 0)
+              .filter(
+                result => result[0].includes(filter)
+                  && result[1].filter(res => res.data.tags.includes(searchField))
+                    .length > 0,
+              )
               .map((results, index) => (
                 <div className="bloc" key={`${index + 200}q`}>
                   {results[1].length > 0 ? (
@@ -142,7 +146,9 @@ class Dashboard extends Component {
                       <h1>
                         {results[0]}
                       </h1>
-                      <p style={{ color: '#E15920', paddingRight: '14px', paddingTop: '20px' }}>PLUS</p>
+                      <Link style={{ textDecoration: 'none' }} to={`/category/${results[0]}`}>
+                        <p style={{ color: '#E15920', paddingRight: '14px', paddingTop: '20px' }}>PLUS</p>
+                      </Link>
                     </div>
                   ) : null}
                   <List data={results[1]} searchField={searchField} />

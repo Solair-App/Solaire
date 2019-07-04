@@ -229,6 +229,9 @@ class seeParcours extends Component {
           togleModal={this.togleModal}
         />
         <CoursDetails parcours={this.parcours} />
+
+        {' '}
+
         {commentSent
           ? (
             <>

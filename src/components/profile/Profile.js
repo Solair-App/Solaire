@@ -72,7 +72,7 @@ class Profile extends Component {
   render() {
     const { userInfo, error } = this.state;
     return (
-      <div>
+      <div style={{ paddingBottom: '70px' }}>
 
         {userInfo
           ? (
@@ -126,7 +126,7 @@ class Profile extends Component {
                   this.redirect('/changeprofile');
                 }}
                 style={{
-                  margin: '30px 0 10px 0',
+
                   width: '300px',
                   color: 'white',
                   backgroundColor: '#138787',
@@ -146,7 +146,7 @@ class Profile extends Component {
                 }}
                 className="Button"
                 style={{
-                  margin: '10px 0 30px 0',
+
                   width: '300px',
                 }}
               >
@@ -161,7 +161,7 @@ class Profile extends Component {
                 aria-label="Add"
                 onClick={this.logout}
                 style={{
-                  margin: '2px 0 5px 0',
+
                   width: '300px',
                   color: 'white',
                   backgroundColor: '#E15920',
@@ -185,6 +185,8 @@ class Profile extends Component {
                   width: '300px',
                   color: 'white',
                   backgroundColor: '#E15920',
+
+
                 }}
               >
           Deconnexion

@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     bottom: '0',
     width: '100%',
     boxShadow: '0 6px 20px grey',
-    backgroundColor: '#58e0d3',
+    backgroundColor: '#4BAFAF',
 
   },
 });

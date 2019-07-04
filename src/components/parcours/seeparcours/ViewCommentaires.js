@@ -168,22 +168,23 @@ const ViewCommentaires = ({
             />
           </ListItem>
         </List>
-        {!newAnswer && (
-          <div className={classes.align}>
-            <Fab
-              variant="extended"
-              size="medium"
-              color="primary"
-              aria-label="Add"
-              className={classes.button}
-              onClick={() => { setAnswer({ [key]: !answer[key] }); }}
-            >
-              <NavigationIcon className={classes.extendedIcon} />
+        <div className={classes.align}>
+          <Fab
+            variant="extended"
+            size="medium"
+            color="primary"
+            aria-label="Add"
+            className={classes.button}
+            onClick={() => {
+                setAnswer({ [key]: !answer[key] });
+                setNewAnswer(false);
+              }}
+          >
+            <NavigationIcon className={classes.extendedIcon} />
                  Répondre
-            </Fab>
-          </div>
-        )}
-        {answer[key] && <AnswerCommentaire newAnswer={newAnswer} newReponse={newReponse} answerCommentaire={answerCommentaire} answerIndex={key} getParcours={getParcours} />}
+          </Fab>
+        </div>
+        {answer[key] && !newAnswer && <AnswerCommentaire newAnswer={newAnswer} newReponse={newReponse} answerCommentaire={answerCommentaire} answerIndex={key} getParcours={getParcours} />}
         {value.repCommentaire.map(commentaire => (
           <div>
             <div className={classes.root}>
@@ -208,7 +209,16 @@ const ViewCommentaires = ({
                             <Typography>
                               {commentaire.pseudo}
                               {(value.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
-                                ? (<DeleteIcon onClick={() => deleteAnswer(commentaire, key)} className={classes.deleteIcon} />) : undefined
+                                ? (
+                                  <DeleteIcon
+                                    onClick={() => deleteAnswer(commentaire, key)}
+                                    style={{
+                                      marginLeft: '1%',
+                                      color: '#4ca9a9',
+
+                                    }}
+                                  />
+                                ) : undefined
             }
                             </Typography>
                           </Fragment>

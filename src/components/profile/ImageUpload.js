@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './profile.scss';
+
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 
 class ImageUpload extends Component {

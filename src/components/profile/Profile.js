@@ -5,6 +5,8 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import LocationOn from '@material-ui/icons/LocationOn';
 import AlternateEmail from '@material-ui/icons/AlternateEmail';
 import FormatQuote from '@material-ui/icons/FormatQuote';
+import Fab from '@material-ui/core/Fab';
+import SaveIcon from '@material-ui/icons/Save';
 import BottomNav from '../dashboard/BottomNav';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 import './profile.scss';
@@ -101,15 +103,11 @@ class Profile extends Component {
               <p className="infos">
                 <AlternateEmail className="coloricon" />
                 {' '}
-                Email :
-                {' '}
                 {userInfo.email ? userInfo.email : 'Pas renseigné'}
               </p>
 
               <p className="infos">
                 <LocationOn className="coloricon" />
-                {' '}
-                Ville :
                 {' '}
                 {userInfo.city ? userInfo.city : 'Pas renseigné'}
               </p>
@@ -117,26 +115,27 @@ class Profile extends Component {
               <p className="infos">
                 <FormatQuote className="coloricon" />
                 {' '}
-                A propos de moi :
-                {' '}
                 {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
               </p>
-              <Button
-                variant="outlined"
-                name="changeprofile"
+
+              <Fab
+                variant="extended"
+                size="medium"
+                aria-label="Add"
                 onClick={() => {
                   this.redirect('/changeprofile');
                 }}
-                className="Button"
                 style={{
-                  margin: '30px 0 20px 0',
+                  margin: '30px 0 10px 0',
                   width: '300px',
-                  backgroundColor: '#FDE9E2',
-                  borderColor: '#AF9483',
+                  color: 'white',
+                  backgroundColor: '#138787',
                 }}
               >
-                Changer mes informations
-              </Button>
+                <SaveIcon className="saveicon" />
+          Changer mes informations
+              </Fab>
+
               {userInfo.is_admin
               && (
               <Button
@@ -155,37 +154,41 @@ class Profile extends Component {
               </Button>
               )
               }
-              <Button
-                size="large"
+
+              <Fab
+                variant="extended"
+                size="medium"
+                aria-label="Add"
                 onClick={this.logout}
-                variant="outlined"
-                color="primary"
                 style={{
+                  margin: '2px 0 5px 0',
                   width: '300px',
+                  color: 'white',
+                  backgroundColor: '#E15920',
                 }}
-                className="Button"
               >
-                Log Out
-              </Button>
+          Deconnexion
+              </Fab>
+
               {error && <p>{error.message}</p>}
             </>
           )
           : (
             <>
               <p>Loading your info</p>
-              <Button
-                size="large"
-                color="primary"
+              <Fab
+                variant="extended"
+                size="medium"
+                aria-label="Add"
                 onClick={this.logout}
-                variant="outlined"
                 style={{
-                  margin: '30px 0 30px 0',
                   width: '300px',
+                  color: 'white',
+                  backgroundColor: '#E15920',
                 }}
-                className="Button"
               >
-                Log Out
-              </Button>
+          Deconnexion
+              </Fab>
             </>
           )
         }

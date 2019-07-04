@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
 import * as firebase from 'firebase';
+import Fab from '@material-ui/core/Fab';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import SelectField from './SelectField';
 import Parcours from './Parcours';
@@ -180,14 +180,16 @@ function CreateParcours({
 
   return (
 
-    <form className="classesContainer" autoComplete="off">
-      <ArrowBack
-        style={{ position: 'fixed', left: '10px', top: '10px' }}
-        onClick={() => {
-          redirect('/mydashboard');
-        }}
-      />
-      <h2 className="h2" style={{ paddingTop: '5%' }}>Création de parcours</h2>
+    <form className="classesContainer" autoComplete="off" style={{ paddingBottom: '30px' }}>
+      <div className="topFond">
+        <ArrowBack
+          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          onClick={() => {
+            redirect('/mydashboard');
+          }}
+        />
+        <h2 className="h2" style={{ paddingTop: '5%' }}>Création de parcours</h2>
+      </div>
       <div style={{ marginTop: '1.5em' }}>
         <ImageUpload getImage={getImage} />
       </div>
@@ -227,15 +229,15 @@ function CreateParcours({
           style={{ marginTop: '5%', width: '50%' }}
         />
       </div>
+
       {cat.thématique && (
         <SelectField
           required
           choices={cat.thématique}
-          name="thématique"
+          name="thématique*"
           handleChange={handleChange}
           value={value.thématique}
           className="selectField"
-          style={{ borderRadius: '20px' }}
         />
       )}
       {cat.langue
@@ -243,7 +245,7 @@ function CreateParcours({
           <SelectField
             required
             choices={cat.langue}
-            name="langue"
+            name="langue*"
             handleChange={handleChange}
             value={value.langue}
             class="container"
@@ -255,7 +257,7 @@ function CreateParcours({
           <SelectField
             required
             choices={cat.durée}
-            name="durée"
+            name="durée*"
             handleChange={handleChange}
             value={value.durée}
             class="container"
@@ -267,7 +269,7 @@ function CreateParcours({
           <SelectField
             required
             choices={cat.difficulté}
-            name="difficulté"
+            name="difficulté*"
             handleChange={handleChange}
             value={value.difficulté}
             className="selectField"
@@ -275,18 +277,21 @@ function CreateParcours({
         )
       }
       <h3 className="h3">{value.errorMessage}</h3>
-      <Button
-        variant="outlined"
+      <Fab
+        variant="extended"
+        size="medium"
+        aria-label="Add"
         onClick={validateParcours}
-        name="thématique"
-        className="Button"
         style={{
-          margin: '30px 0 30px 0',
+          marginTop: '10px',
+          marginLeft: '10px',
           width: '300px',
+          color: 'white',
+          backgroundColor: '#138787',
         }}
       >
         {match.params.parcoursId ? 'Sauver mes modifications' : 'Créer mon parcours'}
-      </Button>
+      </Fab>
     </form>
   );
 }

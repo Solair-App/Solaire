@@ -62,12 +62,8 @@ class ChangeProfile extends Component {
         bio,
       }, { merge: true });
     }
-
-    console.log(localStorage.getItem('userId'));
-
     event.preventDefault();
-    const { history } = this.props;
-    history.push('/profile');
+    this.redirect('/profile');
   }
 
   render() {

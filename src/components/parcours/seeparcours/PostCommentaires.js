@@ -3,18 +3,20 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import NavigationIcon from '@material-ui/icons/Navigation';
+import Divider from '@material-ui/core/Divider';
 import { withRouter } from 'react-router';
 import * as firebase from 'firebase';
 
+
 const useStyles = makeStyles(theme => ({
   container: {
-    backgroundColor: '#58e0d3',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
 
   input: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    backgroundColor: 'white',
   },
 
   dense: {
@@ -29,12 +31,32 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+
   align: {
     marginTop: '1%',
-    marginBottom: '1%',
+    paddingBottom: '7%',
     textAlign: 'left',
     marginLeft: '5%',
   },
+
+  button: {
+    backgroundColor: '#4ca9a9',
+  },
+
+  smallTitle: {
+    fontSize: '95%',
+    textAlign: 'left',
+    paddingBottom: '0.5%',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    color: '#4ca9a9',
+  },
+
+  divider: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+
 }));
 
 const Commentaires = (props) => {
@@ -107,69 +129,73 @@ const Commentaires = (props) => {
   const { userRate } = props;
 
   return (
-    <div className={classes.container}>
-      <form className={classes.container} noValidate autoComplete="on">
+    <div>
+      <p className={classes.smallTitle}>Commenter</p>
+      <Divider variant="inset" className={classes.divider} />
+      <div className={classes.container}>
+        <form noValidate autoComplete="on">
 
-        <div className={classes.note}>
-          {' '}
-          <p>
+          <div className={classes.note}>
             {' '}
-            {' '}
+            <p>
+              {' '}
+              {' '}
 Votre Note :
 
-          </p>
-          <p>
-            {userRate()}
-          </p>
-        </div>
+            </p>
+            <p>
+              {userRate()}
+            </p>
+          </div>
 
-        <TextField
-          fullWidth
-          required
-          input
-          id="filled-name"
-          label="Votre nom ou pseudo"
-          className={`${classes.textField} ${classes.input}`}
-          value={values.name}
-          onChange={handleChange1}
-          style={{ margin: 8 }}
-          margin="normal"
-          variant="filled"
-          name="name"
-        />
-        <TextField
-          id="filled-textarea"
-          label="Votre message"
-          placeholder="Placeholder"
-          className={`${classes.textField} ${classes.input}`}
-          style={{ margin: 8 }}
-          input
-          multiline
-          fullWidth
-          margin="normal"
-          variant="filled"
-          name="message"
-          value={values.message}
-          onChange={handleChange1}
-          inputProps={inputProps}
-        />
-      </form>
-      {value.errorMessage}
-      {' '}
-      <div className={classes.align}>
-        <Fab
-          type="submit"
-          variant="extended"
-          size="medium"
-          color="primary"
-          aria-label="Add"
-          className={classes.align}
-          onClick={validateMessages}
-        >
-          <NavigationIcon className={classes.extendedIcon} />
+          <TextField
+            fullWidth
+            required
+            input
+            id="filled-name"
+            label="Votre nom ou pseudo"
+            className={classes.input}
+            value={values.name}
+            onChange={handleChange1}
+            variant="filled"
+            name="name"
+          />
+          <TextField
+            id="filled-textarea"
+            label="Votre message"
+            placeholder="Placeholder"
+            className={`${classes.textField} ${classes.input}`}
+            style={{ margin: 8 }}
+            input
+            multiline
+            fullWidth
+            margin="normal"
+            variant="filled"
+            name="message"
+            value={values.message}
+            onChange={handleChange1}
+            inputProps={inputProps}
+          />
+        </form>
+        {value.errorMessage}
+        {' '}
+        <div className={classes.align}>
+          <Fab
+            type="submit"
+            variant="extended"
+            size="medium"
+            color="primary"
+            aria-label="Add"
+            className={classes.button}
+            onClick={validateMessages}
+          >
+            <NavigationIcon className={classes.extendedIcon} />
           Envoyer
-        </Fab>
+          </Fab>
+        </div>
       </div>
+      <p className={classes.smallTitle}>Tous les commentaires</p>
+      <Divider variant="inset" className={classes.divider} />
     </div>
   );
 };

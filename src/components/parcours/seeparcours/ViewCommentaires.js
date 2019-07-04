@@ -9,7 +9,11 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Fab from '@material-ui/core/Fab';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
 import * as firebase from 'firebase';
 import AnswerCommentaire from './AnswerCommentaire';
@@ -17,11 +21,6 @@ import AnswerCommentaire from './AnswerCommentaire';
 const useStyles = makeStyles(theme => ({
   avatar: {
     margin: 10,
-  },
-
-  container: {
-    backgroundColor: '#58e0d3',
-
   },
 
   pseudo: {
@@ -36,9 +35,12 @@ const useStyles = makeStyles(theme => ({
   },
 
   align: {
-    marginBottom: '2%',
+    marginTop: '1%',
+    paddingBottom: '3%',
     textAlign: 'left',
-    marginLeft: '10%',
+    paddingLeft: '5%',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
 
   extendedIcon: {
@@ -46,9 +48,31 @@ const useStyles = makeStyles(theme => ({
   },
 
   root: {
-    paddingLeft: '5%',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+
   },
 
+  answersTitle: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+
+  button: {
+    backgroundColor: '#4ca9a9',
+  },
+
+  viewAnswersExpansion: {
+    backgroundColor: '#eaf7f7',
+  },
+
+  divider: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  inline: {
+
+  },
 }));
 
 // Récupération des commentaires de la db
@@ -56,7 +80,6 @@ const ViewCommentaires = ({
   commentaires,
   answerCommentaire,
   getParcours,
-  parcours,
   currentParcours,
   userInfo,
 }) => {
@@ -67,9 +90,6 @@ const ViewCommentaires = ({
   const newReponse = (value) => {
     if (value === true) {
       setNewAnswer(true);
-      setTimeout(() => {
-        setNewAnswer(false);
-      }, 3000);
     } else {
       setNewAnswer(false);
     }
@@ -80,6 +100,20 @@ const ViewCommentaires = ({
     const docRef = db.collection('parcours').doc(currentParcours);
     docRef.update({
       [`commentaires.${key}`]: firebase.firestore.FieldValue.delete(),
+    }).then(() => {
+      console.log(`Document ${key} successfully deleted!`);
+    })
+      .catch((error) => {
+        console.error('Error removing document: ', error);
+      });
+    getParcours();
+  };
+
+  const deleteAnswer = (commentaire, key) => {
+    const db = firebase.firestore();
+    const docRef = db.collection('parcours').doc(currentParcours);
+    docRef.update({
+      [`commentaires.${key}.repCommentaire`]: firebase.firestore.FieldValue.arrayRemove(commentaire),
     }).then(() => {
       console.log(`Document ${key} successfully deleted!`);
     })
@@ -102,8 +136,17 @@ const ViewCommentaires = ({
                 <Fragment>
                   <Typography>
                     {value.pseudo}
-                    {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
-                      ? (<DeleteIcon onClick={() => deleting(key)} />) : undefined
+                    {(value.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
+                      ? (
+                        <DeleteIcon
+                          onClick={() => deleting(key)}
+                          style={{
+                            marginLeft: '1%',
+                            color: '#4ca9a9',
+
+                          }}
+                        />
+                      ) : undefined
             }
                   </Typography>
                 </Fragment>
@@ -132,6 +175,7 @@ const ViewCommentaires = ({
               size="medium"
               color="primary"
               aria-label="Add"
+              className={classes.button}
               onClick={() => { setAnswer({ [key]: !answer[key] }); }}
             >
               <NavigationIcon className={classes.extendedIcon} />
@@ -142,11 +186,55 @@ const ViewCommentaires = ({
         {answer[key] && <AnswerCommentaire newAnswer={newAnswer} newReponse={newReponse} answerCommentaire={answerCommentaire} answerIndex={key} getParcours={getParcours} />}
         {value.repCommentaire.map(commentaire => (
           <div>
-            <p>{commentaire.pseudo}</p>
-            <p>{commentaire.commentaire}</p>
+            <div className={classes.root}>
+              <ExpansionPanel>
+                <ExpansionPanelSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                  className={classes.viewAnswersExpansion}
+                >
+                  <Typography className={classes.answersTitle}>Voir les réponses</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                  <List className={classes.root} alignItems="flex-start">
+                    <ListItem alignItems="flex-start">
+                      <ListItemAvatar>
+                        <Avatar alt="imageProfil" src={value.image} />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={(
+                          <Fragment>
+                            <Typography>
+                              {commentaire.pseudo}
+                              {(value.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
+                                ? (<DeleteIcon onClick={() => deleteAnswer(commentaire, key)} className={classes.deleteIcon} />) : undefined
+            }
+                            </Typography>
+                          </Fragment>
+)}
+                        secondary={(
+                          <React.Fragment>
+                            <Typography
+                              component="span"
+                              variant="body2"
+                              className={classes.inline}
+                              color="textPrimary"
+                            >
+                              {' '}
+                              {commentaire.commentaire}
+                            </Typography>
+                          </React.Fragment>
+)}
+                      />
+                    </ListItem>
+                  </List>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            </div>
           </div>
         ))}
-        <Divider variant="inset" />
+        <Divider variant="inset" className={classes.divider} />
       </div>
     )).reverse();
   }

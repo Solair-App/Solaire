@@ -18,3 +18,29 @@ h1{
     max-width: 90%;
   }
 }
+
+body {
+  background-color: #FFF2E9;
+}
+
+
+.MuiBottomNavigationAction-root.Mui-selected {
+  color:#E15920  !important;
+}
+
+.MuiTab-textColorPrimary.Mui-selected {
+  color:#E15920 !important;
+}
+
+.PrivateTabIndicator-colorPrimary-203 {
+  background-color: #E15920  !important;
+
+}
+
+@media screen and (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+
+  }
+}

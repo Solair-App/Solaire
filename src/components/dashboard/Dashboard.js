@@ -134,7 +134,11 @@ class Dashboard extends Component {
               <img className="banner" alt="test" src="https://i.ibb.co/Dpn9ZK0/pattern-solair.png" />
             </div>
             {Object.entries(this.sortIntoCategory())
-              .filter(result => result[0].includes(filter) && result[1].filter(res => res.data.tags.includes(searchField)).length > 0)
+              .filter(
+                result => result[0].includes(filter)
+                  && result[1].filter(res => res.data.tags.includes(searchField))
+                    .length > 0,
+              )
               .map((results, index) => (
                 <div className="bloc" key={`${index + 200}q`}>
                   {results[1].length > 0 ? (

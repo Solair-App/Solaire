@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import List from './List';
 import BottomNav from './BottomNav';
 import InputBar from './InputBar';
 import { mapDispatchToProps } from '../../actions/action';
+
 
 export const mapStateToProps = state => ({
   state,
@@ -48,11 +50,14 @@ class Dashboard extends Component {
   }
 
   handleChange = (e) => {
+    const { history } = this.props;
     if (e.target.value === 'All') {
       this.setState({
         filter: '',
         currentValue: 'All',
       });
+    } else if (e.target.name === 'filter') {
+      history.push(`/category/${e.target.value}`);
     } else {
       this.setState({
         [e.target.name]: e.target.value,
@@ -167,4 +172,4 @@ class Dashboard extends Component {
 export default connect(
   mapStateToProps,
   { mapDispatchToProps },
-)(Dashboard);
+)(withRouter(Dashboard));

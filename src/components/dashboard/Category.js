@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Rating from 'material-ui-rating';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import BottomNav from './BottomNav';
 import './Parcours.scss';
 
-import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   card: {
@@ -31,7 +32,6 @@ const useStyles = makeStyles({
 export default function ListCours(props) {
   const classes = useStyles();
   const { data } = props;
-  console.log(data);
   return (
     <>
       {data
@@ -92,8 +92,8 @@ export default function ListCours(props) {
               </CardActionArea>
             </Card>
           </li>
-          )
-        }
+          )}
+      <BottomNav />
     </>
   );
 }

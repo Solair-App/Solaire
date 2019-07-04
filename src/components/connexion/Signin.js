@@ -133,7 +133,9 @@ class Signup extends Component {
             type="submit"
             color="primary"
             variant="contained"
-            style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
+            style={{
+              position: 'fixed center', marginTop: '8%', borderRadius: '20px', backgroundColor: '#138787', color: 'white',
+            }}
             className="Button"
           >
             Sign Up

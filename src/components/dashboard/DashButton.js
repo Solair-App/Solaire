@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
     minWidth: 300,
     width: '100%',
+    backgroundColor: '#C0AB8E',
   },
   image: {
     position: 'relative',

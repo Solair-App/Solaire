@@ -23,6 +23,7 @@ import CreateQuestion from './components/supports/quiz/CreateQuestion';
 import Video from './components/supports/video/Video';
 import CreateSlider from './components/supports/slides/CreateSlider';
 import MyLessons from './components/cours/mylessons/MyLessons';
+import Tuto from './components/supports/Tuto';
 
 const App = () => (
   <div className="App">
@@ -56,6 +57,7 @@ const App = () => (
           <Route path="/profile" component={Profile} />
           <Route path="/changeprofile" component={ChangeProfile} />
           <Route path="/mylessons" component={MyLessons} />
+          <Route path="/tuto" component={Tuto} />
         </Switch>
       </HashRouter>
     </FirebaseProvider>

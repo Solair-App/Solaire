@@ -18,3 +18,9 @@ h1{
     max-width: 90%;
   }
 }
+@media screen and (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+  }
+}

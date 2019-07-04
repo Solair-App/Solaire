@@ -1,9 +1,29 @@
+
+.bloc{
+  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 3px 0px rgba(222, 216, 216, 0.14), 0px 2px 3px -1px rgba(214, 209, 209, 0.12);  
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: white;
+}
+
+.bloc h1 {
+  padding-top: 10px;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  font-size: 16px;
+  margin-left: 10px;
+  font-weight: 200;
+  color: #6f6a6a;
+}
+
+.banner{
+  width: 100%;
+}
+
 .hs{
   display: flex;
   overflow-x: scroll;
   list-style: none;
-  padding-bottom: 6px;
-  margin-bottom: -20px;
 }
 
 .hs li{
@@ -16,9 +36,18 @@
 
 .boxTitle{
   height: 40px;
-  margin-bottom: -10px;
 }
 
 .MuiSvgIcon-root {
   width: 0.7em  !important ;
+}
+
+@media screen and (min-width: 768px) {
+  .bloc{
+    width: 70%;
+    margin: auto;
+  }
+  .banner{
+    width: 70%;
+  }
 }

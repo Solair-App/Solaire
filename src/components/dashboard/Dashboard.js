@@ -120,7 +120,7 @@ class Dashboard extends Component {
 
     return (
       <div style={{
-        backgroundColor: '#ffe2d5', display: 'block', textAlign: 'left', paddingBottom: 60,
+        display: 'block', textAlign: 'left', paddingBottom: 60,
       }}
       >
         {parcours && state && state.thématique ? (

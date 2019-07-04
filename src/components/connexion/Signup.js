@@ -58,7 +58,7 @@ class Signup extends Component {
     const { connected } = this.state;
     return (
       <div className="signin" style={{ color: 'black' }}>
-        <img style={{ margin: '8%' }} src="./assets/logo.png" alt="logo" />
+        <img style={{ margin: '5%', width: '80%', marginTop: '15%' }} src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="logo" />
         <h1 style={{ color: '#138787', margin: '5%' }}>Solair</h1>
         <h4 style={{ color: '', margin: '5%' }}>Apprendre en s’amusant de façon ludique</h4>
         {
@@ -108,7 +108,7 @@ class Signup extends Component {
                     Sign up with Email
                   </Button>
                 </Link>
-                <p><Link to="/connect">Already have an account?</Link></p>
+                <p><Link to="/connect" style={{ color: '#E15920' }}>Already have an account?</Link></p>
               </>
             )
         }

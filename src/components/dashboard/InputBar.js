@@ -118,7 +118,6 @@ function SearchAppBar(props) {
             marginTop: 6,
             marginRight: 10,
             backgroundColor: '#4ca9a9',
-            // /*#F67E4B*/
             borderRadius: '4px',
             paddingLeft: '4px',
           }}

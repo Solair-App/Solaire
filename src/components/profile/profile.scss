@@ -1,7 +1,9 @@
 .photo{
-max-width: 50%;
 background-color: white;
-border-radius: 440px;
+border-radius: 50%;
+object-fit: cover;
+width: 140px;
+height: 140px;
 }
 
 .fond{
@@ -12,11 +14,10 @@ border-radius: 440px;
 
 .titreprofil{
   color : white;
-  padding-bottom: 3%;
 }
 
 .name{
-  padding-top: 3%;
+  padding-top: 1%;
   font-size: 180%;
   color: white;
 }
@@ -35,8 +36,12 @@ border-radius: 440px;
 }
 
 .uploadimg{
-  max-height: 150px;
-  max-width: 150px;
+  margin-top: 15px;
+  background-color: white;
+  border-radius: 50%;
+  object-fit: cover;
+  width: 140px;
+  height: 140px;
 }
 
 .titrechange{
@@ -46,4 +51,15 @@ border-radius: 440px;
 
 .saveicon{
   padding-right: 2%;
+}
+
+
+@media screen and (min-width: 768px) {
+  .photo{
+    width: 240px;
+    height: 240px;
+    }
+  .infos{
+    padding-left: 45%;
+  }
 }

@@ -72,7 +72,7 @@ class Profile extends Component {
   render() {
     const { userInfo, error } = this.state;
     return (
-      <div>
+      <div style={{ paddingBottom: '70px' }}>
 
         {userInfo
           ? (

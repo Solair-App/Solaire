@@ -16,6 +16,10 @@
   color: #6f6a6a;
 }
 
+.banner{
+  width: 100%;
+}
+
 .hs{
   display: flex;
   overflow-x: scroll;
@@ -40,7 +44,10 @@
 
 @media screen and (min-width: 768px) {
   .bloc{
-    width: 50%;
+    width: 70%;
     margin: auto;
+  }
+  .banner{
+    width: 70%;
   }
 }

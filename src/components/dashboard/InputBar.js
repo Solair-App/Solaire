@@ -78,7 +78,7 @@ function SearchAppBar(props) {
       <div
         className={classes.search}
         style={{
-          display: 'flex', justifyContent: 'center', backgroundColor: '#138787', color: 'white', borderRadius: 0, height: '50px',
+          display: 'flex', justifyContent: 'space-around', backgroundColor: '#138787', color: 'white', borderRadius: 0, height: '50px',
         }}
       >
         <div style={{ display: 'flex' }}>

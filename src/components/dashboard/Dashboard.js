@@ -130,7 +130,9 @@ class Dashboard extends Component {
               currentFilterValue={currentValue}
               currentValue={searchField}
             />
-
+            <div style={{ textAlign: 'center' }}>
+              <img className="banner" alt="test" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXEVglmR9xQwU3yk3RWTWI_pcAcjdyeyhiKbMVKvgd8142WWM9" />
+            </div>
             {Object.entries(this.sortIntoCategory())
               .filter(result => result[0].includes(filter) && result[1].filter(res => res.data.tags.includes(searchField)).length > 0)
               .map((results, index) => (

@@ -9,27 +9,32 @@ const ParcoursDetails = ({
   parcours, currentParcours, togleModal, loaded, userInfo, haveUserAlreadyVoted,
 }) => (
   <>
-    <h1>
-      {parcours && parcours.name}
-      {' '}
-      {' '}
-      {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
-        ? (
-          <>
-            <Link to={`/createparcours/${currentParcours}/addcours`}><Edit /></Link>
-            <DeleteIcon onClick={togleModal} />
-            {' '}
-            <p>
-        Nombre d&apos;élèves :
+    <div className="backparcours">
+      <h1 style={{
+        color: 'white',
+      }}
+      >
+        {parcours && parcours.name}
+        {' '}
+        {' '}
+        {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
+          ? (
+            <>
+              <Link to={`/createparcours/${currentParcours}/addcours`}><Edit /></Link>
+              <DeleteIcon onClick={togleModal} />
               {' '}
+              <p>
+        Nombre d&apos;élèves :
+                {' '}
 
-              { parcours && parcours.apprenants ? parcours.apprenants.length : null}
-            </p>
-          </>
-        )
-        : undefined
+                { parcours && parcours.apprenants ? parcours.apprenants.length : null}
+              </p>
+            </>
+          )
+          : undefined
       }
-    </h1>
+      </h1>
+    </div>
 
     <p>{parcours && parcours.description}</p>
 

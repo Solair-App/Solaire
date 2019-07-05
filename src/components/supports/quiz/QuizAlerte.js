@@ -7,6 +7,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withRouter } from 'react-router';
+import Fab from '@material-ui/core/Fab';
+
 
 const QuizAlerte = ({
   history, resetQuiz, parcours, cours,
@@ -46,9 +48,20 @@ const QuizAlerte = ({
 
   return (
     <div>
-      <Button style={{ marginTop: '20%' }} variant="outlined" color="primary" onClick={handleClickOpen}>
-        Fin du quiz
-      </Button>
+      <Fab
+        variant="extended"
+        size="medium"
+        aria-label="Add"
+        onClick={handleClickOpen}
+        style={{
+          width: '300px',
+          color: 'white',
+          marginTop: '20%',
+          backgroundColor: '#E15920',
+        }}
+      >
+          Fin du quiz
+      </Fab>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -63,7 +76,7 @@ const QuizAlerte = ({
         </DialogContent>
         <DialogActions>
           <Button onClick={() => handleClose('again')} color="primary">
-          recommencer
+            recommencer
           </Button>
           <Button onClick={() => handleClose('end')} color="primary" autoFocus>
             passer a la suite

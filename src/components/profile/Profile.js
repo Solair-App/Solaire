@@ -88,18 +88,12 @@ class Profile extends Component {
                 />
                 <h1 className="titreprofil">Mon compte</h1>
 
-                <p>
-
-                  <img className="photo" alt="Profil img" src={userInfo.url ? userInfo.url : 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png'} />
-
-                </p>
+                <img className="photo" alt="Profil img" src={userInfo.url ? userInfo.url : 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png'} />
 
                 <p className="name">
                   {userInfo.name}
                 </p>
               </div>
-
-
               <p className="infos">
                 <AlternateEmail className="coloricon" />
                 {' '}
@@ -117,7 +111,6 @@ class Profile extends Component {
                 {' '}
                 {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
               </p>
-
               <Fab
                 variant="extended"
                 size="medium"
@@ -126,7 +119,9 @@ class Profile extends Component {
                   this.redirect('/changeprofile');
                 }}
                 style={{
-
+                  marginTop: '16px',
+                  marginRight: '10px',
+                  marginBottom: '10px',
                   width: '300px',
                   color: 'white',
                   backgroundColor: '#138787',
@@ -146,7 +141,8 @@ class Profile extends Component {
                 }}
                 className="Button"
                 style={{
-
+                  marginTop: '8px',
+                  marginBottom: '8px',
                   width: '300px',
                 }}
               >
@@ -161,7 +157,8 @@ class Profile extends Component {
                 aria-label="Add"
                 onClick={this.logout}
                 style={{
-
+                  marginTop: '10px',
+                  marginLeft: '10px',
                   width: '300px',
                   color: 'white',
                   backgroundColor: '#E15920',
@@ -169,7 +166,6 @@ class Profile extends Component {
               >
           Deconnexion
               </Fab>
-
               {error && <p>{error.message}</p>}
             </>
           )
@@ -185,8 +181,6 @@ class Profile extends Component {
                   width: '300px',
                   color: 'white',
                   backgroundColor: '#E15920',
-
-
                 }}
               >
           Deconnexion

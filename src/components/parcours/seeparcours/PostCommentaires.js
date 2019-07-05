@@ -17,6 +17,17 @@ const useStyles = makeStyles(theme => ({
   input: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '50%',
+
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '50%',
+
+    },
   },
 
   dense: {
@@ -37,6 +48,14 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: '7%',
     textAlign: 'left',
     marginLeft: '5%',
+    [theme.breakpoints.up('md')]: {
+      textAlign: 'center',
+      marginLeft: '0',
+    },
+    [theme.breakpoints.up('lg')]: {
+      textAlign: 'center',
+      marginLeft: '0',
+    },
   },
 
   button: {

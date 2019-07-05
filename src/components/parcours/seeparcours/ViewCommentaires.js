@@ -130,51 +130,6 @@ const ViewCommentaires = ({
   };
 
   function showCommentaire() {
-<<<<<<< HEAD
-    return Object.entries(commentaires)
-      .map(([key, value]) => (
-        <div key={`${key + 1}m`}>
-          <h1>
-            {value.pseudo}
-            {value.creator === localStorage.getItem('userId')
-            || (userInfo && userInfo.is_admin) ? (
-              <DeleteIcon onClick={() => deleting(key)} />
-              ) : (
-                undefined
-              )}
-          </h1>
-          <Rating readOnly value={value.rating} />
-          <p>{value.commentaire}</p>
-          <button
-            type="submit"
-            onClick={() => {
-              setAnswer({ [key]: true });
-              setNewAnswer(false);
-            }}
-          >
-            Répondre
-          </button>
-          {answer[key] && !newAnswer && (
-            <AnswerCommentaire
-              newReponse={newReponse}
-              answerCommentaire={answerCommentaire}
-              answerIndex={key}
-              getParcours={getParcours}
-            />
-          )}
-          {value.repCommentaire.map(commentaire => (
-            <div>
-              <div>
-                <p>{commentaire.pseudo}</p>
-                <DeleteIcon onClick={() => deleteAnswer(commentaire, key)} />
-              </div>
-              <p>{commentaire.commentaire}</p>
-            </div>
-          ))}
-        </div>
-      ))
-      .reverse();
-=======
     return Object.entries(commentaires).map(([key, value]) => (
       <div key={`${key + 1}m`}>
         <List className={classes.root} alignItems="flex-start">
@@ -298,7 +253,6 @@ const ViewCommentaires = ({
         <Divider variant="inset" className={classes.divider} />
       </div>
     )).reverse();
->>>>>>> dev
   }
 
   return (

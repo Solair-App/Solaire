@@ -31,7 +31,7 @@ class ImageUpload extends Component {
     const random = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
     const imageName = `${image.name}${random}`;
     storage.ref(`images/${imageName}`).put(image).then(() => {
-      storage.ref('images').child(image.name).getDownloadURL().then((url) => {
+      storage.ref('images').child(imageName).getDownloadURL().then((url) => {
         this.setState({ url });
         getImage(url);
       })

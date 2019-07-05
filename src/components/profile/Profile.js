@@ -120,7 +120,6 @@ class Profile extends Component {
                 }}
                 style={{
                   marginTop: '16px',
-                  marginRight: '10px',
                   marginBottom: '10px',
                   width: '300px',
                   color: 'white',
@@ -142,14 +141,15 @@ class Profile extends Component {
                 className="Button"
                 style={{
                   marginTop: '8px',
+                  marginRight: '10px',
+                  marginLeft: '10px',
                   marginBottom: '8px',
                   width: '300px',
                 }}
               >
                 Modifier les catégories de l&apos;application
               </Button>
-              )
-              }
+              )}
 
               <Fab
                 variant="extended"
@@ -158,7 +158,6 @@ class Profile extends Component {
                 onClick={this.logout}
                 style={{
                   marginTop: '10px',
-                  marginLeft: '10px',
                   width: '300px',
                   color: 'white',
                   backgroundColor: '#E15920',

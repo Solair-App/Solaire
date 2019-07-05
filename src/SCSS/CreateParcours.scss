@@ -7,12 +7,16 @@
 }
 
 .h2 {
-  color:#138787;
   font-weight: normal;
+  padding-bottom: 8px;
 }
 
 .h3{
   margin: -40px 0 -18px 0;
+}
+
+.ajout{
+  color: #777174;
 }
 
 .Button {
@@ -23,3 +27,24 @@
   border-radius: 50%
     
 }
+
+.topFond{
+  padding-top: 3%;
+  padding-bottom: 3%;
+  background-color: #138787;
+  color: white;
+}
+
+.cloudupload{
+  padding-right: 6%;
+}
+
+.file-upload input[type='file'],::-webkit-file-upload-button {
+    background-color: #E15920;
+    border: none;
+    color: white;
+    padding: 12px;
+    border-radius: 20px;
+    font-size:16px;
+}
+

@@ -3,7 +3,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import Clear from '@material-ui/icons/Clear';
+import RemoveCircle from '@material-ui/icons/RemoveCircle';
 import AddCircle from '@material-ui/icons/AddCircle';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -38,9 +38,9 @@ const OneCategory = ({
                       >
                         {' '}
                         <span style={{ backgroundColor: '#EFEFEF', padding: '3px' }}>{item.value}</span>
-                        <Clear
+                        <RemoveCircle
                           style={{
-                            backgroundColor: '#f98181', borderRadius: '200px', fontSize: '1.4em', marginLeft: '0.2em',
+                            color: '#f98181', borderRadius: '200px', fontSize: '26px', marginLeft: '0.2em',
                           }}
                           onClick={() => getDelete(category, item.key)}
                           type="button"

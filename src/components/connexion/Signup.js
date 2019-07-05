@@ -10,19 +10,15 @@ class Signup extends Component {
     this.state = {
       connected: false,
     };
-    console.log('test0');
+
     const { auth } = this.props;
 
     auth.onAuthStateChanged((user) => {
-      console.log('test1');
       if (user) {
-        console.log('test2');
         auth.getRedirectResult().then((result) => {
-          console.log('test4');
           // eslint-disable-next-line prefer-destructuring
           const newuser = result.user;
           if (newuser) {
-            console.log('test3');
             localStorage.setItem('userId', user.uid);
             this.users(newuser);
           }

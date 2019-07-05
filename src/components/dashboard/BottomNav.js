@@ -69,6 +69,7 @@ function BottomNav(props) {
   const { state } = props;
   return (
     <BottomNavigation
+
       value={state ? state.bottomNav : value}
       onChange={handleChange}
       showLabels
@@ -77,6 +78,8 @@ function BottomNav(props) {
         bottom: '0',
         width: '100%',
         boxShadow: '0 2px 10px grey',
+        color: 'white',
+
       }}
     >
       <BottomNavigationAction className={classes.selected} onClick={() => redirect('create')} label="Création" icon={<Edit />} />

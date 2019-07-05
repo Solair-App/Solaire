@@ -58,19 +58,21 @@ class Signup extends Component {
     const { connected } = this.state;
     return (
       <div className="signin" style={{ color: 'black' }}>
-        <img src="./assets/logo.png" alt="logo" />
-        <h1 style={{ margin: '1%' }}>Elearning</h1>
-        <h3 style={{ margin: '1%' }}>Apprendre en s’amusant de façon ludique</h3>
+        <img style={{ margin: '5%', width: '80%', marginTop: '15%' }} src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="logo" />
+        <h1 style={{ color: '#138787', margin: '5%' }}>Solair</h1>
+        <h4 style={{ color: '', margin: '5%' }}>Apprendre en s’amusant de façon ludique</h4>
         {
           connected
             ? <p>Signed in!</p>
             : (
               <>
-                <h3 style={{ color: 'white', margin: '1%' }}> Please sign in</h3>
+                <h5 style={{ color: '', margin: '1%' }}> Please sign in</h5>
                 <Button
                   variant="outlined"
                   onClick={() => this.login('google')}
                   style={{
+                    backgroundColor: '#138787',
+                    color: 'white',
                     marginTop: '10px',
                     width: '300px',
                   }}
@@ -82,6 +84,8 @@ class Signup extends Component {
                   variant="outlined"
                   onClick={() => this.login('facebook')}
                   style={{
+                    backgroundColor: '#138787',
+                    color: 'white',
                     marginTop: '10px',
                     width: '300px',
                   }}
@@ -93,6 +97,8 @@ class Signup extends Component {
                   <Button
                     variant="outlined"
                     style={{
+                      backgroundColor: '#138787',
+                      color: 'white',
                       marginTop: '10px',
                       marginBottom: '20px',
                       width: '300px',
@@ -102,7 +108,7 @@ class Signup extends Component {
                     Sign up with Email
                   </Button>
                 </Link>
-                <p><Link to="/connect">Already have an account?</Link></p>
+                <p><Link to="/connect" style={{ color: '#E15920' }}>Already have an account?</Link></p>
               </>
             )
         }

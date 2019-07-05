@@ -10,6 +10,7 @@ import PostCommentaires from './PostCommentaires';
 import ViewCommentaires from './ViewCommentaires';
 import ParcoursDetails from './ParcoursDetails';
 import CoursDetails from './CoursDetails';
+import './SeeParcours.scss';
 
 
 class seeParcours extends Component {
@@ -228,6 +229,9 @@ class seeParcours extends Component {
           togleModal={this.togleModal}
         />
         <CoursDetails parcours={this.parcours} />
+
+        {' '}
+
         {commentSent
           ? (
             <>

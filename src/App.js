@@ -23,6 +23,8 @@ import CreateQuestion from './components/supports/quiz/CreateQuestion';
 import Video from './components/supports/video/Video';
 import CreateSlider from './components/supports/slides/CreateSlider';
 import MyLessons from './components/cours/mylessons/MyLessons';
+import Tuto from './components/supports/Tuto';
+import Categories from './components/dashboard/Categories';
 
 const App = () => (
   <div className="App">
@@ -51,11 +53,15 @@ const App = () => (
           <Route path="/connect" component={Connect} />
           <Route path="/reset" component={PasswordForget} />
 
+          <Route path="/category/:category" component={Categories} />
+
+
           <Route path="/mydashboard" component={Dashboard} />
           <Route path="/admin" component={Admin} />
           <Route path="/profile" component={Profile} />
           <Route path="/changeprofile" component={ChangeProfile} />
           <Route path="/mylessons" component={MyLessons} />
+          <Route path="/tuto" component={Tuto} />
         </Switch>
       </HashRouter>
     </FirebaseProvider>

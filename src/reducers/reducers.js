@@ -13,6 +13,11 @@ const reducers = (state, action) => {
         ...state,
         bottomNav: action.payload,
       };
+    case 'HANDLE_PROFILE':
+      return {
+        ...state,
+        profile: action.payload,
+      };
 
     default:
       return state;

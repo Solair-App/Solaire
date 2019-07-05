@@ -2,10 +2,11 @@
 import React, { Component } from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import { withRouter } from 'react-router';
+import Fab from '@material-ui/core/Fab';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import ShareIcon from './ShareIcon';
+import './SeeParcours.scss';
 
 class CoursDetails extends Component {
   constructor(props) {
@@ -93,8 +94,8 @@ class CoursDetails extends Component {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-
+                  justifyContent: 'left',
+                  paddingLeft: '8%',
                 }}
               >
                 {cours.data.graduate
@@ -105,30 +106,39 @@ class CoursDetails extends Component {
                   )}
                 <img
                   src={`./assets/${cours.data.type}.png`}
-                  style={{ width: '4em' }}
+                  style={{ width: '4em', paddingLeft: '5%' }}
                   alt={cours.data.type}
                 />
-                <button
-                  type="button"
+
+                <Fab
+                  variant="extended"
+                  size="medium"
+                  aria-label="Add"
                   onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)
                   }
+                  style={{
+
+                    width: '60%',
+                    color: 'white',
+                    backgroundColor: '#138787',
+                    marginLeft: '5%',
+
+                  }}
                 >
-                  {' '}
                   {cours.data.name}
-                </button>
+                </Fab>
+
               </p>
 
               <p>{cours.data.description}</p>
-              <div>
-                <ArrowDownward />
-              </div>
+
             </div>
           ))}
 
         {allCourseCompleted === true ? (
           <>
             {' '}
-            <p>Vous pouvez maintenant partager votre réussite !</p>
+            <p style={{ marginTop: '5%' }}>Vous pouvez maintenant partager votre réussite !</p>
             {' '}
             <ShareIcon gray={0} />
             {' '}
@@ -136,7 +146,7 @@ class CoursDetails extends Component {
         ) : (
           <>
             {' '}
-            <p>
+            <p style={{ marginTop: '5%' }}>
               Complétez encore
               {' '}
               {`${coursLength - graduatedLessons} `}

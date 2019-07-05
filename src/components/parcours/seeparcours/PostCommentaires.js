@@ -1,24 +1,62 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Fab from '@material-ui/core/Fab';
+import NavigationIcon from '@material-ui/icons/Navigation';
+import Divider from '@material-ui/core/Divider';
 import { withRouter } from 'react-router';
 import * as firebase from 'firebase';
 
+
 const useStyles = makeStyles(theme => ({
   container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
   },
+
+  input: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+
   dense: {
     marginTop: 16,
   },
+
   menu: {
     width: 200,
   },
+
+  note: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  align: {
+    marginTop: '1%',
+    paddingBottom: '7%',
+    textAlign: 'left',
+    marginLeft: '5%',
+  },
+
+  button: {
+    backgroundColor: '#4ca9a9',
+  },
+
+  smallTitle: {
+    fontSize: '95%',
+    textAlign: 'left',
+    paddingBottom: '0.5%',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    color: '#4ca9a9',
+  },
+
+  divider: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+
 }));
 
 const Commentaires = (props) => {
@@ -61,7 +99,7 @@ const Commentaires = (props) => {
         {
           commentaires: {
             [commentaryNumber]: {
-              pseudo: values.name, creator: localStorage.getItem('userId'), date: Date(Date.now()).toString(), rating: props.rating, commentaire: values.message, repCommentaire: [],
+              creator: localStorage.getItem('userId'), image: props.userInfo.url, pseudo: values.name, date: Date(Date.now()).toString(), rating: props.rating, commentaire: values.message, repCommentaire: [],
             },
           },
         },
@@ -96,41 +134,72 @@ const Commentaires = (props) => {
 
   return (
     <div>
-      <form className={classes.container} noValidate autoComplete="on">
-        <TextField
-          required
-          id="filled-name"
-          label="Votre nom ou pseudo"
-          className={classes.textField}
-          value={values.name}
-          onChange={handleChange1}
-          margin="normal"
-          variant="filled"
-          name="name"
-        />
+      <p className={classes.smallTitle}>Commenter</p>
+      <Divider variant="inset" className={classes.divider} />
+      <div className={classes.container}>
+        <form noValidate autoComplete="on">
+
+          <div className={classes.note}>
+            {' '}
+            <p>
+              {' '}
+              {' '}
+Votre Note :
+
+            </p>
+            <p>
+              {userRate()}
+            </p>
+          </div>
+
+          <TextField
+            fullWidth
+            required
+            input
+            id="filled-name"
+            label="Votre nom ou pseudo"
+            className={classes.input}
+            value={values.name}
+            onChange={handleChange1}
+            variant="filled"
+            name="name"
+          />
+          <TextField
+            id="filled-textarea"
+            label="Votre message"
+            placeholder="Placeholder"
+            className={`${classes.textField} ${classes.input}`}
+            style={{ margin: 8 }}
+            input
+            multiline
+            fullWidth
+            margin="normal"
+            variant="filled"
+            name="message"
+            value={values.message}
+            onChange={handleChange1}
+            inputProps={inputProps}
+          />
+        </form>
+        {value.errorMessage}
         {' '}
-        {userRate()}
-        <TextField
-          id="filled-textarea"
-          label="Votre message"
-          placeholder="Placeholder"
-          className={classes.textField}
-          style={{ margin: 8 }}
-          multiline
-          fullWidth
-          margin="normal"
-          variant="filled"
-          name="message"
-          value={values.message}
-          onChange={handleChange1}
-          inputProps={inputProps}
-        />
-      </form>
-      {value.errorMessage}
-      {' '}
-      <button type="submit" onClick={validateMessages}>
-        Envoyer
-      </button>
+        <div className={classes.align}>
+          <Fab
+            type="submit"
+            variant="extended"
+            size="medium"
+            color="primary"
+            aria-label="Add"
+            className={classes.button}
+            onClick={validateMessages}
+          >
+            <NavigationIcon className={classes.extendedIcon} />
+          Envoyer
+          </Fab>
+        </div>
+      </div>
+      <p className={classes.smallTitle}>Tous les commentaires</p>
+      <Divider variant="inset" className={classes.divider} />
     </div>
   );
 };

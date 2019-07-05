@@ -7,6 +7,7 @@ import List from './List';
 import BottomNav from './BottomNav';
 import InputBar from './InputBar';
 import { mapDispatchToProps } from '../../actions/action';
+import withFirebaseContext from '../../Firebase/withFirebaseContext';
 
 
 export const mapStateToProps = state => ({
@@ -27,6 +28,25 @@ class Dashboard extends Component {
   componentDidMount() {
     this.getMarkers();
     this.getCategoryFromDB();
+    let docRef;
+    if (localStorage.getItem('userId')) {
+      docRef = firebase
+        .firestore().doc(`usersinfo/${localStorage.getItem('userId')}`);
+      this.sendUserInfo(docRef);
+    } else {
+      const { auth } = this.props;
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          docRef = firebase
+            .firestore().doc(`usersinfo/${user.uid}`);
+          localStorage.setItem('userId', user.uid);
+          this.sendUserInfo(docRef);
+        }
+      });
+    }
+    // eslint-disable-next-line no-shadow
+    const { mapDispatchToProps } = this.props;
+    mapDispatchToProps(1, 'bottomNav');
   }
 
   getMarkers() {
@@ -48,6 +68,21 @@ class Dashboard extends Component {
         });
       });
   }
+
+  sendUserInfo = (docRef) => {
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const userInfo = doc.data();
+          mapDispatchToProps(userInfo, 'profile');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
 
   handleChange = (e) => {
     const { history } = this.props;
@@ -172,4 +207,4 @@ class Dashboard extends Component {
 export default connect(
   mapStateToProps,
   { mapDispatchToProps },
-)(withRouter(Dashboard));
+)(withRouter(withFirebaseContext(Dashboard)));

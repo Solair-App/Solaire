@@ -208,6 +208,7 @@ class seeParcours extends Component {
     } = this.state;
     return (
       <div>
+
         <ArrowBack
           style={{ position: 'fixed', left: '10px', top: '10px' }}
           onClick={() => {
@@ -228,6 +229,7 @@ class seeParcours extends Component {
           haveUserAlreadyVoted={this.haveUserAlreadyVoted}
           togleModal={this.togleModal}
         />
+        {' '}
         <CoursDetails parcours={this.parcours} />
 
         {' '}
@@ -256,12 +258,13 @@ class seeParcours extends Component {
               userRate={this.canUserRate}
               rating={rating}
               getParcours={this.getParcours}
+              userInfo={userInfo}
             />
           )
         }
         <ViewCommentaires
           currentParcours={this.parcours}
-          user={userInfo}
+          userInfo={userInfo}
           parcours={parcours}
           currentCommentaire={commentaire}
           commentaires={parcours.commentaires}
@@ -269,6 +272,7 @@ class seeParcours extends Component {
           getParcours={this.getParcours}
           answerCommentaire={this.answerCommentaire}
         />
+
       </div>
     );
   }

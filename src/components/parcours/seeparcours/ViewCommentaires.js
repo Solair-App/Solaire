@@ -114,11 +114,15 @@ const ViewCommentaires = ({
   const deleteAnswer = (commentaire, key) => {
     const db = firebase.firestore();
     const docRef = db.collection('parcours').doc(currentParcours);
-    docRef.update({
-      [`commentaires.${key}.repCommentaire`]: firebase.firestore.FieldValue.arrayRemove(commentaire),
-    }).then(() => {
-      console.log(`Document ${key} successfully deleted!`);
-    })
+    docRef
+      .update({
+        [`commentaires.${key}.repCommentaire`]: firebase.firestore.FieldValue.arrayRemove(
+          commentaire,
+        ),
+      })
+      .then(() => {
+        console.log(`Document ${key} successfully deleted!`);
+      })
       .catch((error) => {
         console.error('Error removing document: ', error);
       });
@@ -187,65 +191,67 @@ const ViewCommentaires = ({
           </Fab>
         </div>
         {answer[key] && !newAnswer && <AnswerCommentaire newAnswer={newAnswer} newReponse={newReponse} answerCommentaire={answerCommentaire} answerIndex={key} getParcours={getParcours} />}
-        {value.repCommentaire.map(commentaire => (
-          <div>
-            <div className={classes.root}>
-              <ExpansionPanel>
-                <ExpansionPanelSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                  className={classes.viewAnswersExpansion}
-                >
-                  <Typography className={classes.answersTitle}>Voir les réponses</Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                  <List className={classes.root} alignItems="flex-start">
-                    <ListItem alignItems="flex-start">
-                      <ListItemAvatar>
-                        <Avatar alt="imageProfil" src={value.image} />
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={(
-                          <Fragment>
-                            <Typography>
-                              {commentaire.pseudo}
-                              {(value.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
-                                ? (
-                                  <DeleteIcon
-                                    onClick={() => deleteAnswer(commentaire, key)}
-                                    style={{
-                                      marginLeft: '1%',
-                                      color: '#4ca9a9',
+        {value.repCommentaire.length > 0 ? (
+          <ExpansionPanel>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+              className={classes.viewAnswersExpansion}
+            >
+              <Typography className={classes.answersTitle}>Voir les réponses</Typography>
+            </ExpansionPanelSummary>
+            {value.repCommentaire.map(commentaire => (
+              <div>
+                <div className={classes.root}>
 
-                                    }}
-                                  />
-                                ) : undefined
+                  <ExpansionPanelDetails>
+                    <List className={classes.root} alignItems="flex-start">
+                      <ListItem alignItems="flex-start">
+                        <ListItemAvatar>
+                          <Avatar alt="imageProfil" src={value.image} />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={(
+                            <Fragment>
+                              <Typography>
+                                {commentaire.pseudo}
+                                {(value.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
+                                  ? (
+                                    <DeleteIcon
+                                      onClick={() => deleteAnswer(commentaire, key)}
+                                      style={{
+                                        marginLeft: '1%',
+                                        color: '#4ca9a9',
+                                      }}
+                                    />
+                                  ) : undefined
             }
-                            </Typography>
-                          </Fragment>
+                              </Typography>
+                            </Fragment>
 )}
-                        secondary={(
-                          <React.Fragment>
-                            <Typography
-                              component="span"
-                              variant="body2"
-                              className={classes.inline}
-                              color="textPrimary"
-                            >
-                              {' '}
-                              {commentaire.commentaire}
-                            </Typography>
-                          </React.Fragment>
+                          secondary={(
+                            <Fragment>
+                              <Typography
+                                component="span"
+                                variant="body2"
+                                className={classes.inline}
+                                color="textPrimary"
+                              >
+                                {' '}
+                                {commentaire.commentaire}
+                              </Typography>
+                            </Fragment>
 )}
-                      />
-                    </ListItem>
-                  </List>
-                </ExpansionPanelDetails>
-              </ExpansionPanel>
-            </div>
-          </div>
-        ))}
+                        />
+                      </ListItem>
+                    </List>
+                  </ExpansionPanelDetails>
+                </div>
+              </div>
+            ))}
+          </ExpansionPanel>
+        ) : undefined}
         <Divider variant="inset" className={classes.divider} />
       </div>
     )).reverse();

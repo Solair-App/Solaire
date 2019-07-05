@@ -114,11 +114,15 @@ const ViewCommentaires = ({
   const deleteAnswer = (commentaire, key) => {
     const db = firebase.firestore();
     const docRef = db.collection('parcours').doc(currentParcours);
-    docRef.update({
-      [`commentaires.${key}.repCommentaire`]: firebase.firestore.FieldValue.arrayRemove(commentaire),
-    }).then(() => {
-      console.log(`Document ${key} successfully deleted!`);
-    })
+    docRef
+      .update({
+        [`commentaires.${key}.repCommentaire`]: firebase.firestore.FieldValue.arrayRemove(
+          commentaire,
+        ),
+      })
+      .then(() => {
+        console.log(`Document ${key} successfully deleted!`);
+      })
       .catch((error) => {
         console.error('Error removing document: ', error);
       });

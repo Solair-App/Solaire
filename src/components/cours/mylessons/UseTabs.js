@@ -6,8 +6,10 @@ import Tab from '@material-ui/core/Tab';
 export default function UseTabs(props) {
   const { changeTabs, currentValue } = props;
   return (
-    <Paper square>
-      <Tabs centered value={currentValue} indicatorColor="primary" textColor="primary" onChange={changeTabs}>
+    <Paper
+      square
+    >
+      <Tabs style={{ backgroundColor: '#4BAFAF' }} centered value={currentValue} indicatorColor="primary" textColor="primary" onChange={changeTabs}>
         <Tab label="Mes parcours" />
         <Tab label="Cours suivis" />
       </Tabs>

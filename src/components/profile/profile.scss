@@ -1,40 +1,65 @@
 .photo{
-max-width: 50%;
 background-color: white;
-border-radius: 440px;
+border-radius: 50%;
+object-fit: cover;
+width: 140px;
+height: 140px;
 }
 
 .fond{
   padding-top: 3%;
   padding-bottom: 3%;
-  background-color: #C0AB8E;
+  background-color: #138787;
 }
 
 .titreprofil{
   color : white;
-  padding-bottom: 3%;
 }
 
 .name{
-  padding-top: 3%;
+  padding-top: 1%;
   font-size: 180%;
   color: white;
 }
 
 .infos{
   padding-top: 3%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 15%;
 }
 
 .coloricon{
-  color: #C0AB8E;
+  color: #138787;
+  padding-right: 2%;
 }
 
 .uploadimg{
-  max-height: 150px;
-  max-width: 150px;
+  margin-top: 15px;
+  background-color: white;
+  border-radius: 50%;
+  object-fit: cover;
+  width: 140px;
+  height: 140px;
 }
 
 .titrechange{
   padding-top: 15%;
   padding-bottom: 10%;
+}
+
+.saveicon{
+  padding-right: 2%;
+}
+
+
+@media screen and (min-width: 768px) {
+  .photo{
+    width: 240px;
+    height: 240px;
+    }
+  .infos{
+    padding-left: 45%;
+  }
 }

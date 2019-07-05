@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import List from './List';
 import BottomNav from './BottomNav';
 import InputBar from './InputBar';
 import { mapDispatchToProps } from '../../actions/action';
+
 
 export const mapStateToProps = state => ({
   state,
@@ -48,11 +50,14 @@ class Dashboard extends Component {
   }
 
   handleChange = (e) => {
+    const { history } = this.props;
     if (e.target.value === 'All') {
       this.setState({
         filter: '',
         currentValue: 'All',
       });
+    } else if (e.target.name === 'filter') {
+      history.push(`/category/${e.target.value}`);
     } else {
       this.setState({
         [e.target.name]: e.target.value,
@@ -120,7 +125,7 @@ class Dashboard extends Component {
 
     return (
       <div style={{
-        backgroundColor: '#ffe2d5', display: 'block', textAlign: 'left', paddingBottom: 60,
+        display: 'block', textAlign: 'left', paddingBottom: 60,
       }}
       >
         {parcours && state && state.thématique ? (
@@ -131,10 +136,14 @@ class Dashboard extends Component {
               currentValue={searchField}
             />
             <div style={{ textAlign: 'center' }}>
-              <img className="banner" alt="test" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXEVglmR9xQwU3yk3RWTWI_pcAcjdyeyhiKbMVKvgd8142WWM9" />
+              <img className="banner" alt="test" src="https://i.ibb.co/Dpn9ZK0/pattern-solair.png" />
             </div>
             {Object.entries(this.sortIntoCategory())
-              .filter(result => result[0].includes(filter) && result[1].filter(res => res.data.tags.includes(searchField)).length > 0)
+              .filter(
+                result => result[0].includes(filter)
+                  && result[1].filter(res => res.data.tags.includes(searchField))
+                    .length > 0,
+              )
               .map((results, index) => (
                 <div className="bloc" key={`${index + 200}q`}>
                   {results[1].length > 0 ? (
@@ -142,7 +151,9 @@ class Dashboard extends Component {
                       <h1>
                         {results[0]}
                       </h1>
-                      <p style={{ color: '#E15920', paddingRight: '14px', paddingTop: '20px' }}>PLUS</p>
+                      <Link style={{ textDecoration: 'none' }} to={`/category/${results[0]}`}>
+                        <p style={{ color: '#E15920', paddingRight: '14px', paddingTop: '20px' }}>PLUS</p>
+                      </Link>
                     </div>
                   ) : null}
                   <List data={results[1]} searchField={searchField} />
@@ -161,4 +172,4 @@ class Dashboard extends Component {
 export default connect(
   mapStateToProps,
   { mapDispatchToProps },
-)(Dashboard);
+)(withRouter(Dashboard));

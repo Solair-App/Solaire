@@ -3,7 +3,7 @@ import Edit from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Link } from 'react-router-dom';
 import Rating from 'material-ui-rating';
-
+import './SeeParcours.scss';
 
 const ParcoursDetails = ({
   parcours, currentParcours, togleModal, loaded, userInfo, haveUserAlreadyVoted,
@@ -18,17 +18,19 @@ const ParcoursDetails = ({
           <>
             <Link to={`/createparcours/${currentParcours}/addcours`}><Edit /></Link>
             <DeleteIcon onClick={togleModal} />
+            {' '}
+            <p>
+        Nombre d&apos;élèves :
+              {' '}
+
+              { parcours && parcours.apprenants ? parcours.apprenants.length : null}
+            </p>
           </>
         )
         : undefined
       }
     </h1>
-    <p>
-        Nombre d&apos;élèves :
-      {' '}
 
-      { parcours && parcours.apprenants ? parcours.apprenants.length : null}
-    </p>
     <p>{parcours && parcours.description}</p>
 
     {loaded === 1 ? haveUserAlreadyVoted() : null}

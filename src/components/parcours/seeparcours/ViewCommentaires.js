@@ -98,11 +98,13 @@ const ViewCommentaires = ({
   const deleting = (key) => {
     const db = firebase.firestore();
     const docRef = db.collection('parcours').doc(currentParcours);
-    docRef.update({
-      [`commentaires.${key}`]: firebase.firestore.FieldValue.delete(),
-    }).then(() => {
-      console.log(`Document ${key} successfully deleted!`);
-    })
+    docRef
+      .update({
+        [`commentaires.${key}`]: firebase.firestore.FieldValue.delete(),
+      })
+      .then(() => {
+        console.log(`Document ${key} successfully deleted!`);
+      })
       .catch((error) => {
         console.error('Error removing document: ', error);
       });
@@ -176,9 +178,9 @@ const ViewCommentaires = ({
             aria-label="Add"
             className={classes.button}
             onClick={() => {
-                setAnswer({ [key]: !answer[key] });
-                setNewAnswer(false);
-              }}
+              setAnswer({ [key]: !answer[key] });
+              setNewAnswer(false);
+            }}
           >
             <NavigationIcon className={classes.extendedIcon} />
                  Répondre

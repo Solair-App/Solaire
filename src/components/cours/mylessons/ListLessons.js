@@ -8,11 +8,12 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
 
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: 'transparent',
+
   },
 }));
 
@@ -20,6 +21,7 @@ export default function ListLessons(props) {
   const classes = useStyles();
 
   const { data } = props;
+
   return (
     <List dense className={classes.root}>
 
@@ -28,7 +30,7 @@ export default function ListLessons(props) {
 
         <ListItem button>
           <ListItemAvatar>
-            <Avatar />
+            <Avatar src={data.data.url} />
           </ListItemAvatar>
           <ListItemText primary={data.data.name} />
           <ListItemSecondaryAction />

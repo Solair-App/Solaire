@@ -70,9 +70,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
   },
-  inline: {
 
-  },
 }));
 
 // Récupération des commentaires de la db

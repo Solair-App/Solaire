@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 import Category from './Category';
+
 
 class Categories extends Component {
   constructor(props) {
@@ -38,10 +40,18 @@ class Categories extends Component {
 
   render() {
     const { allParcours } = this.state;
-    console.log(allParcours);
+    const { history } = this.props;
     return (
       <>
-        <h1>{`Parcours ${this.category}`}</h1>
+        <div className="parcoursFond">
+          <ArrowBack
+            style={{ position: 'fixed', left: '10px', top: '10px' }}
+            onClick={() => {
+              history.push('/mydashboard');
+            }}
+          />
+          <h1>{`Parcours ${this.category}`}</h1>
+        </div>
         <div className="parcours">
           <ul className="allParcours">
             {allParcours.length > 0 && allParcours.map(parcours => (

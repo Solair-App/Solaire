@@ -44,6 +44,7 @@ class Signup extends Component {
     // Récupération du Firestore grâce à context
     const { firestore } = this.props;
     // Envoi d'infos dans le cloud Firestore
+
     firestore.doc(`usersinfo/${user.uid}`).set({
       name: user.displayName,
       email: user.email,

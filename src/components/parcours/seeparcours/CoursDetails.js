@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import { withRouter } from 'react-router';
 import Fab from '@material-ui/core/Fab';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';

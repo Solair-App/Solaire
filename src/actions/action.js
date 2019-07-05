@@ -12,6 +12,11 @@ export function mapDispatchToProps(value, type, key) {
         type: 'HANDLE_BOTTOM_NAV',
         payload: value,
       };
+    case 'profile':
+      return {
+        type: 'HANDLE_PROFILE',
+        payload: value,
+      };
 
     default: return null;
   }

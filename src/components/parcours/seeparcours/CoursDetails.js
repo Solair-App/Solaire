@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import { withRouter } from 'react-router';
 import Fab from '@material-ui/core/Fab';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
@@ -123,6 +122,7 @@ class CoursDetails extends Component {
                     color: 'white',
                     backgroundColor: '#138787',
                     marginLeft: '5%',
+
                   }}
                 >
                   {cours.data.name}
@@ -131,16 +131,14 @@ class CoursDetails extends Component {
               </p>
 
               <p>{cours.data.description}</p>
-              <div className="check">
-                <ArrowDownward />
-              </div>
+
             </div>
           ))}
 
         {allCourseCompleted === true ? (
           <>
             {' '}
-            <p>Vous pouvez maintenant partager votre réussite !</p>
+            <p style={{ marginTop: '5%' }}>Vous pouvez maintenant partager votre réussite !</p>
             {' '}
             <ShareIcon gray={0} />
             {' '}
@@ -148,7 +146,7 @@ class CoursDetails extends Component {
         ) : (
           <>
             {' '}
-            <p>
+            <p style={{ marginTop: '5%' }}>
               Complétez encore
               {' '}
               {`${coursLength - graduatedLessons} `}

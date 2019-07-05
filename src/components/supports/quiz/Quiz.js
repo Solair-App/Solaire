@@ -91,7 +91,6 @@ class Quiz extends React.Component {
           ? (
             <>
               <ScoreArea correct={correct} incorrect={incorrect} />
-              {console.log(Object.keys(quiz)[current])}
               <QuizArea handleClick={this.handleClick} dataSet={quiz[Object.keys(quiz)[current]]} />
             </>
           )

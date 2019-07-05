@@ -31,16 +31,14 @@ const useStyles = makeStyles({
 export default function ListCours(props) {
   const classes = useStyles();
   const { data, searchField } = props;
-
   return (
     <ul className="hs full">
       {data
         && data
+          .slice(0, searchField === '' || null || undefined ? 10 : 200)
           .filter(parcours => parcours.data.tags.toUpperCase().includes(searchField.toUpperCase()))
-
           .map((info, index) => (
             <li className="item" key={`${index + 1}n`}>
-
               <Card className={classes.card}>
                 <CardActionArea>
                   <Link to={`/parcours/${info.id}`} className="link">

@@ -210,7 +210,7 @@ class seeParcours extends Component {
       <div>
 
         <ArrowBack
-          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          style={{ position: 'absolute', left: '10px', top: '10px' }}
           onClick={() => {
             history.push('/mydashboard');
           }}

@@ -109,7 +109,7 @@ const SlideApprenant = ({
       <div className={classes.header}>
         <ArrowBack
           style={{
-            position: 'fixed', left: '2vw', top: '2vh', width: '30%', color: 'white',
+            position: 'absolute', left: '2vw', top: '2vh', width: '30%', color: 'white',
           }}
           onClick={() => {
             history.goBack();

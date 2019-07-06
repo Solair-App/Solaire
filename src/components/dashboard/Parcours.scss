@@ -36,8 +36,34 @@
   width: 1.2em  !important ;
 }
 
+.MuiSelect-select {
+  border-radius: 40px !important;
+  background-color: transparent !important;
+  padding-left: 10px !important;
+}
+
+:before {
+  border-style: none !important;
+}
+
+:after {
+  border-color: transparent !important;
+  border-style: none;
+}
+
+.MuiSelect-icon {
+  color: rgba(255, 255, 255, 0.89) !important;
+}
+
+.MuiInputBase-root {
+  color: rgba(255, 255, 255, 0.89) !important;
+}
+
+
 @media screen and (min-width: 768px) {
   .allParcours{
     width: 80%;
   }
 }
+
+

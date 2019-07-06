@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
   bottomNav: {
     position: 'fixed',
-    bottom: 1,
+    bottom: 0,
     width: '100%',
     boxShadow: '0 2px 10px grey',
     zIndex: 2,
@@ -73,8 +73,8 @@ function BottomNav(props) {
       showLabels
       className={classes.bottomNav}
     >
-      <BottomNavigationAction className={classes.selected} onClick={() => redirect('create')} label="Création" icon={<Edit />} />
       <BottomNavigationAction className={classes.selected} onClick={() => redirect('dashboard')} label="Dashboard" icon={<Category />} />
+      <BottomNavigationAction className={classes.selected} onClick={() => redirect('create')} label="Création" icon={<Edit />} />
       <BottomNavigationAction className={classes.selected} onClick={() => redirect('mylessons')} label="Mes cours" icon={<Folder />} />
       <BottomNavigationAction className={classes.selected} onClick={() => redirect('profile')} label="Profile" icon={<AccountBox />} />
     </BottomNavigation>

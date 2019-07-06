@@ -5,6 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import './Parcours.scss';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -67,7 +68,6 @@ const useStyles = makeStyles(theme => ({
 
 function SearchAppBar(props) {
   const classes = useStyles();
-
   const {
     handleChange, currentValue, currentFilterValue, state,
   } = props;
@@ -82,7 +82,7 @@ function SearchAppBar(props) {
         }}
       >
         <div style={{ display: 'flex' }}>
-          <SearchIcon style={{ margin: '10px', position: 'absolute' }} />
+          <SearchIcon style={{ top: 13, left: 5, position: 'absolute' }} />
           <InputBase
             name="searchField"
             onChange={handleChange}
@@ -93,8 +93,9 @@ function SearchAppBar(props) {
             }}
             inputProps={{ 'aria-label': 'Search' }}
             style={{
-              margin: '21px 20px 30px -20px',
-              width: '265px',
+              position: 'relative',
+              left: -20,
+              width: '200px',
               textAlign: 'left',
               fontSize: '18px',
             }}
@@ -115,10 +116,10 @@ function SearchAppBar(props) {
           }}
           style={{
             width: '150px',
-            marginTop: 6,
-            marginRight: 10,
-            backgroundColor: '#4ca9a9',
-            borderRadius: '4px',
+            marginTop: 8.5,
+            marginRight: 9,
+            backgroundColor: 'rgb(255, 255, 255, 0.2)',
+            borderRadius: '40px',
             paddingLeft: '4px',
           }}
           margin="normal"

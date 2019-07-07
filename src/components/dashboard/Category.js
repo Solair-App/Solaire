@@ -44,7 +44,7 @@ export default function ListCours(props) {
                   <CardMedia
                     className={classes.media}
                     image={data.data.url}
-                    title="Contemplative Reptile"
+                    title=""
                   />
                 </Link>
                 <CardContent style={{ marginBottom: -15 }}>

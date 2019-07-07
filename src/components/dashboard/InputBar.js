@@ -12,6 +12,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     flexWrap: 'wrap',
     width: '100%',
+    position: 'fixed',
+    zIndex: 1,
   },
   input: {
     color: 'white',
@@ -81,8 +83,8 @@ function SearchAppBar(props) {
           display: 'flex', justifyContent: 'space-around', backgroundColor: '#138787', color: 'white', borderRadius: 0, height: '50px',
         }}
       >
-        <div style={{ display: 'flex' }}>
-          <SearchIcon style={{ top: 13, left: 5, position: 'absolute' }} />
+        <div style={{ display: 'flex', marginLeft: 4 }}>
+          <SearchIcon style={{ top: 13, marginLeft: 7, position: 'absolute' }} />
           <InputBase
             name="searchField"
             onChange={handleChange}
@@ -95,41 +97,43 @@ function SearchAppBar(props) {
             style={{
               position: 'relative',
               left: -20,
-              width: '200px',
+              width: '195px',
               textAlign: 'left',
               fontSize: '18px',
             }}
             value={currentValue}
           />
         </div>
-        <TextField
-          id="standard-select-currency"
-          select
-          name="filter"
-          className={classes.margin}
-          value={currentFilterValue}
-          onChange={handleChange}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          style={{
-            width: '150px',
-            marginTop: 8.5,
-            marginRight: 9,
-            backgroundColor: 'rgb(255, 255, 255, 0.2)',
-            borderRadius: '40px',
-            paddingLeft: '4px',
-          }}
-          margin="normal"
-        >
-          {state.thématique.length > 1 ? thématique.map(option => (
-            <MenuItem key={option} value={option}>
-              {option}
-            </MenuItem>
-          )) : <p>loading</p>}
-        </TextField>
+        <div className="input">
+          <TextField
+            id="standard-select-currency"
+            select
+            name="filter"
+            className={classes.margin}
+            value={currentFilterValue}
+            onChange={handleChange}
+            SelectProps={{
+              MenuProps: {
+                className: classes.menu,
+              },
+            }}
+            style={{
+              width: '150px',
+              marginTop: 8.5,
+              marginRight: 15,
+              backgroundColor: 'rgb(255, 255, 255, 0.2)',
+              borderRadius: '40px',
+              paddingLeft: '4px',
+            }}
+            margin="normal"
+          >
+            {state.thématique.length > 1 ? thématique.map(option => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            )) : <p>loading</p>}
+          </TextField>
+        </div>
       </div>
     </div>
   );

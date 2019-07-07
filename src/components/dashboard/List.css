@@ -7,9 +7,9 @@
 }
 
 .bloc h1 {
-  padding-top: 10px;
+  padding-top: 5px;
   margin-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 13px;
   font-size: 16px;
   margin-left: 10px;
   font-weight: 200;
@@ -18,6 +18,11 @@
 
 .banner{
   width: 100%;
+}
+
+.boxTitle{
+  height: 55px;
+  margin-bottom: 12px;
 }
 
 .hs{
@@ -34,12 +39,24 @@
   text-decoration: none;
 }
 
-.boxTitle{
-  height: 40px;
-}
-
 .MuiSvgIcon-root {
   width: 1em  !important ;
+}
+
+.rating {
+  margin-left: 9px;
+  height: 200px;
+}
+
+.rating .MuiButtonBase-root {
+  width: 5px !important;
+  height: 5px !important;
+  margin-right: 13px !important;
+}
+
+.rating .MuiSvgIcon-root {
+  width: 20px !important;
+  height: 20px !important; 
 }
 
 @media screen and (min-width: 768px) {
@@ -51,3 +68,4 @@
     width: 70%;
   }
 }
+

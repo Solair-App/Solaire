@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
   bottomNav: {
     position: 'fixed',
-    bottom: 1,
+    bottom: 0,
     width: '100%',
     boxShadow: '0 2px 10px grey',
     zIndex: 2,

@@ -74,9 +74,9 @@ function BottomNav(props) {
       }}
     >
       <BottomNavigationAction className={classes.selected} onClick={() => redirect('create')} label="Création" icon={<Edit />} />
-      <BottomNavigationAction className={classes.selected} onClick={() => redirect('dashboard')} label="Dashboard" icon={<Category />} />
+      <BottomNavigationAction className={classes.selected} onClick={() => redirect('dashboard')} label="Accueil" icon={<Category />} />
       <BottomNavigationAction className={classes.selected} onClick={() => redirect('mylessons')} label="Mes cours" icon={<Folder />} />
-      <BottomNavigationAction className={classes.selected} onClick={() => redirect('profile')} label="Profile" icon={<AccountBox />} />
+      <BottomNavigationAction className={classes.selected} onClick={() => redirect('profile')} label="Profil" icon={<AccountBox />} />
     </BottomNavigation>
   );
 }

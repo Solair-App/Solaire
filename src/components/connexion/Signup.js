@@ -8,16 +8,22 @@ class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      connected: false,
+      connected: true,
     };
-    const { auth } = this.props;
+  }
 
+  componentDidMount() {
+    if (localStorage.getItem('connected') === null) {
+      this.setState({ connected: false });
+    }
+    const { auth } = this.props;
     auth.onAuthStateChanged((user) => {
       if (user) {
         auth.getRedirectResult().then((result) => {
           // eslint-disable-next-line prefer-destructuring
           const newuser = result.user;
           if (newuser) {
+            localStorage.removeItem('connected');
             localStorage.setItem('userId', user.uid);
             this.users(newuser);
           }
@@ -31,11 +37,13 @@ class Signup extends Component {
     if (choice === 'google') {
       auth.signInWithRedirect(googleProvider);
       this.setState({ connected: true });
+      localStorage.setItem('connected', true);
     }
 
     if (choice === 'facebook') {
       auth.signInWithRedirect(facebookProvider);
       this.setState({ connected: true });
+      localStorage.setItem('connected', true);
     }
   }
 
@@ -43,14 +51,23 @@ class Signup extends Component {
     // Récupération du Firestore grâce à context
     const { firestore } = this.props;
     // Envoi d'infos dans le cloud Firestore
-    firestore.doc(`usersinfo/${user.uid}`).set({
-      name: user.displayName,
-      email: user.email,
-      is_admin: false,
-      uid: user.uid,
-    }, { merge: true });
-    const { history } = this.props;
-    history.push('/mydashboard');
+
+    firestore.doc(`usersinfo/${user.uid}`).get()
+      .then((docSnapshot) => {
+        const { history } = this.props;
+        if (docSnapshot.exists) {
+          history.push('/mydashboard');
+        } else {
+          firestore.doc(`usersinfo/${user.uid}`).set({
+            name: user.displayName,
+            email: user.email,
+            is_admin: false,
+            uid: user.uid,
+            url: 'https://i.ibb.co/TMTd967/Logo-solair.png',
+          }, { merge: true });
+          history.push('/mydashboard');
+        }
+      });
   }
 
 
@@ -63,7 +80,7 @@ class Signup extends Component {
         <h4 style={{ color: '', margin: '5%' }}>Apprendre en s’amusant de façon ludique</h4>
         {
           connected
-            ? <p>Signed in!</p>
+            ? <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
             : (
               <>
                 <h5 style={{ color: '', margin: '1%' }}> Please sign in</h5>

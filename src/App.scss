@@ -11,6 +11,24 @@ h1{
   height: 100%;
 }
 
+@keyframes rotation {
+  from {
+          -webkit-transform: rotate(0deg);
+  }
+  to {
+          -webkit-transform: rotate(359deg);
+  }
+}
+
+.loadingType{
+  height: 50px;
+  margin-top: 50px;
+  animation: rotation 2s infinite linear;
+}
+
+
+
+
 .slide{
   margin: auto auto;
 }

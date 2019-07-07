@@ -73,8 +73,8 @@ function BottomNav(props) {
       showLabels
       className={classes.bottomNav}
     >
-      <BottomNavigationAction className={classes.selected} onClick={() => redirect('create')} label="Création" icon={<Edit />} />
       <BottomNavigationAction className={classes.selected} onClick={() => redirect('dashboard')} label="Accueil" icon={<Category />} />
+      <BottomNavigationAction className={classes.selected} onClick={() => redirect('create')} label="Création" icon={<Edit />} />
       <BottomNavigationAction className={classes.selected} onClick={() => redirect('mylessons')} label="Mes cours" icon={<Folder />} />
       <BottomNavigationAction className={classes.selected} onClick={() => redirect('profile')} label="Profil" icon={<AccountBox />} />
     </BottomNavigation>

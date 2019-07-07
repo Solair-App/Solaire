@@ -46,7 +46,7 @@ class Dashboard extends Component {
     }
     // eslint-disable-next-line no-shadow
     const { mapDispatchToProps } = this.props;
-    mapDispatchToProps(1, 'bottomNav');
+    mapDispatchToProps(0, 'bottomNav');
   }
 
   getMarkers() {
@@ -203,7 +203,7 @@ class Dashboard extends Component {
             </div>
           </div>
         ) : (
-          <p>loading.. </p>
+          <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
         )}
         <BottomNav />
       </div>

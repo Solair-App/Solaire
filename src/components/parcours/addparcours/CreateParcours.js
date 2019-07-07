@@ -96,6 +96,7 @@ function CreateParcours({
           difficulté: parcours.difficulté,
           tags: parcours.tags,
           isReadable: false,
+          creatorName: localStorage.getItem('userName'),
           creator: localStorage.getItem('userId'),
           rating: 0,
           votants: [],

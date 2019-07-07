@@ -75,6 +75,7 @@ class Dashboard extends Component {
       .then((doc) => {
         if (doc.exists) {
           const userInfo = doc.data();
+          localStorage.setItem('userName', userInfo.name);
           mapDispatchToProps(userInfo, 'profile');
         }
       })

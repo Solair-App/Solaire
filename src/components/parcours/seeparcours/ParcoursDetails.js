@@ -34,6 +34,14 @@ const ParcoursDetails = ({
           : undefined
       }
       </h1>
+      {parcours && parcours.creatorName
+      && (
+      <p>
+        Créé par
+        {' '}
+        <Link to={`/user-profile/${parcours.creator}`}>{parcours.creatorName}</Link>
+      </p>
+      )}
     </div>
 
     <p>{parcours && parcours.description}</p>

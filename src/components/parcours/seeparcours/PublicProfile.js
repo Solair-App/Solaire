@@ -115,7 +115,7 @@ class PublicProfile extends Component {
           </>
         )}
         <div>
-          {userLessons && <h2>Ses autres parcours</h2>}
+          {userLessons && <h2 className="otherParcours">Ses autres parcours</h2>}
           {userLessons ? (
             userLessons
               .filter(parcours => parcours.data.creator === this.user)

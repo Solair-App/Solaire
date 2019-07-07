@@ -209,18 +209,15 @@ class seeParcours extends Component {
     return (
       <div>
 
-        <ArrowBack
-          style={{ position: 'absolute', left: '10px', top: '10px' }}
-          onClick={() => {
-            history.push('/mydashboard');
-          }}
-        />
-        <SimpleModal
-          open={open}
-          idCours="Id"
-          togle={this.togleModal}
-          deleted={this.delete}
-        />
+        <div className="backparcours">
+          <ArrowBack
+            style={{ position: 'absolute', left: '10px', top: '10px' }}
+            onClick={() => {
+              history.push('/mydashboard');
+            }}
+          />
+        </div>
+
         <ParcoursDetails
           parcours={parcours}
           currentParcours={this.parcours}
@@ -229,11 +226,14 @@ class seeParcours extends Component {
           haveUserAlreadyVoted={this.haveUserAlreadyVoted}
           togleModal={this.togleModal}
         />
-        {' '}
+
+        <SimpleModal
+          open={open}
+          idCours="Id"
+          togle={this.togleModal}
+          deleted={this.delete}
+        />
         <CoursDetails parcours={this.parcours} />
-
-        {' '}
-
         {commentSent
           ? (
             <>

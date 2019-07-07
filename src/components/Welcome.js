@@ -21,7 +21,7 @@ class Welcome extends Component {
   render() {
     return (
       <div className="home" style={{ color: 'black' }}>
-        <p>Loading the app...</p>
+        <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
       </div>
     );
   }

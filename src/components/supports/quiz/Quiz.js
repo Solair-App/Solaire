@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../../SCSS/Quiz.scss';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
@@ -81,7 +80,9 @@ class Quiz extends React.Component {
     return (
       <div>
         <ArrowBack
-          style={{ position: 'fixed', left: '10%', top: '2%' }}
+          style={{
+            position: 'absolute', left: '2.5%', top: '2.5%', color: 'white', zIndex: 3,
+          }}
           onClick={() => {
             history.goBack();
           }}
@@ -91,7 +92,6 @@ class Quiz extends React.Component {
             <>
               <ScoreArea correct={correct} incorrect={incorrect} />
               <QuizArea handleClick={this.handleClick} dataSet={quiz[Object.keys(quiz)[current]]} />
-
             </>
           )
           : (
@@ -108,24 +108,30 @@ class Quiz extends React.Component {
 
 function Question({ dataSet }) {
   return (
-    <h1>{dataSet.question}</h1>
+    <h1 style={{
+      fontSize: '2em', width: '96vw', marginLeft: '-7vw',
+    }}
+    >
+      {dataSet.question}
+
+    </h1>
   );
 }
 
 function Answer({ handleClick, answer, choice }) {
   const style = {
-    width: '80%',
+    width: '95vw',
     height: '100%',
     color: 'white',
     display: 'block',
     textAlign: 'center',
-    fontSize: '2em',
+    fontSize: '1.5em',
     background: 'rgba(0, 0, 0, 0.5)',
     opacity: '0.5',
-    margin: '10%',
+    marginBottom: '2%',
+    marginLeft: '-6.7vw',
     padding: '3%',
     borderRadius: '20px',
-
   };
   return (
     <div>
@@ -185,7 +191,6 @@ function TotalIncorrect({ incorrect }) {
     width: '100%',
     display: 'inline-block',
     textAlign: 'center',
-
   };
   return (
     <h2 style={style}>
@@ -197,14 +202,27 @@ function TotalIncorrect({ incorrect }) {
 
 function ScoreArea({ correct, incorrect }) {
   const style = {
-    width: '100%',
-    display: 'block',
-    textAlign: 'center',
-    float: 'left',
+    div: {
+      width: '100%',
+      display: 'block',
+      textAlign: 'center',
+      float: 'left',
+    },
+    header: {
+      backgroundColor: '#4ca9a9',
+      position: 'relative',
+      color: 'white',
+      top: '-19px',
+      height: '50px',
+      paddingTop: '10px',
+      zIndex: 1,
+      marginBottom: '-10px',
+    },
   };
+
   return (
-    <div style={style}>
-      <h1>Quiz</h1>
+    <div style={style.div}>
+      <h1 style={style.header}>Quiz</h1>
       <TotalCorrect correct={correct} />
       <TotalIncorrect incorrect={incorrect} />
     </div>

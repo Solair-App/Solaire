@@ -25,6 +25,13 @@ const useStyles = makeStyles({
   selected: {
     color: '#138787',
   },
+  bottomNav: {
+    position: 'fixed',
+    bottom: 1,
+    width: '100%',
+    boxShadow: '0 2px 10px grey',
+    zIndex: 2,
+  },
 });
 
 
@@ -64,14 +71,7 @@ function BottomNav(props) {
       value={state ? state.bottomNav : value}
       onChange={handleChange}
       showLabels
-      style={{
-        position: 'fixed',
-        bottom: '0',
-        width: '100%',
-        boxShadow: '0 2px 10px grey',
-        color: 'white',
-
-      }}
+      className={classes.bottomNav}
     >
       <BottomNavigationAction className={classes.selected} onClick={() => redirect('create')} label="Création" icon={<Edit />} />
       <BottomNavigationAction className={classes.selected} onClick={() => redirect('dashboard')} label="Accueil" icon={<Category />} />

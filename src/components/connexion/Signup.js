@@ -10,7 +10,12 @@ class Signup extends Component {
     this.state = {
       connected: true,
     };
+<<<<<<< HEAD
   }
+=======
+
+    const { auth } = this.props;
+>>>>>>> 015
 
   componentDidMount() {
     if (localStorage.getItem('connected') === null) {

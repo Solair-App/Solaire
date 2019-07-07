@@ -53,6 +53,7 @@ class Signup extends Component {
       email,
       is_admin: false,
       uid: user.uid,
+      url: 'https://i.ibb.co/TMTd967/Logo-solair.png',
     }, { merge: true });
     const { history } = this.props;
     history.push('/mydashboard');

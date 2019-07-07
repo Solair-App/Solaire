@@ -198,7 +198,9 @@ class Profile extends Component {
           </>
         ) : (
           <>
-            <p>Loading your info</p>
+            <p>
+              <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
+            </p>
             <Fab
               variant="extended"
               size="medium"

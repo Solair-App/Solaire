@@ -3,8 +3,8 @@
 
 h1{
   font-family: 'Ubuntu';
-  margin-top: 0.6em;
-  margin-bottom: 0.6em;
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
 }
 .App {
   text-align: center;
@@ -26,7 +26,9 @@ h1{
   animation: rotation 2s infinite linear;
 }
 
-
+a {
+  color: #E15920;
+}
 
 
 .slide{

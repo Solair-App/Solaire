@@ -68,7 +68,9 @@ class MyLessons extends React.Component {
                   && parcours.data.creator !== currentUser))
             .map((x, i) => <ListLessons data={x} key={`${i + 1}a`} />)
         ) : (
-          <p>loading..</p>
+          <p>
+            <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
+          </p>
         )}
         <BottomNav />
       </div>

@@ -75,6 +75,7 @@ class Dashboard extends Component {
       .then((doc) => {
         if (doc.exists) {
           const userInfo = doc.data();
+          localStorage.setItem('userName', userInfo.name);
           mapDispatchToProps(userInfo, 'profile');
         }
       })
@@ -203,7 +204,7 @@ class Dashboard extends Component {
             </div>
           </div>
         ) : (
-          <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
+          <p style={{ textAlign: 'center' }}><img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" /></p>
         )}
         <BottomNav />
       </div>

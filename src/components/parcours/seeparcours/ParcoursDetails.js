@@ -20,15 +20,9 @@ const ParcoursDetails = ({
         {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
           ? (
             <>
-              <Link to={`/createparcours/${currentParcours}/addcours`}><Edit /></Link>
+              <Link style={{ color: 'white' }} to={`/createparcours/${currentParcours}/addcours`}><Edit /></Link>
               <DeleteIcon onClick={togleModal} />
               {' '}
-              <p>
-        Nombre d&apos;élèves :
-                {' '}
-
-                { parcours && parcours.apprenants ? parcours.apprenants.length : null}
-              </p>
             </>
           )
           : undefined
@@ -36,8 +30,26 @@ const ParcoursDetails = ({
       </h1>
     </div>
 
+    {parcours && parcours.creatorName
+      && (
+      <p>
+        Créé par
+        {' '}
+        <Link className="link" to={`/user-profile/${parcours.creator}`}>{parcours.creatorName}</Link>
+      </p>
+      )}
+    {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
+      ? (
+        <>
+          <p>
+        Nombre d&apos;élèves :
+            {' '}
+            { parcours && parcours.apprenants ? parcours.apprenants.length : null}
+          </p>
+        </>
+      )
+      : null}
     <p>{parcours && parcours.description}</p>
-
     {loaded === 1 ? haveUserAlreadyVoted() : null}
 
     <Rating readOnly value={parcours.rating} />

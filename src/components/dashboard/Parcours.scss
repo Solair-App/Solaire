@@ -28,16 +28,38 @@
   text-decoration: none;
 }
 
-.boxTitle{
-  height: 40px;
-}
-
-.MuiSvgIcon-root {
+.input .MuiSvgIcon-root {
   width: 1.2em  !important ;
 }
+
+.input .MuiSelect-select {
+  border-radius: 40px !important;
+  background-color: transparent !important;
+  padding-left: 10px !important;
+}
+
+.input :before {
+  border-style: none !important;
+}
+
+.input :after {
+  border-color: transparent !important;
+  border-style: none;
+}
+
+.input .MuiSelect-icon {
+  color: rgba(255, 255, 255, 0.89) !important;
+}
+
+.input .MuiInputBase-root {
+  color: rgba(255, 255, 255, 0.89) !important;
+}
+
 
 @media screen and (min-width: 768px) {
   .allParcours{
     width: 80%;
   }
 }
+
+

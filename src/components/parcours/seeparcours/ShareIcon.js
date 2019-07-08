@@ -55,7 +55,7 @@ function ShareIcon(props) {
           className={classes.button}
           onClick={() => {
             if (gray === 0) {
-              window.location = `https://twitter.com/intent/tweet?text=Je%20viens%20de%20terminer%20ce%20super%20cours%20Solair%20!%20${pathname}`;
+              window.location = `https://twitter.com/intent/tweet?text=Je%20viens%20de%20terminer%20ce%20super%20cours%20Solair%20!%20${document.location.href}`;
             }
           }}
         >

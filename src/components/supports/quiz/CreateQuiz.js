@@ -39,7 +39,7 @@ class CreateQuiz extends Component {
     const quizSet = db.collection('parcours').doc(this.parcours).collection('cours');
     const quiz = quizSet.doc(this.cours);
     quiz.set({
-      type: 'quiz', name, description, finish: true, creator: localStorage.getItem('userId'),
+      type: 'quiz', name, description, finish: true, creator: localStorage.getItem('userId'), graduate: [],
     }, { merge: true });
     event.preventDefault();
     const { history } = this.props;
@@ -107,7 +107,7 @@ class CreateQuiz extends Component {
     return (
       <Grid container>
         <ArrowBack
-          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          style={{ position: 'absolute', left: '10px', top: '10px' }}
           onClick={() => {
             history.goBack();
           }}

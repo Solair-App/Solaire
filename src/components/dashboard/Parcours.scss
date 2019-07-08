@@ -1,0 +1,65 @@
+.allParcours {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+}
+.parcoursFond{
+  padding-top: 3%;
+  padding-bottom: 3%;
+  padding-left: 0.35em;
+  padding-right: 0.35em;
+  margin-bottom: 0.6em;
+  background-color: #138787;
+  color: white;
+}
+.parcours {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.allParcours li{
+  margin: 5px 0 0 5px;
+}
+
+.link{
+  text-decoration: none;
+}
+
+.input .MuiSvgIcon-root {
+  width: 1.2em  !important ;
+}
+
+.input .MuiSelect-select {
+  border-radius: 40px !important;
+  background-color: transparent !important;
+  padding-left: 10px !important;
+}
+
+.input :before {
+  border-style: none !important;
+}
+
+.input :after {
+  border-color: transparent !important;
+  border-style: none;
+}
+
+.input .MuiSelect-icon {
+  color: rgba(255, 255, 255, 0.89) !important;
+}
+
+.input .MuiInputBase-root {
+  color: rgba(255, 255, 255, 0.89) !important;
+}
+
+
+@media screen and (min-width: 768px) {
+  .allParcours{
+    width: 80%;
+  }
+}
+
+

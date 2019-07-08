@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import { connect } from 'react-redux';
-
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import List from './List';
 import BottomNav from './BottomNav';
 import InputBar from './InputBar';
 import { mapDispatchToProps } from '../../actions/action';
+import withFirebaseContext from '../../Firebase/withFirebaseContext';
+
 
 export const mapStateToProps = state => ({
   state,
@@ -25,6 +28,25 @@ class Dashboard extends Component {
   componentDidMount() {
     this.getMarkers();
     this.getCategoryFromDB();
+    let docRef;
+    if (localStorage.getItem('userId')) {
+      docRef = firebase
+        .firestore().doc(`usersinfo/${localStorage.getItem('userId')}`);
+      this.sendUserInfo(docRef);
+    } else {
+      const { auth } = this.props;
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          docRef = firebase
+            .firestore().doc(`usersinfo/${user.uid}`);
+          localStorage.setItem('userId', user.uid);
+          this.sendUserInfo(docRef);
+        }
+      });
+    }
+    // eslint-disable-next-line no-shadow
+    const { mapDispatchToProps } = this.props;
+    mapDispatchToProps(0, 'bottomNav');
   }
 
   getMarkers() {
@@ -47,12 +69,31 @@ class Dashboard extends Component {
       });
   }
 
+  sendUserInfo = (docRef) => {
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const userInfo = doc.data();
+          localStorage.setItem('userName', userInfo.name);
+          mapDispatchToProps(userInfo, 'profile');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+
   handleChange = (e) => {
+    const { history } = this.props;
     if (e.target.value === 'All') {
       this.setState({
         filter: '',
         currentValue: 'All',
       });
+    } else if (e.target.name === 'filter') {
+      history.push(`/category/${e.target.value}`);
     } else {
       this.setState({
         [e.target.name]: e.target.value,
@@ -120,7 +161,7 @@ class Dashboard extends Component {
 
     return (
       <div style={{
-        backgroundColor: '#ffe2d5', display: 'block', textAlign: 'left', paddingBottom: 60,
+        display: 'block', textAlign: 'left', paddingBottom: 110,
       }}
       >
         {parcours && state && state.thématique ? (
@@ -130,27 +171,40 @@ class Dashboard extends Component {
               currentFilterValue={currentValue}
               currentValue={searchField}
             />
-            <div style={{ textAlign: 'center' }}>
-              <img className="banner" alt="test" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXEVglmR9xQwU3yk3RWTWI_pcAcjdyeyhiKbMVKvgd8142WWM9" />
+            <div style={{ position: 'relative', top: 50 }}>
+              <div style={{ textAlign: 'center' }}>
+                <img className="banner" alt="test" src="https://i.ibb.co/Dpn9ZK0/pattern-solair.png" style={{ marginBottom: -5 }} />
+              </div>
+              {Object.entries(this.sortIntoCategory())
+                .filter(
+                  result => result[0].includes(filter)
+                  && result[1].filter(res => res.data.tags.includes(searchField))
+                    .length > 0,
+                )
+                .map((results, index) => (
+                  <div className="bloc" key={`${index + 200}q`}>
+                    {results[1].length > 0 ? (
+                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <h1 style={{ fontSize: 19, marginBottom: -3, marginLeft: 5 }}>
+                          {results[0]}
+                        </h1>
+                        <Link style={{ textDecoration: 'none' }} to={`/category/${results[0]}`}>
+                          <p style={{
+                            color: '#E15920', paddingRight: '14px', paddingTop: '17px', fontWeight: 'normal', fontSize: 14,
+                          }}
+                          >
+                            PLUS
+                          </p>
+                        </Link>
+                      </div>
+                    ) : null}
+                    <List data={results[1]} searchField={searchField} />
+                  </div>
+                ))}
             </div>
-            {Object.entries(this.sortIntoCategory())
-              .filter(result => result[0].includes(filter) && result[1].filter(res => res.data.tags.includes(searchField)).length > 0)
-              .map((results, index) => (
-                <div className="bloc" key={`${index + 200}q`}>
-                  {results[1].length > 0 ? (
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <h1>
-                        {results[0]}
-                      </h1>
-                      <p style={{ color: '#E15920', paddingRight: '14px', paddingTop: '20px' }}>PLUS</p>
-                    </div>
-                  ) : null}
-                  <List data={results[1]} searchField={searchField} />
-                </div>
-              ))}
           </div>
         ) : (
-          <p>loading.. </p>
+          <p style={{ textAlign: 'center' }}><img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" /></p>
         )}
         <BottomNav />
       </div>
@@ -161,4 +215,4 @@ class Dashboard extends Component {
 export default connect(
   mapStateToProps,
   { mapDispatchToProps },
-)(Dashboard);
+)(withRouter(withFirebaseContext(Dashboard)));

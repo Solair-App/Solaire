@@ -3,11 +3,33 @@
 
 h1{
   font-family: 'Ubuntu';
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
 }
 .App {
   text-align: center;
   height: 100%;
 }
+
+@keyframes rotation {
+  from {
+          -webkit-transform: rotate(0deg);
+  }
+  to {
+          -webkit-transform: rotate(359deg);
+  }
+}
+
+.loadingType{
+  height: 50px;
+  margin-top: 50px;
+  animation: rotation 2s infinite linear;
+}
+
+a {
+  color: #E15920;
+}
+
 
 .slide{
   margin: auto auto;
@@ -15,7 +37,8 @@ h1{
 
 .import{  
   img{
-    max-width: 90%;
+    max-width: 100vw;
+    max-height: 85vh;
   }
 }
 

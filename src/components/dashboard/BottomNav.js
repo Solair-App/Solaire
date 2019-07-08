@@ -25,6 +25,13 @@ const useStyles = makeStyles({
   selected: {
     color: '#138787',
   },
+  bottomNav: {
+    position: 'fixed',
+    bottom: 0,
+    width: '100%',
+    boxShadow: '0 2px 10px grey',
+    zIndex: 2,
+  },
 });
 
 
@@ -56,34 +63,20 @@ function BottomNav(props) {
     mapDispatchToProps(newValue, 'bottomNav');
   };
 
-  React.useEffect(() => {
-    const { state } = props;
-    // eslint-disable-next-line no-shadow
-    const { mapDispatchToProps } = props;
-    if (!state || state.bottomNav === 0) {
-      mapDispatchToProps(1, 'bottomNav');
-    }
-  });
-
 
   const { state } = props;
   return (
     <BottomNavigation
-      style={{ color: 'white' }}
+
       value={state ? state.bottomNav : value}
       onChange={handleChange}
       showLabels
-      style={{
-        position: 'fixed',
-        bottom: '0',
-        width: '100%',
-        boxShadow: '0 2px 10px grey',
-      }}
+      className={classes.bottomNav}
     >
+      <BottomNavigationAction className={classes.selected} onClick={() => redirect('dashboard')} label="Accueil" icon={<Category />} />
       <BottomNavigationAction className={classes.selected} onClick={() => redirect('create')} label="Création" icon={<Edit />} />
-      <BottomNavigationAction className={classes.selected} onClick={() => redirect('dashboard')} label="Dashboard" icon={<Category />} />
       <BottomNavigationAction className={classes.selected} onClick={() => redirect('mylessons')} label="Mes cours" icon={<Folder />} />
-      <BottomNavigationAction className={classes.selected} onClick={() => redirect('profile')} label="Profile" icon={<AccountBox />} />
+      <BottomNavigationAction className={classes.selected} onClick={() => redirect('profile')} label="Profil" icon={<AccountBox />} />
     </BottomNavigation>
   );
 }

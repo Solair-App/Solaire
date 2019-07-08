@@ -9,28 +9,47 @@ const ParcoursDetails = ({
   parcours, currentParcours, togleModal, loaded, userInfo, haveUserAlreadyVoted,
 }) => (
   <>
-    <h1>
-      {parcours && parcours.name}
-      {' '}
-      {' '}
-      {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
-        ? (
-          <>
-            <Link to={`/createparcours/${currentParcours}/addcours`}><Edit /></Link>
-            <DeleteIcon onClick={togleModal} />
-          </>
-        )
-        : undefined
+    <div className="backparcours">
+      <h1 style={{
+        color: 'white',
+      }}
+      >
+        {parcours && parcours.name}
+        {' '}
+        {' '}
+        {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
+          ? (
+            <>
+              <Link style={{ color: 'white' }} to={`/createparcours/${currentParcours}/addcours`}><Edit /></Link>
+              <DeleteIcon onClick={togleModal} />
+              {' '}
+            </>
+          )
+          : undefined
       }
-    </h1>
-    <p>
+      </h1>
+    </div>
+
+    {parcours && parcours.creatorName
+      && (
+      <p>
+        Créé par
+        {' '}
+        <Link className="link" to={`/user-profile/${parcours.creator}`}>{parcours.creatorName}</Link>
+      </p>
+      )}
+    {(parcours && parcours.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
+      ? (
+        <>
+          <p>
         Nombre d&apos;élèves :
-      {' '}
-
-      { parcours && parcours.apprenants ? parcours.apprenants.length : null}
-    </p>
+            {' '}
+            { parcours && parcours.apprenants ? parcours.apprenants.length : null}
+          </p>
+        </>
+      )
+      : null}
     <p>{parcours && parcours.description}</p>
-
     {loaded === 1 ? haveUserAlreadyVoted() : null}
 
     <Rating readOnly value={parcours.rating} />

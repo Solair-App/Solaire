@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import './profile.scss';
-
+import Fab from '@material-ui/core/Fab';
+import CloudUpload from '@material-ui/icons/CloudUpload';
+import LooksOne from '@material-ui/icons/LooksOne';
+import LooksTwo from '@material-ui/icons/LooksTwo';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
+import '../../SCSS/CreateParcours.scss';
 
 class ImageUpload extends Component {
   constructor(props) {
@@ -10,23 +14,24 @@ class ImageUpload extends Component {
       image: null,
       url: null,
       error: null,
+      upload: true,
     };
   }
 
   handleChange = (e) => {
     if (e.target.files[0]) {
       const image = e.target.files[0];
-      this.setState(() => ({ image }));
+      this.setState(() => ({ image, upload: false }));
     }
   }
 
   handleUpload = () => {
     const { image } = this.state;
     const { storage, getImage } = this.props;
-
-    storage.ref(`images/${image.name}`).put(image).then(() => {
-      storage.ref('images').child(image.name).getDownloadURL().then((url) => {
-        console.log(url);
+    const random = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+    const imageName = `${image.name}${random}`;
+    storage.ref(`images/${imageName}`).put(image).then(() => {
+      storage.ref('images').child(imageName).getDownloadURL().then((url) => {
         this.setState({ url });
         getImage(url);
       })
@@ -40,11 +45,35 @@ class ImageUpload extends Component {
   }
 
   render() {
-    const { url, error } = this.state;
+    const { url, error, upload } = this.state;
     return (
-      <div>
-        <input type="file" onChange={this.handleChange} />
-        <button type="button" onClick={this.handleUpload}>Upload</button>
+      <div className="image_uplaods">
+        <div className="image_zone">
+          <p className="ajout">Ajouter une image</p>
+          <LooksOne style={{ marginRight: '5px', fontSize: '30px' }} />
+          <input accept=".jpg, .jpeg, .png" id="image_uploads" name="image_uploads" type="file" onChange={this.handleChange} />
+        </div>
+        <p>
+          <LooksTwo style={{ fontSize: '30px' }} />
+          <Fab
+            variant="extended"
+            disabled={upload}
+            size="medium"
+            aria-label="Add"
+            style={{
+              marginTop: '10px',
+              marginLeft: '10px',
+              width: '100px',
+              color: 'white',
+              backgroundColor: '#E15920',
+            }}
+            type="button"
+            onClick={this.handleUpload}
+          >
+            <CloudUpload className="cloudupload" />
+                  Upload
+          </Fab>
+        </p>
         {' '}
         {url && <img alt="upload" src={url} className="uploadimg" />}
         {error && <p>{error}</p>}

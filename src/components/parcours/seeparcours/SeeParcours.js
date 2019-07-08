@@ -208,18 +208,16 @@ class seeParcours extends Component {
     } = this.state;
     return (
       <div>
-        <ArrowBack
-          style={{ position: 'fixed', left: '10px', top: '10px' }}
-          onClick={() => {
-            history.push('/mydashboard');
-          }}
-        />
-        <SimpleModal
-          open={open}
-          idCours="Id"
-          togle={this.togleModal}
-          deleted={this.delete}
-        />
+
+        <div className="backparcours">
+          <ArrowBack
+            style={{ position: 'absolute', left: '10px', top: '10px' }}
+            onClick={() => {
+              history.push('/mydashboard');
+            }}
+          />
+        </div>
+
         <ParcoursDetails
           parcours={parcours}
           currentParcours={this.parcours}
@@ -227,6 +225,13 @@ class seeParcours extends Component {
           loaded={loaded}
           haveUserAlreadyVoted={this.haveUserAlreadyVoted}
           togleModal={this.togleModal}
+        />
+
+        <SimpleModal
+          open={open}
+          idCours="Id"
+          togle={this.togleModal}
+          deleted={this.delete}
         />
         <CoursDetails parcours={this.parcours} />
         {commentSent
@@ -253,12 +258,13 @@ class seeParcours extends Component {
               userRate={this.canUserRate}
               rating={rating}
               getParcours={this.getParcours}
+              userInfo={userInfo}
             />
           )
         }
         <ViewCommentaires
           currentParcours={this.parcours}
-          user={userInfo}
+          userInfo={userInfo}
           parcours={parcours}
           currentCommentaire={commentaire}
           commentaires={parcours.commentaires}
@@ -266,6 +272,7 @@ class seeParcours extends Component {
           getParcours={this.getParcours}
           answerCommentaire={this.answerCommentaire}
         />
+
       </div>
     );
   }

@@ -5,12 +5,15 @@ import SearchIcon from '@material-ui/icons/Search';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import './Parcours.scss';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     flexWrap: 'wrap',
     width: '100%',
+    position: 'fixed',
+    zIndex: 1,
   },
   input: {
     color: 'white',
@@ -67,7 +70,6 @@ const useStyles = makeStyles(theme => ({
 
 function SearchAppBar(props) {
   const classes = useStyles();
-
   const {
     handleChange, currentValue, currentFilterValue, state,
   } = props;
@@ -81,8 +83,8 @@ function SearchAppBar(props) {
           display: 'flex', justifyContent: 'space-around', backgroundColor: '#138787', color: 'white', borderRadius: 0, height: '50px',
         }}
       >
-        <div style={{ display: 'flex' }}>
-          <SearchIcon style={{ margin: '10px', position: 'absolute' }} />
+        <div style={{ display: 'flex', marginLeft: 4 }}>
+          <SearchIcon style={{ top: 13, marginLeft: 7, position: 'absolute' }} />
           <InputBase
             name="searchField"
             onChange={handleChange}
@@ -93,43 +95,45 @@ function SearchAppBar(props) {
             }}
             inputProps={{ 'aria-label': 'Search' }}
             style={{
-              margin: '21px 20px 30px -20px',
-              width: '265px',
+              position: 'relative',
+              left: -20,
+              width: '195px',
               textAlign: 'left',
               fontSize: '18px',
             }}
             value={currentValue}
           />
         </div>
-        <TextField
-          id="standard-select-currency"
-          select
-          name="filter"
-          className={classes.margin}
-          value={currentFilterValue}
-          onChange={handleChange}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          style={{
-            width: '150px',
-            marginTop: 6,
-            marginRight: 10,
-            backgroundColor: '#4ca9a9',
-            // /*#F67E4B*/
-            borderRadius: '4px',
-            paddingLeft: '4px',
-          }}
-          margin="normal"
-        >
-          {state.thématique.length > 1 ? thématique.map(option => (
-            <MenuItem key={option} value={option}>
-              {option}
-            </MenuItem>
-          )) : <p>loading</p>}
-        </TextField>
+        <div className="input">
+          <TextField
+            id="standard-select-currency"
+            select
+            name="filter"
+            className={classes.margin}
+            value={currentFilterValue}
+            onChange={handleChange}
+            SelectProps={{
+              MenuProps: {
+                className: classes.menu,
+              },
+            }}
+            style={{
+              width: '150px',
+              marginTop: 8.5,
+              marginRight: 15,
+              backgroundColor: 'rgb(255, 255, 255, 0.2)',
+              borderRadius: '40px',
+              paddingLeft: '4px',
+            }}
+            margin="normal"
+          >
+            {state.thématique.length > 1 ? thématique.map(option => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            )) : <p>loading</p>}
+          </TextField>
+        </div>
       </div>
     </div>
   );

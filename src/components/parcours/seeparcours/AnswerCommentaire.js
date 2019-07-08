@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
+import Fab from '@material-ui/core/Fab';
+import NavigationIcon from '@material-ui/icons/Navigation';
 import * as firebase from 'firebase';
 
 
@@ -20,8 +22,11 @@ const useStyles = makeStyles(theme => ({
   menu: {
     width: 200,
   },
+  button: {
+    backgroundColor: '#4ca9a9',
+    color: 'white',
+  },
 }));
-
 
 const Commentaires = (props) => {
   const [values, setValues] = useState({
@@ -125,9 +130,19 @@ const Commentaires = (props) => {
             inputProps={inputProps}
           />
         </form>
-        <button type="submit" onClick={validateMessages}>
-            Envoyer
-        </button>
+        <div className={classes.align}>
+          <Fab
+            type="submit"
+            variant="extended"
+            size="medium"
+            aria-label="Add"
+            className={classes.button}
+            onClick={validateMessages}
+          >
+            <NavigationIcon className={classes.extendedIcon} />
+          Envoyer
+          </Fab>
+        </div>
       </>
     </div>
   );

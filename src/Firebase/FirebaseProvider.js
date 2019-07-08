@@ -28,13 +28,11 @@ class FirebaseProvider extends Component {
     this.auth = firebase.auth();
     this.firestore = firebase.firestore();
     this.googleProvider = new firebase.auth.GoogleAuthProvider();
-    this.facebookProvider = new firebase.auth.FacebookAuthProvider();
     this.state = {
       storage: this.storage,
       auth: this.auth,
       firestore: this.firestore,
       googleProvider: this.googleProvider,
-      facebookProvider: this.facebookProvider,
     };
   }
 

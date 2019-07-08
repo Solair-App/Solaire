@@ -1,68 +1,81 @@
 import React, { Component } from 'react';
-import Radio from '@material-ui/core/Radio';
+import Fab from '@material-ui/core/Fab';
+
 
 class Tuto extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true,
-      myText: 'Apprendre en s\'amusant',
+      count: 0,
     };
-    this.imagesPath = {
-      tchat: 'https://i.ibb.co/sP0jNQZ/tchat-with-your-students.png',
-      tuto2: 'https://i.ibb.co/gr3F4h8/tuto02.png',
-    };
+    this.imagesPath = [
+      'https://i.ibb.co/sP0jNQZ/tchat-with-your-students.png',
+      'https://i.ibb.co/MVR2YFH/tuto02.png',
+
+
+    ];
+
+    this.textPath = [
+      'Différent style d\'apprentisage !',
+      'Apprendre de manière ludique & interactif !',
+
+    ];
   }
 
-  toggleImage = () => {
-    this.setState(state => ({ open: !state.open }));
-    this.setState({ myText: <p>Apprendre de manière ludique</p> });
+  incrementCounter = () => {
+    let { count } = this.state;
+    count += 1;
+    if (count < this.textPath.length) { this.setState({ count }); }
   }
 
-  // eslint-disable-next-line react/destructuring-assignment
-  getImageName = () => (this.state.open ? 'tuto2' : 'tchat')
 
   handleChange = (event) => {
     this.setSelectedValue(event.target.value);
   }
 
+  redirect = (url) => {
+    const { history } = this.props;
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
+  };
+
   render() {
-    const imageName = this.getImageName();
-    const { myText } = this.state;
+    const { count } = this.state;
     return (
-      <div onClick={this.toggleImage} role="presentation">
-        <h3 style={{ marginTop: '15%', marginBottom: '10%' }}>
-        E-learning
-          {' '}
-          <br />
-          {' '}
-        APP tutorial
-        </h3>
+      <div onClick={this.incrementCounter} role="presentation">
+        <h1 style={{ marginTop: '15%', marginBottom: '10%', color: '#138787' }}>
+        Solair
+        </h1>
         <img
           style={{ width: '80%', marginTop: '10%', marginBottom: '10%' }}
           className="tchat"
           role="presentation"
           alt="tchat"
-          src={this.imagesPath[imageName]}
+          src={this.imagesPath[count]}
         />
-        <p>
-          {myText}
+        <p style={{ marginTop: '10%' }}>
+          {this.textPath[count]}
         </p>
-        <Radio
-          style={{ marginTop: '10%', marginBottom: '10%' }}
-          checked={this.selectedValue === 'a'}
-          onChange={this.handleChange}
-          value="a"
-          name="radio-button-demo"
-          inputProps={{ 'aria-label': 'A' }}
-        />
-        <Radio
-          checked={this.selectedValue === 'b'}
-          onChange={this.handleChange}
-          value="b"
-          name="radio-button-demo"
-          inputProps={{ 'aria-label': 'B' }}
-        />
+        {count === this.imagesPath.length - 1 ? (
+          <Fab
+            variant="extended"
+            size="medium"
+            aria-label="Add"
+            onClick={() => {
+              this.redirect('/mydashboard');
+            }}
+            style={{
+              width: '300px',
+              color: 'white',
+              marginTop: '10%',
+              backgroundColor: '#E15920',
+            }}
+          >
+          go
+          </Fab>
+        ) : null}
       </div>
     );
   }

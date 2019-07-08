@@ -19,8 +19,6 @@ function ShareIcon(props) {
   const { gray } = props;
   const classes = props;
 
-  // eslint-disable-next-line react/destructuring-assignment
-
 
   return (
 
@@ -32,7 +30,9 @@ function ShareIcon(props) {
           className={classes.button}
           onClick={() => {
             if (gray === 0) {
-              window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`);
+              const url = `https://solair.netlify.com/#${props.match.url}`;
+
+              window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '', 'left=0,top=0,width=650,height=420,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
             }
           }}
         >

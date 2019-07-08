@@ -226,6 +226,7 @@ function CreateParcours({
           label="tags"
           className="textfield"
           value={value.tags}
+s
           onChange={handleChange('tags')}
           style={{ marginTop: '5%', width: '50%' }}
         />

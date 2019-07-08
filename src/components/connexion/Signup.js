@@ -18,6 +18,7 @@ class Signup extends Component {
     }
     const { auth } = this.props;
     auth.onAuthStateChanged((user) => {
+      localStorage.removeItem('connected');
       if (user) {
         auth.getRedirectResult().then((result) => {
           // eslint-disable-next-line prefer-destructuring

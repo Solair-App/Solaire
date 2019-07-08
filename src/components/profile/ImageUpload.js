@@ -28,9 +28,10 @@ class ImageUpload extends Component {
   handleUpload = () => {
     const { image } = this.state;
     const { storage, getImage } = this.props;
-
-    storage.ref(`images/${image.name}`).put(image).then(() => {
-      storage.ref('images').child(image.name).getDownloadURL().then((url) => {
+    const random = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+    const imageName = `${image.name}${random}`;
+    storage.ref(`images/${imageName}`).put(image).then(() => {
+      storage.ref('images').child(imageName).getDownloadURL().then((url) => {
         this.setState({ url });
         getImage(url);
       })

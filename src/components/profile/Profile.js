@@ -7,10 +7,10 @@ import AlternateEmail from '@material-ui/icons/AlternateEmail';
 import FormatQuote from '@material-ui/icons/FormatQuote';
 import Fab from '@material-ui/core/Fab';
 import SaveIcon from '@material-ui/icons/Save';
+import { connect } from 'react-redux';
 import BottomNav from '../dashboard/BottomNav';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 import './profile.scss';
-import { connect } from 'react-redux';
 import { mapDispatchToProps } from '../../actions/action';
 
 export const mapStateToProps = state => ({
@@ -27,21 +27,24 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const { firestore } = this.props;
+    const { firestore, state } = this.props;
     let docRef;
-    if (localStorage.getItem('userId')) {
-      docRef = firestore.doc(`usersinfo/${localStorage.getItem('userId')}`);
-      this.getInfo(docRef);
+    if (!state || !state.profile) {
+      if (localStorage.getItem('userId')) {
+        docRef = firestore.doc(`usersinfo/${localStorage.getItem('userId')}`);
+        this.getInfo(docRef);
+      } else {
+        const { auth } = this.props;
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+            docRef = firestore.doc(`usersinfo/${user.uid}`);
+            this.getInfo(docRef);
+          }
+        });
+      }
     } else {
-      const { auth } = this.props;
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          docRef = firestore.doc(`usersinfo/${user.uid}`);
-          this.getInfo(docRef);
-        }
-      });
+      this.setState({ userInfo: state.profile });
     }
-
     // eslint-disable-next-line no-shadow
     const { mapDispatchToProps } = this.props;
 
@@ -88,6 +91,7 @@ class Profile extends Component {
 
   render() {
     const { userInfo, error } = this.state;
+
     return (
       <div style={{ paddingBottom: '70px' }}>
         {userInfo ? (
@@ -149,6 +153,7 @@ class Profile extends Component {
               style={{
                 width: '300px',
                 color: 'white',
+                marginBottom: '10px',
                 backgroundColor: '#138787',
               }}
             >
@@ -166,6 +171,9 @@ class Profile extends Component {
                 className="Button"
                 style={{
                   width: '300px',
+                  marginBottom: '10px',
+                  marginLeft: '10px',
+                  marginRight: '10px',
                 }}
               >
                 Modifier les catégories de l&apos;application
@@ -190,7 +198,9 @@ class Profile extends Component {
           </>
         ) : (
           <>
-            <p>Loading your info</p>
+            <p>
+              <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
+            </p>
             <Fab
               variant="extended"
               size="medium"

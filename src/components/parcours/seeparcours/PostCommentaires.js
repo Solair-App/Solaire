@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   input: {
-    marginLeft: theme.spacing(1),
+
     marginRight: theme.spacing(1),
     [theme.breakpoints.down('sm')]: {
       width: '100%',
@@ -28,14 +28,6 @@ const useStyles = makeStyles(theme => ({
       width: '50%',
 
     },
-  },
-
-  dense: {
-    marginTop: 16,
-  },
-
-  menu: {
-    width: 200,
   },
 
   note: {
@@ -60,6 +52,7 @@ const useStyles = makeStyles(theme => ({
 
   button: {
     backgroundColor: '#4ca9a9',
+    color: 'white',
   },
 
   smallTitle: {
@@ -187,8 +180,7 @@ Votre Note :
             id="filled-textarea"
             label="Votre message"
             placeholder="Placeholder"
-            className={`${classes.textField} ${classes.input}`}
-            style={{ margin: 8 }}
+            className={classes.input}
             input
             multiline
             fullWidth
@@ -207,7 +199,6 @@ Votre Note :
             type="submit"
             variant="extended"
             size="medium"
-            color="primary"
             aria-label="Add"
             className={classes.button}
             onClick={validateMessages}

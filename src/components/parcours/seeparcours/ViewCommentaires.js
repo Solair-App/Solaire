@@ -60,6 +60,7 @@ const useStyles = makeStyles(theme => ({
 
   button: {
     backgroundColor: '#4ca9a9',
+    color: 'white',
   },
 
   viewAnswersExpansion: {
@@ -176,7 +177,6 @@ const ViewCommentaires = ({
           <Fab
             variant="extended"
             size="medium"
-            color="primary"
             aria-label="Add"
             className={classes.button}
             onClick={() => {

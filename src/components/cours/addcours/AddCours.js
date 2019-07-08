@@ -110,7 +110,7 @@ class AddCours extends Component {
     }
   };
 
-copyLink = (e) => {
+copyLink = () => {
   this.textArea.select();
   document.execCommand('copy');
   this.setState({
@@ -137,7 +137,7 @@ copyLink = (e) => {
     const {
       data, privacy, errorMessage, copyMessage,
     } = this.state;
-    const lien = document.location.href;
+
 
     return (
       <div>

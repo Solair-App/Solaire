@@ -25,6 +25,7 @@ import CreateSlider from './components/supports/slides/CreateSlider';
 import MyLessons from './components/cours/mylessons/MyLessons';
 import Tuto from './components/supports/Tuto';
 import Categories from './components/dashboard/Categories';
+import PublicProfile from './components/parcours/seeparcours/PublicProfile';
 
 const App = () => (
   <div className="App">
@@ -34,6 +35,7 @@ const App = () => (
           <Route exact path="/createparcours/:parcoursId?" component={CreateParcours} />
           <Route path="/createparcours/:parcoursId?/addcours" component={AddCours} />
           <Route exact path="/parcours/:parcoursId" component={SeeParcours} />
+          <Route exact path="/user-profile/:userId" component={PublicProfile} />
 
           <Route path="/createparcours/:parcoursId/:coursId?/addvideo" component={Form} />
           <Route path="/parcours/:parcoursId?/video/:coursId?" component={Video} />

@@ -52,7 +52,7 @@ class Categories extends Component {
           />
           <h1>{`Parcours ${this.category}`}</h1>
         </div>
-        <div className="parcours">
+        <div className="parcours" style={{ paddingBottom: '60px' }}>
           <ul className="allParcours">
             {allParcours.length > 0 && allParcours.map(parcours => (
               <Category data={parcours} />

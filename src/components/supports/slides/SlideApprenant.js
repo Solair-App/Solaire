@@ -66,6 +66,7 @@ const SlideApprenant = ({
       docRef.get().then((doc) => {
         if (doc.exists) {
           setSlide(doc.data());
+          console.log(doc.data().slides);
         } else {
         // doc.data() will be undefined in this case
           console.log('No such document!');
@@ -104,6 +105,7 @@ const SlideApprenant = ({
   function handleBack() {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   }
+
   return (
     <div className={classes.root}>
       <div className={classes.header}>
@@ -115,7 +117,7 @@ const SlideApprenant = ({
             history.goBack();
           }}
         />
-        <h1 className={classes.title}>{infoSlide.name}</h1>
+        <h1 className={classes.title}>{Object.values(infoSlide.slides)[activeStep].title}</h1>
       </div>
       <div className={classes.container}>
         <div
@@ -124,9 +126,10 @@ const SlideApprenant = ({
             width: '100vw', height: '84.5vh', overflowY: 'scroll',
           }}
         >
-          {ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}
+          {ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep].content)}
 
         </div>
+        <img src={Object.values(infoSlide.slides)[activeStep].image} alt="imageSlide" />
       </div>
       <MobileStepper
         steps={maxSteps}

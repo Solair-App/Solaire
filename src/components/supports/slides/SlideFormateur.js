@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import CKEditor from 'ckeditor4-react';
+import TextField from '@material-ui/core/TextField';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
+import ImageUpload from '../../profile/ImageUpload';
 import '../../../App.scss';
 
 CKEditor.editorUrl = '/ckeditor/ckeditor.js';
@@ -11,6 +13,8 @@ class Essai extends Component {
     this.state = {
       content: null,
       erreur: false,
+      title: null,
+      image: '',
     };
     const { match } = this.props;
     this.parcours = match.params.parcoursId;
@@ -28,11 +32,19 @@ class Essai extends Component {
     this.setState({ content: evt.editor.getData() });
   }
 
+  handleChange = (e) => {
+    this.setState({ title: e.target.value });
+  }
+
+  // récupération url
+  getImage = (url) => {
+    this.setState({ image: url });
+  };
 
   isContentNull = () => {
-    const { content } = this.state;
+    const { content, title } = this.state;
 
-    if (content === null) {
+    if (content === null || title === null) {
       return true;
     }
 
@@ -41,7 +53,7 @@ class Essai extends Component {
 
   saveData = () => {
     const { firestore, history } = this.props;
-    const { content } = this.state;
+    const { content, title, image } = this.state;
     // content = JSON.stringify(content);
     if (this.isContentNull()) {
       this.setState({
@@ -58,7 +70,16 @@ class Essai extends Component {
       const slide = slideSet.doc(this.cours);
       const slideNumber = parseInt(localStorage.getItem('slideNumb'), 10) + 1;
       localStorage.setItem('slideNumb', slideNumber);
-      slide.set({ slides: { [slideNumber]: content } }, { merge: true });
+      slide.set({
+        slides: {
+          [slideNumber]:
+        {
+          content,
+          title,
+          image,
+        },
+        },
+      }, { merge: true });
       // localStorage.setItem('cours', slide.id);
       // slide.update({ slides: firebase.firestore.FieldValue.arrayUnion(content) });
       // slideSet.update({ slides: firebase.firestore.FieldValue.arrayRemove(content) });
@@ -71,15 +92,31 @@ class Essai extends Component {
 
 
   render() {
-    const { content, erreur } = this.state;
+    const { content, erreur, title } = this.state;
     return (
       <div className="slide">
+        <h1>Créer une Slide</h1>
+        <h2>Ajouter un titre*</h2>
+        <TextField
+          required
+          id="standard-name"
+          label="Nom du parcours"
+          className="textfield"
+          value={title}
+          onChange={this.handleChange}
+          style={{ marginTop: '5%', width: '50%' }}
+        />
+        <h2>Ajouter un paragraphe*</h2>
         <CKEditor
           data="<p>Taper votre texte ici</p>"
           activeClass="editor"
           value={content}
           onChange={this.updateContent}
         />
+        <h2>Ajouter une image</h2>
+        <div style={{ marginTop: '1.5em' }}>
+          <ImageUpload getImage={this.getImage} />
+        </div>
         <div>
           {erreur ? (
             <p style={{ color: 'red' }}>

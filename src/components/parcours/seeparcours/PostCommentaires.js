@@ -60,6 +60,7 @@ const useStyles = makeStyles(theme => ({
 
   button: {
     backgroundColor: '#4ca9a9',
+    color: 'white',
   },
 
   smallTitle: {
@@ -207,7 +208,6 @@ Votre Note :
             type="submit"
             variant="extended"
             size="medium"
-            color="primary"
             aria-label="Add"
             className={classes.button}
             onClick={validateMessages}

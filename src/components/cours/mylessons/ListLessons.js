@@ -12,11 +12,10 @@ import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(() => ({
   root: {
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     width: '100%',
     marginRight: 'auto',
     marginLeft: 'auto',
-    boxShadow: '12px 12px 2px 1px rgba(0, 0, 255, .2)',
   },
 }));
 
@@ -27,44 +26,45 @@ export default function ListLessons(props) {
 
   return (
     <Grid container>
-      <List dense className={classes.root}>
+
+      <Grid item xs={12} sm={6} md={6}>
         <Link to={{ pathname: `/parcours/${data.id}` }}>
-
-
-          {' '}
-
-          <Grid item xs={12} sm={6} md={6}>
+          <List dense className={classes.root}>
             <ListItem button>
               <ListItemAvatar>
                 <Avatar src={data.data.url} />
               </ListItemAvatar>
               <ListItemText primary={data.data.name} />
-
               <ListItemSecondaryAction />
             </ListItem>
-
-
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={6}>
-
-              Vues :
-            {' '}
-            {data.data.apprenants.length}
-
-            {' '}
-            <Rating max={1} readOnly value={1} />
-            {' '}
-            {Math.floor(data.data.rating)}
-            {' '}
-
-
-            {' '}
-
-          </Grid>
-
+          </List>
         </Link>
-      </List>
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={6}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+
+        }}
+        >
+          <p>
+            Vues :
+            {data.data.apprenants.length}
+          </p>
+          <p style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+
+          }}
+          >
+            <Rating max={1} readOnly value={1} />
+            {Math.floor(data.data.rating)}
+          </p>
+        </div>
+      </Grid>
     </Grid>
 
   );

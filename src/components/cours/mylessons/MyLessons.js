@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as firebase from 'firebase';
-import Grid from '@material-ui/core/Grid';
 import { mapDispatchToProps } from '../../../actions/action';
-
 import UseTabs from './UseTabs';
 // eslint-disable-next-line import/no-named-as-default
 import ListLessons from './ListLessons';
@@ -63,11 +61,14 @@ class MyLessons extends React.Component {
         {' '}
         <UseTabs changeTabs={this.handleChange} currentValue={currentValue} />
         <div style={{
-          marginTop: '80px', width: '80%', marginRight: 'auto', marginLeft: 'auto',
+          boxShadow: '12px 12px 2px 1px rgba(0, 0, 255, .2)',
+          backgroundColor: 'white',
+          marginTop: '80px',
+          width: '80%',
+          marginRight: 'auto',
+          marginLeft: 'auto',
         }}
         >
-
-          {' '}
           {userLessons ? (
             userLessons
               .filter(parcours => (currentValue === 0

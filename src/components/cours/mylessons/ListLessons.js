@@ -28,12 +28,13 @@ export default function ListLessons(props) {
   return (
     <Grid container>
       <List dense className={classes.root}>
-        <Link to={{ pathname: `/parcours/${data.id}` }}>
 
 
+        {' '}
+
+        <Grid item xs={12} sm={6} md={6}>
           {' '}
-
-          <Grid item xs={12} sm={6} md={6}>
+          <Link style={{ width: '100%' }} to={{ pathname: `/parcours/${data.id}` }}>
             <ListItem button>
               <ListItemAvatar>
                 <Avatar src={data.data.url} />
@@ -44,26 +45,26 @@ export default function ListLessons(props) {
             </ListItem>
 
 
-          </Grid>
+          </Link>
+        </Grid>
 
-          <Grid item xs={12} sm={6} md={6}>
+        <Grid item xs={12} sm={6} md={6}>
 
               Vues :
-            {' '}
-            {data.data.apprenants.length}
+          {' '}
+          {data.data.apprenants.length}
 
-            {' '}
-            <Rating max={1} readOnly value={1} />
-            {' '}
-            {Math.floor(data.data.rating)}
-            {' '}
+          {' '}
+          <Rating max={1} readOnly value={1} />
+          {' '}
+          {Math.floor(data.data.rating)}
+          {' '}
 
 
-            {' '}
+          {' '}
 
-          </Grid>
+        </Grid>
 
-        </Link>
       </List>
     </Grid>
 

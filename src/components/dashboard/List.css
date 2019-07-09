@@ -4,6 +4,7 @@
   margin-top: 10px;
   margin-bottom: 10px;
   background-color: white;
+  height: 270px;
 }
 
 .bloc h1 {
@@ -44,19 +45,19 @@
 }
 
 .rating {
-  margin-left: 9px;
+  margin-left: 7.5px;
   height: 200px;
 }
 
 .rating .MuiButtonBase-root {
   width: 5px !important;
   height: 5px !important;
-  margin-right: 13px !important;
+  margin-right: 11px !important;
 }
 
 .rating .MuiSvgIcon-root {
-  width: 20px !important;
-  height: 20px !important; 
+  width: 17px !important;
+  height: 17px !important; 
 }
 
 @media screen and (min-width: 768px) {

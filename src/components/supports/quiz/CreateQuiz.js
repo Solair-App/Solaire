@@ -176,8 +176,8 @@ class CreateQuiz extends Component {
               style={{
                 width: '250px',
                 color: 'white',
-                marginTop: '14px',
-                marginBottom: '14px',
+                marginTop: '10px',
+                marginBottom: '20px',
                 backgroundColor: '#138787',
               }}
             >
@@ -231,7 +231,7 @@ class CreateQuiz extends Component {
             </Fab>
           </Grid>
         </div>
-        {error && <p style={{ margin: 'auto', paddingTop: '3px' }}>{error}</p>}
+        {error && <p style={{ margin: 'auto', paddingTop: '7px', width: '100%' }}>{error}</p>}
       </Grid>
     );
   }

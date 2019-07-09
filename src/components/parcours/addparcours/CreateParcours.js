@@ -195,7 +195,7 @@ function CreateParcours({
       </div>
       <div>
         <TextField
-          required
+
           id="standard-name"
           label="Nom du parcours"
           className="textfield"
@@ -207,7 +207,7 @@ function CreateParcours({
       {' '}
       <div>
         <TextField
-          required
+
           id="filled-multiline-flexible"
           label="Description"
           value={value.description}
@@ -218,7 +218,6 @@ function CreateParcours({
         />
       </div>
       <TextField
-        required
         id="standard-name"
         label="tags"
         className="textfield"
@@ -230,9 +229,9 @@ function CreateParcours({
       <div style={{ marginTop: 7 }}>
         {cat.thématique && (
         <SelectField
-          required
+
           choices={cat.thématique}
-          name="thématique *"
+          name="thématique"
           handleChange={handleChange}
           value={value.thématique}
           className="selectField"
@@ -243,9 +242,8 @@ function CreateParcours({
         {cat.langue
         && (
           <SelectField
-            required
             choices={cat.langue}
-            name="langue *"
+            name="langue"
             handleChange={handleChange}
             value={value.langue}
             class="container"
@@ -257,9 +255,8 @@ function CreateParcours({
         {cat.durée
         && (
           <SelectField
-            required
             choices={cat.durée}
-            name="durée *"
+            name="durée"
             handleChange={handleChange}
             value={value.durée}
             class="container"
@@ -271,9 +268,9 @@ function CreateParcours({
         {cat.difficulté
         && (
           <SelectField
-            required
+
             choices={cat.difficulté}
-            name="difficulté *"
+            name="difficulté"
             handleChange={handleChange}
             value={value.difficulté}
             className="selectField"
@@ -281,7 +278,7 @@ function CreateParcours({
         )
       }
       </div>
-      <h3 className="h3">{value.errorMessage}</h3>
+      <h3 className="h3" style={{ marginBottom: 3, marginTop: -30 }}>{value.errorMessage}</h3>
       <Fab
         variant="extended"
         size="medium"

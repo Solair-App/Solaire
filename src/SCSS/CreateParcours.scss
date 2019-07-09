@@ -45,11 +45,16 @@
 
 .image_uplaods{
   margin-top: -5px;
-  margin-bottom: -10px;
+  margin-bottom: 0px;
 }
 
 .image_uplaods .MuiFab-root:active {
   box-shadow: none;
+}
+
+::after {
+  border-color: #138787 !important;
+  color: #138787 !important;
 }
 
 .file-upload input[type='file'],::-webkit-file-upload-button {
@@ -82,7 +87,6 @@
   width: 100%;
   min-height: 120px;
 }
-
 
 .mobileStepper {
   width: 100%;

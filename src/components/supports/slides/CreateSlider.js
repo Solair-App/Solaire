@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ArrowBack from '@material-ui/icons/ArrowBack';
+import SaveIcon from '@material-ui/icons/Save';
+import Add from '@material-ui/icons/Add';
 import { withRouter } from 'react-router';
 import ReactHtmlParser from 'react-html-parser';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -12,13 +13,14 @@ import * as firebase from 'firebase';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
+import Fab from '@material-ui/core/Fab';
 import SimpleModal from '../../SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import '../../../App.scss';
+import '../../../SCSS/CreateParcours.scss';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 400,
     flexGrow: 1,
   },
   header: {
@@ -67,6 +69,7 @@ const CreateSlider = ({ firestore, history, match }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [saveError, setError] = React.useState('');
   const maxSteps = infoSlide.slides && Object.values(infoSlide.slides).length;
 
   const getInfo = () => {
@@ -87,6 +90,14 @@ const CreateSlider = ({ firestore, history, match }) => {
     }
   };
 
+  const isContentNull = () => {
+    if (name === '' || description === '') {
+      return true;
+    }
+
+    return false;
+  };
+
   const onChange = (event) => {
     if (event.target.name === 'name') {
       setName(event.target.value);
@@ -98,13 +109,17 @@ const CreateSlider = ({ firestore, history, match }) => {
 
   const saveCours = (event) => {
     const db = firestore;
-    const slideSet = db.collection('parcours').doc(parcours).collection('cours');
-    const slide = slideSet.doc(cours);
-    slide.set({
-      type: 'slide', name, description, finish: true, creator: localStorage.getItem('userId'), graduate: [],
-    }, { merge: true });
-    event.preventDefault();
-    history.push(`/createparcours/${parcours}/addcours`);
+    if (isContentNull()) {
+      setError('Veuillez ajouter un nom et une description');
+    } else {
+      const slideSet = db.collection('parcours').doc(parcours).collection('cours');
+      const slide = slideSet.doc(cours);
+      slide.set({
+        type: 'slide', name, description, finish: true, creator: localStorage.getItem('userId'), graduate: [],
+      }, { merge: true });
+      event.preventDefault();
+      history.push(`/createparcours/${parcours}/addcours`);
+    }
   };
 
   const opened = (myid) => {
@@ -140,94 +155,122 @@ const CreateSlider = ({ firestore, history, match }) => {
 
   return (
     <div className={classes.root}>
-      <ArrowBack
-        style={{ position: 'fixed', left: '10px', top: '10px' }}
-        onClick={() => {
-          history.goBack();
-        }}
-      />
-      <SimpleModal open={open} idCours={id} togle={closed} deleted={deleting} />
-      <h1>Créer un slider</h1>
+      <div className="topFond">
+        <h1>Créer un slider</h1>
+        <SimpleModal open={open} idCours={id} togle={closed} deleted={deleting} />
+      </div>
+      <h2 style={{ marginTop: '7px', marginBottom: '3px' }}>Aperçu du slider en cours</h2>
 
       {
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <div className="import">{ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep])}</div>
-          <DeleteIcon onClick={() => opened(Object.keys(infoSlide.slides)[activeStep])} />
+        <div className="aperçuSlider">
+          <h3 className="titleSlide">
+            {infoSlide.slides && Object.values(infoSlide.slides)[activeStep]
+              && Object.values(infoSlide.slides)[activeStep].title}
+            {Object.keys(infoSlide.slides).length > 0
+              && <DeleteIcon onClick={() => opened(Object.keys(infoSlide.slides)[activeStep])} />}
+          </h3>
+          <p>
+            {ReactHtmlParser(infoSlide.slides
+              && Object.values(infoSlide.slides)[activeStep]
+              && Object.values(infoSlide.slides)[activeStep].content)}
+          </p>
+          {infoSlide.slides && Object.values(infoSlide.slides)[activeStep]
+            && Object.values(infoSlide.slides)[activeStep].image
+            && <img className="imgSlide" src={Object.values(infoSlide.slides)[activeStep].image} alt="imageSlide" />}
         </div>
       }
       {Object.keys(infoSlide.slides).length > 0
-
-        ? <h2 style={{ marginTop: '8px' }}>Aperçu du slider en cours</h2> && (
-        <MobileStepper
-          steps={maxSteps}
-          position="static"
-          variant="text"
-          activeStep={activeStep}
-          nextButton={(
-            <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-              Suivant
-              {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-            </Button>
-)}
-          backButton={(
-            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-              {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-              Précédent
-            </Button>
-)}
-        />
-      )
-        : <p style={{ marginTop: '8px' }}>Ce slider ne contient pas encore de questions</p>
-}
+        ? (
+          <MobileStepper
+            steps={maxSteps}
+            className="mobileStepper"
+            position="static"
+            variant="text"
+            activeStep={activeStep}
+            nextButton={(
+              <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
+                Suivant
+                {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+              </Button>
+            )}
+            backButton={(
+              <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                Précédent
+              </Button>
+            )}
+          />
+        )
+        : <p style={{ marginTop: '8px' }}>Ce slider ne contient pas encore de slides</p>
+      }
 
 
       <Grid container>
 
         <Grid item xs={12}>
-          <Link to={`/createparcours/${parcours}/${cours}/addslide`}>
-            <Button
+          <Link
+            style={{ textDecoration: 'none' }}
+            to={`/createparcours/${parcours}/${cours}/addslide`}
+          >
+            <Fab
+              variant="extended"
               size="medium"
-              variant="contained"
-              style={{ marginTop: '8%' }}
-              className="Button"
+              aria-label="Add"
+              style={{
+                width: '210px',
+                color: 'white',
+                marginBottom: '14px',
+                backgroundColor: '#138787',
+              }}
             >
-              Ajouter un slide
-            </Button>
+              <Add className="saveicon" />
+              Ajouter une slide
+            </Fab>
           </Link>
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            label="Nom du cours"
-            name="name"
-            className="textfield"
-            value={name}
-            onChange={onChange}
-            style={{ marginTop: '5%', width: '50%' }}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            label="Description du cours"
-            name="description"
-            className="textfield"
-            value={description}
-            onChange={onChange}
-            style={{ marginTop: '5%', width: '50%' }}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            size="large"
-            variant="contained"
-            onClick={saveCours}
-            style={{ marginTop: '8%' }}
-            className="Button"
-          >
-            Enregistrer ce cours
-          </Button>
-        </Grid>
+        <div className="saveBox">
+          <Grid item xs={12}>
+            <TextField
+              required
+              label="Nom du cours"
+              name="name"
+              className="textfield"
+              value={name}
+              onChange={onChange}
+              style={{ marginTop: '5%', width: '80%' }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              label="Description du cours"
+              name="description"
+              className="textfield"
+              value={description}
+              onChange={onChange}
+              style={{ marginTop: '5px', width: '80%' }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Fab
+              variant="extended"
+              size="medium"
+              aria-label="Add"
+              onClick={saveCours}
+              style={{
+                width: '300px',
+                color: 'white',
+                marginTop: '18px',
+                borderRadius: '4px',
+                backgroundColor: '#E15920',
+              }}
+            >
+              <SaveIcon className="saveicon" />
+              Enregistrer ce slider
+            </Fab>
+          </Grid>
+        </div>
+        {saveError && <p style={{ margin: 'auto', paddingTop: '3px' }}>{saveError}</p>}
       </Grid>
     </div>
   );

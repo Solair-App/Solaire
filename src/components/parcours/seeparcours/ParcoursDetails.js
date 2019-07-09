@@ -10,8 +10,10 @@ const ParcoursDetails = ({
 }) => (
   <>
     <div className="backparcours">
-      <h1 style={{
+      <h2 style={{
         color: 'white',
+        paddingTop: '10%',
+        paddingBottom: '3%',
       }}
       >
         {parcours && parcours.name}
@@ -27,12 +29,12 @@ const ParcoursDetails = ({
           )
           : undefined
       }
-      </h1>
+      </h2>
     </div>
 
     {parcours && parcours.creatorName
       && (
-      <p>
+      <p className="creator">
         Créé par
         {' '}
         <Link className="link" to={`/user-profile/${parcours.creator}`}>{parcours.creatorName}</Link>

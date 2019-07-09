@@ -11,6 +11,7 @@ class Tuto extends Component {
     this.imagesPath = [
       'https://i.ibb.co/sP0jNQZ/tchat-with-your-students.png',
       'https://i.ibb.co/MVR2YFH/tuto02.png',
+      'https://i.ibb.co/Z11FM3f/pictogramme03.png',
 
 
     ];
@@ -18,6 +19,7 @@ class Tuto extends Component {
     this.textPath = [
       'Différent style d\'apprentisage !',
       'Apprendre de manière ludique & interactif !',
+      'Près pour le grand saut ?',
 
     ];
   }

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ArrowBack from '@material-ui/icons/ArrowBack';
 import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
 import * as firebase from 'firebase';
@@ -7,6 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import SelectField from './SelectField';
 import Parcours from './Parcours';
+import BottomNav from '../../dashboard/BottomNav';
 import '../../../SCSS/CreateParcours.scss';
 import ImageUpload from '../../profile/ImageUpload';
 
@@ -180,66 +180,61 @@ function CreateParcours({
   }
 
   return (
-    <form className="classesContainer" autoComplete="off" style={{ paddingBottom: '30px' }}>
-      <div className="topFond">
-        <ArrowBack
-          style={{ position: 'absolute', left: '2px', top: '13px' }}
-          onClick={() => {
-            redirect('/mydashboard');
-          }}
-        />
-        <h2 className="h2">Création de parcours</h2>
-      </div>
-      <div style={{ marginTop: '1.5em' }}>
-        <ImageUpload getImage={getImage} />
-      </div>
-      <div>
-        <TextField
+    <>
+      <form className="classesContainer" autoComplete="off" style={{ paddingBottom: '80px' }}>
+        <div className="topFond">
+          <h2 className="h2">Création de parcours</h2>
+        </div>
+        <div style={{ marginTop: '1.5em' }}>
+          <ImageUpload getImage={getImage} />
+        </div>
+        <div>
+          <TextField
 
+            id="standard-name"
+            label="Nom du parcours"
+            className="textfield"
+            value={value.name}
+            onChange={handleChange('name')}
+            style={{ marginTop: '9px', width: 298 }}
+          />
+        </div>
+        {' '}
+        <div>
+          <TextField
+
+            id="filled-multiline-flexible"
+            label="Description"
+            value={value.description}
+            multiline
+            onChange={handleChange('description')}
+            className="textfield"
+            style={{ marginTop: '9px', width: 298 }}
+          />
+        </div>
+        <TextField
           id="standard-name"
-          label="Nom du parcours"
+          label="tags"
           className="textfield"
-          value={value.name}
-          onChange={handleChange('name')}
+          value={value.tags}
+          onChange={handleChange('tags')}
           style={{ marginTop: '9px', width: 298 }}
         />
-      </div>
-      {' '}
-      <div>
-        <TextField
 
-          id="filled-multiline-flexible"
-          label="Description"
-          value={value.description}
-          multiline
-          onChange={handleChange('description')}
-          className="textfield"
-          style={{ marginTop: '9px', width: 298 }}
-        />
-      </div>
-      <TextField
-        id="standard-name"
-        label="tags"
-        className="textfield"
-        value={value.tags}
-        onChange={handleChange('tags')}
-        style={{ marginTop: '9px', width: 298 }}
-      />
+        <div style={{ marginTop: 7 }}>
+          {cat.thématique && (
+          <SelectField
 
-      <div style={{ marginTop: 7 }}>
-        {cat.thématique && (
-        <SelectField
-
-          choices={cat.thématique}
-          name="thématique"
-          handleChange={handleChange}
-          value={value.thématique}
-          className="selectField"
-        />
-        )}
-      </div>
-      <div style={{ marginTop: -36 }}>
-        {cat.langue
+            choices={cat.thématique}
+            name="thématique"
+            handleChange={handleChange}
+            value={value.thématique}
+            className="selectField"
+          />
+          )}
+        </div>
+        <div style={{ marginTop: -36 }}>
+          {cat.langue
         && (
           <SelectField
             choices={cat.langue}
@@ -250,9 +245,9 @@ function CreateParcours({
           />
         )
       }
-      </div>
-      <div style={{ marginTop: -36 }}>
-        {cat.durée
+        </div>
+        <div style={{ marginTop: -36 }}>
+          {cat.durée
         && (
           <SelectField
             choices={cat.durée}
@@ -263,9 +258,9 @@ function CreateParcours({
           />
         )
       }
-      </div>
-      <div style={{ marginTop: -36 }}>
-        {cat.difficulté
+        </div>
+        <div style={{ marginTop: -36 }}>
+          {cat.difficulté
         && (
           <SelectField
 
@@ -277,24 +272,26 @@ function CreateParcours({
           />
         )
       }
-      </div>
-      <h3 className="h3" style={{ marginBottom: 3, marginTop: -30 }}>{value.errorMessage}</h3>
-      <Fab
-        variant="extended"
-        size="medium"
-        aria-label="Add"
-        onClick={validateParcours}
-        style={{
-          marginTop: '15px',
-          marginLeft: '10px',
-          width: '300px',
-          color: 'white',
-          backgroundColor: '#138787',
-        }}
-      >
-        {match.params.parcoursId ? 'Sauver mes modifications' : 'Créer mon parcours'}
-      </Fab>
-    </form>
+        </div>
+        <h3 className="h3" style={{ marginBottom: 3, marginTop: -30 }}>{value.errorMessage}</h3>
+        <Fab
+          variant="extended"
+          size="medium"
+          aria-label="Add"
+          onClick={validateParcours}
+          style={{
+            marginTop: '15px',
+            marginLeft: '10px',
+            width: '300px',
+            color: 'white',
+            backgroundColor: '#138787',
+          }}
+        >
+          {match.params.parcoursId ? 'Sauver mes modifications' : 'Créer mon parcours'}
+        </Fab>
+      </form>
+      <BottomNav />
+    </>
   );
 }
 

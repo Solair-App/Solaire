@@ -62,10 +62,7 @@ const CreateSlider = ({ firestore, history, match }) => {
       setDescription(infoSlide.description);
     }
   }, [cours, parcours, firestore, infoSlide.name, infoSlide.slides.length, infoSlide.description]);
-  // if (localStorage.getItem('coursCreated')) {
-  //   const coursCreated = JSON.parse(localStorage.getItem('coursCreated'));
-  //   this.setState({});
-  // }
+
 
   const classes = useStyles();
   const theme = useTheme();
@@ -163,16 +160,16 @@ const CreateSlider = ({ firestore, history, match }) => {
 
   return (
     <div className={classes.root}>
-      <ArrowBack
-        style={{
-          position: 'absolute', left: '10px', top: '10px', color: 'white',
-        }}
-        onClick={back}
-      />
       <div className="topFond">
+        <ArrowBack
+          style={{
+            position: 'absolute', left: '10px', top: '10px', color: 'white',
+          }}
+          onClick={back}
+        />
         <h1>Créer un slider</h1>
-        <SimpleModal open={open} idCours={id} togle={closed} deleted={deleting} />
       </div>
+      <SimpleModal open={open} idCours={id} togle={closed} deleted={deleting} />
       <h2 style={{ marginTop: '7px', marginBottom: '3px' }}>Aperçu du slider en cours</h2>
       {
         <div className="aperçuSlider">

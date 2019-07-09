@@ -3,12 +3,16 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router';
+import SaveIcon from '@material-ui/icons/Save';
+import Add from '@material-ui/icons/Add';
 import * as firebase from 'firebase';
 import { Link } from 'react-router-dom';
+import Fab from '@material-ui/core/Fab';
 import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 import SimpleModal from '../../SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
+import '../../../SCSS/CreateParcours.scss';
 
 class CreateQuiz extends Component {
   constructor(props) {
@@ -18,6 +22,7 @@ class CreateQuiz extends Component {
       quizData: '',
       name: '',
       description: '',
+      error: '',
       open: false,
       coursId: 0,
     };
@@ -26,6 +31,24 @@ class CreateQuiz extends Component {
     this.cours = match.params.coursId;
     this.getInfo();
   }
+
+  isContentNull = () => {
+    const { name, description } = this.state;
+    if (name === '' || description === '') {
+      return true;
+    }
+    return false;
+  };
+
+  back = () => {
+    const { infoQuiz } = this.state;
+    const { history } = this.props;
+    if (Object.values(infoQuiz).length > 0 && this.isContentNull()) {
+      this.setState({ error: 'Veuillez ajouter un nom et une description' });
+    } else {
+      history.push(`/createparcours/${this.parcours}/addcours`);
+    }
+  };
 
 
   onChange = (event) => {
@@ -36,14 +59,18 @@ class CreateQuiz extends Component {
     const { name, description } = this.state;
     const { firestore } = this.props;
     const db = firestore;
-    const quizSet = db.collection('parcours').doc(this.parcours).collection('cours');
-    const quiz = quizSet.doc(this.cours);
-    quiz.set({
-      type: 'quiz', name, description, finish: true, creator: localStorage.getItem('userId'), graduate: [],
-    }, { merge: true });
-    event.preventDefault();
-    const { history } = this.props;
-    history.push(`/createparcours/${this.parcours}/addcours`);
+    if (this.isContentNull()) {
+      this.setState({ error: 'Veuillez ajouter un nom et une description' });
+    } else {
+      const quizSet = db.collection('parcours').doc(this.parcours).collection('cours');
+      const quiz = quizSet.doc(this.cours);
+      quiz.set({
+        type: 'quiz', name, description, finish: true, creator: localStorage.getItem('userId'), graduate: [],
+      }, { merge: true });
+      event.preventDefault();
+      const { history } = this.props;
+      history.push(`/createparcours/${this.parcours}/addcours`);
+    }
   }
 
   getInfo = () => {
@@ -69,6 +96,7 @@ class CreateQuiz extends Component {
       console.log('Error getting document:', error);
     });
   }
+
 
   redirect = (url) => {
     const { history } = this.props;
@@ -99,26 +127,27 @@ class CreateQuiz extends Component {
   }
 
   render() {
-    const { history } = this.props;
     const {
-      infoQuiz, name, description, open, coursId,
+      infoQuiz, name, description, open, coursId, error,
     } = this.state;
 
     return (
       <Grid container>
-        <ArrowBack
-          style={{ position: 'absolute', left: '10px', top: '10px' }}
-          onClick={() => {
-            history.goBack();
-          }}
-        />
+        <div className="topFond">
+
+          <ArrowBack
+            style={{
+              position: 'absolute', left: '10px', top: '10px', color: 'white',
+            }}
+            onClick={this.back}
+          />
+          <h1>Créer un quiz</h1>
+        </div>
         <Grid item xs={12}>
           <SimpleModal open={open} idCours={coursId} togle={this.close} deleted={this.deleting} />
-          <h1>Création de quiz</h1>
-
-          {Object.keys(infoQuiz).length > 0
-            ? <h2 style={{ marginTop: '8px' }}>Aperçu du quiz en cours</h2>
-            : <p style={{ marginTop: '8px' }}>Ce quiz ne contient pas encore de questions</p>
+          <h2 style={{ marginTop: '7px', marginBottom: '3px' }}>Aperçu du quiz en cours</h2>
+          {!Object.keys(infoQuiz).length > 0
+            && <p style={{ marginTop: '8px' }}>Ce quiz ne contient pas encore de questions</p>
           }
           {Object.keys(infoQuiz).length > 0 && Object.keys(infoQuiz).map((key, index) => (
             <>
@@ -141,15 +170,21 @@ class CreateQuiz extends Component {
         </Grid>
 
         <Grid item xs={12}>
-          <Link to={`/createparcours/${this.parcours}/${this.cours}/addquestion`}>
-            <Button
+          <Link style={{ textDecoration: 'none' }} to={`/createparcours/${this.parcours}/${this.cours}/addquestion`}>
+            <Fab
+              variant="extended"
               size="medium"
-              variant="contained"
-              style={{ marginTop: '8%' }}
-              className="Button"
+              aria-label="Add"
+              style={{
+                width: '250px',
+                color: 'white',
+                marginBottom: '14px',
+                backgroundColor: '#138787',
+              }}
             >
+              <Add className="saveicon" />
               Ajouter une question
-            </Button>
+            </Fab>
           </Link>
         </Grid>
         <Grid item xs={12}>
@@ -161,7 +196,7 @@ class CreateQuiz extends Component {
             className="textfield"
             value={name}
             onChange={this.onChange}
-            style={{ marginTop: '5%', width: '50%' }}
+            style={{ marginTop: '5%', width: '80%' }}
           />
         </Grid>
         <Grid item xs={12}>
@@ -173,20 +208,28 @@ class CreateQuiz extends Component {
             className="textfield"
             value={description}
             onChange={this.onChange}
-            style={{ marginTop: '5%', width: '50%' }}
+            style={{ marginTop: '5%', width: '80%' }}
           />
         </Grid>
         <Grid item xs={12}>
-          <Button
-            size="large"
-            variant="contained"
+          <Fab
+            variant="extended"
+            size="medium"
+            aria-label="Add"
             onClick={this.saveCours}
-            style={{ marginTop: '8%' }}
-            className="Button"
+            style={{
+              width: '300px',
+              color: 'white',
+              marginTop: '18px',
+              borderRadius: '4px',
+              backgroundColor: '#E15920',
+            }}
           >
+            <SaveIcon className="saveicon" />
             Enregistrer ce cours
-          </Button>
+          </Fab>
         </Grid>
+        {error && <p style={{ margin: 'auto', paddingTop: '3px' }}>{error}</p>}
       </Grid>
     );
   }

@@ -9,14 +9,14 @@ import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Rating from 'material-ui-rating';
 import Grid from '@material-ui/core/Grid';
+import School from '@material-ui/icons/School';
 
 const useStyles = makeStyles(() => ({
   root: {
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     width: '100%',
     marginRight: 'auto',
     marginLeft: 'auto',
-    boxShadow: '12px 12px 2px 1px rgba(0, 0, 255, .2)',
   },
 }));
 
@@ -27,55 +27,64 @@ export default function ListLessons(props) {
 
   return (
     <Grid container>
-      <List dense className={classes.root}>
-
-
-        {' '}
-
-        <Grid item xs={12} sm={6} md={6}>
-          {' '}
-          <Link style={{ width: '100%' }} to={{ pathname: `/parcours/${data.id}` }}>
-            <ListItem button>
+      <Grid item xs={12} sm={6} md={6}>
+        <Link to={{ pathname: `/parcours/${data.id}` }}>
+          <List dense className={classes.root}>
+            <ListItem>
               <ListItemAvatar>
                 <Avatar src={data.data.url} />
               </ListItemAvatar>
               <ListItemText primary={data.data.name} />
-
               <ListItemSecondaryAction />
             </ListItem>
+          </List>
+        </Link>
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={6}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+
+          {data.data.creator === localStorage.getItem('userId') ? (
+            <>
+              {' '}
+              {' '}
+              <School />
+              <p style={{ marginLeft: '5px' }}>
+                {' '}
 
 
-          </Link>
-        </Grid>
+                {' '}
+                {data.data.apprenants.length}
+                {' '}
 
-        <Grid item xs={12} sm={6} md={6}>
+              </p>
+            </>
+          )
 
-              Vues :
-          {' '}
-          {data.data.apprenants.length}
-
-          {' '}
-          <Rating max={1} readOnly value={1} />
-          {' '}
-          {Math.floor(data.data.rating)}
-          {' '}
+            : null}
 
 
-          {' '}
-
-        </Grid>
-
-      </List>
-    </Grid>
-
-  );
-}
-
-
-/*    <div style={{
+          <p
+            style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-
+              paddingLeft: '5px',
             }}
-            > */
+          >
+
+            Note :
+            <Rating max={1} readOnly value={1} />
+            {data.data.rating}
+          </p>
+        </div>
+      </Grid>
+    </Grid>
+  );
+}

@@ -36,15 +36,9 @@ class Signup extends Component {
   }
 
   login = (choice) => {
-    const { auth, googleProvider, facebookProvider } = this.props;
+    const { auth, googleProvider } = this.props;
     if (choice === 'google') {
       auth.signInWithRedirect(googleProvider);
-      this.setState({ connected: true });
-      localStorage.setItem('connected', true);
-    }
-
-    if (choice === 'facebook') {
-      auth.signInWithRedirect(facebookProvider);
       this.setState({ connected: true });
       localStorage.setItem('connected', true);
     }
@@ -99,19 +93,6 @@ class Signup extends Component {
                   className="Button"
                 >
                   Sign up with Google
-                </Button>
-                <Button
-                  variant="outlined"
-                  onClick={() => this.login('facebook')}
-                  style={{
-                    backgroundColor: '#138787',
-                    color: 'white',
-                    marginTop: '10px',
-                    width: '300px',
-                  }}
-                  className="Button"
-                >
-                  Sign up with Facebook
                 </Button>
                 <Link to="/signin" style={{ textDecoration: 'none' }}>
                   <Button

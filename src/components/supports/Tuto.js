@@ -11,7 +11,7 @@ class Tuto extends Component {
     this.imagesPath = [
       'https://i.ibb.co/sP0jNQZ/tchat-with-your-students.png',
       'https://i.ibb.co/MVR2YFH/tuto02.png',
-      'https://i.ibb.co/Z11FM3f/pictogramme03.png',
+      'https://i.ibb.co/KLrJKhW/pictogramme03.png',
 
 
     ];
@@ -57,9 +57,9 @@ class Tuto extends Component {
           alt="tchat"
           src={this.imagesPath[count]}
         />
-        <p style={{ marginTop: '10%' }}>
+        <h3 style={{ margin: '10%' }}>
           {this.textPath[count]}
-        </p>
+        </h3>
         {count === this.imagesPath.length - 1 ? (
           <Fab
             variant="extended"

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 import { mapDispatchToProps } from '../../../actions/action';
-
 import UseTabs from './UseTabs';
 import ListLessons from './ListLessons';
 import BottomNav from '../../dashboard/BottomNav';

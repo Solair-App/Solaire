@@ -32,8 +32,8 @@ class CreateQuiz extends Component {
   }
 
   isContentNull = () => {
-    const { name, description } = this.state;
-    if (name === '' || description === '') {
+    const { name, description, infoQuiz } = this.state;
+    if (name === '' || description === '' || Object.keys(infoQuiz).length <= 0) {
       return true;
     }
     return false;
@@ -187,7 +187,6 @@ class CreateQuiz extends Component {
           </Link>
         </Grid>
         <div className="saveBox">
-
           <Grid item xs={12}>
             <TextField
               required
@@ -227,7 +226,7 @@ class CreateQuiz extends Component {
               }}
             >
               <SaveIcon className="saveicon" />
-            Enregistrer ce quiz
+              Enregistrer ce quiz
             </Fab>
           </Grid>
         </div>

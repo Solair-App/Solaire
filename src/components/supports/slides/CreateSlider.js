@@ -89,7 +89,7 @@ const CreateSlider = ({ firestore, history, match }) => {
   };
 
   const isContentNull = () => {
-    if (name === '' || description === '') {
+    if (name === '' || description === '' || Object.keys(infoSlide.slides).length <= 0) {
       return true;
     }
     return false;

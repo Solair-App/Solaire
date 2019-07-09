@@ -83,14 +83,15 @@
   min-height: 120px;
 }
 
+
 .mobileStepper {
   width: 100%;
-  padding: 0;
+  padding: 0 !important;
 }
 
 @media screen and (min-width: 768px) {
   .imgSlide {
-    width: 25%;
+    width: 30%;
   }
 .aperçuSlider {
     width: 50%;

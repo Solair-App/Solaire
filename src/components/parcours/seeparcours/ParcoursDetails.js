@@ -51,7 +51,7 @@ const ParcoursDetails = ({
         </>
       )
       : null}
-    <p>{parcours && parcours.description}</p>
+    <p className="description">{parcours && parcours.description}</p>
     {loaded === 1 ? haveUserAlreadyVoted() : null}
 
     <Rating readOnly value={parcours.rating} />

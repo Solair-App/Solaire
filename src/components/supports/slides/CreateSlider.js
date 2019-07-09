@@ -14,6 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import SimpleModal from '../../SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import '../../../App.scss';
@@ -94,8 +95,15 @@ const CreateSlider = ({ firestore, history, match }) => {
     if (name === '' || description === '') {
       return true;
     }
-
     return false;
+  };
+
+  const back = () => {
+    if (Object.values(infoSlide.slides).length > 0 && isContentNull()) {
+      setError('Veuillez ajouter un nom et une description');
+    } else {
+      history.push(`/createparcours/${parcours}/addcours`);
+    }
   };
 
   const onChange = (event) => {
@@ -155,12 +163,17 @@ const CreateSlider = ({ firestore, history, match }) => {
 
   return (
     <div className={classes.root}>
+      <ArrowBack
+        style={{
+          position: 'absolute', left: '10px', top: '10px', color: 'white',
+        }}
+        onClick={back}
+      />
       <div className="topFond">
         <h1>Créer un slider</h1>
         <SimpleModal open={open} idCours={id} togle={closed} deleted={deleting} />
       </div>
       <h2 style={{ marginTop: '7px', marginBottom: '3px' }}>Aperçu du slider en cours</h2>
-
       {
         <div className="aperçuSlider">
           <h3 className="titleSlide">

@@ -43,11 +43,16 @@ const useStyles = makeStyles(theme => ({
     zIndex: 1,
   },
   button: {
-    position: 'absolute',
     bottom: 55,
-    left: '8.4%',
+    textAlign: 'center',
+  },
+  image: {
+    width: '50%',
   },
 
+  imagePosition: {
+    textAlign: 'center',
+  },
 }));
 
 
@@ -116,7 +121,7 @@ const SlideApprenant = ({
             history.goBack();
           }}
         />
-        <h1 className={classes.title}>{infoSlide.slides && infoSlide.slides[1] && Object.values(infoSlide.slides)[activeStep].title}</h1>
+        <h1 className={classes.title}>{infoSlide.slides && Object.values(infoSlide.slides)[activeStep] && Object.values(infoSlide.slides)[activeStep].title}</h1>
       </div>
       <div className={classes.container}>
         <div
@@ -125,13 +130,13 @@ const SlideApprenant = ({
             width: '100vw', height: '84.5vh', overflowY: 'scroll',
           }}
         >
-          {ReactHtmlParser(infoSlide.slides && infoSlide.slides[1] && Object.values(infoSlide.slides)[activeStep].content)}
-          {console.log(activeStep)}
-
-          {/* {ReactHtmlParser(infoSlide.slides && infoSlide.slides)[activeStep]&& Object.values(infoSlide.slides)[activeStep].content)} */}
-
+          {ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep] && Object.values(infoSlide.slides)[activeStep].content)}
+          <div className={classes.imagePosition}>
+            {infoSlide.slides && Object.values(infoSlide.slides)[activeStep] && Object.values(infoSlide.slides)[activeStep].image
+              ? <img src={infoSlide.slides && Object.values(infoSlide.slides)[activeStep] && Object.values(infoSlide.slides)[activeStep].image} alt="imageSlide" className={classes.image} /> : ''}
+          </div>
         </div>
-        <img src={infoSlide.slides && infoSlide.slides[1] && Object.values(infoSlide.slides)[activeStep].image} alt="imageSlide" />
+
       </div>
       <MobileStepper
         steps={maxSteps}
@@ -168,5 +173,6 @@ const SlideApprenant = ({
     </div>
   );
 };
+
 
 export default withRouter(withFirebaseContext(SlideApprenant));

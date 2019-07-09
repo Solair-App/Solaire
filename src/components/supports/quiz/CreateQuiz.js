@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router';
 import SaveIcon from '@material-ui/icons/Save';
@@ -134,7 +133,6 @@ class CreateQuiz extends Component {
     return (
       <Grid container>
         <div className="topFond">
-
           <ArrowBack
             style={{
               position: 'absolute', left: '10px', top: '10px', color: 'white',
@@ -152,18 +150,18 @@ class CreateQuiz extends Component {
           {Object.keys(infoQuiz).length > 0 && Object.keys(infoQuiz).map((key, index) => (
             <>
               <h3 style={{ marginTop: '8px' }}>
-                {`Question ${index}`}
+                {`Question ${index + 1}`}
                 {' '}
                 <span><DeleteIcon onClick={() => this.open(key)} /></span>
               </h3>
               <p key={infoQuiz.key}>
                 {infoQuiz[key].question}
               </p>
-              {infoQuiz[key].answers.map(answer => <p key={answer}>{answer}</p>)}
+              {infoQuiz[key].answers.map((answer, idex) => <p key={answer}>{`${idex + 1}/ ${answer}`}</p>)}
               <p key={infoQuiz[key]}>
-                Numéro de la bonne réponse :
+                Bonne réponse :
                 {' '}
-                {infoQuiz[key].correct}
+                {infoQuiz[key].correct + 1}
               </p>
             </>
           ))}
@@ -178,6 +176,7 @@ class CreateQuiz extends Component {
               style={{
                 width: '250px',
                 color: 'white',
+                marginTop: '14px',
                 marginBottom: '14px',
                 backgroundColor: '#138787',
               }}
@@ -187,48 +186,51 @@ class CreateQuiz extends Component {
             </Fab>
           </Link>
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="name"
-            label="Nom du cours"
-            name="name"
-            className="textfield"
-            value={name}
-            onChange={this.onChange}
-            style={{ marginTop: '5%', width: '80%' }}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="description"
-            label="Description du cours"
-            name="description"
-            className="textfield"
-            value={description}
-            onChange={this.onChange}
-            style={{ marginTop: '5%', width: '80%' }}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Fab
-            variant="extended"
-            size="medium"
-            aria-label="Add"
-            onClick={this.saveCours}
-            style={{
-              width: '300px',
-              color: 'white',
-              marginTop: '18px',
-              borderRadius: '4px',
-              backgroundColor: '#E15920',
-            }}
-          >
-            <SaveIcon className="saveicon" />
-            Enregistrer ce cours
-          </Fab>
-        </Grid>
+        <div className="saveBox">
+
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="name"
+              label="Nom du cours"
+              name="name"
+              className="textfield"
+              value={name}
+              onChange={this.onChange}
+              style={{ marginTop: '5%', width: '80%' }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="description"
+              label="Description du cours"
+              name="description"
+              className="textfield"
+              value={description}
+              onChange={this.onChange}
+              style={{ marginTop: '5%', width: '80%' }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Fab
+              variant="extended"
+              size="medium"
+              aria-label="Add"
+              onClick={this.saveCours}
+              style={{
+                width: '300px',
+                color: 'white',
+                marginTop: '18px',
+                borderRadius: '4px',
+                backgroundColor: '#E15920',
+              }}
+            >
+              <SaveIcon className="saveicon" />
+            Enregistrer ce quiz
+            </Fab>
+          </Grid>
+        </div>
         {error && <p style={{ margin: 'auto', paddingTop: '3px' }}>{error}</p>}
       </Grid>
     );

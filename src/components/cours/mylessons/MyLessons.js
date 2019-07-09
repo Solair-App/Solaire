@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as firebase from 'firebase';
+import Grid from '@material-ui/core/Grid';
 import { mapDispatchToProps } from '../../../actions/action';
 
 import UseTabs from './UseTabs';
+// eslint-disable-next-line import/no-named-as-default
 import ListLessons from './ListLessons';
 import BottomNav from '../../dashboard/BottomNav';
 
@@ -60,18 +62,33 @@ class MyLessons extends React.Component {
       <div>
         {' '}
         <UseTabs changeTabs={this.handleChange} currentValue={currentValue} />
-        {userLessons ? (
-          userLessons
-            .filter(parcours => (currentValue === 0
-              ? parcours.data.creator === currentUser
-              : parcours.data.apprenants.includes(currentUser)
+        <div style={{
+          marginTop: '80px', width: '80%', marginRight: 'auto', marginLeft: 'auto',
+        }}
+        >
+
+          {' '}
+          {userLessons ? (
+            userLessons
+              .filter(parcours => (currentValue === 0
+                ? parcours.data.creator === currentUser
+                : parcours.data.apprenants.includes(currentUser)
                   && parcours.data.creator !== currentUser))
-            .map((x, i) => <ListLessons data={x} key={`${i + 1}a`} />)
-        ) : (
-          <p>
-            <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
-          </p>
-        )}
+              .map((x, i) => (
+
+
+                <ListLessons data={x} key={`${i + 1}a`} />
+
+
+              ))
+          ) : (
+            <p>
+              <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
+            </p>
+          )}
+
+
+        </div>
         <BottomNav />
       </div>
     );

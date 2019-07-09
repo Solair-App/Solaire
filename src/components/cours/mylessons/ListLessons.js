@@ -7,13 +7,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import { Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
+import Rating from 'material-ui-rating';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(() => ({
   root: {
+    backgroundColor: 'white',
     width: '100%',
-
-    backgroundColor: 'transparent',
-
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    boxShadow: '12px 12px 2px 1px rgba(0, 0, 255, .2)',
   },
 }));
 
@@ -23,20 +26,55 @@ export default function ListLessons(props) {
   const { data } = props;
 
   return (
-    <List dense className={classes.root}>
+    <Grid container>
+      <List dense className={classes.root}>
+        <Link to={{ pathname: `/parcours/${data.id}` }}>
 
-      <Link to={{ pathname: `/parcours/${data.id}` }}>
+
+          {' '}
+
+          <Grid item xs={12} sm={6} md={6}>
+            <ListItem button>
+              <ListItemAvatar>
+                <Avatar src={data.data.url} />
+              </ListItemAvatar>
+              <ListItemText primary={data.data.name} />
+
+              <ListItemSecondaryAction />
+            </ListItem>
 
 
-        <ListItem button>
-          <ListItemAvatar>
-            <Avatar src={data.data.url} />
-          </ListItemAvatar>
-          <ListItemText primary={data.data.name} />
-          <ListItemSecondaryAction />
-        </ListItem>
+          </Grid>
 
-      </Link>
-    </List>
+          <Grid item xs={12} sm={6} md={6}>
+
+              Vues :
+            {' '}
+            {data.data.apprenants.length}
+
+            {' '}
+            <Rating max={1} readOnly value={1} />
+            {' '}
+            {Math.floor(data.data.rating)}
+            {' '}
+
+
+            {' '}
+
+          </Grid>
+
+        </Link>
+      </List>
+    </Grid>
+
   );
 }
+
+
+/*    <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+
+            }}
+            > */

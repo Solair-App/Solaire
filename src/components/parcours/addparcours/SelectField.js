@@ -29,7 +29,7 @@ function DialogSelect(props) {
   } = props;
 
   return (
-    <div style={{ marginBottom: '10%' }}>
+    <div style={{ marginBottom: '40px' }}>
       {' '}
       <TextField
         id="standard-select-currency"

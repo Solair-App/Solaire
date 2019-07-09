@@ -180,16 +180,15 @@ function CreateParcours({
   }
 
   return (
-
     <form className="classesContainer" autoComplete="off" style={{ paddingBottom: '30px' }}>
       <div className="topFond">
         <ArrowBack
-          style={{ position: 'fixed', left: '10px', top: '10px' }}
+          style={{ position: 'absolute', left: '2px', top: '13px' }}
           onClick={() => {
             redirect('/mydashboard');
           }}
         />
-        <h2 className="h2" style={{ paddingTop: '5%' }}>Création de parcours</h2>
+        <h2 className="h2">Création de parcours</h2>
       </div>
       <div style={{ marginTop: '1.5em' }}>
         <ImageUpload getImage={getImage} />
@@ -202,7 +201,7 @@ function CreateParcours({
           className="textfield"
           value={value.name}
           onChange={handleChange('name')}
-          style={{ marginTop: '5%', width: '50%' }}
+          style={{ marginTop: '9px', width: 298 }}
         />
       </div>
       {' '}
@@ -213,70 +212,75 @@ function CreateParcours({
           label="Description"
           value={value.description}
           multiline
-          rows="5"
           onChange={handleChange('description')}
-          className="textField"
-          style={{ marginTop: '2%', marginBottom: '5%', width: '50%' }}
-        />
-      </div>
-      <div>
-        <TextField
-          required
-          id="standard-name"
-          label="tags"
           className="textfield"
-          value={value.tags}
-          onChange={handleChange('tags')}
-          style={{ marginTop: '5%', width: '50%' }}
+          style={{ marginTop: '9px', width: 298 }}
         />
       </div>
+      <TextField
+        required
+        id="standard-name"
+        label="tags"
+        className="textfield"
+        value={value.tags}
+        onChange={handleChange('tags')}
+        style={{ marginTop: '9px', width: 298 }}
+      />
 
-      {cat.thématique && (
+      <div style={{ marginTop: 7 }}>
+        {cat.thématique && (
         <SelectField
           required
           choices={cat.thématique}
-          name="thématique"
+          name="thématique *"
           handleChange={handleChange}
           value={value.thématique}
           className="selectField"
         />
-      )}
-      {cat.langue
+        )}
+      </div>
+      <div style={{ marginTop: -36 }}>
+        {cat.langue
         && (
           <SelectField
             required
             choices={cat.langue}
-            name="langue"
+            name="langue *"
             handleChange={handleChange}
             value={value.langue}
             class="container"
           />
         )
       }
-      {cat.durée
+      </div>
+      <div style={{ marginTop: -36 }}>
+        {cat.durée
         && (
           <SelectField
             required
             choices={cat.durée}
-            name="durée"
+            name="durée *"
             handleChange={handleChange}
             value={value.durée}
             class="container"
           />
         )
       }
-      {cat.difficulté
+      </div>
+      <div style={{ marginTop: -36 }}>
+        {cat.difficulté
         && (
           <SelectField
             required
             choices={cat.difficulté}
-            name="difficulté"
+            name="difficulté *"
             handleChange={handleChange}
             value={value.difficulté}
             className="selectField"
           />
         )
       }
+      </div>
       <h3 className="h3">{value.errorMessage}</h3>
       <Fab
         variant="extended"
@@ -284,7 +288,7 @@ function CreateParcours({
         aria-label="Add"
         onClick={validateParcours}
         style={{
-          marginTop: '10px',
+          marginTop: '15px',
           marginLeft: '10px',
           width: '300px',
           color: 'white',

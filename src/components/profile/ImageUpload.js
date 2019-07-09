@@ -53,8 +53,8 @@ class ImageUpload extends Component {
           <LooksOne style={{ marginRight: '5px', fontSize: '30px' }} />
           <input accept=".jpg, .jpeg, .png" id="image_uploads" name="image_uploads" type="file" onChange={this.handleChange} />
         </div>
-        <p>
-          <LooksTwo style={{ fontSize: '30px' }} />
+        <p style={{ marginLeft: '-157px' }}>
+          <LooksTwo style={{ fontSize: '30px', marginRight: '-6px', marginLeft: 36 }} />
           <Fab
             variant="extended"
             disabled={upload}
@@ -63,6 +63,8 @@ class ImageUpload extends Component {
             style={{
               marginTop: '10px',
               marginLeft: '10px',
+              paddingRight: '71px',
+              paddingLeft: '71px',
               width: '100px',
               color: 'white',
               backgroundColor: '#E15920',

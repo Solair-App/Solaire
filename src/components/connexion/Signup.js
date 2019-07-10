@@ -5,6 +5,7 @@ import Fab from '@material-ui/core/Fab';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 import '../../SCSS/SignUp.scss';
 
+
 class Signup extends Component {
   constructor(props) {
     super(props);

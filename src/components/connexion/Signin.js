@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 
 
@@ -16,11 +17,8 @@ class Signup extends Component {
       passwordOne: '',
       passwordTwo: '',
       error: null,
-      // Math.floor(Math.random()*99999)+'toto'
-      // Math.floor(Math.random()*99999)+'toto@mail.fr'
     };
   }
-
 
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
@@ -60,6 +58,7 @@ class Signup extends Component {
   }
 
   render() {
+    const { history } = this.props;
     const {
       username,
       email,
@@ -73,9 +72,20 @@ class Signup extends Component {
       || username === '';
     return (
       <div className="emailLog" style={{ color: 'black' }}>
+        <div className="topFond">
+          <ArrowBack
+            style={{
+              position: 'absolute', left: '10px', top: '10px', color: 'white',
+            }}
+            onClick={() => {
+              history.push('/signup');
+            }}
+          />
+          <h1>Inscription avec un email</h1>
+        </div>
         <form onSubmit={this.onSubmit} className="classesContainer" autoComplete="off">
           <Grid container>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 required
                 id="name"
@@ -87,7 +97,7 @@ class Signup extends Component {
                 style={{ marginTop: '5%', width: '50%' }}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 required
                 id="email"
@@ -99,7 +109,7 @@ class Signup extends Component {
                 style={{ marginTop: '5%', width: '50%' }}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
 
               <TextField
                 required
@@ -113,7 +123,7 @@ class Signup extends Component {
                 style={{ marginTop: '5%', width: '50%' }}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
 
               <TextField
                 required
@@ -135,11 +145,10 @@ class Signup extends Component {
             color="primary"
             variant="contained"
             style={{
-              position: 'fixed center', marginTop: '8%', borderRadius: '20px', backgroundColor: '#138787', color: 'white',
+              position: 'fixed center', marginTop: '40px', borderRadius: '20px', backgroundColor: '#138787', color: 'white',
             }}
-            className="Button"
           >
-            Sign Up
+            Se connecter
           </Button>
           {error && <p>{error.message}</p>}
         </form>

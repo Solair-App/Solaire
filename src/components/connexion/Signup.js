@@ -71,7 +71,7 @@ class Signup extends Component {
     const { connected } = this.state;
     return (
       <div className="signin" style={{ color: 'black' }}>
-        <img style={{ margin: '5%', width: '80%', marginTop: '15%' }} src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="logo" />
+        <img style={{ margin: '5%', width: '50%', marginTop: '15%' }} src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="logo" />
         <h1 style={{ color: '#138787', margin: '5%' }}>Solair</h1>
         <h4 style={{ color: '', margin: '5%' }}>Apprendre en s’amusant de façon ludique</h4>
         {
@@ -79,14 +79,14 @@ class Signup extends Component {
             ? <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
             : (
               <>
-                <h5 style={{ color: '', margin: '1%' }}> Please sign in</h5>
+                <h5 style={{ color: '', margin: '5%' }}> Please sign in</h5>
                 <Button
                   variant="outlined"
                   onClick={() => this.login('google')}
                   style={{
                     backgroundColor: '#138787',
                     color: 'white',
-                    marginTop: '10px',
+                    margin: '5%',
                     width: '300px',
                   }}
                   className="Button"
@@ -99,7 +99,7 @@ class Signup extends Component {
                     style={{
                       backgroundColor: '#138787',
                       color: 'white',
-                      marginTop: '10px',
+                      margin: '5%',
                       marginBottom: '20px',
                       width: '300px',
                     }}
@@ -108,7 +108,7 @@ class Signup extends Component {
                     Sign up with Email
                   </Button>
                 </Link>
-                <p><Link to="/connect" style={{ color: '#E15920' }}>Already have an account?</Link></p>
+                <p><Link to="/connect" style={{ color: '#E15920', marginBottom: '5%' }}>Already have an account?</Link></p>
               </>
             )
         }

@@ -84,7 +84,7 @@ class Signup extends Component {
           <h1>Inscription avec un email</h1>
         </div>
         <form onSubmit={this.onSubmit} className="classesContainer" autoComplete="off">
-          <Grid container>
+          <Grid container style={{ marginBottom: '20px' }}>
             <Grid item xs={12}>
               <TextField
                 required
@@ -145,10 +145,10 @@ class Signup extends Component {
             color="primary"
             variant="contained"
             style={{
-              position: 'fixed center', marginTop: '40px', borderRadius: '20px', backgroundColor: '#138787', color: 'white',
+              position: 'fixed center', borderRadius: '20px', backgroundColor: '#138787', color: 'white',
             }}
           >
-            Se connecter
+            S&apos;inscrire
           </Button>
           {error && <p>{error.message}</p>}
         </form>

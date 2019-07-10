@@ -7,6 +7,7 @@ import Add from '@material-ui/icons/Add';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import ListCours from './ListCours';
 import TypeCours from './TypeCours';
+import './AddCours.scss';
 
 class AddCours extends Component {
   constructor(props) {
@@ -99,7 +100,9 @@ class AddCours extends Component {
 
     return (
       <div>
-        <h1>{data.name}</h1>
+        <div className="backparcours">
+          <h1>{data.name}</h1>
+        </div>
         <Link to={`/createparcours/${this.parcours}`}>
           <Button color="primary">
             <Edit />

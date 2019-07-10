@@ -128,10 +128,6 @@ class ListCours extends Component {
           </>
         ))}
 
-        <p style={{ marginTop: '10px' }}>
-          <RadioButtonUnchecked style={{ marginRight: '10px' }} />
-          Certification
-        </p>
       </div>
     );
   }

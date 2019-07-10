@@ -23,6 +23,7 @@ class seeParcours extends Component {
       canVote: true,
       open: false,
       commentaire: { pseudo: '', commentaire: 'qsd' },
+      
       loaded: 0,
     };
     const { match } = this.props;

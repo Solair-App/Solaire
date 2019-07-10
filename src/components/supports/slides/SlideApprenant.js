@@ -81,6 +81,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   button: {
+    bottom: 55,
     textAlign: 'center',
     marginTop: '30%',
     marginBottom: '10%',
@@ -115,8 +116,12 @@ const useStyles = makeStyles(theme => ({
     padding: '3%',
     paddingTop: '5%',
     paddingBottom: '5%',
+
   },
 
+  imagePosition: {
+    textAlign: 'center',
+  },
 }));
 
 

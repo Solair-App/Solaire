@@ -11,7 +11,7 @@ import ViewCommentaires from './ViewCommentaires';
 import ParcoursDetails from './ParcoursDetails';
 import CoursDetails from './CoursDetails';
 import './SeeParcours.scss';
-
+import Fab from '@material-ui/core/Fab';
 
 class seeParcours extends Component {
   constructor(props) {
@@ -31,7 +31,6 @@ class seeParcours extends Component {
 
   componentDidMount() {
     const { firestore } = this.props;
-    this.sendApprenant();
 
     let userRef;
     if (localStorage.getItem('userId')) {
@@ -70,6 +69,7 @@ class seeParcours extends Component {
       .then((doc) => {
         if (doc.exists) {
           this.setState({ parcours: doc.data(), loaded: 1 });
+          this.isUserAStudent();
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');
@@ -78,6 +78,20 @@ class seeParcours extends Component {
       .catch((error) => {
         console.log('Error getting document:', error);
       });
+  };
+
+  isUserAStudent = () => {
+    const { parcours } = this.state;
+
+    if (
+      parcours.apprenants
+        .map(item => item === localStorage.getItem('userId'))
+        .includes(true)
+    ) {
+      this.setState({
+        student: true,
+      });
+    }
   };
 
   getUserInfo = (userRef) => {
@@ -103,7 +117,7 @@ class seeParcours extends Component {
     this.setState({
       commentaire: { pseudo: text.name, commentaire: text.message },
     });
-  }
+  };
 
   sendRatings = (rating) => {
     const { parcours } = this.state;
@@ -149,6 +163,7 @@ class seeParcours extends Component {
           localStorage.getItem('userId'),
         ),
       });
+    this.setState({ student: true });
   };
 
   delete = (idCours) => {
@@ -157,7 +172,7 @@ class seeParcours extends Component {
       .collection('parcours')
       .doc(this.parcours)
       .delete()
-      .then(() => { })
+      .then(() => {})
       .catch((error) => {
         console.error(`Error removing document ${idCours}`, error);
       });
@@ -171,6 +186,7 @@ class seeParcours extends Component {
 
   haveUserAlreadyVoted = () => {
     const { parcours } = this.state;
+
     if (
       parcours.votants
         .map(item => item.id === localStorage.getItem('userId'))
@@ -199,16 +215,22 @@ class seeParcours extends Component {
 
   newComment = () => {
     this.setState({ commentSent: false });
-  }
+  };
 
   render() {
     const { history } = this.props;
     const {
-      parcours, open, commentaire, commentSent, rating, loaded, userInfo,
+      parcours,
+      open,
+      commentaire,
+      commentSent,
+      rating,
+      loaded,
+      userInfo,
+      student,
     } = this.state;
     return (
       <div>
-
         <div className="backparcours">
           <ArrowBack
             style={{ position: 'absolute', left: '10px', top: '10px' }}
@@ -233,46 +255,67 @@ class seeParcours extends Component {
           togle={this.togleModal}
           deleted={this.delete}
         />
-        <CoursDetails parcours={this.parcours} />
-        {commentSent
-          ? (
-            <>
-              <p>Commentaire envoyé !</p>
-              <Button
-                variant="outlined"
-                onClick={this.newComment}
-                name="thématique"
-                className="Button"
-                style={{
-                  margin: '30px 0 30px 0',
-                  width: '300px',
-                }}
-              >
-                Nouveau commentaire
-              </Button>
-            </>
-          )
-          : (
-            <PostCommentaires
-              sendCommentaire={this.sendCommentaire}
-              userRate={this.canUserRate}
+        {student === true ? (
+          <>
+            <CoursDetails parcours={this.parcours} />
+            {commentSent ? (
+              <>
+                <p>Commentaire envoyé !</p>
+                <Button
+                  variant="outlined"
+                  onClick={this.newComment}
+                  name="thématique"
+                  className="Button"
+                  style={{
+                    margin: '30px 0 30px 0',
+                    width: '300px',
+                  }}
+                >
+                  Nouveau commentaire
+                </Button>
+              </>
+            ) : (
+              <PostCommentaires
+                sendCommentaire={this.sendCommentaire}
+                userRate={this.canUserRate}
+                rating={rating}
+                getParcours={this.getParcours}
+                userInfo={userInfo}
+              />
+            )}
+            <ViewCommentaires
+              currentParcours={this.parcours}
+              userInfo={userInfo}
+              parcours={parcours}
+              currentCommentaire={commentaire}
+              commentaires={parcours.commentaires}
               rating={rating}
               getParcours={this.getParcours}
-              userInfo={userInfo}
+              answerCommentaire={this.answerCommentaire}
             />
-          )
-        }
-        <ViewCommentaires
-          currentParcours={this.parcours}
-          userInfo={userInfo}
-          parcours={parcours}
-          currentCommentaire={commentaire}
-          commentaires={parcours.commentaires}
-          rating={rating}
-          getParcours={this.getParcours}
-          answerCommentaire={this.answerCommentaire}
-        />
+            {' '}
+          </>
+        ) : (
+          <>
+            {' '}
+            <Fab
+              variant="extended"
+              size="medium"
+              aria-label="Add"
+              style={{
+                width: '300px',
 
+                color: 'white',
+                marginTop: '30%',
+                backgroundColor: '#E15920',
+              }}
+              onClick={this.sendApprenant}
+            >
+              Suivre
+              {' '}
+            </Fab>
+          </>
+        )}
       </div>
     );
   }

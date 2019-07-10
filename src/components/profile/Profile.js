@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
-import ArrowBack from '@material-ui/icons/ArrowBack';
 import LocationOn from '@material-ui/icons/LocationOn';
 import AlternateEmail from '@material-ui/icons/AlternateEmail';
 import FormatQuote from '@material-ui/icons/FormatQuote';
@@ -97,17 +96,6 @@ class Profile extends Component {
         {userInfo ? (
           <>
             <div className="fond">
-              <ArrowBack
-                style={{
-                  position: 'fixed',
-                  left: '10%',
-                  top: '2%',
-                  color: 'white',
-                }}
-                onClick={() => {
-                  this.redirect('/mydashboard');
-                }}
-              />
               <h1 className="titreprofil">Mon compte</h1>
 
               <p>
@@ -153,6 +141,7 @@ class Profile extends Component {
               style={{
                 width: '300px',
                 color: 'white',
+                marginTop: '10px',
                 marginBottom: '10px',
                 backgroundColor: '#138787',
               }}

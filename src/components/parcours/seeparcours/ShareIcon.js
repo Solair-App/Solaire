@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   TwitterIcon,
-  FacebookIcon,
+
   LinkedinIcon,
 } from 'react-share';
 import { withRouter } from 'react-router-dom';
@@ -19,32 +19,20 @@ function ShareIcon(props) {
   const { gray } = props;
   const classes = props;
 
-  // eslint-disable-next-line react/destructuring-assignment
-  const { pathname } = props.location;
+
   return (
+
     <>
 
       <div style={{ justifyContent: 'center', display: 'flex', filter: `grayscale(${gray})` }}>
+
         <Button
           className={classes.button}
           onClick={() => {
             if (gray === 0) {
-              window.location = `https://www.facebook.com/sharer.php?u=${pathname}`;
-            }
-          }}
-        >
-          <FacebookIcon
+              const url = `https://solair.netlify.com/#${props.match.url}`;
 
-            size={32}
-            round
-          />
-
-        </Button>
-        <Button
-          className={classes.button}
-          onClick={() => {
-            if (gray === 0) {
-              window.location = 'https://www.linkedin.com/shareArticle?mini=true&url=test&title=Titre&summary=Je%20viens%20de%20terminer%20ce%20super%20cours%20sur%20Solair%20!%20source=Solair';
+              window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '', 'left=0,top=0,width=650,height=420,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
             }
           }}
         >
@@ -55,7 +43,7 @@ function ShareIcon(props) {
           className={classes.button}
           onClick={() => {
             if (gray === 0) {
-              window.location = `https://twitter.com/intent/tweet?text=Je%20viens%20de%20terminer%20ce%20super%20cours%20Solair%20!%20${pathname}`;
+              window.open(`https://twitter.com/share?url=${encodeURIComponent(window.location.href)}&text=${'Je viens de finir ce super cours sur Solair'}`, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
             }
           }}
         >

@@ -4,6 +4,8 @@ import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Add from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+import SaveIcon from '@material-ui/icons/Save';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -146,23 +148,45 @@ copyLink = () => {
           <h1>{data.name}</h1>
         </div>
         <Link to={`/createparcours/${this.parcours}`}>
-          <Button color="primary">
+          <Fab
+            variant="extended"
+            size="medium"
+            aria-label="Add"
+            style={{
+              margin: '30px 0 30px 0',
+              width: '300px',
+              color: 'white',
+              backgroundColor: '#E15920',
+            }}
+          >
             <Edit />
+            {' '}
             Modifier les options
-          </Button>
+          </Fab>
         </Link>
         <ListCours courseName={data} parcours={this.parcours} />
         <TypeCours getType={this.getType} />
-        <Button
+        <Fab
+          variant="extended"
+          size="medium"
+          aria-label="Add"
           onClick={() => {
             this.redirectToLessons(data);
           }}
+          style={{
+            width: '300px',
+            color: 'white',
+            backgroundColor: '#E15920',
+          }}
         >
-          {' '}
           <Add style={{ marginRight: '10px' }} />
-          Ajouter un cours
-        </Button>
-        <div style={{ marginTop: '50px', marginBottom: '50px' }}>
+          {' '}
+           Ajouter un cours
+
+        </Fab>
+
+
+        <div style={{ marginTop: '30px', marginBottom: '30px' }}>
           <FormControl component="fieldset">
             <RadioGroup
               aria-label="Type"
@@ -172,12 +196,12 @@ copyLink = () => {
             >
               <FormControlLabel
                 value="Privé"
-                control={<Radio />}
+                control={<Radio className="radiobutton" />}
                 label="Parcours privé"
               />
               <FormControlLabel
                 value="Public"
-                control={<Radio />}
+                control={<Radio className="radiobutton" />}
                 label="Parcours public"
               />
               {' '}
@@ -201,14 +225,20 @@ copyLink = () => {
             </>
           ) : null}
           <p>{errorMessage}</p>
-          <Button
-            fullWidth
-            size="large"
-            onClick={this.submit}
-            variant="contained"
+          <Fab
+            variant="extended"
+            size="medium"
+            aria-label="Add"
+            style={{
+              width: '300px',
+              color: 'white',
+              backgroundColor: '#E15920',
+            }}
           >
+            <SaveIcon />
+            {' '}
             Valider
-          </Button>
+          </Fab>
         </div>
       </div>
     );

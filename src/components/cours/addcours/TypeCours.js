@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
   group: {
     margin: theme.spacing(1, 0),
-    marginBottom: '20px',
+    marginBottom: '5px',
   },
 }));
 
@@ -39,9 +39,9 @@ function TypeCours(props) {
           onChange={getType}
 
         >
-          <FormControlLabel value="Quizz" control={<Radio />} label="Quizz" style={{ marginBottom: '20px' }} />
-          <FormControlLabel value="Vidéo" control={<Radio />} label="Vidéo" style={{ marginBottom: '20px' }} />
-          <FormControlLabel value="Slide" control={<Radio />} label="Slide" style={{ marginBottom: '20px' }} />
+          <FormControlLabel value="Quizz" control={<Radio className="radiobutton" />} label="Quizz" style={{ marginBottom: '20px' }} />
+          <FormControlLabel value="Vidéo" control={<Radio className="radiobutton" />} label="Vidéo" style={{ marginBottom: '20px' }} />
+          <FormControlLabel value="Slide" control={<Radio className="radiobutton" />} label="Slide" style={{ marginBottom: '20px' }} />
 
         </RadioGroup>
 

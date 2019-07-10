@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 import Category from './Category';
+import InputBar from './InputBar';
 
 
 class Categories extends Component {
@@ -10,6 +11,7 @@ class Categories extends Component {
     super(props);
     this.state = {
       allParcours: [],
+      searchField: '',
     };
     const { match } = this.props;
     this.category = match.params.category;
@@ -18,6 +20,12 @@ class Categories extends Component {
   componentDidMount() {
     this.getCategoryParcours();
   }
+
+  handleChange = (e) => {
+    this.setState({
+      searchField: e.target.value,
+    });
+  };
 
   getCategoryParcours = () => {
     const { firestore } = this.props;
@@ -39,7 +47,7 @@ class Categories extends Component {
   };
 
   render() {
-    const { allParcours } = this.state;
+    const { allParcours, searchField } = this.state;
     const { history } = this.props;
     return (
       <>
@@ -51,6 +59,11 @@ class Categories extends Component {
             }}
           />
           <h1>{`Parcours ${this.category}`}</h1>
+          <InputBar
+            handleChange={this.handleChange}
+            currentFilterValue="noFilter"
+            currentValue={searchField}
+          />
         </div>
         <div className="parcours" style={{ paddingBottom: '60px' }}>
           <ul className="allParcours">

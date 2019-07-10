@@ -73,7 +73,7 @@ function SearchAppBar(props) {
   const {
     handleChange, currentValue, currentFilterValue, state,
   } = props;
-  const thématique = ['All', ...state.thématique];
+  const thématique = ['Tout', ...state.thématique];
 
   return (
     <div className={classes.root}>
@@ -104,6 +104,7 @@ function SearchAppBar(props) {
             value={currentValue}
           />
         </div>
+        {currentFilterValue !== 'noFilter' && (
         <div className="input">
           <TextField
             id="standard-select-currency"
@@ -118,9 +119,9 @@ function SearchAppBar(props) {
               },
             }}
             style={{
-              width: '150px',
+              width: '118px',
               marginTop: 8.5,
-              marginRight: 15,
+              marginRight: 6,
               backgroundColor: 'rgb(255, 255, 255, 0.2)',
               borderRadius: '40px',
               paddingLeft: '4px',
@@ -134,6 +135,7 @@ function SearchAppBar(props) {
             )) : <p>loading</p>}
           </TextField>
         </div>
+        ) }
       </div>
     </div>
   );

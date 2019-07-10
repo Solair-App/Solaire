@@ -11,8 +11,8 @@ class Tuto extends Component {
     this.imagesPath = [
       'https://i.ibb.co/sP0jNQZ/tchat-with-your-students.png',
       'https://i.ibb.co/MVR2YFH/tuto02.png',
-      'https://i.ibb.co/60Y7SSs/createyourparcour.png',
-      'https://i.ibb.co/KLrJKhW/pictogramme03.png',
+      'https://i.ibb.co/hs6NK3m/create.png',
+      'https://i.ibb.co/j383k0G/readytogo.png',
 
 
     ];
@@ -21,7 +21,7 @@ class Tuto extends Component {
       'Différent style d\'apprentisage !',
       'Apprendre de manière ludique & interactif !',
       'Créer ton parcours & partage ton savoir avec les autres',
-      'Près pour le grand saut ?',
+      'Près à apprendre ?',
 
     ];
   }
@@ -53,7 +53,7 @@ class Tuto extends Component {
         Solair
         </h1>
         <img
-          style={{ width: '80%', marginTop: '10%', marginBottom: '10%' }}
+          style={{ width: '50%', marginTop: '10%', marginBottom: '10%' }}
           className="tchat"
           role="presentation"
           alt="tchat"

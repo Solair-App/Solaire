@@ -107,7 +107,7 @@ class CoursDetails extends Component {
                   )}
                 <img
                   src={`./assets/${cours.data.type}.png`}
-                  style={{ width: '3.5em', paddingLeft: '5%' }}
+                  style={{ width: '3em', paddingLeft: '5%' }}
                   alt={cours.data.type}
                 />
 

@@ -91,7 +91,7 @@ class ListCours extends Component {
         {allCourses && allCourses.map((cours, i) => (
           <>
             <div key={`${i + 1}y`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <img src={`./assets/${cours.data.type}.png`} style={{ width: '4em' }} alt={cours.data.type} />
+              <img src={`./assets/${cours.data.type}.png`} style={{ width: '3em' }} alt={cours.data.type} />
               <div style={{
                 display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',
               }}

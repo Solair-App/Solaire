@@ -13,7 +13,7 @@ class Essai extends Component {
     this.state = {
       content: null,
       erreur: false,
-      title: null,
+      title: '',
       image: '',
     };
     const { match } = this.props;

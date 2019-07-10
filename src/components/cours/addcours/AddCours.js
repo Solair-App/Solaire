@@ -228,6 +228,7 @@ copyLink = () => {
           ) : null}
           <p>{errorMessage}</p>
           <Fab
+            onClick={this.submit}
             variant="extended"
             size="medium"
             aria-label="Add"

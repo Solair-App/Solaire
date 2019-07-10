@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import Edit from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import Add from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import SaveIcon from '@material-ui/icons/Save';
@@ -51,6 +52,14 @@ class AddCours extends Component {
     const { history } = this.props;
     history.push(url);
   };
+
+  redirectParcours = (url) => {
+    const { history } = this.props;
+    history.push({
+      pathname: url,
+      state: { parcours: true },
+    });
+  }
 
   getType = (event) => {
     const { firestore, match } = this.props;
@@ -145,6 +154,12 @@ copyLink = () => {
     return (
       <div>
         <div className="backparcours">
+          <ArrowBack
+            style={{ position: 'fixed', left: '10px', top: '10px' }}
+            onClick={() => {
+              this.redirectParcours('/mydashboard');
+            }}
+          />
           <h1>{data.name}</h1>
         </div>
         <Link to={`/createparcours/${this.parcours}`}>

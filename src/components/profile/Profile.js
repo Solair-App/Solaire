@@ -96,17 +96,6 @@ class Profile extends Component {
         {userInfo ? (
           <>
             <div className="fond">
-              <ArrowBack
-                style={{
-                  position: 'fixed',
-                  left: '10%',
-                  top: '2%',
-                  color: 'white',
-                }}
-                onClick={() => {
-                  this.redirect('/mydashboard');
-                }}
-              />
               <div style={{
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -153,28 +142,6 @@ class Profile extends Component {
               {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
             </p>
 
-<<<<<<< HEAD
-=======
-            <Fab
-              variant="extended"
-              size="medium"
-              aria-label="Add"
-              onClick={() => {
-                this.redirect('/changeprofile');
-              }}
-              style={{
-                width: '300px',
-                color: 'white',
-                marginTop: '10px',
-                marginBottom: '10px',
-                backgroundColor: '#138787',
-              }}
-            >
-              <SaveIcon className="saveicon" />
-              Changer mes informations
-            </Fab>
-
->>>>>>> dev
             {userInfo.is_admin && (
               <Button
                 variant="outlined"

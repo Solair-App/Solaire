@@ -13,10 +13,10 @@
  * (1) https://ckeditor.com/cke4/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) https://ckeditor.com/cke4/builder/bb34aafd072df1b3559c2fed72adaf24
+ * (2) https://ckeditor.com/cke4/builder/273f0ad7e769e86ced6493741e42eaae
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) https://ckeditor.com/cke4/builder/download/bb34aafd072df1b3559c2fed72adaf24
+ * (3) https://ckeditor.com/cke4/builder/download/273f0ad7e769e86ced6493741e42eaae
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -25,7 +25,7 @@
  */
 
 var CKBUILDER_CONFIG = {
-	skin: 'bootstrapck',
+	skin: 'moono-lisa',
 	preset: 'standard',
 	ignore: [
 		'.DS_Store',
@@ -52,8 +52,6 @@ var CKBUILDER_CONFIG = {
 		'tests'
 	],
 	plugins : {
-		'SimpleImage' : 1,
-		'a11yhelp' : 1,
 		'basicstyles' : 1,
 		'clipboard' : 1,
 		'contextmenu' : 1,
@@ -62,22 +60,19 @@ var CKBUILDER_CONFIG = {
 		'entities' : 1,
 		'filebrowser' : 1,
 		'floatingspace' : 1,
-		'font' : 1,
-		'format' : 1,
 		'htmlwriter' : 1,
-		'indentlist' : 1,
-		'link' : 1,
-		'list' : 1,
-		'maximize' : 1,
+		'justify' : 1,
+		'magicline' : 1,
 		'pastetext' : 1,
 		'removeformat' : 1,
 		'resize' : 1,
-		'tab' : 1,
+		'textindent' : 1,
 		'toolbar' : 1,
 		'undo' : 1,
 		'wysiwygarea' : 1
 	},
 	languages : {
-		'en' : 1
+		'en' : 1,
+		'fr' : 1
 	}
 };

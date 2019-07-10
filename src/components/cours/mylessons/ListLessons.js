@@ -25,7 +25,7 @@ export default function ListLessons(props) {
   const { data } = props;
 
   return (
-    <Grid container className="gridLesson">
+    <Grid container className="gridLesson" alignItems="center">
       <Grid item xs={12} sm={6} md={6}>
         <Link
           to={{ pathname: `/parcours/${data.id}` }}

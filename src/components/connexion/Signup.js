@@ -18,7 +18,7 @@ class Signup extends Component {
     if (localStorage.getItem('connected') === null) {
       this.setState({ connected: false });
     }
-    setTimeout(() => this.setState({ connected: false }, localStorage.removeItem('connected')), 4000);
+    setTimeout(() => this.setState({ connected: false }, localStorage.removeItem('connected')), 5000);
 
     const { auth } = this.props;
     auth.onAuthStateChanged((user) => {

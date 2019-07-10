@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 import Category from './Category';
+import InputBar from './InputBar';
 
 
 class Categories extends Component {
@@ -50,6 +51,11 @@ class Categories extends Component {
               history.push('/mydashboard');
             }}
           />
+          {/* <InputBar
+            handleChange={this.handleChange}
+            currentFilterValue={currentValue}
+            currentValue={searchField}
+          /> */}
           <h1>{`Parcours ${this.category}`}</h1>
         </div>
         <div className="parcours" style={{ paddingBottom: '60px' }}>

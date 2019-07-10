@@ -48,7 +48,6 @@ class Signup extends Component {
     // Récupération du Firestore grâce à context
     const { firestore } = this.props;
     // Envoi d'infos dans le cloud Firestore
-
     firestore.doc(`usersinfo/${user.uid}`).get()
       .then((docSnapshot) => {
         const { history } = this.props;
@@ -62,7 +61,7 @@ class Signup extends Component {
             uid: user.uid,
             url: 'https://i.ibb.co/TMTd967/Logo-solair.png',
           }, { merge: true });
-          history.push('/mydashboard');
+          history.push('/tuto');
         }
       });
   }

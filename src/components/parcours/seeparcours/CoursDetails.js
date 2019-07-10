@@ -131,7 +131,7 @@ class CoursDetails extends Component {
 
               </p>
 
-              <p>{cours.data.description}</p>
+              <p className="coursdescrip">{cours.data.description}</p>
 
             </div>
           ))}
@@ -153,7 +153,7 @@ class CoursDetails extends Component {
               {`${coursLength - graduatedLessons} `}
               {' '}
 cours pour
-              pouvoir partager la complétion de ce cours !
+              pouvoir partager la complétion de ce parcours !
             </p>
             <ShareIcon gray={1} />
           </>

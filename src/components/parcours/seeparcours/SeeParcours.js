@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import * as firebase from 'firebase';
 import Rating from 'material-ui-rating';
 import { withRouter } from 'react-router';
+import Fab from '@material-ui/core/Fab';
 import SimpleModal from '../../SimpleModal';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import PostCommentaires from './PostCommentaires';
@@ -11,7 +12,6 @@ import ViewCommentaires from './ViewCommentaires';
 import ParcoursDetails from './ParcoursDetails';
 import CoursDetails from './CoursDetails';
 import './SeeParcours.scss';
-import Fab from '@material-ui/core/Fab';
 
 class seeParcours extends Component {
   constructor(props) {

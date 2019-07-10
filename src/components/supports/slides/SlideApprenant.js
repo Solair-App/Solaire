@@ -8,7 +8,6 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import Fab from '@material-ui/core/Fab';
 import * as firebase from 'firebase';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
@@ -82,6 +81,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   button: {
+    bottom: 55,
     textAlign: 'center',
     marginTop: '30%',
     marginBottom: '10%',
@@ -116,8 +116,12 @@ const useStyles = makeStyles(theme => ({
     padding: '3%',
     paddingTop: '5%',
     paddingBottom: '5%',
+
   },
 
+  imagePosition: {
+    textAlign: 'center',
+  },
 }));
 
 

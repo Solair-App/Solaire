@@ -1,0 +1,43 @@
+
+.navbar{
+  color: white !important;
+  text-transform: none !important;
+  font-size: 17px !important;
+}
+
+.MuiTab-textColorPrimary.Mui-selected{
+  color: white !important;
+  font-weight: 700;
+}
+
+.MuiTab-textColorPrimary.Mui-selected {
+  border-style: none !important;
+}
+
+@for $i from 0 through 10000 {
+  .PrivateTabIndicator-colorPrimary-#{$i} {
+    display: none !important;
+  }
+}
+
+.MuiPaper-elevation1{
+  box-shadow: none !important;
+}
+
+.gridLesson a{
+  text-decoration: none;
+}
+
+.mylessons {
+    margin-top: 40px;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 80px;
+}
+
+@media screen and (min-width: 768px) {
+  .mylessons {
+    width: 35%;
+  }
+}

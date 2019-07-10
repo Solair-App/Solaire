@@ -20,7 +20,7 @@ class Dashboard extends Component {
     this.state = {
       searchField: '',
       filter: '',
-      currentValue: 'All',
+      currentValue: 'Tout',
       parcours: [],
     };
   }
@@ -87,22 +87,16 @@ class Dashboard extends Component {
 
   handleChange = (e) => {
     const { history } = this.props;
-    if (e.target.value === 'All') {
+    if (e.target.value === 'Tout') {
       this.setState({
         filter: '',
-        currentValue: 'All',
+        currentValue: 'Tout',
       });
     } else if (e.target.name === 'filter') {
       history.push(`/category/${e.target.value}`);
     } else {
       this.setState({
         [e.target.name]: e.target.value,
-      });
-    }
-    if (e.target.value !== 'All' && e.target.name === 'filter') {
-      this.setState({
-        currentValue: e.target.value,
-        filter: e.target.value,
       });
     }
   };

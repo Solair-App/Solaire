@@ -17,6 +17,8 @@
 
 .ajout{
   color: #777174;
+  font-size: 18px;
+  margin-bottom: 13px;
 }
 
 .Button {
@@ -29,22 +31,92 @@
 }
 
 .topFond{
-  padding-top: 3%;
-  padding-bottom: 3%;
+  height: 50px;
   background-color: #138787;
   color: white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.topFond h1{
+ width: 90%;
 }
 
 .cloudupload{
-  padding-right: 6%;
+  padding-right: 5px;
+}
+
+.image_uplaods{
+  margin-top: -5px;
+  margin-bottom: 0px;
+}
+
+.image_uplaods .MuiFab-root:active {
+  box-shadow: none;
+}
+
+::after {
+  border-color: #138787 !important;
+  color: #138787 !important;
 }
 
 .file-upload input[type='file'],::-webkit-file-upload-button {
     background-color: #E15920;
+    border: none !important;
+    color: white !important;
+    padding: 12px !important;
+    border-radius: 20px !important;
+    font-size:16px !important;
+}
+
+.imgSlide {
+  width: 60%;
+}
+
+.titleSlide {
+  background-color: #4ca9a9;
+  padding: 3px;
+  color: white;
+}
+
+.saveBox {
+  border: 1px solid #E15920;
+  border-radius: 4px;
+  margin: auto;
+}
+
+.aperçuSlider {
+  background-color: #ffffff;
+  width: 100%;
+  min-height: 120px;
+}
+
+.mobileStepper {
+  width: 100%;
+  padding: 0 !important;
+}
+
+@media screen and (min-width: 768px) {
+  .imgSlide {
+    width: 30%;
+  }
+.aperçuSlider {
+    width: 50%;
+    margin: auto;
+    min-height: 300px;
+  }
+  .mobileStepper {
+    width: 50%;
+    margin: auto;
+    padding: 0;
+  }
+  .saveBox {
+    width: 50%;
     border: none;
-    color: white;
-    padding: 12px;
-    border-radius: 20px;
-    font-size:16px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+  }
 }
 

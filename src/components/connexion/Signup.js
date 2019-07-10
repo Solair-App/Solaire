@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
+import '../../SCSS/SignUp.scss';
 
 class Signup extends Component {
   constructor(props) {
@@ -16,8 +17,11 @@ class Signup extends Component {
     if (localStorage.getItem('connected') === null) {
       this.setState({ connected: false });
     }
+    setTimeout(() => this.setState({ connected: false }, localStorage.removeItem('connected')), 4000);
+
     const { auth } = this.props;
     auth.onAuthStateChanged((user) => {
+      localStorage.removeItem('connected');
       if (user) {
         auth.getRedirectResult().then((result) => {
           // eslint-disable-next-line prefer-destructuring
@@ -33,15 +37,9 @@ class Signup extends Component {
   }
 
   login = (choice) => {
-    const { auth, googleProvider, facebookProvider } = this.props;
+    const { auth, googleProvider } = this.props;
     if (choice === 'google') {
       auth.signInWithRedirect(googleProvider);
-      this.setState({ connected: true });
-      localStorage.setItem('connected', true);
-    }
-
-    if (choice === 'facebook') {
-      auth.signInWithRedirect(facebookProvider);
       this.setState({ connected: true });
       localStorage.setItem('connected', true);
     }
@@ -51,7 +49,6 @@ class Signup extends Component {
     // Récupération du Firestore grâce à context
     const { firestore } = this.props;
     // Envoi d'infos dans le cloud Firestore
-
     firestore.doc(`usersinfo/${user.uid}`).get()
       .then((docSnapshot) => {
         const { history } = this.props;
@@ -65,7 +62,7 @@ class Signup extends Component {
             uid: user.uid,
             url: 'https://i.ibb.co/TMTd967/Logo-solair.png',
           }, { merge: true });
-          history.push('/mydashboard');
+          history.push('/tuto');
         }
       });
   }
@@ -75,55 +72,34 @@ class Signup extends Component {
     const { connected } = this.state;
     return (
       <div className="signin" style={{ color: 'black' }}>
-        <img style={{ margin: '5%', width: '80%', marginTop: '15%' }} src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="logo" />
-        <h1 style={{ color: '#138787', margin: '5%' }}>Solair</h1>
-        <h4 style={{ color: '', margin: '5%' }}>Apprendre en s’amusant de façon ludique</h4>
+        <img src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="logo" className="image" />
+        <h1 className="title">Solair</h1>
+        <h4 className="accroche">Apprendre en s’amusant de façon ludique</h4>
         {
           connected
             ? <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
             : (
               <>
-                <h5 style={{ color: '', margin: '1%' }}> Please sign in</h5>
-                <Button
-                  variant="outlined"
-                  onClick={() => this.login('google')}
-                  style={{
-                    backgroundColor: '#138787',
-                    color: 'white',
-                    marginTop: '10px',
-                    width: '300px',
-                  }}
+                <h5 className="pleaseSign"> Please sign in</h5>
+                <Fab
+                  variant="extended"
+                  size="medium"
+                  aria-label="Add"
                   className="Button"
+                  onClick={() => this.login('google')}
                 >
                   Sign up with Google
-                </Button>
-                <Button
-                  variant="outlined"
-                  onClick={() => this.login('facebook')}
-                  style={{
-                    backgroundColor: '#138787',
-                    color: 'white',
-                    marginTop: '10px',
-                    width: '300px',
-                  }}
-                  className="Button"
-                >
-                  Sign up with Facebook
-                </Button>
+                </Fab>
                 <Link to="/signin" style={{ textDecoration: 'none' }}>
-                  <Button
-                    variant="outlined"
-                    style={{
-                      backgroundColor: '#138787',
-                      color: 'white',
-                      marginTop: '10px',
-                      marginBottom: '20px',
-                      width: '300px',
-                    }}
+                  <Fab
+                    variant="extended"
+                    size="medium"
+                    aria-label="Add"
                     className="Button"
+                    onClick={() => this.login('google')}
                   >
                     Sign up with Email
-                  </Button>
+                  </Fab>
                 </Link>
                 <p><Link to="/connect" style={{ color: '#E15920' }}>Already have an account?</Link></p>
               </>

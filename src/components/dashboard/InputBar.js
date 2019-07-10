@@ -73,7 +73,7 @@ function SearchAppBar(props) {
   const {
     handleChange, currentValue, currentFilterValue, state,
   } = props;
-  const thématique = ['All', ...state.thématique];
+  const thématique = ['Tout', ...state.thématique];
 
   return (
     <div className={classes.root}>
@@ -104,36 +104,38 @@ function SearchAppBar(props) {
             value={currentValue}
           />
         </div>
-        <div className="input">
-          <TextField
-            id="standard-select-currency"
-            select
-            name="filter"
-            className={classes.margin}
-            value={currentFilterValue}
-            onChange={handleChange}
-            SelectProps={{
-              MenuProps: {
-                className: classes.menu,
-              },
-            }}
-            style={{
-              width: '150px',
-              marginTop: 8.5,
-              marginRight: 15,
-              backgroundColor: 'rgb(255, 255, 255, 0.2)',
-              borderRadius: '40px',
-              paddingLeft: '4px',
-            }}
-            margin="normal"
-          >
-            {state.thématique.length > 1 ? thématique.map(option => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            )) : <p>loading</p>}
-          </TextField>
-        </div>
+        {
+          <div className="input">
+            <TextField
+              id="standard-select-currency"
+              select
+              name="filter"
+              className={classes.margin}
+              value={currentFilterValue}
+              onChange={handleChange}
+              SelectProps={{
+                MenuProps: {
+                  className: classes.menu,
+                },
+              }}
+              style={{
+                width: '118px',
+                marginTop: 8.5,
+                marginRight: 6,
+                backgroundColor: 'rgb(255, 255, 255, 0.2)',
+                borderRadius: '40px',
+                paddingLeft: '4px',
+              }}
+              margin="normal"
+            >
+              {state.thématique.length > 1 ? thématique.map(option => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              )) : <p>loading</p>}
+            </TextField>
+          </div>
+        }
       </div>
     </div>
   );

@@ -21,13 +21,6 @@ class Essai extends Component {
     this.cours = match.params.coursId;
   }
 
-  // componentDidMount() {
-  //   const { location, history } = this.props;
-  //   if (!location.state || !location.state.cours) {
-  //     history.push('/CreateParcours');
-  //   }
-  // }
-
   updateContent = (evt) => {
     this.setState({ content: evt.editor.getData() });
   }

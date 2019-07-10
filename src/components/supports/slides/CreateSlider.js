@@ -171,23 +171,25 @@ const CreateSlider = ({ firestore, history, match }) => {
       </div>
       <SimpleModal open={open} idCours={id} togle={closed} deleted={deleting} />
       <h2 style={{ marginTop: '7px', marginBottom: '3px' }}>Aperçu du slider en cours</h2>
-      {
-        <div className="aperçuSlider">
-          <h3 className="titleSlide">
-            {infoSlide.slides && Object.values(infoSlide.slides)[activeStep]
+      {Object.keys(infoSlide.slides).length > 0
+          && (
+          <div className="aperçuSlider">
+            <h3 className="titleSlide">
+              {infoSlide.slides && Object.values(infoSlide.slides)[activeStep]
               && Object.values(infoSlide.slides)[activeStep].title}
-            {Object.keys(infoSlide.slides).length > 0
+              {Object.keys(infoSlide.slides).length > 0
               && <DeleteIcon onClick={() => opened(Object.keys(infoSlide.slides)[activeStep])} />}
-          </h3>
-          <p>
-            {ReactHtmlParser(infoSlide.slides
+            </h3>
+            <p>
+              {ReactHtmlParser(infoSlide.slides
               && Object.values(infoSlide.slides)[activeStep]
               && Object.values(infoSlide.slides)[activeStep].content)}
-          </p>
-          {infoSlide.slides && Object.values(infoSlide.slides)[activeStep]
+            </p>
+            {infoSlide.slides && Object.values(infoSlide.slides)[activeStep]
             && Object.values(infoSlide.slides)[activeStep].image
             && <img className="imgSlide" src={Object.values(infoSlide.slides)[activeStep].image} alt="imageSlide" />}
-        </div>
+          </div>
+          )
       }
       {Object.keys(infoSlide.slides).length > 0
         ? (
@@ -211,7 +213,7 @@ const CreateSlider = ({ firestore, history, match }) => {
             )}
           />
         )
-        : <p style={{ marginTop: '8px' }}>Ce slider ne contient pas encore de slides</p>
+        : <p style={{ marginTop: '18px', marginBottom: '18px' }}>Ce slider ne contient pas encore de slides</p>
       }
 
 

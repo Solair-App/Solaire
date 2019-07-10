@@ -213,7 +213,7 @@ const CreateSlider = ({ firestore, history, match }) => {
             )}
           />
         )
-        : <p style={{ marginTop: '8px' }}>Ce slider ne contient pas encore de slides</p>
+        : <p style={{ marginTop: '18px', marginBottom: '18px' }}>Ce slider ne contient pas encore de slides</p>
       }
 
 

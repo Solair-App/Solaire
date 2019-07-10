@@ -74,14 +74,17 @@ class ChangeProfile extends Component {
 
     return (
       <div>
-        <ArrowBack
-          style={{ position: 'fixed', left: '10px', top: '10px' }}
-          onClick={() => {
-            this.redirect('/profile');
-          }}
-        />
-        <h2 className="titrechange">Modifier mes informations personnelles</h2>
-        <div>
+        <div className="topFond">
+          <ArrowBack
+            style={{ position: 'fixed', left: '10px', top: '10px' }}
+            onClick={() => {
+              this.redirect('/profile');
+            }}
+          />
+          <h1>Modifier mon profil</h1>
+        </div>
+        <div style={{ marginTop: '10px', color: '#777174' }}>
+          <p style={{ marginBottom: '10px' }}>Ajouter une image</p>
           <ImageUpload getImage={this.getImage} />
         </div>
         <div>

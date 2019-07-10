@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
-import ArrowBack from '@material-ui/icons/ArrowBack';
 import LocationOn from '@material-ui/icons/LocationOn';
 import AlternateEmail from '@material-ui/icons/AlternateEmail';
 import FormatQuote from '@material-ui/icons/FormatQuote';
@@ -154,6 +153,28 @@ class Profile extends Component {
               {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
             </p>
 
+<<<<<<< HEAD
+=======
+            <Fab
+              variant="extended"
+              size="medium"
+              aria-label="Add"
+              onClick={() => {
+                this.redirect('/changeprofile');
+              }}
+              style={{
+                width: '300px',
+                color: 'white',
+                marginTop: '10px',
+                marginBottom: '10px',
+                backgroundColor: '#138787',
+              }}
+            >
+              <SaveIcon className="saveicon" />
+              Changer mes informations
+            </Fab>
+
+>>>>>>> dev
             {userInfo.is_admin && (
               <Button
                 variant="outlined"

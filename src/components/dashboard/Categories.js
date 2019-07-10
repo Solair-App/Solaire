@@ -36,6 +36,7 @@ class Categories extends Component {
     firestore
       .collection('parcours')
       .where('thématique', '==', this.category)
+      .where('isReadable', '==', true)
       .get()
       .then((querySnapshot) => {
         querySnapshot.docs.forEach((doc) => {
@@ -61,7 +62,7 @@ class Categories extends Component {
           />
           <div className="Categories">
             <h1>{`Parcours ${this.category}`}</h1>
-            <div style={{ display: 'flex', marginLeft: 4, justifyContent: 'center' }}>
+            <div className="searchZone">
               <SearchIcon style={{ marginRight: '5px' }} />
               <TextField
                 className="searchCategory"

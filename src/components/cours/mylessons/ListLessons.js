@@ -16,8 +16,6 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'transparent',
     width: '100%',
     marginRight: 'auto',
-
-
   },
 }));
 
@@ -27,9 +25,11 @@ export default function ListLessons(props) {
   const { data } = props;
 
   return (
-    <Grid container>
+    <Grid container className="gridLesson">
       <Grid item xs={12} sm={6} md={6}>
-        <Link to={{ pathname: `/parcours/${data.id}` }}>
+        <Link
+          to={{ pathname: `/parcours/${data.id}` }}
+        >
           <List dense className={classes.root}>
             <ListItem>
               <ListItemAvatar>

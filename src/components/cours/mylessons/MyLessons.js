@@ -80,7 +80,7 @@ class MyLessons extends React.Component {
               .map((x, i) => (
 
 
-                <Link to={{ pathname: `/parcours/${x.data.id}` }}>
+                <Link style={{ textDecoration: 'none' }} to={{ pathname: `/parcours/${x.data.id}` }}>
                   {' '}
                   <ListLessons data={x} key={`${i + 1}a`} />
                   {' '}

@@ -96,7 +96,6 @@ class Signup extends Component {
                     size="medium"
                     aria-label="Add"
                     className="Button"
-                    onClick={() => this.login('google')}
                   >
                     Sign up with Email
                   </Fab>

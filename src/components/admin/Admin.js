@@ -113,15 +113,17 @@ class Admin extends Component {
     const { history } = this.props;
     return (
       <div>
-        <ArrowBack
-          style={{ position: 'fixed', left: '10px', top: '10px' }}
-          onClick={() => {
-            history.push('/profile');
-          }}
-        />
+        <div className="topFond">
+          <ArrowBack
+            style={{ position: 'fixed', left: '10px', top: '10px' }}
+            onClick={() => {
+              history.push('/profile');
+            }}
+          />
+          <h1>Modifier les catégories</h1>
+        </div>
         <SimpleModal open={open} idCours={deleteCat} deleteKey={deleteKey} togle={this.toggle} deleted={this.deleteItem} />
         {success && success}
-        <h1>Modifier les catégories</h1>
         <Grid container>
           {forLoop.map(category => (
             <OneCategory getDelete={this.getDelete} key={category} addItem={this.addItem} onChange={this.onChange} category={category} jsUcfirst={this.jsUcfirst} state={this.state} />

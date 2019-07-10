@@ -101,8 +101,6 @@ class ListCours extends Component {
                     variant="extended"
                     size="medium"
                     aria-label="Add"
-                    onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)
-                  }
                     style={{
 
                       width: '100%',
@@ -113,7 +111,7 @@ class ListCours extends Component {
                   >
                     {cours.data.name}
                     {' '}
-                    <Edit style={{ fontSize: 20 }} />
+                    <Edit style={{ fontSize: 20 }} onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)} />
                     {' '}
                     <DeleteIcon onClick={() => this.open(cours.id)} style={{ fontSize: 20 }} />
                   </Fab>

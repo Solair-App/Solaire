@@ -115,7 +115,7 @@ const CreateSlider = ({ firestore, history, match }) => {
   const saveCours = (event) => {
     const db = firestore;
     if (isContentNull()) {
-      setError('Veuillez ajouter un nom et une description');
+      setError('Veuillez ajouter un nom, une description et au moins une slide');
     } else {
       const slideSet = db.collection('parcours').doc(parcours).collection('cours');
       const slide = slideSet.doc(cours);

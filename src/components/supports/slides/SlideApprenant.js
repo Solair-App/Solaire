@@ -8,17 +8,13 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import Fab from '@material-ui/core/Fab';
 import * as firebase from 'firebase';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
-import '../../../App.scss';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: '100vw',
-    width: '100%',
-    overflow: 'hiden',
+    overflow: 'hidden',
     backgroundColor: '#FFF2E9',
     [theme.breakpoints.down('770')]: {
       backgroundColor: 'transparent',
@@ -26,31 +22,26 @@ const useStyles = makeStyles(theme => ({
   },
 
   header: {
-    backgroundColor: '#4ca9a9',
-    height: '8vh',
+    backgroundColor: '#138787',
+    height: '50px',
     overflow: 'hidden',
-    paddingTop: '3%',
-
   },
 
   title: {
-    margingTop: '10%',
+    marginTop: 20,
     color: 'black',
     fontSize: '1.5em',
   },
 
   container: {
-    display: 'flex',
-    width: '100%',
+    width: 'auto',
+    overflow: 'hidden',
   },
-
 
   infosCours: {
     [theme.breakpoints.down('770')]: {
       display: 'none',
     },
-    marginLeft: '20%',
-    marginRight: '20%',
     padding: '3%',
     paddingTop: '5%',
     paddingBottom: '5%',
@@ -67,24 +58,16 @@ const useStyles = makeStyles(theme => ({
 
   nomDuCours: {
     fontSize: '2em',
-    paddingBottom: '15%',
-    paddingTop: '2%',
   },
 
   steppeur: {
-    margin: 0,
-    bottom: 0,
     zIndex: 1,
-    width: '100%',
-    padding: 0,
-    marginTop: '5%',
     backgroundColor: '#FFF2E9',
   },
 
   button: {
     textAlign: 'center',
-    marginTop: '30%',
-    marginBottom: '10%',
+    marginTop: '10%',
   },
 
   button2: {
@@ -94,30 +77,24 @@ const useStyles = makeStyles(theme => ({
   },
 
   image: {
-    width: '50%',
+    width: '300px',
   },
 
   texte: {
-    paddingTop: '10%',
-    paddingBottom: '10%',
+    paddingTop: '5px',
+    paddingBottom: '10px',
   },
 
   imagePosition: {
+    [theme.breakpoints.up('770')]: {
+      textAlign: 'center',
+      paddingTop: '5%',
+      paddingBottom: '5%',
+    },
     textAlign: 'center',
     paddingTop: '5%',
     paddingBottom: '5%',
   },
-
-  slide: {
-    marginTop: '10%',
-    marginLeft: '10%',
-    marginRight: '10%',
-    marginBottom: '10%',
-    padding: '3%',
-    paddingTop: '5%',
-    paddingBottom: '5%',
-  },
-
 }));
 
 
@@ -181,7 +158,7 @@ const SlideApprenant = ({
       <div className={classes.header}>
         <ArrowBack
           style={{
-            position: 'absolute', left: '6vw', top: '3vh', width: '30%', color: 'white',
+            position: 'absolute', left: 9, top: 13, width: '30%', color: 'white',
           }}
           onClick={() => {
             history.goBack();
@@ -190,8 +167,16 @@ const SlideApprenant = ({
       </div>
 
       <div className={classes.container}>
-        <Grid container spacing={3} alignItems="center">
-          <Grid item xs={12} sm={12} md={6}>
+        <Grid
+          container
+          style={{
+            margin: '0',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Grid item xs={12} sm={12} md={5}>
             <div className={classes.infosCours}>
               <h1 className={classes.nomDuCours}>{infoSlide.name}</h1>
               <h2 className={classes.titresInfoCours}>Description :</h2>
@@ -213,11 +198,12 @@ const SlideApprenant = ({
               </Fab>
             </div>
           </Grid>
-          <Grid item xs={12} sm={12} md={6}>
+          <Grid item xs={12} sm={12} md={5}>
             <div className={classes.slide}>
 
-              <h1 className={classes.title}>{infoSlide.slides && Object.values(infoSlide.slides)[activeStep] && Object.values(infoSlide.slides)[activeStep].title}</h1>
-
+              <h1 className={classes.title}>
+                {infoSlide.slides && Object.values(infoSlide.slides)[activeStep] && Object.values(infoSlide.slides)[activeStep].title}
+              </h1>
               <div className={classes.texte}>
                 {ReactHtmlParser(infoSlide.slides && Object.values(infoSlide.slides)[activeStep] && Object.values(infoSlide.slides)[activeStep].content)}
               </div>
@@ -244,8 +230,6 @@ const SlideApprenant = ({
                   </Button>
         )}
               />
-
-
               <Fab
                 variant="extended"
                 size="medium"
@@ -256,13 +240,13 @@ const SlideApprenant = ({
                   width: '70%',
                   color: 'white',
                   backgroundColor: '#E15920',
+                  marginTop: '2%',
+                  marginBottom: '40px',
                 }}
               >
           Cours terminé
               </Fab>
             </div>
-
-
           </Grid>
         </Grid>
       </div>

@@ -11,23 +11,17 @@ import Avatar from '@material-ui/core/Avatar';
 const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
-
     backgroundColor: 'transparent',
-
   },
 }));
 
 export default function ListLessons(props) {
   const classes = useStyles();
-
   const { data } = props;
 
   return (
     <List dense className={classes.root}>
-
       <Link to={{ pathname: `/parcours/${data.id}` }}>
-
-
         <ListItem button>
           <ListItemAvatar>
             <Avatar src={data.data.url} />
@@ -35,7 +29,6 @@ export default function ListLessons(props) {
           <ListItemText primary={data.data.name} />
           <ListItemSecondaryAction />
         </ListItem>
-
       </Link>
     </List>
   );

@@ -92,10 +92,13 @@ class Profile extends Component {
     const { userInfo, error } = this.state;
 
     return (
-      <div style={{ paddingBottom: '70px' }}>
+      <div style={{
+        paddingBottom: '70px',
+      }}
+      >
         {userInfo ? (
           <>
-            <div className="fond">
+            <div className="fond" style={{ marginBottom: 10 }}>
               <h1 className="titreprofil">Mon compte</h1>
 
               <p>
@@ -112,45 +115,49 @@ class Profile extends Component {
 
               <p className="name">{userInfo.name}</p>
             </div>
-
-            <p className="infos">
-              <AlternateEmail className="coloricon" />
-              {' '}
-              {userInfo.email ? userInfo.email : 'Pas renseigné'}
-            </p>
-
-            <p className="infos">
-              <LocationOn className="coloricon" />
-              {' '}
-              {userInfo.city ? userInfo.city : 'Pas renseigné'}
-            </p>
-
-            <p className="infos">
-              <FormatQuote className="coloricon" />
-              {' '}
-              {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
-            </p>
-
-            <Fab
-              variant="extended"
-              size="medium"
-              aria-label="Add"
-              onClick={() => {
-                this.redirect('/changeprofile');
-              }}
-              style={{
-                width: '300px',
-                color: 'white',
-                marginTop: '10px',
-                marginBottom: '10px',
-                backgroundColor: '#138787',
-              }}
+            <div style={{
+              display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column',
+            }}
             >
-              <SaveIcon className="saveicon" />
-              Changer mes informations
-            </Fab>
+              <div style={{ textAlign: 'left' }}>
+                <p className="infos">
+                  <AlternateEmail className="coloricon" />
+                  {' '}
+                  {userInfo.email ? userInfo.email : 'Pas renseigné'}
+                </p>
 
-            {userInfo.is_admin && (
+                <p className="infos">
+                  <LocationOn className="coloricon" />
+                  {' '}
+                  {userInfo.city ? userInfo.city : 'Pas renseigné'}
+                </p>
+
+                <p className="infos" style={{ marginBottom: 10 }}>
+                  <FormatQuote className="coloricon" />
+                  {' '}
+                  {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
+                </p>
+              </div>
+              <Fab
+                variant="extended"
+                size="medium"
+                aria-label="Add"
+                onClick={() => {
+                  this.redirect('/changeprofile');
+                }}
+                style={{
+                  width: '300px',
+                  color: 'white',
+                  marginTop: '10px',
+                  marginBottom: '10px',
+                  backgroundColor: '#138787',
+                }}
+              >
+                <SaveIcon className="saveicon" />
+              Changer mes informations
+              </Fab>
+
+              {userInfo.is_admin && (
               <Button
                 variant="outlined"
                 name="admin"
@@ -167,27 +174,28 @@ class Profile extends Component {
               >
                 Modifier les catégories de l&apos;application
               </Button>
-            )}
+              )}
 
-            <Fab
-              variant="extended"
-              size="medium"
-              aria-label="Add"
-              onClick={this.logout}
-              style={{
-                width: '300px',
-                color: 'white',
-                backgroundColor: '#E15920',
-              }}
-            >
+              <Fab
+                variant="extended"
+                size="medium"
+                aria-label="Add"
+                onClick={this.logout}
+                style={{
+                  width: '300px',
+                  color: 'white',
+                  backgroundColor: '#E15920',
+                }}
+              >
               Deconnexion
-            </Fab>
+              </Fab>
 
-            {error && <p>{error.message}</p>}
+              {error && <p>{error.message}</p>}
+            </div>
           </>
         ) : (
           <>
-            <p>
+            <p style={{ marginTop: 200, marginBottom: 30 }}>
               <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
             </p>
             <Fab

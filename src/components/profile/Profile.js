@@ -101,13 +101,18 @@ class Profile extends Component {
                 justifyContent: 'center',
               }}
               >
-                <h1 className="titreprofil">Mon compte</h1>
-                <Edit
-                  style={{ color: 'white' }}
-                  onClick={() => {
-                    this.redirect('/changeprofile');
-                  }}
-                />
+                <h1 className="titreprofil">
+Mon compte
+                  {' '}
+                  <Edit
+                    style={{ color: 'white' }}
+                    onClick={() => {
+                      this.redirect('/changeprofile');
+                    }}
+                  />
+
+                </h1>
+
               </div>
               <p>
                 <img

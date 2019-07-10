@@ -130,16 +130,16 @@ copyLink = () => {
   });
 }
 
-redirectToLessons = () => {
-  const { history } = this.props;
-  const { cours } = this.state;
-  if (cours) {
-    history.push({
-      pathname: `/createparcours/${this.parcours}/${this.cours}/${cours}`,
-      state: { cours: true },
-    });
-  }
-};
+  redirectToLessons = () => {
+    const { history } = this.props;
+    const { cours } = this.state;
+    if (cours) {
+      history.push({
+        pathname: `/createparcours/${this.parcours}/${this.cours}/${cours}`,
+        state: { cours: true },
+      });
+    }
+  };
 
   handleChange = (e) => {
     this.setState({
@@ -243,10 +243,10 @@ redirectToLessons = () => {
           ) : null}
           <p>{errorMessage}</p>
           <Fab
+            onClick={this.submit}
             variant="extended"
             size="medium"
             aria-label="Add"
-            onClick={this.submit}
             style={{
               width: '300px',
               color: 'white',

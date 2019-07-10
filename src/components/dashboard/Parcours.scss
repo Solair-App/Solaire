@@ -6,8 +6,8 @@
   align-items: center;
 }
 .parcoursFond{
-  padding-top: 3%;
-  padding-bottom: 3%;
+  padding-top: 8px;
+  padding-bottom: 8px;
   padding-left: 0.35em;
   padding-right: 0.35em;
   margin-bottom: 0.6em;
@@ -55,10 +55,37 @@
   color: rgba(255, 255, 255, 0.89) !important;
 }
 
+.Categories .MuiInput-underline:before {
+  display: none;
+}
+.Categories .MuiInput-underline {
+  color: white;
+}
+
+.Categories {
+  display: flex;
+  flex-direction: column;
+}
+
+.searchZone {
+  display: flex;
+  margin-left: 4;
+  justify-content: center;
+  margin-left: 70px;
+}
 
 @media screen and (min-width: 768px) {
   .allParcours{
     width: 80%;
+  }
+  .Categories {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .Categories h1{
+    margin-left: 100px;
   }
 }
 

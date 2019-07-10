@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 import Category from './Category';
-import InputBar from './InputBar';
 
 
 class Categories extends Component {
@@ -35,6 +36,7 @@ class Categories extends Component {
     firestore
       .collection('parcours')
       .where('thématique', '==', this.category)
+      .where('isReadable', '==', true)
       .get()
       .then((querySnapshot) => {
         querySnapshot.docs.forEach((doc) => {
@@ -58,16 +60,25 @@ class Categories extends Component {
               history.push('/mydashboard');
             }}
           />
-          <h1>{`Parcours ${this.category}`}</h1>
-          <InputBar
-            handleChange={this.handleChange}
-            currentFilterValue="noFilter"
-            currentValue={searchField}
-          />
+          <div className="Categories">
+            <h1>{`Parcours ${this.category}`}</h1>
+            <div className="searchZone">
+              <SearchIcon style={{ marginRight: '5px' }} />
+              <TextField
+                className="searchCategory"
+                name="searchField"
+                onChange={this.handleChange}
+                placeholder="Rechercher..."
+                value={searchField}
+              />
+            </div>
+          </div>
         </div>
         <div className="parcours" style={{ paddingBottom: '60px' }}>
           <ul className="allParcours">
-            {allParcours.length > 0 && allParcours.map(parcours => (
+            {allParcours.length > 0 && allParcours.filter(
+              res => res.data.tags.includes(searchField),
+            ).map(parcours => (
               <Category data={parcours} />
             ))}
           </ul>

@@ -133,10 +133,12 @@ copyLink = () => {
   redirectToLessons = () => {
     const { history } = this.props;
     const { cours } = this.state;
-    history.push({
-      pathname: `/createparcours/${this.parcours}/${this.cours}/${cours}`,
-      state: { cours: true },
-    });
+    if (cours) {
+      history.push({
+        pathname: `/createparcours/${this.parcours}/${this.cours}/${cours}`,
+        state: { cours: true },
+      });
+    }
   };
 
   handleChange = (e) => {

@@ -55,6 +55,12 @@
   color: rgba(255, 255, 255, 0.89) !important;
 }
 
+.Categories .MuiInput-underline:before {
+  display: none;
+}
+.Categories .MuiInput-underline {
+  color: white;
+}
 
 @media screen and (min-width: 768px) {
   .allParcours{

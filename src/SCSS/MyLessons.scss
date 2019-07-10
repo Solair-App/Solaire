@@ -27,3 +27,17 @@
 .gridLesson a{
   text-decoration: none;
 }
+
+.mylessons {
+    margin-top: 40px;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 80px;
+}
+
+@media screen and (min-width: 768px) {
+  .mylessons {
+    width: 35%;
+  }
+}

@@ -61,16 +61,7 @@ class MyLessons extends React.Component {
       <div>
         {' '}
         <UseTabs changeTabs={this.handleChange} currentValue={currentValue} />
-        <div style={{
-
-          marginTop: '40px',
-          width: '60%',
-          marginRight: 'auto',
-          marginLeft: 'auto',
-          marginBottom: '80px',
-
-        }}
-        >
+        <div className="mylessons">
           {userLessons ? (
             userLessons
               .filter(parcours => (currentValue === 0

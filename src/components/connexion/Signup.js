@@ -72,15 +72,15 @@ class Signup extends Component {
     const { connected } = this.state;
     return (
       <div className="signin" style={{ color: 'black' }}>
-        <img src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="logo" />
+        <img src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="logo" className="image" />
         <h1 className="title">Solair</h1>
-        <h4>Apprendre en s’amusant de façon ludique</h4>
+        <h4 className="accroche">Apprendre en s’amusant de façon ludique</h4>
         {
           connected
             ? <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
             : (
               <>
-                <h5> Please sign in</h5>
+                <h5 className="pleaseSign"> Please sign in</h5>
                 <Fab
                   variant="extended"
                   size="medium"

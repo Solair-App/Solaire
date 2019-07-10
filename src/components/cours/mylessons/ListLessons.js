@@ -16,7 +16,8 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'transparent',
     width: '100%',
     marginRight: 'auto',
-    marginLeft: 'auto',
+
+
   },
 }));
 

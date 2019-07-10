@@ -62,13 +62,13 @@ class MyLessons extends React.Component {
         {' '}
         <UseTabs changeTabs={this.handleChange} currentValue={currentValue} />
         <div style={{
-          boxShadow: '8px 8px 2px 1px rgba(0, 0, 0, .2)',
-          backgroundColor: 'white',
+
           marginTop: '40px',
-          width: '80%',
+          width: '60%',
           marginRight: 'auto',
           marginLeft: 'auto',
           marginBottom: '80px',
+
         }}
         >
           {userLessons ? (

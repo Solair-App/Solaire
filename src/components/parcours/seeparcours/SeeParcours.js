@@ -13,7 +13,6 @@ import CoursDetails from './CoursDetails';
 import './SeeParcours.scss';
 import Fab from '@material-ui/core/Fab';
 
-
 class seeParcours extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +31,6 @@ class seeParcours extends Component {
 
   componentDidMount() {
     const { firestore } = this.props;
-
 
     let userRef;
     if (localStorage.getItem('userId')) {
@@ -83,17 +81,18 @@ class seeParcours extends Component {
   };
 
   isUserAStudent = () => {
-    const { parcours } = this.state;
+    const { parcours } = this.state;
 
     if (
       parcours.apprenants
         .map(item => item === localStorage.getItem('userId'))
-        .includes(true)) {
+        .includes(true)
+    ) {
       this.setState({
         student: true,
       });
     }
-  }
+  };
 
   getUserInfo = (userRef) => {
     userRef.get().then((doc) => {
@@ -118,7 +117,7 @@ class seeParcours extends Component {
     this.setState({
       commentaire: { pseudo: text.name, commentaire: text.message },
     });
-  }
+  };
 
   sendRatings = (rating) => {
     const { parcours } = this.state;
@@ -173,7 +172,7 @@ class seeParcours extends Component {
       .collection('parcours')
       .doc(this.parcours)
       .delete()
-      .then(() => { })
+      .then(() => {})
       .catch((error) => {
         console.error(`Error removing document ${idCours}`, error);
       });
@@ -216,18 +215,22 @@ class seeParcours extends Component {
 
   newComment = () => {
     this.setState({ commentSent: false });
-  }
+  };
 
   render() {
     const { history } = this.props;
     const {
-      parcours, open, commentaire, commentSent, rating, loaded, userInfo, student,
+      parcours,
+      open,
+      commentaire,
+      commentSent,
+      rating,
+      loaded,
+      userInfo,
+      student,
     } = this.state;
     return (
-
       <div>
-
-
         <div className="backparcours">
           <ArrowBack
             style={{ position: 'absolute', left: '10px', top: '10px' }}
@@ -255,34 +258,31 @@ class seeParcours extends Component {
         {student === true ? (
           <>
             <CoursDetails parcours={this.parcours} />
-            {commentSent
-              ? (
-                <>
-                  <p>Commentaire envoyé !</p>
-                  <Button
-                    variant="outlined"
-                    onClick={this.newComment}
-                    name="thématique"
-                    className="Button"
-                    style={{
-                      margin: '30px 0 30px 0',
-                      width: '300px',
-                    }}
-                  >
-                Nouveau commentaire
-                  </Button>
-                </>
-              )
-              : (
-                <PostCommentaires
-                  sendCommentaire={this.sendCommentaire}
-                  userRate={this.canUserRate}
-                  rating={rating}
-                  getParcours={this.getParcours}
-                  userInfo={userInfo}
-                />
-              )
-        }
+            {commentSent ? (
+              <>
+                <p>Commentaire envoyé !</p>
+                <Button
+                  variant="outlined"
+                  onClick={this.newComment}
+                  name="thématique"
+                  className="Button"
+                  style={{
+                    margin: '30px 0 30px 0',
+                    width: '300px',
+                  }}
+                >
+                  Nouveau commentaire
+                </Button>
+              </>
+            ) : (
+              <PostCommentaires
+                sendCommentaire={this.sendCommentaire}
+                userRate={this.canUserRate}
+                rating={rating}
+                getParcours={this.getParcours}
+                userInfo={userInfo}
+              />
+            )}
             <ViewCommentaires
               currentParcours={this.parcours}
               userInfo={userInfo}
@@ -294,7 +294,6 @@ class seeParcours extends Component {
               answerCommentaire={this.answerCommentaire}
             />
             {' '}
-
           </>
         ) : (
           <>
@@ -312,9 +311,8 @@ class seeParcours extends Component {
               }}
               onClick={this.sendApprenant}
             >
-Suivre
+              Suivre
               {' '}
-
             </Fab>
           </>
         )}

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
+import '../../SCSS/SignUp.scss';
 
 class Signup extends Component {
   constructor(props) {
@@ -71,42 +72,34 @@ class Signup extends Component {
     const { connected } = this.state;
     return (
       <div className="signin" style={{ color: 'black' }}>
-        <img style={{ margin: '5%', width: '50%', marginTop: '15%' }} src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="logo" />
-        <h1 style={{ color: '#138787', margin: '5%' }}>Solair</h1>
-        <h4 style={{ color: '', margin: '5%' }}>Apprendre en s’amusant de façon ludique</h4>
+        <img src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="logo" className="image" />
+        <h1 className="title">Solair</h1>
+        <h4 className="accroche">Apprendre en s’amusant de façon ludique</h4>
         {
           connected
             ? <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
             : (
               <>
-                <h5 style={{ color: '', margin: '5%' }}> Please sign in</h5>
-                <Button
-                  variant="outlined"
-                  onClick={() => this.login('google')}
-                  style={{
-                    backgroundColor: '#138787',
-                    color: 'white',
-                    margin: '5%',
-                    width: '300px',
-                  }}
+                <h5 className="pleaseSign"> Please sign in</h5>
+                <Fab
+                  variant="extended"
+                  size="medium"
+                  aria-label="Add"
                   className="Button"
+                  onClick={() => this.login('google')}
                 >
                   Sign up with Google
-                </Button>
+                </Fab>
                 <Link to="/signin" style={{ textDecoration: 'none' }}>
-                  <Button
-                    variant="outlined"
-                    style={{
-                      backgroundColor: '#138787',
-                      color: 'white',
-                      margin: '5%',
-                      marginBottom: '20px',
-                      width: '300px',
-                    }}
+                  <Fab
+                    variant="extended"
+                    size="medium"
+                    aria-label="Add"
                     className="Button"
+                    onClick={() => this.login('google')}
                   >
                     Sign up with Email
-                  </Button>
+                  </Fab>
                 </Link>
                 <p><Link to="/connect" style={{ color: '#E15920', marginBottom: '5%' }}>Already have an account?</Link></p>
               </>

@@ -210,7 +210,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
   z-index: 4;
 }
 .CodeMirror-gutter-wrapper {
-  -webkit-user-select: none;
+ 
   -moz-user-select: none;
   user-select: none;
 }

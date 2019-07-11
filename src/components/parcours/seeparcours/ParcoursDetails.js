@@ -3,17 +3,34 @@ import Edit from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Link } from 'react-router-dom';
 import Rating from 'material-ui-rating';
+import ArrowBack from '@material-ui/icons/ArrowBack';
+import { withRouter } from 'react-router';
+
 import './SeeParcours.scss';
 
 const ParcoursDetails = ({
-  parcours, currentParcours, togleModal, loaded, userInfo, haveUserAlreadyVoted,
+  parcours, history, currentParcours, togleModal, loaded, userInfo, haveUserAlreadyVoted,
 }) => (
   <>
-    <div className="backparcours">
+    <div style={{
+      overflow: 'hidden',
+      maxHeight: 100,
+      backgroundColor: '#138787',
+      paddingTop: 7,
+      color: 'white',
+    }}
+    >
+      <ArrowBack
+        style={{ position: 'absolute', left: 9, top: 13 }}
+        onClick={() => {
+          history.push('/mydashboard');
+        }}
+      />
       <h2 style={{
         color: 'white',
-        paddingTop: '10%',
-        paddingBottom: '3%',
+        marginBottom: 10,
+        paddingLeft: 30,
+        fontSize: 24,
       }}
       >
         {parcours && parcours.name}
@@ -28,10 +45,9 @@ const ParcoursDetails = ({
             </>
           )
           : undefined
-      }
+        }
       </h2>
     </div>
-
     {parcours && parcours.creatorName
       && (
       <p className="creator">
@@ -51,11 +67,15 @@ const ParcoursDetails = ({
         </>
       )
       : null}
-    <p>{parcours && parcours.description}</p>
+    <p className="description">
+Description :
+      {' '}
+      {parcours && parcours.description}
+    </p>
     {loaded === 1 ? haveUserAlreadyVoted() : null}
 
-    <Rating readOnly value={parcours.rating} />
+    <Rating readOnly value={parcours.rating} style={{ marginBottom: 50 }} />
   </>
 );
 
-export default ParcoursDetails;
+export default withRouter(ParcoursDetails);

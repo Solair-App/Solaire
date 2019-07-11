@@ -34,9 +34,14 @@
   height: 50px;
   background-color: #138787;
   color: white;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.topFond h1{
+ width: 90%;
 }
 
 .cloudupload{
@@ -109,6 +114,7 @@
   }
   .saveBox {
     width: 50%;
+    border: none;
     padding-top: 20px;
     padding-bottom: 30px;
   }

@@ -32,7 +32,6 @@ function SimpleModal(props) {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Toute suppression est définitive.
-            (Vos changements seront visibles dans quelques heures sur l`application)
           </DialogContentText>
         </DialogContent>
         <DialogActions>

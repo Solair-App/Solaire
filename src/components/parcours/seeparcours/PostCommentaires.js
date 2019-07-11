@@ -198,7 +198,7 @@ Votre Note :
           <Fab
             type="submit"
             variant="extended"
-            size="medium"
+            size="small"
             aria-label="Add"
             className={classes.button}
             onClick={validateMessages}

@@ -154,7 +154,7 @@ class Form extends Component {
               />
             </Box>
             <Box>
-              <div className="video">
+              <div className="lvideo">
                 {id.length === 11 ? (
                   <YouTube
                     videoId={id}

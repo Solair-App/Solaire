@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
 import { withRouter } from 'react-router';
-import Fab from '@material-ui/core/Fab';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import ShareIcon from './ShareIcon';
 import './SeeParcours.scss';
+
 
 class CoursDetails extends Component {
   constructor(props) {
@@ -89,50 +89,58 @@ class CoursDetails extends Component {
           && coursFromParcours[0]
           && coursFromParcours[0].content.map(cours => (
             <div key={Math.floor(Math.random() * 50000)}>
-
-              <p
+              <div
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'left',
-                  paddingLeft: '8%',
+                  marginTop: 20,
+                  justifyContent: 'center',
                   color: '#138787',
+                  overflow: 'hidden',
                 }}
               >
                 {cours.data.graduate
-                && cours.data.graduate.includes(localStorage.getItem('userId')) ? (
-                  <RadioButtonChecked />
+              && cours.data.graduate.includes(localStorage.getItem('userId')) ? (
+                <RadioButtonChecked />
                   ) : (
                     <RadioButtonUnchecked />
                   )}
-                <img
-                  src={`./assets/${cours.data.type}.png`}
-                  style={{ width: '3.5em', paddingLeft: '5%' }}
-                  alt={cours.data.type}
-                />
-
-                <Fab
-                  variant="extended"
-                  size="medium"
-                  aria-label="Add"
-                  onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)
-                  }
+                <div
+                  role="presentation"
+                  onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)}
                   style={{
-
-                    width: '60%',
-                    color: 'white',
-                    backgroundColor: '#138787',
-                    marginLeft: '5%',
-
+                    width: 305,
+                    color: 'black',
+                    marginLeft: '2%',
+                    display: 'flex',
                   }}
                 >
-                  {cours.data.name}
-                </Fab>
+                  <div className={cours.data.type}>
+                    <img
+                      src={`./assets/${cours.data.type}.png`}
+                      style={{
+                        alignItems: 'center', width: 40, justifyContent: 'center', padding: 15,
+                      }}
+                      alt={cours.data.type}
+                    />
+                  </div>
+                  <div style={{
+                    width: 350,
+                    height: 70,
+                    backgroundColor: 'white',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                  }}
+                  >
+                    <h2 style={{ paddingBottom: 5, fontSize: 18 }}>{cours.data.name}</h2>
 
-              </p>
-
-              <p>{cours.data.description}</p>
-
+                    <p style={{ paddingBottom: 5 }}>{cours.data.description}</p>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
 
@@ -153,7 +161,7 @@ class CoursDetails extends Component {
               {`${coursLength - graduatedLessons} `}
               {' '}
 cours pour
-              pouvoir partager la complétion de ce cours !
+              pouvoir partager la complétion de ce parcours !
             </p>
             <ShareIcon gray={1} />
           </>

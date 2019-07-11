@@ -62,10 +62,7 @@ const CreateSlider = ({ firestore, history, match }) => {
       setDescription(infoSlide.description);
     }
   }, [cours, parcours, firestore, infoSlide.name, infoSlide.slides.length, infoSlide.description]);
-  // if (localStorage.getItem('coursCreated')) {
-  //   const coursCreated = JSON.parse(localStorage.getItem('coursCreated'));
-  //   this.setState({});
-  // }
+
 
   const classes = useStyles();
   const theme = useTheme();
@@ -92,7 +89,7 @@ const CreateSlider = ({ firestore, history, match }) => {
   };
 
   const isContentNull = () => {
-    if (name === '' || description === '') {
+    if (name === '' || description === '' || Object.keys(infoSlide.slides).length <= 0) {
       return true;
     }
     return false;
@@ -118,7 +115,7 @@ const CreateSlider = ({ firestore, history, match }) => {
   const saveCours = (event) => {
     const db = firestore;
     if (isContentNull()) {
-      setError('Veuillez ajouter un nom et une description');
+      setError('Veuillez ajouter un nom, une description et au moins une slide');
     } else {
       const slideSet = db.collection('parcours').doc(parcours).collection('cours');
       const slide = slideSet.doc(cours);
@@ -163,34 +160,36 @@ const CreateSlider = ({ firestore, history, match }) => {
 
   return (
     <div className={classes.root}>
-      <ArrowBack
-        style={{
-          position: 'absolute', left: '10px', top: '10px', color: 'white',
-        }}
-        onClick={back}
-      />
       <div className="topFond">
+        <ArrowBack
+          style={{
+            position: 'absolute', left: '10px', top: '10px', color: 'white',
+          }}
+          onClick={back}
+        />
         <h1>Créer un slider</h1>
-        <SimpleModal open={open} idCours={id} togle={closed} deleted={deleting} />
       </div>
+      <SimpleModal open={open} idCours={id} togle={closed} deleted={deleting} />
       <h2 style={{ marginTop: '7px', marginBottom: '3px' }}>Aperçu du slider en cours</h2>
-      {
-        <div className="aperçuSlider">
-          <h3 className="titleSlide">
-            {infoSlide.slides && Object.values(infoSlide.slides)[activeStep]
+      {Object.keys(infoSlide.slides).length > 0
+          && (
+          <div className="aperçuSlider">
+            <h3 className="titleSlide">
+              {infoSlide.slides && Object.values(infoSlide.slides)[activeStep]
               && Object.values(infoSlide.slides)[activeStep].title}
-            {Object.keys(infoSlide.slides).length > 0
+              {Object.keys(infoSlide.slides).length > 0
               && <DeleteIcon onClick={() => opened(Object.keys(infoSlide.slides)[activeStep])} />}
-          </h3>
-          <p>
-            {ReactHtmlParser(infoSlide.slides
+            </h3>
+            <p>
+              {ReactHtmlParser(infoSlide.slides
               && Object.values(infoSlide.slides)[activeStep]
               && Object.values(infoSlide.slides)[activeStep].content)}
-          </p>
-          {infoSlide.slides && Object.values(infoSlide.slides)[activeStep]
+            </p>
+            {infoSlide.slides && Object.values(infoSlide.slides)[activeStep]
             && Object.values(infoSlide.slides)[activeStep].image
             && <img className="imgSlide" src={Object.values(infoSlide.slides)[activeStep].image} alt="imageSlide" />}
-        </div>
+          </div>
+          )
       }
       {Object.keys(infoSlide.slides).length > 0
         ? (
@@ -214,7 +213,7 @@ const CreateSlider = ({ firestore, history, match }) => {
             )}
           />
         )
-        : <p style={{ marginTop: '8px' }}>Ce slider ne contient pas encore de slides</p>
+        : <p style={{ marginTop: '18px', marginBottom: '18px' }}>Ce slider ne contient pas encore de slides</p>
       }
 
 

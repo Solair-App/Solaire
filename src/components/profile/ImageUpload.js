@@ -49,7 +49,6 @@ class ImageUpload extends Component {
     return (
       <div className="image_uplaods">
         <div className="image_zone">
-          <p className="ajout">Ajouter une image</p>
           <LooksOne style={{ marginRight: '5px', fontSize: '30px' }} />
           <input accept=".jpg, .jpeg, .png" id="image_uploads" name="image_uploads" type="file" onChange={this.handleChange} />
         </div>

@@ -5,8 +5,8 @@ import LocationOn from '@material-ui/icons/LocationOn';
 import AlternateEmail from '@material-ui/icons/AlternateEmail';
 import FormatQuote from '@material-ui/icons/FormatQuote';
 import Fab from '@material-ui/core/Fab';
-import SaveIcon from '@material-ui/icons/Save';
 import { connect } from 'react-redux';
+import Edit from '@material-ui/icons/Edit';
 import BottomNav from '../dashboard/BottomNav';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 import './profile.scss';
@@ -99,8 +99,24 @@ class Profile extends Component {
         {userInfo ? (
           <>
             <div className="fond" style={{ marginBottom: 10 }}>
-              <h1 className="titreprofil">Mon compte</h1>
+              <div style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              >
+                <h1 className="titreprofil">
+Mon compte
+                  {' '}
+                  <Edit
+                    style={{ color: 'white' }}
+                    onClick={() => {
+                      this.redirect('/changeprofile');
+                    }}
+                  />
 
+                </h1>
+
+              </div>
               <p>
                 <img
                   className="photo"
@@ -138,24 +154,6 @@ class Profile extends Component {
                   {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
                 </p>
               </div>
-              <Fab
-                variant="extended"
-                size="medium"
-                aria-label="Add"
-                onClick={() => {
-                  this.redirect('/changeprofile');
-                }}
-                style={{
-                  width: '300px',
-                  color: 'white',
-                  marginTop: '10px',
-                  marginBottom: '10px',
-                  backgroundColor: '#138787',
-                }}
-              >
-                <SaveIcon className="saveicon" />
-              Changer mes informations
-              </Fab>
 
               {userInfo.is_admin && (
               <Button

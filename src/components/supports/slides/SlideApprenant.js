@@ -54,6 +54,7 @@ const useStyles = makeStyles(theme => ({
 
   texteInfoCours: {
     paddingTop: '2%',
+    marginBottom: '40px',
   },
 
   nomDuCours: {
@@ -66,6 +67,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   button: {
+    bottom: 55,
     textAlign: 'center',
     marginTop: '10%',
   },
@@ -219,14 +221,14 @@ const SlideApprenant = ({
                 position="static"
                 nextButton={(
                   <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-            Next
+            Suivant
                     {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
                   </Button>
         )}
                 backButton={(
                   <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
                     {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-            Back
+            Précédent
                   </Button>
         )}
               />

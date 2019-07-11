@@ -115,7 +115,7 @@ class Admin extends Component {
       <div>
         <div className="topFond">
           <ArrowBack
-            style={{ position: 'fixed', left: '10px', top: '10px' }}
+            style={{ position: 'absolute', left: '9px', top: '13px' }}
             onClick={() => {
               history.push('/profile');
             }}
@@ -124,7 +124,7 @@ class Admin extends Component {
         </div>
         <SimpleModal open={open} idCours={deleteCat} deleteKey={deleteKey} togle={this.toggle} deleted={this.deleteItem} />
         {success && success}
-        <p style={{ backgroundColor: 'white', padding: '10px', marginBottom: '10px' }}>Attention si vous supprimez une catégorie, les parcours associés ne seront plus visibles.</p>
+        <p style={{ backgroundColor: 'white', padding: '10px', marginBottom: '10px' }}>Attention, si vous supprimez une catégorie, les parcours associés ne seront plus visibles.</p>
         <Grid container>
           {forLoop.map(category => (
             <OneCategory getDelete={this.getDelete} key={category} addItem={this.addItem} onChange={this.onChange} category={category} jsUcfirst={this.jsUcfirst} state={this.state} />

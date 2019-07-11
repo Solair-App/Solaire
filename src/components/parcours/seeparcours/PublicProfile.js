@@ -67,12 +67,7 @@ class PublicProfile extends Component {
           <>
             <div className="fond">
               <ArrowBack
-                style={{
-                  position: 'fixed',
-                  left: '10%',
-                  top: '2%',
-                  color: 'white',
-                }}
+                style={{ position: 'absolute', left: '9px', top: '13px' }}
                 onClick={() => {
                   history.goBack();
                 }}
@@ -94,18 +89,19 @@ class PublicProfile extends Component {
                 />
               </p>
             </div>
+            <div style={{ margin: 'auto', width: '40%' }}>
+              <p className="infos">
+                <LocationOn className="coloricon" />
+                {' '}
+                {userInfo.city ? userInfo.city : 'Pas renseigné'}
+              </p>
 
-            <p className="infos">
-              <LocationOn className="coloricon" />
-              {' '}
-              {userInfo.city ? userInfo.city : 'Pas renseigné'}
-            </p>
-
-            <p className="infos">
-              <FormatQuote className="coloricon" />
-              {' '}
-              {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
-            </p>
+              <p className="infos">
+                <FormatQuote className="coloricon" />
+                {' '}
+                {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
+              </p>
+            </div>
           </>
         ) : (
           <>
@@ -114,7 +110,7 @@ class PublicProfile extends Component {
             </p>
           </>
         )}
-        <div>
+        <div className="hisParcours">
           {userLessons && <h2 className="otherParcours">Ses autres parcours</h2>}
           {userLessons ? (
             userLessons

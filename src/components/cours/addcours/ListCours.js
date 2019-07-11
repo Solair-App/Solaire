@@ -95,8 +95,8 @@ class ListCours extends Component {
               display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',
             }}
             >
-              <div style={{ display: 'flex' }}>
-                {cours.data.name}
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <h3 style={{ paddingLeft: '5px', paddingRight: '5px' }}>{cours.data.name}</h3>
                 {' '}
                 <div>
                   <Fab

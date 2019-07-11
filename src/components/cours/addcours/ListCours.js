@@ -96,37 +96,13 @@ class ListCours extends Component {
             }}
             >
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <h3 style={{ paddingLeft: '5px', paddingRight: '5px' }}>{cours.data.name}</h3>
+                <h3 style={{ marginLeft: '30px', marginRight: '30px' }}>{cours.data.name}</h3>
                 {' '}
                 <div>
-                  <Fab
-                    variant="extended"
-                    size="medium"
-                    aria-label="Add"
-                    style={{
-
-                      width: '30%',
-                      color: 'white',
-                      backgroundColor: '#138787',
-
-                    }}
-                  >
-                    <Edit style={{ fontSize: 20 }} onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)} />
-                  </Fab>
+                  <Edit style={{ fontSize: 25, color: '#138787' }} onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)} />
                 </div>
-                <Fab
-                  variant="extended"
-                  size="medium"
-                  aria-label="Add"
-                  style={{
 
-                    width: '30%',
-                    color: 'white',
-                    backgroundColor: '#138787',
-                  }}
-                >
-                  <DeleteIcon onClick={() => this.open(cours.id)} style={{ fontSize: 20 }} />
-                </Fab>
+                <DeleteIcon onClick={() => this.open(cours.id)} style={{ fontSize: 25, color: '#138787' }} />
 
               </div>
             </div>

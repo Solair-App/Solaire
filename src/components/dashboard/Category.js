@@ -46,6 +46,8 @@ export default function ListCours(props) {
           <li className="item" key={`${data.id + 1}n`}>
 
             <Card className={classes.card}>
+              {' '}
+
               <CardActionArea>
                 <Link to={`/parcours/${data.id}`} className="link">
                   <CardMedia
@@ -53,6 +55,7 @@ export default function ListCours(props) {
                     image={data.data.url}
                     title=""
                   />
+                  <Rating readOnly value={5} className="rating" />
                 </Link>
                 <CardContent style={{ marginBottom: -15, marginTop: -9, marginLeft: -7 }}>
                   <Link to={`/parcours/${data.id}`} className="link">

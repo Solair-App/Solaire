@@ -170,7 +170,7 @@ class Form extends Component {
             </Box>
             <Box style={{ marginTop: '9px', width: '298px' }}>
               <div
-                className="video"
+                className="lvideo"
                 style={{ width: '100%' }}
               >
                 {id.length === 11 ? (

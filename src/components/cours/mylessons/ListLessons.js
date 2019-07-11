@@ -21,7 +21,6 @@ const useStyles = makeStyles(() => ({
 
 export default function ListLessons(props) {
   const classes = useStyles();
-
   const { data } = props;
 
   return (

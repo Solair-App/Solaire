@@ -10,7 +10,7 @@ export default function UseTabs(props) {
     <Paper
       square
     >
-      <Tabs style={{ backgroundColor: '#138787', borderStyle: 'none', height: 50 }} centered value={currentValue} indicatorColor="primary" textColor="primary" onChange={changeTabs}>
+      <Tabs classes="" style={{ backgroundColor: '#138787', borderStyle: 'none', height: 50 }} centered value={currentValue} indicatorColor="secondary" textColor="secondary" onChange={changeTabs}>
         <Tab className="navbar" label="Mes parcours" />
         <Tab className="navbar" label="Cours suivis" />
       </Tabs>

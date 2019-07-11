@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Divider from '@material-ui/core/Divider';
 import { withRouter } from 'react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
@@ -96,10 +95,10 @@ class ListCours extends Component {
             key={`${i + 1}y`}
             className="parentSlide"
             style={{
-              width: 305,
+              width: '305 px',
               color: 'black',
               display: 'flex',
-              marginBottom: 10,
+              marginBottom: '10px',
             }}
           >
             <div className={cours.data.type}>

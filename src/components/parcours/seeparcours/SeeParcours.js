@@ -291,6 +291,7 @@ class seeParcours extends Component {
               currentCommentaire={commentaire}
               commentaires={parcours.commentaires}
               rating={rating}
+              userRate={this.canUserRate}
               getParcours={this.getParcours}
               answerCommentaire={this.answerCommentaire}
             />

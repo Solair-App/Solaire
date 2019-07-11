@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import NavigationIcon from '@material-ui/icons/Navigation';
@@ -15,8 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   input: {
-
-    marginRight: theme.spacing(1),
+    margin: 'auto auto',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
     },
@@ -31,8 +34,9 @@ const useStyles = makeStyles(theme => ({
   },
 
   note: {
-    display: 'flex',
     alignItems: 'center',
+    textAlign: 'left',
+    display: 'flex',
   },
 
   align: {
@@ -51,7 +55,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   button: {
-    backgroundColor: '#4ca9a9',
+    backgroundColor: '#138787',
     color: 'white',
   },
 
@@ -61,13 +65,15 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: '0.5%',
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    color: '#4ca9a9',
+    color: '#138787',
   },
 
   divider: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
+    marginBottom: '50px',
   },
+
 
 }));
 
@@ -111,7 +117,7 @@ const Commentaires = (props) => {
         {
           commentaires: {
             [commentaryNumber]: {
-              creator: localStorage.getItem('userId'), image: props.userInfo.url, pseudo: values.name, date: Date(Date.now()).toString(), rating: props.rating, commentaire: values.message, repCommentaire: [],
+              creator: localStorage.getItem('userId'), image: props.userInfo.url, pseudo: props.userInfo.name, date: Date(Date.now()).toString(), rating: props.rating, commentaire: values.message, repCommentaire: [],
             },
           },
         },
@@ -127,7 +133,7 @@ const Commentaires = (props) => {
 
   // Vérifie si tous les states sont bien remplis, sinon renvoie un message d'erreur
   function allStateAreFill() {
-    if (values.name && values.message && rating) {
+    if (values.message && rating) {
       return true;
     }
     setValue({
@@ -142,57 +148,65 @@ const Commentaires = (props) => {
       pushMessagesInsideDB();
     }
   }
-  const { userRate } = props;
+  const { userRate, userInfo } = props;
 
   return (
     <div>
-      <p className={classes.smallTitle}>Commenter</p>
+      <p className={classes.smallTitle}>
+Commenter
+      </p>
       <Divider variant="inset" className={classes.divider} />
       <div className={classes.container}>
+
         <form noValidate autoComplete="on">
+          {' '}
 
           <div className={classes.note}>
             {' '}
-            <p>
-              {' '}
-              {' '}
-              Votre Note :
-            </p>
-            <div>
-              {userRate()}
-            </div>
-          </div>
+            <List
+              className={classes.input}
+            >
 
-          <TextField
-            fullWidth
-            required
-            input
-            id="filled-name"
-            label="Votre nom ou pseudo"
-            className={classes.input}
-            value={values.name}
-            onChange={handleChange1}
-            variant="filled"
-            name="name"
-          />
-          <TextField
-            id="filled-textarea"
-            label="Votre message"
-            placeholder="Placeholder"
-            className={classes.input}
-            input
-            multiline
-            fullWidth
-            margin="normal"
-            variant="filled"
-            name="message"
-            value={values.message}
-            onChange={handleChange1}
-            inputProps={inputProps}
-          />
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar alt="imageProfil" src={userInfo.url} />
+                </ListItemAvatar>
+
+                <p>
+                  {' '}
+                  {' '}
+Votre Note :
+
+                </p>
+                <p>
+                  {userRate()}
+                </p>
+              </ListItem>
+              <ListItem>
+
+                <TextField
+                  id="filled-textarea"
+                  label={`Commenter en tant que ${userInfo.name}`}
+                  placeholder="Placeholder"
+                  input
+                  multiline
+                  fullWidth
+                  margin="normal"
+                  variant="filled"
+                  name="message"
+                  value={values.message}
+                  onChange={handleChange1}
+                  inputProps={inputProps}
+                />
+
+
+              </ListItem>
+            </List>
+          </div>
         </form>
         {value.errorMessage}
         {' '}
+
         <div className={classes.align}>
           <Fab
             type="submit"
@@ -210,6 +224,7 @@ const Commentaires = (props) => {
       <p className={classes.smallTitle}>Tous les commentaires</p>
       <Divider variant="inset" className={classes.divider} />
     </div>
+
   );
 };
 

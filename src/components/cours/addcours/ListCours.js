@@ -90,35 +90,45 @@ class ListCours extends Component {
 
         {allCourses && allCourses.map((cours, i) => (
           <div key={`${i + 1}y`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img src={`./assets/${cours.data.type}.png`} style={{ width: '4em' }} alt={cours.data.type} />
+            <img src={`./assets/${cours.data.type}.png`} style={{ width: '3em' }} alt={cours.data.type} />
             <div style={{
               display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',
             }}
             >
               <div style={{ display: 'flex' }}>
+                {cours.data.name}
+                {' '}
+                <div>
+                  <Fab
+                    variant="extended"
+                    size="medium"
+                    aria-label="Add"
+                    style={{
+
+                      width: '30%',
+                      color: 'white',
+                      backgroundColor: '#138787',
+
+                    }}
+                  >
+                    <Edit style={{ fontSize: 20 }} onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)} />
+                  </Fab>
+                </div>
                 <Fab
                   variant="extended"
                   size="medium"
                   aria-label="Add"
                   style={{
 
-                    width: '100%',
+                    width: '30%',
                     color: 'white',
                     backgroundColor: '#138787',
-
                   }}
                 >
-                  {cours.data.name}
-                  {' '}
-                  <Edit style={{ fontSize: 20 }} onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)} />
-                  {' '}
                   <DeleteIcon onClick={() => this.open(cours.id)} style={{ fontSize: 20 }} />
                 </Fab>
 
               </div>
-              <p>
-                {cours.data.description}
-              </p>
             </div>
           </div>
         ))}

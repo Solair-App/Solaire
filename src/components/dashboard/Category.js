@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Rating from 'material-ui-rating';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -54,7 +53,7 @@ export default function ListCours(props) {
                     title=""
                   />
                 </Link>
-                <CardContent style={{ marginBottom: -15, marginTop: -9, marginLeft: -7 }}>
+                <CardContent style={{ marginBottom: -9, marginTop: -9, marginLeft: -7 }}>
                   <Link to={`/parcours/${data.id}`} className="link">
                     <div className="boxTitle">
                       <div style={{
@@ -95,11 +94,27 @@ export default function ListCours(props) {
                       >
                         {data.data.durée}
                       </Typography>
+                      <Typography
+                        variant="body2"
+                        component="p"
+                        className={classes.pos}
+                        color="textSecondary"
+                      />
                     </div>
                   </Link>
                 </CardContent>
-                {' '}
-                <Rating readOnly value={data.data.rating} className="rating" />
+                <div style={{
+                  fontSize: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                >
+                  <p>
+                    {Math.floor(data.data.rating)}
+                  </p>
+                  <img style={{ width: '13px' }} src="./assets/star.png" alt="rating" />
+                </div>
               </CardActionArea>
             </Card>
           </li>

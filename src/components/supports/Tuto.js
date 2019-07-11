@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Fab from '@material-ui/core/Fab';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
 class Tuto extends Component {
@@ -45,10 +44,6 @@ class Tuto extends Component {
       state: { parcours: true },
     });
   };
-
-  SimpleMediaQuery =() => {
-    const imagesPath = useMediaQuery('( max-width: 50% )');
-  }
 
   render() {
     const { count } = this.state;

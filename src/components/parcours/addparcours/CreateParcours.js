@@ -9,6 +9,7 @@ import Parcours from './Parcours';
 import BottomNav from '../../dashboard/BottomNav';
 import '../../../SCSS/CreateParcours.scss';
 import ImageUpload from '../../profile/ImageUpload';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 
 
 function CreateParcours({
@@ -183,7 +184,13 @@ function CreateParcours({
     <>
       <form className="classesContainer" autoComplete="off" style={{ paddingBottom: '80px' }}>
         <div className="topFond">
-          <h2 className="h2">Création de parcours</h2>
+          <h1>Création de parcours</h1>
+          <ArrowBack
+            style={{ position: 'absolute', left: '10px', top: '10px' }}
+            onClick={() => {
+              history.push('/mydashboard');
+            }}
+          />
         </div>
         <div style={{ marginTop: '1.5em' }}>
           <ImageUpload getImage={getImage} />

@@ -3,18 +3,12 @@ import YouTube from 'react-youtube';
 import './Form.css';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
+import Fab from '@material-ui/core/Fab';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 
-const textStyles = theme => ({
-  textField: {
-    marginTop: theme.spacing(2),
-    width: '250px',
-  },
-});
 
 class Form extends Component {
   constructor(props) {
@@ -25,7 +19,7 @@ class Form extends Component {
       name: '',
       duree: '',
       description: '',
-
+      error: '',
     };
   }
 
@@ -60,15 +54,19 @@ class Form extends Component {
     const parcours = match.params.parcoursId;
     const cours = match.params.coursId;
     const db = firestore;
-    const videoSet = db.collection('parcours').doc(parcours).collection('cours');
-    const video = videoSet.doc(cours);
-    video.set({
-      link, duree, name, description, type: 'video', finish: true, creator: localStorage.getItem('userId'), graduate: [],
-    }, { merge: true });
-    e.preventDefault();
+    if (this.isContentNull()) {
+      this.setState({ error: 'Il manque des informations' });
+    } else {
+      const videoSet = db.collection('parcours').doc(parcours).collection('cours');
+      const video = videoSet.doc(cours);
+      video.set({
+        link, duree, name, description, type: 'video', finish: true, creator: localStorage.getItem('userId'), graduate: [],
+      }, { merge: true });
+      e.preventDefault();
 
-    const { history } = this.props;
-    history.push(`/createparcours/${parcours}/addcours`);
+      const { history } = this.props;
+      history.push(`/createparcours/${parcours}/addcours`);
+    }
   }
 
   redirect = (url) => {
@@ -79,10 +77,21 @@ class Form extends Component {
     });
   }
 
-  render() {
-    const { classes, history } = this.props;
+  isContentNull = () => {
     const {
-      id, name, description, duree, link,
+      link, name, duree, description,
+    } = this.state;
+    if (link === '' || name === '' || duree === '' || description === '') {
+      return true;
+    }
+    return false;
+  };
+
+  render() {
+    const { history, match } = this.props;
+    const parcours = match.params.parcoursId;
+    const {
+      id, name, description, duree, link, error,
     } = this.state;
     const { recoveryId, onChange } = this;
     const opts = {
@@ -95,12 +104,15 @@ class Form extends Component {
     };
     return (
       <>
-        <ArrowBack
-          style={{ position: 'fixed', left: '10px', top: '10px' }}
-          onClick={() => {
-            history.goBack();
-          }}
-        />
+        <div className="topFond">
+          <ArrowBack
+            style={{ position: 'fixed', left: '10px', top: '10px' }}
+            onClick={() => {
+              history.push(`/createparcours/${parcours}/addcours`);
+            }}
+          />
+          <h1>Créer un cours vidéo</h1>
+        </div>
         <form className="formFather">
           <Box
             width="100%"
@@ -108,53 +120,59 @@ class Form extends Component {
             flexDirection="column"
             alignItems="center"
           >
-            <h1 className="formH1">Créer un cours vidéo</h1>
-            <Box>
+            <Box style={{ marginTop: '9px%', width: '298px' }}>
               <TextField
                 id="outlined-with-placeholder"
                 label="Nom de la vidéo"
+                required
                 value={name}
                 name="name"
+                style={{ width: '100%' }}
                 onChange={onChange}
-                variant="outlined"
-                className={classes.textField}
+                className="textfield"
               />
             </Box>
-            <Box>
+            <Box style={{ marginTop: '9px', width: '298px' }}>
               <TextField
-                id="outlined-textarea"
-                label="Description de la vidéo"
+                id="filled-multiline-flexible"
+                label="Description"
+                required
                 multiline
                 value={description}
                 name="description"
+                style={{ width: '100%' }}
                 onChange={onChange}
-                variant="outlined"
-                className={classes.textField}
+                className="textfield"
               />
             </Box>
-            <Box>
+            <Box style={{ marginTop: '9px', width: '298px' }}>
               <TextField
                 id="outlined-with-placeholder"
                 label="Durée de la vidéo"
-                variant="outlined"
                 value={duree}
+                required
                 name="duree"
+                style={{ width: '100%' }}
                 onChange={onChange}
-                className={classes.textField}
+                className="textfield"
               />
             </Box>
-            <Box>
+            <Box style={{ marginTop: '9px', width: '298px' }}>
               <TextField
                 id="outlined-with-placeholder"
                 label="Lien de la vidéo"
-                variant="outlined"
+                required
+                style={{ width: '100%' }}
                 value={link}
                 onChange={recoveryId}
-                className={classes.textField}
+                className="textfield"
               />
             </Box>
-            <Box>
-              <div className="video">
+            <Box style={{ marginTop: '9px', width: '298px' }}>
+              <div
+                className="video"
+                style={{ width: '100%' }}
+              >
                 {id.length === 11 ? (
                   <YouTube
                     videoId={id}
@@ -166,15 +184,30 @@ class Form extends Component {
               </div>
             </Box>
           </Box>
-          <Box>
-            <Button variant="outlined" onClick={this.onSubmit} className={classes.button}>
+          <Box style={{ marginTop: '9px' }}>
+            <Fab
+              variant="extended"
+              size="medium"
+              aria-label="Add"
+              onClick={this.onSubmit}
+              style={{
+                width: '300px',
+                color: 'white',
+                marginTop: '18px',
+                borderRadius: '4px',
+                backgroundColor: '#E15920',
+              }}
+            >
+              <SaveIcon className="saveicon" />
+              {' '}
               Enregistrer
-            </Button>
+            </Fab>
           </Box>
         </form>
+        {error && <p style={{ margin: 'auto', paddingTop: '7px', width: '100%' }}>{error}</p>}
       </>
     );
   }
 }
 
-export default withRouter(withFirebaseContext(withStyles(textStyles)(Form)));
+export default withRouter(withFirebaseContext(Form));

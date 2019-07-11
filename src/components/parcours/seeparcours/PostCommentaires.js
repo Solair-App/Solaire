@@ -169,8 +169,8 @@ Commenter
 
               <ListItem>
                 <ListItemAvatar>
-   <Avatar alt="imageProfil" src={userInfo.url} />
- </ListItemAvatar>
+                  <Avatar alt="imageProfil" src={userInfo.url} />
+                </ListItemAvatar>
 
                 <p>
                   {' '}
@@ -185,19 +185,19 @@ Votre Note :
               <ListItem>
 
                 <TextField
-                      id="filled-textarea"
-                      label={`Commenter en tant que ${userInfo.name}`}
-                      placeholder="Placeholder"
-                      input
-                      multiline
-                      fullWidth
-                      margin="normal"
-                      variant="filled"
-                      name="message"
-                      value={values.message}
-                      onChange={handleChange1}
-                      inputProps={inputProps}
-                    />
+                  id="filled-textarea"
+                  label={`Commenter en tant que ${userInfo.name}`}
+                  placeholder="Placeholder"
+                  input
+                  multiline
+                  fullWidth
+                  margin="normal"
+                  variant="filled"
+                  name="message"
+                  value={values.message}
+                  onChange={handleChange1}
+                  inputProps={inputProps}
+                />
 
 
               </ListItem>

@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 
 
@@ -16,31 +17,44 @@ class Signup extends Component {
       passwordOne: '',
       passwordTwo: '',
       error: null,
-      // Math.floor(Math.random()*99999)+'toto'
-      // Math.floor(Math.random()*99999)+'toto@mail.fr'
     };
   }
-
 
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  isContentNull = () => {
+    const {
+      passwordOne, passwordTwo, email, username,
+    } = this.state;
+    if (passwordOne !== passwordTwo
+      || passwordOne === ''
+      || email === ''
+      || username === '') {
+      return true;
+    }
+    return false;
+  };
+
   onSubmit = (event) => {
     const { email, passwordOne } = this.state;
     const { auth } = this.props;
-    auth.createUserWithEmailAndPassword(email, passwordOne)
-      .then((result) => {
+    if (this.isContentNull()) {
+      this.setState({ error: 'Veuillez renseigner toutes les informations' });
+    } else {
+      auth.createUserWithEmailAndPassword(email, passwordOne)
+        .then((result) => {
         // eslint-disable-next-line prefer-destructuring
-        const user = result.user;
-        localStorage.setItem('userId', user.uid);
-        this.users(user);
-      })
-      .catch((error) => {
-        this.setState({ error });
-      });
-
-    event.preventDefault();
+          const user = result.user;
+          localStorage.setItem('userId', user.uid);
+          this.users(user);
+        })
+        .catch((error) => {
+          this.setState({ error });
+        });
+      event.preventDefault();
+    }
   };
 
   users = (user) => {
@@ -60,6 +74,7 @@ class Signup extends Component {
   }
 
   render() {
+    const { history } = this.props;
     const {
       username,
       email,
@@ -67,15 +82,23 @@ class Signup extends Component {
       passwordTwo,
       error,
     } = this.state;
-    const isInvalid = passwordOne !== passwordTwo
-      || passwordOne === ''
-      || email === ''
-      || username === '';
+
     return (
       <div className="emailLog" style={{ color: 'black' }}>
+        <div className="topFond">
+          <ArrowBack
+            style={{
+              position: 'absolute', left: '10px', top: '10px', color: 'white',
+            }}
+            onClick={() => {
+              history.push('/signup');
+            }}
+          />
+          <h1>Inscription avec un email</h1>
+        </div>
         <form onSubmit={this.onSubmit} className="classesContainer" autoComplete="off">
-          <Grid container>
-            <Grid item xs={12} sm={6}>
+          <Grid container style={{ marginBottom: '20px' }}>
+            <Grid item xs={12}>
               <TextField
                 required
                 id="name"
@@ -87,7 +110,7 @@ class Signup extends Component {
                 style={{ marginTop: '5%', width: '50%' }}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 required
                 id="email"
@@ -99,7 +122,7 @@ class Signup extends Component {
                 style={{ marginTop: '5%', width: '50%' }}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
 
               <TextField
                 required
@@ -113,7 +136,7 @@ class Signup extends Component {
                 style={{ marginTop: '5%', width: '50%' }}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
 
               <TextField
                 required
@@ -130,16 +153,14 @@ class Signup extends Component {
           </Grid>
           <Button
             size="large"
-            disabled={isInvalid}
             type="submit"
             color="primary"
             variant="contained"
             style={{
-              position: 'fixed center', marginTop: '8%', borderRadius: '20px', backgroundColor: '#138787', color: 'white',
+              position: 'fixed center', borderRadius: '20px', backgroundColor: '#138787', color: 'white',
             }}
-            className="Button"
           >
-            Sign Up
+            S&apos;inscrire
           </Button>
           {error && <p>{error.message}</p>}
         </form>

@@ -3,13 +3,13 @@ import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
 import * as firebase from 'firebase';
 import Fab from '@material-ui/core/Fab';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import SelectField from './SelectField';
 import Parcours from './Parcours';
 import BottomNav from '../../dashboard/BottomNav';
 import '../../../SCSS/CreateParcours.scss';
 import ImageUpload from '../../profile/ImageUpload';
-import ArrowBack from '@material-ui/icons/ArrowBack';
 
 
 function CreateParcours({

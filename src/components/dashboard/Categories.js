@@ -74,15 +74,24 @@ class Categories extends Component {
             </div>
           </div>
         </div>
-        <div className="parcours" style={{ paddingBottom: '60px' }}>
-          <ul className="allParcours">
-            {allParcours.length > 0 && allParcours.filter(
-              res => res.data.tags.includes(searchField),
-            ).map(parcours => (
-              <Category data={parcours} />
-            ))}
-          </ul>
-        </div>
+        {allParcours.length > 0
+          ? (
+            <div className="parcours" style={{ paddingBottom: '60px' }}>
+              <ul className="allParcours">
+                {allParcours.length > 0 && allParcours.filter(
+                  res => res.data.tags.includes(searchField),
+                ).map(parcours => (
+                  <Category data={parcours} />
+                ))}
+              </ul>
+            </div>
+          )
+          : (
+            <p style={{ textAlign: 'center' }}>
+              <img className="loadingTypeHome" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
+            </p>
+          )
+        }
       </>
     );
   }

@@ -190,22 +190,9 @@ class Profile extends Component {
           </>
         ) : (
           <>
-            <p style={{ marginTop: 200, marginBottom: 30 }}>
-              <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
+            <p style={{ textAlign: 'center' }}>
+              <img className="loadingTypeHome" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
             </p>
-            <Fab
-              variant="extended"
-              size="medium"
-              aria-label="Add"
-              onClick={this.logout}
-              style={{
-                width: '300px',
-                color: 'white',
-                backgroundColor: '#E15920',
-              }}
-            >
-              Deconnexion
-            </Fab>
           </>
         )}
         <BottomNav />

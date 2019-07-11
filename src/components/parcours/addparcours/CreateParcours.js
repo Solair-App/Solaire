@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import { withRouter } from 'react-router';
 import * as firebase from 'firebase';
 import Fab from '@material-ui/core/Fab';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import SelectField from './SelectField';
 import Parcours from './Parcours';
@@ -183,7 +184,13 @@ function CreateParcours({
     <>
       <form className="classesContainer" autoComplete="off" style={{ paddingBottom: '80px' }}>
         <div className="topFond">
-          <h2 className="h2">Création de parcours</h2>
+          <h1>Création de parcours</h1>
+          <ArrowBack
+            style={{ position: 'absolute', left: '10px', top: '10px' }}
+            onClick={() => {
+              history.push('/mydashboard');
+            }}
+          />
         </div>
         <div style={{ marginTop: '1.5em' }}>
           <ImageUpload getImage={getImage} />

@@ -135,7 +135,7 @@ class CreateQuiz extends Component {
         <div className="topFond">
           <ArrowBack
             style={{
-              position: 'absolute', left: '10px', top: '10px', color: 'white',
+              position: 'absolute', left: 9, top: 13, color: 'white',
             }}
             onClick={this.back}
           />

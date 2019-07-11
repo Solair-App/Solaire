@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ArrowBack from '@material-ui/icons/ArrowBack';
 import Button from '@material-ui/core/Button';
 import * as firebase from 'firebase';
 import Rating from 'material-ui-rating';
@@ -219,7 +218,6 @@ class seeParcours extends Component {
   };
 
   render() {
-    const { history } = this.props;
     const {
       parcours,
       open,
@@ -232,15 +230,6 @@ class seeParcours extends Component {
     } = this.state;
     return (
       <div>
-        <div className="backparcours">
-          <ArrowBack
-            style={{ position: 'absolute', left: '10px', top: '10px' }}
-            onClick={() => {
-              history.push('/mydashboard');
-            }}
-          />
-        </div>
-
         <ParcoursDetails
           parcours={parcours}
           currentParcours={this.parcours}

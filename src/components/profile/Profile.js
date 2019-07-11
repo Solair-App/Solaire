@@ -92,10 +92,13 @@ class Profile extends Component {
     const { userInfo, error } = this.state;
 
     return (
-      <div style={{ paddingBottom: '70px' }}>
+      <div style={{
+        paddingBottom: '70px',
+      }}
+      >
         {userInfo ? (
           <>
-            <div className="fond">
+            <div className="fond" style={{ marginBottom: 10 }}>
               <div style={{
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -128,26 +131,31 @@ Mon compte
 
               <p className="name">{userInfo.name}</p>
             </div>
+            <div style={{
+              display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column',
+            }}
+            >
+              <div style={{ textAlign: 'left' }}>
+                <p className="infos">
+                  <AlternateEmail className="coloricon" />
+                  {' '}
+                  {userInfo.email ? userInfo.email : 'Pas renseigné'}
+                </p>
 
-            <p className="infos">
-              <AlternateEmail className="coloricon" />
-              {' '}
-              {userInfo.email ? userInfo.email : 'Pas renseigné'}
-            </p>
+                <p className="infos">
+                  <LocationOn className="coloricon" />
+                  {' '}
+                  {userInfo.city ? userInfo.city : 'Pas renseigné'}
+                </p>
 
-            <p className="infos">
-              <LocationOn className="coloricon" />
-              {' '}
-              {userInfo.city ? userInfo.city : 'Pas renseigné'}
-            </p>
+                <p className="infos" style={{ marginBottom: 10 }}>
+                  <FormatQuote className="coloricon" />
+                  {' '}
+                  {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
+                </p>
+              </div>
 
-            <p className="infos">
-              <FormatQuote className="coloricon" />
-              {' '}
-              {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
-            </p>
-
-            {userInfo.is_admin && (
+              {userInfo.is_admin && (
               <Button
                 variant="outlined"
                 name="admin"
@@ -164,27 +172,28 @@ Mon compte
               >
                 Modifier les catégories de l&apos;application
               </Button>
-            )}
+              )}
 
-            <Fab
-              variant="extended"
-              size="medium"
-              aria-label="Add"
-              onClick={this.logout}
-              style={{
-                width: '300px',
-                color: 'white',
-                backgroundColor: '#E15920',
-              }}
-            >
+              <Fab
+                variant="extended"
+                size="medium"
+                aria-label="Add"
+                onClick={this.logout}
+                style={{
+                  width: '300px',
+                  color: 'white',
+                  backgroundColor: '#E15920',
+                }}
+              >
               Deconnexion
-            </Fab>
+              </Fab>
 
-            {error && <p>{error.message}</p>}
+              {error && <p>{error.message}</p>}
+            </div>
           </>
         ) : (
           <>
-            <p>
+            <p style={{ marginTop: 200, marginBottom: 30 }}>
               <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
             </p>
             <Fab

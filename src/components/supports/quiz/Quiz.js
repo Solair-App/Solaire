@@ -217,6 +217,7 @@ function ScoreArea({ correct, incorrect }) {
       paddingTop: '10px',
       zIndex: 1,
       marginBottom: '-10px',
+      marginTop: '5%',
     },
   };
 

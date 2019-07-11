@@ -101,7 +101,7 @@ class Signup extends Component {
                     Sign up with Email
                   </Fab>
                 </Link>
-                <p><Link to="/connect" style={{ color: '#E15920' }}>Already have an account?</Link></p>
+                <p><Link to="/connect" style={{ color: '#E15920', marginBottom: '5%' }}>Already have an account?</Link></p>
               </>
             )
         }

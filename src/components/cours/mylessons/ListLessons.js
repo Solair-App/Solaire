@@ -70,7 +70,7 @@ export default function ListLessons(props) {
             : null}
 
 
-          <p
+          <div
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -82,7 +82,7 @@ export default function ListLessons(props) {
             Note :
             <Rating max={1} readOnly value={1} />
             {data.data.rating}
-          </p>
+          </div>
         </div>
       </Grid>
     </Grid>

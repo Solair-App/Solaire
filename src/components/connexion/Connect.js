@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 
 const INITIAL_STATE = {
@@ -42,11 +43,23 @@ class Connect extends Component {
   render() {
     const { email, password, error } = this.state;
     const isInvalid = password === '' || email === '';
+    const { history } = this.props;
 
     return (
       <>
+        <div className="topFond">
+          <ArrowBack
+            style={{
+              position: 'absolute', left: '10px', top: '10px', color: 'white',
+            }}
+            onClick={() => {
+              history.push('/signup');
+            }}
+          />
+          <h1>Connexion avec un email</h1>
+        </div>
         <form onSubmit={this.onSubmit}>
-          <Grid container>
+          <Grid container style={{ marginBottom: '20px' }}>
             <Grid item xs={12} sm={6}>
               <TextField
                 required

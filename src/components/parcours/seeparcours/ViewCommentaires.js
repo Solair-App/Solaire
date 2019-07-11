@@ -129,9 +129,11 @@ const ViewCommentaires = ({
     getParcours();
   };
 
+  const randomKey = Math.random().toString(36).substr(2, 3);
+
   function showCommentaire() {
     return Object.entries(commentaires).map(([key, value]) => (
-      <div key={`${key + 1}m`}>
+      <div key={`${key + randomKey}m`}>
         <List className={classes.root} alignItems="flex-start">
           <ListItem alignItems="flex-start">
             <ListItemAvatar>

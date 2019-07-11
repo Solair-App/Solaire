@@ -14,6 +14,7 @@ class CoursDetails extends Component {
     this.state = {
       coursFromParcours: [],
     };
+    this.slide = { backgroundColor: 'red' };
   }
 
   componentDidMount() {
@@ -114,6 +115,7 @@ class CoursDetails extends Component {
                     marginLeft: '2%',
                     display: 'flex',
                   }}
+                  className="parentSlide"
                 >
                   <div className={cours.data.type}>
                     <img

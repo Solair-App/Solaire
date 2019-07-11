@@ -72,6 +72,7 @@ class CreateQuestion extends React.Component {
   };
 
   render() {
+    const { history } = this.props;
     const {
       question, error, answer, correct,
     } = this.state;
@@ -82,7 +83,7 @@ class CreateQuestion extends React.Component {
             style={{
               position: 'absolute', left: 9, top: 13, color: 'white',
             }}
-            onClick={this.back}
+            onClick={() => history.push(`/createparcours/${this.parcours}/${this.cours}/addquiz`)}
           />
           <h1>Ajouter une question</h1>
         </div>

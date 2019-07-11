@@ -97,7 +97,6 @@ export default function ListCours(props) {
                       </div>
                     </Link>
                   </CardContent>
-                  {' '}
                   <Rating readOnly value={info.data.rating} className="rating" />
                 </CardActionArea>
               </Card>

@@ -156,12 +156,11 @@ const Commentaires = (props) => {
             <p>
               {' '}
               {' '}
-Votre Note :
-
+              Votre Note :
             </p>
-            <p>
+            <div>
               {userRate()}
-            </p>
+            </div>
           </div>
 
           <TextField

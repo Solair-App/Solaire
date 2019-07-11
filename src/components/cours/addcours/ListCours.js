@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Fab from '@material-ui/core/Fab';
+import Divider from '@material-ui/core/Divider';
 import { withRouter } from 'react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
@@ -90,21 +90,22 @@ class ListCours extends Component {
 
         {allCourses && allCourses.map((cours, i) => (
           <div key={`${i + 1}y`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img src={`./assets/${cours.data.type}.png`} style={{ width: '3em' }} alt={cours.data.type} />
+            <img src={`./assets/${cours.data.type}.png`} style={{ width: '3em', marginLeft: '15px' }} alt={cours.data.type} />
             <div style={{
               display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',
             }}
             >
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <h3 style={{ marginLeft: '30px', marginRight: '30px' }}>{cours.data.name}</h3>
+                <p style={{ marginLeft: '20px', marginRight: '20px' }}>{cours.data.name}</p>
                 {' '}
                 <div>
                   <Edit style={{ fontSize: 25, color: '#138787' }} onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)} />
                 </div>
 
-                <DeleteIcon onClick={() => this.open(cours.id)} style={{ fontSize: 25, color: '#138787' }} />
+                <DeleteIcon onClick={() => this.open(cours.id)} style={{ fontSize: 25, color: '#138787', marginRight: '15px' }} />
 
               </div>
+              <Divider variant="inset" />
             </div>
           </div>
         ))}

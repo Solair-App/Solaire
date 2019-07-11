@@ -14,6 +14,7 @@ class CoursDetails extends Component {
     this.state = {
       coursFromParcours: [],
     };
+    this.slide = { backgroundColor: 'red' };
   }
 
   componentDidMount() {

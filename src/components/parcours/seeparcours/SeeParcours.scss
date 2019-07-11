@@ -22,3 +22,47 @@ justify-content: left;
 .coursdescrip{
 margin-left: 5%;
 }
+
+.coursTerminé {
+  width: 60%;
+  margin: auto;
+}
+
+.videoDiv{
+  width: 350px;
+  height: 250px;
+}
+
+.fondDescription {
+  background-color: #ffd7c6;
+  width: 85%;
+  margin: auto;
+  padding: 18px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+@media screen and (min-width: 768px) {
+  .coursTerminé {
+    width: 40%;
+  }  
+  .videoDiv{
+    width: 650px;
+    height: 350px;
+  }
+  .fondDescription {
+    width: 60%;
+    margin: auto;
+    padding: 18px;
+    margin-bottom: 30px;
+    margin-top: 12px;
+  }
+}
+
+@media only screen and (min-width : 1224px){
+  .fondDescription {
+    width: 32%;
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }  
+}

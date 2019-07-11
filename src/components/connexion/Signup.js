@@ -5,6 +5,7 @@ import Fab from '@material-ui/core/Fab';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 import '../../SCSS/SignUp.scss';
 
+
 class Signup extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +18,7 @@ class Signup extends Component {
     if (localStorage.getItem('connected') === null) {
       this.setState({ connected: false });
     }
-    setTimeout(() => this.setState({ connected: false }, localStorage.removeItem('connected')), 4000);
+    setTimeout(() => this.setState({ connected: false }, localStorage.removeItem('connected')), 5000);
 
     const { auth } = this.props;
     auth.onAuthStateChanged((user) => {
@@ -96,7 +97,6 @@ class Signup extends Component {
                     size="medium"
                     aria-label="Add"
                     className="Button"
-                    onClick={() => this.login('google')}
                   >
                     Sign up with Email
                   </Fab>

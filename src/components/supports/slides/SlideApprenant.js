@@ -119,9 +119,6 @@ const useStyles = makeStyles(theme => ({
 
   },
 
-  imagePosition: {
-    textAlign: 'center',
-  },
 }));
 
 

@@ -59,7 +59,7 @@ class CreateQuiz extends Component {
     const { firestore } = this.props;
     const db = firestore;
     if (this.isContentNull()) {
-      this.setState({ error: 'Veuillez ajouter un nom et une description' });
+      this.setState({ error: 'Veuillez ajouter un nom, une description et au moins une question' });
     } else {
       const quizSet = db.collection('parcours').doc(this.parcours).collection('cours');
       const quiz = quizSet.doc(this.cours);

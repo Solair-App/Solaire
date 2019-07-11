@@ -187,7 +187,7 @@ Votre Note :
                 <TextField
                   id="filled-textarea"
                   label={`Commenter en tant que ${userInfo.name}`}
-                  placeholder="Placeholder"
+                  placeholder="Votre message"
                   input
                   multiline
                   fullWidth

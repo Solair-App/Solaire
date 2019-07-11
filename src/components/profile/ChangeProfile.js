@@ -95,7 +95,7 @@ class ChangeProfile extends Component {
             value={name}
             label="Nom"
             className="textfield"
-            style={{ marginTop: '5%', width: '50%' }}
+            style={{ marginTop: '5%', width: '298px' }}
           />
         </div>
 
@@ -108,7 +108,7 @@ class ChangeProfile extends Component {
             label="Email"
             className="textField"
             autoComplete="email"
-            style={{ marginTop: '5%', width: '50%' }}
+            style={{ marginTop: '5%', width: '298px' }}
           />
         </div>
 
@@ -120,7 +120,7 @@ class ChangeProfile extends Component {
             value={city}
             label="Ville"
             className="textfield"
-            style={{ marginTop: '5%', width: '50%' }}
+            style={{ marginTop: '5%', width: '298px' }}
           />
         </div>
 
@@ -134,7 +134,7 @@ class ChangeProfile extends Component {
             multiline
             rowsMax="4"
             className="textField"
-            style={{ marginTop: '5%', width: '50%' }}
+            style={{ marginTop: '5%', width: '298px' }}
           />
         </div>
 

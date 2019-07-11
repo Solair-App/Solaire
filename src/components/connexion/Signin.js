@@ -24,21 +24,37 @@ class Signup extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  isContentNull = () => {
+    const {
+      passwordOne, passwordTwo, email, username,
+    } = this.state;
+    if (passwordOne !== passwordTwo
+      || passwordOne === ''
+      || email === ''
+      || username === '') {
+      return true;
+    }
+    return false;
+  };
+
   onSubmit = (event) => {
     const { email, passwordOne } = this.state;
     const { auth } = this.props;
-    auth.createUserWithEmailAndPassword(email, passwordOne)
-      .then((result) => {
+    if (this.isContentNull()) {
+      this.setState({ error: 'Veuillez renseigner toutes les informations' });
+    } else {
+      auth.createUserWithEmailAndPassword(email, passwordOne)
+        .then((result) => {
         // eslint-disable-next-line prefer-destructuring
-        const user = result.user;
-        localStorage.setItem('userId', user.uid);
-        this.users(user);
-      })
-      .catch((error) => {
-        this.setState({ error });
-      });
-
-    event.preventDefault();
+          const user = result.user;
+          localStorage.setItem('userId', user.uid);
+          this.users(user);
+        })
+        .catch((error) => {
+          this.setState({ error });
+        });
+      event.preventDefault();
+    }
   };
 
   users = (user) => {
@@ -66,10 +82,7 @@ class Signup extends Component {
       passwordTwo,
       error,
     } = this.state;
-    const isInvalid = passwordOne !== passwordTwo
-      || passwordOne === ''
-      || email === ''
-      || username === '';
+
     return (
       <div className="emailLog" style={{ color: 'black' }}>
         <div className="topFond">
@@ -140,7 +153,6 @@ class Signup extends Component {
           </Grid>
           <Button
             size="large"
-            disabled={isInvalid}
             type="submit"
             color="primary"
             variant="contained"

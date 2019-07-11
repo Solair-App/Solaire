@@ -3,6 +3,7 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import SaveIcon from '@material-ui/icons/Save';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -64,6 +65,11 @@ class CreateQuestion extends React.Component {
       history.push(`/createparcours/${this.parcours}/${this.cours}/addquiz`);
     }
   };
+
+  deleteAnswer = (index) => {
+    this.answers.splice(index, 1);
+    this.setState({ answer: '' });
+  }
 
   saveAnswer = () => {
     const { answer } = this.state;
@@ -129,7 +135,11 @@ class CreateQuestion extends React.Component {
             </Fab>
             {this.answers.length > 0 && <h4>Choix de réponses</h4>}
             {this.answers.map((ans, index) => (
-              <p>{`${index}/${ans}`}</p>
+              <p>
+                {`${index + 1}/${ans}`}
+                {' '}
+                <DeleteIcon onClick={() => this.deleteAnswer(index)} style={{ fontSize: 18 }} />
+              </p>
             ))}
           </Grid>
           <Grid item xs={12}>
@@ -144,7 +154,7 @@ class CreateQuestion extends React.Component {
                 }}
               >
                 {this.answers.map((ans, index) => (
-                  <MenuItem value={index}>{`${index}/${ans}`}</MenuItem>
+                  <MenuItem value={index + 1}>{`${index}/${ans}`}</MenuItem>
                 ))}
               </Select>
             </FormControl>

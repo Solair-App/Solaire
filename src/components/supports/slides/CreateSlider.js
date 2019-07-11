@@ -115,7 +115,7 @@ const CreateSlider = ({ firestore, history, match }) => {
   const saveCours = (event) => {
     const db = firestore;
     if (isContentNull()) {
-      setError('Veuillez ajouter un nom et une description');
+      setError('Veuillez ajouter un nom, une description et au moins une slide');
     } else {
       const slideSet = db.collection('parcours').doc(parcours).collection('cours');
       const slide = slideSet.doc(cours);
@@ -180,11 +180,11 @@ const CreateSlider = ({ firestore, history, match }) => {
               {Object.keys(infoSlide.slides).length > 0
               && <DeleteIcon onClick={() => opened(Object.keys(infoSlide.slides)[activeStep])} />}
             </h3>
-            <p>
+            <div>
               {ReactHtmlParser(infoSlide.slides
               && Object.values(infoSlide.slides)[activeStep]
               && Object.values(infoSlide.slides)[activeStep].content)}
-            </p>
+            </div>
             {infoSlide.slides && Object.values(infoSlide.slides)[activeStep]
             && Object.values(infoSlide.slides)[activeStep].image
             && <img className="imgSlide" src={Object.values(infoSlide.slides)[activeStep].image} alt="imageSlide" />}

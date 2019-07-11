@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
+import '../../SCSS/SignUp.scss';
 
 const INITIAL_STATE = {
   email: '',
@@ -42,20 +44,36 @@ class Connect extends Component {
   render() {
     const { email, password, error } = this.state;
     const isInvalid = password === '' || email === '';
+    const { history } = this.props;
 
     return (
       <>
+        <div className="topFond">
+          <ArrowBack
+            style={{
+              position: 'absolute', left: '10px', top: '10px', color: 'white',
+            }}
+            onClick={() => {
+              history.push('/signup');
+            }}
+          />
+          <h1>Connexion avec un email</h1>
+        </div>
         <form onSubmit={this.onSubmit}>
+          <img src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="logo" className="image" />
+          <h1 className="title">Solair</h1>
+          <h4 className="accroche">Connection</h4>
+
           <Grid container>
             <Grid item xs={12} sm={6}>
               <TextField
                 required
                 name="email"
                 label="Email Address"
-                className="textfield"
+                className="email"
                 currentValue={email}
                 onChange={this.onChange}
-                style={{ marginTop: '5%', width: '50%' }}
+                style={{ marginTop: '70px', marginBottom: '70px', width: '50%' }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -63,11 +81,11 @@ class Connect extends Component {
                 required
                 name="password"
                 label="password"
-                className="textfield"
+                className="password"
                 currentValue={password}
                 type="password"
                 onChange={this.onChange}
-                style={{ marginTop: '5%', width: '50%' }}
+                style={{ marginTop: '70px', marginBottom: '70px', width: '50%' }}
               />
             </Grid>
           </Grid>
@@ -77,7 +95,7 @@ class Connect extends Component {
             type="submit"
             color="primary"
             variant="contained"
-            style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
+            style={{ position: 'fixed center', marginTop: '500px', borderRadius: '20px' }}
             className="Button"
           >
             Sign IN

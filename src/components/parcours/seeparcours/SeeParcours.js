@@ -23,7 +23,7 @@ class seeParcours extends Component {
       canVote: true,
       open: false,
       commentaire: { pseudo: '', commentaire: 'qsd' },
-      
+
       loaded: 0,
     };
     const { match } = this.props;
@@ -291,6 +291,7 @@ class seeParcours extends Component {
               currentCommentaire={commentaire}
               commentaires={parcours.commentaires}
               rating={rating}
+              userRate={this.canUserRate}
               getParcours={this.getParcours}
               answerCommentaire={this.answerCommentaire}
             />

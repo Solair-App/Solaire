@@ -85,27 +85,63 @@ class ListCours extends Component {
   render() {
     const { allCourses, open, coursId } = this.state;
     return (
-      <div>
+      <div style={{
+        display: 'flex', flexDirection: 'column', justifyContent: 'center', marginBottom: -20, alignItems: 'center',
+      }}
+      >
         <SimpleModal open={open} idCours={coursId} togle={this.toggle} deleted={this.delete} />
 
         {allCourses && allCourses.map((cours, i) => (
-          <div key={`${i + 1}y`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img src={`./assets/${cours.data.type}.png`} style={{ width: '3em', marginLeft: '15px' }} alt={cours.data.type} />
-            <div style={{
-              display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start',
+          <div
+            key={`${i + 1}y`}
+            className="parentSlide"
+            style={{
+              width: 305,
+              color: 'black',
+              display: 'flex',
+              marginBottom: 10,
             }}
+          >
+            <div className={cours.data.type}>
+              <img
+                src={`./assets/${cours.data.type}.png`}
+                style={{
+                  alignItems: 'center', width: 40, justifyContent: 'center', padding: 15,
+                }}
+                alt={cours.data.type}
+              />
+            </div>
+            <div
+              style={{
+                width: 350,
+                height: 70,
+                backgroundColor: 'white',
+                overflow: 'hidden',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}
             >
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <p style={{ marginLeft: '20px', marginRight: '20px' }}>{cours.data.name}</p>
-                {' '}
-                <div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'left',
+                flexDirection: 'column',
+                textAlign: 'left',
+                paddingLeft: 10,
+                width: 140,
+                overflow: 'hidden',
+              }}
+              >
+                <h2 style={{ paddingBottom: 5, fontSize: 18 }}>{cours.data.name}</h2>
+                <p style={{ paddingBottom: 5 }}>{cours.data.description}</p>
+              </div>
+              <div style={{ display: 'flex' }}>
+                <div style={{ paddingRight: 7 }}>
                   <Edit style={{ fontSize: 25, color: '#138787' }} onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)} />
                 </div>
-
                 <DeleteIcon onClick={() => this.open(cours.id)} style={{ fontSize: 25, color: '#138787', marginRight: '15px' }} />
-
               </div>
-              <Divider variant="inset" />
             </div>
           </div>
         ))}

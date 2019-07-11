@@ -55,7 +55,7 @@ class Categories extends Component {
       <>
         <div className="parcoursFond">
           <ArrowBack
-            style={{ position: 'fixed', left: '10px', top: '10px' }}
+            style={{ position: 'absolute', left: '9px', top: '13px' }}
             onClick={() => {
               history.push('/mydashboard');
             }}

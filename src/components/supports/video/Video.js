@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import YouTube from 'react-youtube';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
 import * as firebase from 'firebase';
@@ -29,7 +29,6 @@ class Video extends Component {
 
   connectDb = () => {
     const { history } = this.props;
-    console.log(this.curentCours);
     firebase
       .firestore()
       .collection('parcours')
@@ -74,39 +73,49 @@ class Video extends Component {
   render() {
     const { video, videoId } = this.state;
     const { history } = this.props;
-    console.log(video);
     const opts = {
-      height: '260',
-      width: '360',
+      height: 'auto',
+      width: '100%',
       playerVars: { // https://developers.google.com/youtube/player_parameters
-        autoplay: 1,
+        autoplay: 0,
       },
     };
     return (
       <div>
-        <ArrowBack
-          style={{ position: 'fixed', left: '10px', top: '10px' }}
-          onClick={() => {
-            history.goBack();
-          }}
-        />
-        {video
-          && (
-          <>
-            <h1>{video.name}</h1>
-            <p>{video.description}</p>
-          </>
-          )
-        }
+        <div className="topFond">
+          <ArrowBack
+            style={{ position: 'absolute', left: '10px', top: '10px' }}
+            onClick={() => {
+              history.push(`/parcours/${this.parcours}`);
+            }}
+          />
+          {video && <h1>{video.name}</h1>}
+        </div>
+        <div className="fondDescription">
+          {video && <p>{video.description}</p>}
+        </div>
         <YouTube
+          className="videoDiv"
           videoId={videoId}
           opts={opts}
           /* eslint no-underscore-dangle: 0 */
           onReady={this._onReady}
         />
-        <Button variant="outlined" onClick={this.connectDb}>
-              cours terminé
-        </Button>
+        <div className="coursTerminé">
+          <Fab
+            variant="extended"
+            size="medium"
+            aria-label="Add"
+            onClick={this.connectDb}
+            style={{
+              marginTop: '18px',
+              color: 'white',
+              backgroundColor: '#E15920',
+            }}
+          >
+          Cours terminé
+          </Fab>
+        </div>
       </div>
     );
   }

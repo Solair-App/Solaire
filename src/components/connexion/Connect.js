@@ -56,7 +56,7 @@ class Connect extends Component {
               history.push('/signup');
             }}
           />
-          <h1>Inscription avec un email</h1>
+          <h1>Connexion avec un email</h1>
         </div>
         <form onSubmit={this.onSubmit}>
           <Grid container style={{ marginBottom: '20px' }}>

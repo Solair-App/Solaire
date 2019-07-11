@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Fab from '@material-ui/core/Fab';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
 class Tuto extends Component {
@@ -45,15 +46,19 @@ class Tuto extends Component {
     });
   };
 
+  SimpleMediaQuery =() => {
+    const imagesPath = useMediaQuery('( max-width: 50% )');
+  }
+
   render() {
     const { count } = this.state;
     return (
       <div onClick={this.incrementCounter} role="presentation">
-        <h1 style={{ marginTop: '15%', marginBottom: '10%', color: '#138787' }}>
+        <h1 style={{ marginTop: '5%', color: '#138787' }}>
         Solair
         </h1>
         <img
-          style={{ width: '50%', marginTop: '10%', marginBottom: '10%' }}
+          style={{ width: '50%', marginTop: '5%', marginBottom: '5%' }}
           className="tchat"
           role="presentation"
           alt="tchat"

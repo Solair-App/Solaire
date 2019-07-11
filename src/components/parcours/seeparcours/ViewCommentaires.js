@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   button: {
-    backgroundColor: '#4ca9a9',
+    backgroundColor: '#138787',
     color: 'white',
     marginLeft: -10,
   },
@@ -72,7 +72,6 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
   },
-
 }));
 
 // Récupération des commentaires de la db
@@ -82,6 +81,7 @@ const ViewCommentaires = ({
   getParcours,
   currentParcours,
   userInfo,
+
 }) => {
   const classes = useStyles();
   const [answer, setAnswer] = useState({ });
@@ -142,7 +142,7 @@ const ViewCommentaires = ({
             <ListItemText
               primary={(
                 <Fragment>
-                  <Typography>
+                  <Typography className="typo">
                     {value.pseudo}
                     {(value.creator === localStorage.getItem('userId')) || (userInfo && userInfo.is_admin)
                       ? (
@@ -150,7 +150,7 @@ const ViewCommentaires = ({
                           onClick={() => deleting(key)}
                           style={{
                             marginLeft: '1%',
-                            color: '#4ca9a9',
+                            color: '#138787',
 
                           }}
                         />
@@ -160,18 +160,19 @@ const ViewCommentaires = ({
                 </Fragment>
 )}
               secondary={(
-                <React.Fragment>
+                <Fragment>
                   <Typography
                     component="span"
                     variant="body2"
-                    className={classes.inline}
+
                     color="textPrimary"
                   >
                     {' '}
                     {value.commentaire}
-                    <Rating readOnly value={value.rating} />
+
                   </Typography>
-                </React.Fragment>
+                  <Rating readOnly value={value.rating} />
+                </Fragment>
 )}
             />
           </ListItem>
@@ -191,7 +192,7 @@ const ViewCommentaires = ({
                  Répondre
           </Fab>
         </div>
-        {answer[key] && !newAnswer && <AnswerCommentaire newAnswer={newAnswer} newReponse={newReponse} answerCommentaire={answerCommentaire} answerIndex={key} getParcours={getParcours} />}
+        {answer[key] && !newAnswer && <AnswerCommentaire newAnswer={newAnswer} newReponse={newReponse} answerCommentaire={answerCommentaire} answerIndex={key} getParcours={getParcours} userInfo={userInfo} />}
         {value.repCommentaire.length > 0 ? (
           <ExpansionPanel>
             <ExpansionPanelSummary
@@ -210,7 +211,7 @@ const ViewCommentaires = ({
                     <List className={classes.root} alignItems="flex-start">
                       <ListItem alignItems="flex-start">
                         <ListItemAvatar>
-                          <Avatar alt="imageProfil" src={value.image} />
+                          <Avatar alt="imageProfil" src={commentaire.image} />
                         </ListItemAvatar>
                         <ListItemText
                           primary={(

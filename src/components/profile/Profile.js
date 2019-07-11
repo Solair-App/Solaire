@@ -26,23 +26,20 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const { firestore, state } = this.props;
+    const { firestore } = this.props;
     let docRef;
-    if (!state || !state.profile) {
-      if (localStorage.getItem('userId')) {
-        docRef = firestore.doc(`usersinfo/${localStorage.getItem('userId')}`);
-        this.getInfo(docRef);
-      } else {
-        const { auth } = this.props;
-        auth.onAuthStateChanged((user) => {
-          if (user) {
-            docRef = firestore.doc(`usersinfo/${user.uid}`);
-            this.getInfo(docRef);
-          }
-        });
-      }
+
+    if (localStorage.getItem('userId')) {
+      docRef = firestore.doc(`usersinfo/${localStorage.getItem('userId')}`);
+      this.getInfo(docRef);
     } else {
-      this.setState({ userInfo: state.profile });
+      const { auth } = this.props;
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          docRef = firestore.doc(`usersinfo/${user.uid}`);
+          this.getInfo(docRef);
+        }
+      });
     }
     // eslint-disable-next-line no-shadow
     const { mapDispatchToProps } = this.props;
@@ -105,7 +102,7 @@ class Profile extends Component {
               }}
               >
                 <h1 className="titreprofil">
-Mon compte
+                Mon compte
                   {' '}
                   <Edit
                     style={{ color: 'white' }}

@@ -124,6 +124,7 @@ class Form extends Component {
               <TextField
                 id="outlined-with-placeholder"
                 label="Nom de la vidéo"
+                inputProps={{ maxLength: 35 }}
                 required
                 value={name}
                 name="name"
@@ -136,6 +137,7 @@ class Form extends Component {
               <TextField
                 id="filled-multiline-flexible"
                 label="Description"
+                inputProps={{ maxLength: 280 }}
                 required
                 multiline
                 value={description}

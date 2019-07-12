@@ -90,12 +90,13 @@ class ChangeProfile extends Component {
         <div>
           <TextField
             id="standard-name"
+            inputProps={{ maxLength: 35 }}
             name="name"
             onChange={this.onChange}
             value={name}
             label="Nom"
             className="textfield"
-            style={{ marginTop: '5%', width: '50%' }}
+            style={{ marginTop: '5%', width: '298px' }}
           />
         </div>
 
@@ -108,7 +109,7 @@ class ChangeProfile extends Component {
             label="Email"
             className="textField"
             autoComplete="email"
-            style={{ marginTop: '5%', width: '50%' }}
+            style={{ marginTop: '5%', width: '298px' }}
           />
         </div>
 
@@ -116,11 +117,12 @@ class ChangeProfile extends Component {
           <TextField
             id="standard-name"
             name="city"
+            inputProps={{ maxLength: 35 }}
             onChange={this.onChange}
             value={city}
             label="Ville"
             className="textfield"
-            style={{ marginTop: '5%', width: '50%' }}
+            style={{ marginTop: '5%', width: '298px' }}
           />
         </div>
 
@@ -129,12 +131,13 @@ class ChangeProfile extends Component {
             id="standard-multiline-flexible"
             name="bio"
             onChange={this.onChange}
+            inputProps={{ maxLength: 280 }}
             value={bio}
             label="A propos de moi"
             multiline
             rowsMax="4"
             className="textField"
-            style={{ marginTop: '5%', width: '50%' }}
+            style={{ marginTop: '5%', width: '298px' }}
           />
         </div>
 

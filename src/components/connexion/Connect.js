@@ -50,9 +50,7 @@ class Connect extends Component {
       <>
         <div className="topFond">
           <ArrowBack
-            style={{
-              position: 'absolute', left: '10px', top: '10px', color: 'white',
-            }}
+            style={{ position: 'absolute', left: '9px', top: '13px' }}
             onClick={() => {
               history.push('/signup');
             }}

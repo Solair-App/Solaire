@@ -231,6 +231,7 @@ const CreateSlider = ({ firestore, history, match }) => {
               style={{
                 width: '210px',
                 color: 'white',
+                marginTop: '35px',
                 marginBottom: '14px',
                 backgroundColor: '#138787',
               }}

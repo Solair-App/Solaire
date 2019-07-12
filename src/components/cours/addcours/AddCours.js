@@ -176,7 +176,7 @@ copyLink = () => {
               backgroundColor: '#E15920',
             }}
           >
-            <Edit />
+            <Edit style={{ marginRight: '10px' }} />
             {' '}
             Modifier les options
           </Fab>
@@ -253,7 +253,7 @@ copyLink = () => {
               backgroundColor: '#E15920',
             }}
           >
-            <SaveIcon />
+            <SaveIcon style={{ marginRight: '10px' }} />
             {' '}
             Valider
           </Fab>

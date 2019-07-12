@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import CKEditor from 'ckeditor4-react';
 import TextField from '@material-ui/core/TextField';
+import ArrowBack from '@material-ui/icons/ArrowBack';
+import Fab from '@material-ui/core/Fab';
 import withFirebaseContext from '../../../Firebase/withFirebaseContext';
 import ImageUpload from '../../profile/ImageUpload';
 import '../../../App.scss';
@@ -40,9 +42,9 @@ class Essai extends Component {
     if (content === null || title === null) {
       return true;
     }
-
     return false;
   }
+
 
   saveData = () => {
     const { firestore, history } = this.props;
@@ -81,31 +83,48 @@ class Essai extends Component {
       pathname: `/createparcours/${this.parcours}/${this.cours}/createslider`,
       state: { cours: true },
     });
-  }
+  };
 
+  back = () => {
+    const { history } = this.props;
+    history.push(`/createparcours/${this.parcours}/${this.cours}/createslider`);
+  }
 
   render() {
     const { content, erreur, title } = this.state;
     return (
       <div className="slide">
-        <h1>Créer une Slide</h1>
+        <div className="topFond">
+          <ArrowBack
+            style={{
+              position: 'absolute', left: '10px', top: '10px', color: 'white',
+            }}
+            onClick={this.back}
+          />
+          <h1>Créer une Slide</h1>
+        </div>
+
         <h2>Ajouter un titre*</h2>
         <TextField
           required
           id="standard-name"
           label="Nom du parcours"
-          className="textfield"
           value={title}
           onChange={this.handleChange}
-          style={{ marginTop: '5%', width: '50%' }}
+          style={{ width: '50%' }}
         />
-        <h2>Ajouter un paragraphe*</h2>
-        <CKEditor
-          data="<p>Taper votre texte ici</p>"
-          activeClass="editor"
-          value={content}
-          onChange={this.updateContent}
-        />
+        <div className="titleSlideFormateur">
+          <h2>Ajouter un paragraphe*</h2>
+        </div>
+        <div className="CKEditor">
+          <CKEditor
+            data="<p>Taper votre texte ici</p>"
+            activeClass="editor"
+            value={content}
+            onChange={this.updateContent}
+          />
+        </div>
+
         <h2>Ajouter une image</h2>
         <div style={{ marginTop: '1.5em' }}>
           <ImageUpload getImage={this.getImage} />
@@ -117,7 +136,24 @@ class Essai extends Component {
             </p>
           ) : ''}
         </div>
-        <button onClick={this.saveData} type="submit">Sauvegarder</button>
+        <Fab
+          variant="extended"
+          size="medium"
+          aria-label="Add"
+          style={{
+            width: '210px',
+            color: 'white',
+            marginBottom: '14px',
+            marginTop: '30px',
+            backgroundColor: '#138787',
+          }}
+          onClick={this.saveData}
+          type="submit"
+        >
+Sauvegarder
+
+        </Fab>
+
       </div>
     );
   }

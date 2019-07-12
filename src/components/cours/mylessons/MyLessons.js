@@ -7,6 +7,7 @@ import UseTabs from './UseTabs';
 // eslint-disable-next-line import/no-named-as-default
 import ListLessons from './ListLessons';
 import BottomNav from '../../dashboard/BottomNav';
+import '../../../SCSS/MyLessons.scss';
 
 class MyLessons extends React.Component {
   constructor(props) {
@@ -76,16 +77,12 @@ class MyLessons extends React.Component {
                   <ListLessons data={x} key={`${i + 1}a`} />
                   {' '}
                 </Link>
-
-
               ))
           ) : (
-            <p>
-              <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
+            <p style={{ textAlign: 'center' }}>
+              <img className="loadingTypeHome" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
             </p>
           )}
-
-
         </div>
         <BottomNav />
       </div>

@@ -186,7 +186,7 @@ function CreateParcours({
         <div className="topFond">
           <h1>Création de parcours</h1>
           <ArrowBack
-            style={{ position: 'absolute', left: '10px', top: '10px' }}
+            style={{ position: 'absolute', left: '9px', top: '13px' }}
             onClick={() => {
               history.push('/mydashboard');
             }}

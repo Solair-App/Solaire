@@ -180,6 +180,7 @@ function CreateParcours({
     }
   }
 
+
   return (
     <>
       <form className="classesContainer" autoComplete="off" style={{ paddingBottom: '80px' }}>
@@ -197,8 +198,8 @@ function CreateParcours({
         </div>
         <div>
           <TextField
-
             id="standard-name"
+            inputProps={{ maxLength: 35 }}
             label="Nom du parcours"
             className="textfield"
             value={value.name}
@@ -209,8 +210,8 @@ function CreateParcours({
         {' '}
         <div>
           <TextField
-
             id="filled-multiline-flexible"
+            inputProps={{ maxLength: 280 }}
             label="Description"
             value={value.description}
             multiline

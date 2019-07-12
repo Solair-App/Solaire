@@ -70,8 +70,6 @@ class MyLessons extends React.Component {
                 : parcours.data.apprenants.includes(currentUser)
                   && parcours.data.creator !== currentUser))
               .map((x, i) => (
-
-
                 <Link style={{ textDecoration: 'none' }} to={{ pathname: `/parcours/${x.data.id}` }}>
                   {' '}
                   <ListLessons data={x} key={`${i + 1}a`} />

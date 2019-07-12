@@ -157,7 +157,7 @@ const Commentaires = (props) => {
                   id="filled-textarea"
                   label={`Commenter en tant que ${userInfo.name}`}
                   style={{ margin: 8 }}
-                  placeholder="Placeholder"
+                  placeholder="Votre message"
                   input
                   multiline
                   fullWidth

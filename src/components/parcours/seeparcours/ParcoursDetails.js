@@ -13,22 +13,23 @@ const ParcoursDetails = ({
 }) => (
   <>
     <div style={{
-      overflow: 'hidden',
       maxHeight: 100,
       backgroundColor: '#138787',
-      paddingTop: 7,
       color: 'white',
     }}
     >
       <ArrowBack
-        style={{ position: 'absolute', left: 9, top: 13 }}
+        style={{
+          position: 'absolute', left: 9, top: 13,
+        }}
         onClick={() => {
           history.push('/mydashboard');
         }}
       />
       <h2 style={{
         color: 'white',
-        marginBottom: 10,
+        paddingBottom: 11,
+        paddingTop: 7,
         paddingLeft: 30,
         fontSize: 24,
       }}
@@ -74,7 +75,7 @@ Description :
     </p>
     {loaded === 1 ? haveUserAlreadyVoted() : null}
 
-    <Rating readOnly value={parcours.rating} style={{ marginBottom: 50 }} />
+    <Rating readOnly value={parcours.rating} style={{ marginBottom: 15, marginTop: 5 }} />
   </>
 );
 

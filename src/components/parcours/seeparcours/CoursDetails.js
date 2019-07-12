@@ -96,7 +96,7 @@ class CoursDetails extends Component {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  marginTop: 20,
+                  marginTop: 10,
                   justifyContent: 'center',
                   color: '#138787',
                   overflow: 'hidden',
@@ -114,23 +114,23 @@ class CoursDetails extends Component {
                   style={{
                     width: 305,
                     color: 'black',
-                    marginLeft: '2%',
+                    marginLeft: 10,
                     display: 'flex',
                   }}
                   className="parentSlide"
                 >
-                  <div className={cours.data.type}>
+                  <div className={cours.data.type} style={{ height: 85 }}>
                     <img
                       src={`./assets/${cours.data.type}.png`}
                       style={{
-                        alignItems: 'center', width: 40, justifyContent: 'center', padding: 15,
+                        alignItems: 'center', width: 50, justifyContent: 'center', padding: 15,
                       }}
                       alt={cours.data.type}
                     />
                   </div>
                   <div style={{
-                    width: 350,
-                    height: 70,
+                    width: 320,
+                    height: 85,
                     backgroundColor: 'white',
                     overflow: 'hidden',
                     display: 'flex',
@@ -139,9 +139,15 @@ class CoursDetails extends Component {
                     flexDirection: 'column',
                   }}
                   >
-                    <h2 style={{ paddingBottom: 5, fontSize: 18 }}>{cours.data.name}</h2>
+                    <h2 style={{ paddingBottom: 5, fontSize: 14 }}>{cours.data.name}</h2>
 
-                    <p style={{ paddingBottom: 5 }}>{cours.data.description}</p>
+                    <p style={{
+                      paddingBottom: 5, paddingLeft: 5, paddingRight: 5, fontSize: 12,
+                    }}
+                    >
+                      {cours.data.description}
+
+                    </p>
                   </div>
                 </div>
               </div>
@@ -157,7 +163,7 @@ class CoursDetails extends Component {
             {' '}
           </>
         ) : (
-          <>
+          <div style={{ marginBottom: 30 }}>
             {' '}
             <p style={{ marginTop: '5%' }}>
               Complétez encore
@@ -168,7 +174,7 @@ cours pour
               pouvoir partager la complétion de ce parcours !
             </p>
             <ShareIcon gray={1} />
-          </>
+          </div>
         )}
       </>
     );

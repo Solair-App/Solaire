@@ -109,7 +109,9 @@ class Quiz extends React.Component {
 function Question({ dataSet }) {
   return (
     <h1 style={{
-      fontSize: '2em', width: '96vw', marginLeft: '-7vw',
+      fontSize: '2em',
+      display: 'block',
+      textAlign: 'center',
     }}
     >
       {dataSet.question}

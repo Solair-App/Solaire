@@ -61,7 +61,11 @@ const useStyles = makeStyles(theme => ({
   button: {
     backgroundColor: '#138787',
     color: 'white',
-    marginLeft: -10,
+    marginTop: -30,
+    marginLeft: -18,
+    height: '40px !important',
+    paddingRight: '15px !important',
+    paddingLeft: '15px !important',
   },
 
   viewAnswersExpansion: {

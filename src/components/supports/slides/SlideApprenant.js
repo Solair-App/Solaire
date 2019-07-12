@@ -36,6 +36,7 @@ const useStyles = makeStyles(theme => ({
   container: {
     width: 'auto',
     overflow: 'hidden',
+    padding: 10,
   },
 
   infosCours: {

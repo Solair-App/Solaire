@@ -246,6 +246,7 @@ const CreateSlider = ({ firestore, history, match }) => {
             <TextField
               required
               label="Nom du cours"
+              inputProps={{ maxLength: 35 }}
               name="name"
               className="textfield"
               value={name}
@@ -259,6 +260,7 @@ const CreateSlider = ({ firestore, history, match }) => {
               label="Description du cours"
               name="description"
               className="textfield"
+              inputProps={{ maxLength: 280 }}
               value={description}
               onChange={onChange}
               style={{ marginTop: '5px', width: '80%' }}

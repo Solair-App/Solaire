@@ -154,7 +154,7 @@ class CreateQuestion extends React.Component {
                 }}
               >
                 {this.answers.map((ans, index) => (
-                  <MenuItem value={index + 1}>{`${index}/${ans}`}</MenuItem>
+                  <MenuItem value={index}>{`${index + 1}/${ans}`}</MenuItem>
                 ))}
               </Select>
             </FormControl>

@@ -25,11 +25,9 @@ const useStyles = makeStyles(theme => ({
     },
     [theme.breakpoints.up('md')]: {
       width: '50%',
-
     },
     [theme.breakpoints.up('lg')]: {
       width: '50%',
-
     },
   },
 
@@ -72,6 +70,13 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     marginBottom: '50px',
+  },
+
+  rate: {
+    [theme.breakpoints.down('370')]: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
   },
 
 
@@ -167,7 +172,7 @@ Commenter
               className={classes.input}
             >
 
-              <ListItem>
+              <ListItem className={classes.rate}>
                 <ListItemAvatar>
                   <Avatar alt="imageProfil" src={userInfo.url} />
                 </ListItemAvatar>

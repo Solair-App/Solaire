@@ -27,7 +27,9 @@ class CoursDetails extends Component {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          cours.push({ id: doc.id, data: doc.data() });
+          if (doc.data().name) {
+            cours.push({ id: doc.id, data: doc.data() });
+          }
         });
         const currentParcours = [{ id: this.parcours, content: cours }];
         this.setState({ coursFromParcours: currentParcours });

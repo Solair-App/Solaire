@@ -223,7 +223,6 @@ class CreateQuiz extends Component {
                 width: '300px',
                 color: 'white',
                 marginTop: '18px',
-                borderRadius: '4px',
                 backgroundColor: '#E15920',
               }}
             >

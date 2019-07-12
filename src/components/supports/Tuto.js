@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Fab from '@material-ui/core/Fab';
 
+import Radio from '@material-ui/core/Radio';
 
 class Tuto extends Component {
   constructor(props) {
@@ -9,10 +10,10 @@ class Tuto extends Component {
       count: 0,
     };
     this.imagesPath = [
-      'https://i.ibb.co/sP0jNQZ/tchat-with-your-students.png',
-      'https://i.ibb.co/MVR2YFH/tuto02.png',
-      'https://i.ibb.co/hs6NK3m/create.png',
-      'https://i.ibb.co/j383k0G/readytogo.png',
+      'https://i.ibb.co/6yykCdD/tchat-with-your-students-01.png',
+      'https://i.ibb.co/fNTs9Cd/tuto02.png',
+      'https://i.ibb.co/3dd6G8Q/create-01.png',
+      'https://i.ibb.co/r7VKKvw/readytogo.png',
 
 
     ];
@@ -32,11 +33,6 @@ class Tuto extends Component {
     if (count < this.textPath.length) { this.setState({ count }); }
   }
 
-
-  handleChange = (event) => {
-    this.setSelectedValue(event.target.value);
-  }
-
   redirect = (url) => {
     const { history } = this.props;
     history.push({
@@ -49,36 +45,59 @@ class Tuto extends Component {
     const { count } = this.state;
     return (
       <div onClick={this.incrementCounter} role="presentation">
-        <h1 style={{ marginTop: '5%', color: '#138787' }}>
+        <h1 style={{ marginTop: '2%', color: '#138787' }}>
         Solair
         </h1>
         <img
-          style={{ width: '50%', marginTop: '5%', marginBottom: '5%' }}
+          style={{
+            width: '35%',
+          }}
           className="tchat"
           role="presentation"
           alt="tchat"
           src={this.imagesPath[count]}
         />
-        <h3 style={{ margin: '10%' }}>
+        <h3 style={{ marginRight: '10%', marginLeft: '10%' }}>
           {this.textPath[count]}
         </h3>
-        {count === this.imagesPath.length - 1 ? (
-          <Fab
-            variant="extended"
-            size="medium"
-            aria-label="Add"
-            onClick={() => {
-              this.redirect('/mydashboard');
-            }}
+
+        {this.imagesPath.map((image, index) => (
+          <Radio
             style={{
-              width: '300px',
-              color: 'white',
-              marginTop: '10%',
-              backgroundColor: '#E15920',
+              marginTop: '2%',
+              textAlign: 'center',
             }}
-          >
+            checked={count === index}
+            onClick={() => {
+              this.setState({
+                count: index,
+              });
+            }}
+            value={count}
+
+            inputProps={{ 'aria-label': { index } }}
+          />
+        ))}
+
+        {count === this.imagesPath.length - 1 ? (
+          <div>
+            <Fab
+              variant="extended"
+              size="medium"
+              aria-label="Add"
+              onClick={() => {
+                this.redirect('/mydashboard');
+              }}
+              style={{
+                width: '300px',
+                color: 'white',
+                marginTop: '',
+                backgroundColor: '#E15920',
+              }}
+            >
           go
-          </Fab>
+            </Fab>
+          </div>
         ) : null}
       </div>
     );

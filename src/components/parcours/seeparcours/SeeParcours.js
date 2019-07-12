@@ -295,9 +295,7 @@ class seeParcours extends Component {
               aria-label="Add"
               style={{
                 width: '300px',
-
                 color: 'white',
-                marginTop: '30%',
                 backgroundColor: '#E15920',
               }}
               onClick={this.sendApprenant}

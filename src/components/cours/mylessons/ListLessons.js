@@ -71,7 +71,7 @@ export default function ListLessons(props) {
 
             Note :
                 <Rating max={1} readOnly value={1} />
-                {data.data.rating}
+                {Math.floor(data.data.rating)}
               </div>
             </div>
           </List>

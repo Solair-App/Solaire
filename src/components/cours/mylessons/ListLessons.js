@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -44,7 +45,7 @@ export default function ListLessons(props) {
                   {' '}
                   {' '}
                   <School />
-                  <p>
+                  <p style={{ marginLeft: '5px' }}>
                     {' '}
 
 
@@ -63,6 +64,8 @@ export default function ListLessons(props) {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingLeft: '5px',
                 }}
               >
 
@@ -73,6 +76,7 @@ export default function ListLessons(props) {
             </div>
           </List>
         </Link>
+        <Divider light />
       </Grid>
     </Grid>
 

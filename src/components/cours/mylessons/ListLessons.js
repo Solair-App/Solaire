@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -13,7 +14,7 @@ import School from '@material-ui/icons/School';
 
 const useStyles = makeStyles(() => ({
   root: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     width: '100%',
     marginRight: 'auto',
   },
@@ -37,54 +38,48 @@ export default function ListLessons(props) {
               <ListItemText primary={data.data.name} />
               <ListItemSecondaryAction />
             </ListItem>
-          </List>
-        </Link>
-      </Grid>
+            <div>
 
-      <Grid item xs={12} sm={6} md={6}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-
-          {data.data.creator === localStorage.getItem('userId') ? (
-            <>
-              {' '}
-              {' '}
-              <School />
-              <p style={{ marginLeft: '5px' }}>
-                {' '}
+              {data.data.creator === localStorage.getItem('userId') ? (
+                <>
+                  {' '}
+                  {' '}
+                  <School />
+                  <p style={{ marginLeft: '5px' }}>
+                    {' '}
 
 
-                {' '}
-                {data.data.apprenants.length}
-                {' '}
+                    {' '}
+                    {data.data.apprenants.length}
+                    {' '}
 
-              </p>
-            </>
-          )
+                  </p>
+                </>
+              )
 
-            : null}
+                : null}
 
 
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingLeft: '5px',
-            }}
-          >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingLeft: '5px',
+                }}
+              >
 
             Note :
-            <Rating max={1} readOnly value={1} />
-            {data.data.rating}
-          </div>
-        </div>
+                <Rating max={1} readOnly value={1} />
+                {Math.floor(data.data.rating)}
+              </div>
+            </div>
+          </List>
+        </Link>
+        <Divider light />
       </Grid>
     </Grid>
+
+
   );
 }

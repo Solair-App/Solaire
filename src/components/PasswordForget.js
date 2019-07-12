@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import withFirebaseContext from '../Firebase/withFirebaseContext';
 
 
@@ -38,41 +39,55 @@ class PasswordForget extends Component {
 
   render() {
     const { email, error, sent } = this.state;
+    const { history } = this.props;
     const isInvalid = email === '';
     return (
       <>
         {sent
           ? <p>Email sent</p>
           : (
-            <form onSubmit={this.onSubmit}>
-              <Grid container>
+            <>
+              <div className="topFond">
+                <ArrowBack
+                  style={{ position: 'absolute', left: '9px', top: '13px' }}
+                  onClick={() => {
+                    history.push('/signin');
+                  }}
+                />
+                <h1>Réinitialiser son mot de passe</h1>
+              </div>
+              <form onSubmit={this.onSubmit}>
+                <Grid container>
 
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    required
-                    name="email"
-                    label="Email Address"
-                    className="textfield"
-                    currentValue={email}
-                    type="text"
-                    onChange={this.onChange}
-                    style={{ marginTop: '5%', width: '50%' }}
-                  />
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      name="email"
+                      label="Email Address"
+                      className="textfield"
+                      currentValue={email}
+                      type="text"
+                      onChange={this.onChange}
+                      style={{ marginTop: '5%', width: '50%' }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      size="large"
+                      disabled={isInvalid}
+                      type="submit"
+                      color="primary"
+                      variant="contained"
+                      style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
+                      className="Button"
+                    >
+                Réinitialiser
+                    </Button>
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Button
-                size="large"
-                disabled={isInvalid}
-                type="submit"
-                color="primary"
-                variant="contained"
-                style={{ position: 'fixed center', marginTop: '8%', borderRadius: '20px' }}
-                className="Button"
-              >
-                Reset My Password
-              </Button>
-              {error && <p>{error.message}</p>}
-            </form>
+                {error && <p>{error.message}</p>}
+              </form>
+            </>
           )
         }
       </>

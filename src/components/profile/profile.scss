@@ -36,7 +36,7 @@ height: 140px;
 
 .otherParcours {
   color: #138787;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-left: 15px;
   text-align: left;
 }
@@ -59,6 +59,11 @@ height: 140px;
   padding-right: 2%;
 }
 
+.hisParcours {
+  margin: auto;
+  width: 100%;
+}
+
 
 @media screen and (min-width: 768px) {
   .photo{
@@ -67,5 +72,8 @@ height: 140px;
     }
   .deconnexion {
     margin-left: 10px;
+  }
+  .hisParcours {
+    width: 40%;
   }
 }

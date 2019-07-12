@@ -40,13 +40,69 @@ h1{
   animation: rotation 2s infinite linear;
 }
 
+.loadingTypeHome{
+  height: 100px;
+  margin-top: 200px;
+  animation: rotation 2s infinite linear;
+}
+
 a {
   color: #E15920;
 }
 
 
 .slide{
-  margin: auto auto;
+  margin: auto auto;  
+}
+
+.titleSlideFormateur{ 
+
+margin-top: 60px
+ }
+
+.topFond{
+  height: 50px;
+  background-color: #138787;
+  color: white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.CKEditor{
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+
+@media screen and (min-width: 400px) {
+.CKEditor{
+  margin-left: 80px;
+  margin-right:80px;
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+}
+
+
+@media screen and (max-width: 400px) {
+.titleSlideFormateur{   
+margin-top: 60px ;
+}
+
+
+.topFond{
+  height: 50px;
+  background-color: #138787;
+  color: white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
 }
 
 .import{  
@@ -73,15 +129,6 @@ body {
   background-color: #E15920  !important;
 }
 
-.topFond{
-  height: 50px;
-  background-color: #138787;
-  color: white;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .topFond h1{
  width: 90%;
@@ -93,3 +140,9 @@ body {
     background: transparent; 
   }
 }
+@media screen and (min-width: 768px) {
+  .loadingTypeHome{
+    margin-top: 300px;
+  }
+}
+

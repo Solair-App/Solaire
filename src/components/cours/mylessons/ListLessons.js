@@ -13,7 +13,7 @@ import School from '@material-ui/icons/School';
 
 const useStyles = makeStyles(() => ({
   root: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     width: '100%',
     marginRight: 'auto',
   },
@@ -37,54 +37,45 @@ export default function ListLessons(props) {
               <ListItemText primary={data.data.name} />
               <ListItemSecondaryAction />
             </ListItem>
+            <div>
+
+              {data.data.creator === localStorage.getItem('userId') ? (
+                <>
+                  {' '}
+                  {' '}
+                  <School />
+                  <p>
+                    {' '}
+
+
+                    {' '}
+                    {data.data.apprenants.length}
+                    {' '}
+
+                  </p>
+                </>
+              )
+
+                : null}
+
+
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+
+            Note :
+                <Rating max={1} readOnly value={1} />
+                {data.data.rating}
+              </div>
+            </div>
           </List>
         </Link>
       </Grid>
-
-      <Grid item xs={12} sm={6} md={6}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-
-          {data.data.creator === localStorage.getItem('userId') ? (
-            <>
-              {' '}
-              {' '}
-              <School />
-              <p style={{ marginLeft: '5px' }}>
-                {' '}
-
-
-                {' '}
-                {data.data.apprenants.length}
-                {' '}
-
-              </p>
-            </>
-          )
-
-            : null}
-
-
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              paddingLeft: '5px',
-            }}
-          >
-
-            Note :
-            <Rating max={1} readOnly value={1} />
-            {data.data.rating}
-          </div>
-        </div>
-      </Grid>
     </Grid>
+
+
   );
 }

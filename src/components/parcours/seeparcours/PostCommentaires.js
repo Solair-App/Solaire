@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   align: {
-    marginTop: '1%',
+    marginTop: 10,
     paddingBottom: '7%',
     textAlign: 'left',
     marginLeft: '5%',
@@ -55,6 +55,12 @@ const useStyles = makeStyles(theme => ({
   button: {
     backgroundColor: '#138787',
     color: 'white',
+    marginBottom: 30,
+    marginLeft: -18,
+    height: '40px !important',
+    paddingRight: '15px !important',
+    paddingLeft: '15px !important',
+
   },
 
   smallTitle: {
@@ -69,7 +75,10 @@ const useStyles = makeStyles(theme => ({
   divider: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    marginBottom: '50px',
+  },
+
+  comment: {
+    margin: '0px !important',
   },
 
   rate: {
@@ -187,8 +196,7 @@ Votre Note :
                   {userRate()}
                 </p>
               </ListItem>
-              <ListItem>
-
+              <ListItem style={{ padding: 0 }}>
                 <TextField
                   id="filled-textarea"
                   label={`Commenter en tant que ${userInfo.name}`}
@@ -202,9 +210,9 @@ Votre Note :
                   value={values.message}
                   onChange={handleChange1}
                   inputProps={inputProps}
+                  style={{ width: '700' }}
+                  className={classes.comment}
                 />
-
-
               </ListItem>
             </List>
           </div>

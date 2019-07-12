@@ -110,7 +110,6 @@ function Question({ dataSet }) {
   return (
     <h1 style={{
       fontSize: '2em',
-      width: '96vw',
       display: 'block',
       textAlign: 'center',
     }}

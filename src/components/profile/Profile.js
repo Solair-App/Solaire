@@ -26,23 +26,20 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const { firestore, state } = this.props;
+    const { firestore } = this.props;
     let docRef;
-    if (!state || !state.profile) {
-      if (localStorage.getItem('userId')) {
-        docRef = firestore.doc(`usersinfo/${localStorage.getItem('userId')}`);
-        this.getInfo(docRef);
-      } else {
-        const { auth } = this.props;
-        auth.onAuthStateChanged((user) => {
-          if (user) {
-            docRef = firestore.doc(`usersinfo/${user.uid}`);
-            this.getInfo(docRef);
-          }
-        });
-      }
+
+    if (localStorage.getItem('userId')) {
+      docRef = firestore.doc(`usersinfo/${localStorage.getItem('userId')}`);
+      this.getInfo(docRef);
     } else {
-      this.setState({ userInfo: state.profile });
+      const { auth } = this.props;
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          docRef = firestore.doc(`usersinfo/${user.uid}`);
+          this.getInfo(docRef);
+        }
+      });
     }
     // eslint-disable-next-line no-shadow
     const { mapDispatchToProps } = this.props;
@@ -92,17 +89,20 @@ class Profile extends Component {
     const { userInfo, error } = this.state;
 
     return (
-      <div style={{ paddingBottom: '70px' }}>
+      <div style={{
+        paddingBottom: '70px',
+      }}
+      >
         {userInfo ? (
           <>
-            <div className="fond">
+            <div className="fond" style={{ marginBottom: 10 }}>
               <div style={{
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
               >
                 <h1 className="titreprofil">
-Mon compte
+                Mon compte
                   {' '}
                   <Edit
                     style={{ color: 'white' }}
@@ -128,26 +128,31 @@ Mon compte
 
               <p className="name">{userInfo.name}</p>
             </div>
+            <div style={{
+              display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column',
+            }}
+            >
+              <div style={{ textAlign: 'left' }}>
+                <p className="infos">
+                  <AlternateEmail className="coloricon" />
+                  {' '}
+                  {userInfo.email ? userInfo.email : 'Pas renseigné'}
+                </p>
 
-            <p className="infos">
-              <AlternateEmail className="coloricon" />
-              {' '}
-              {userInfo.email ? userInfo.email : 'Pas renseigné'}
-            </p>
+                <p className="infos">
+                  <LocationOn className="coloricon" />
+                  {' '}
+                  {userInfo.city ? userInfo.city : 'Pas renseigné'}
+                </p>
 
-            <p className="infos">
-              <LocationOn className="coloricon" />
-              {' '}
-              {userInfo.city ? userInfo.city : 'Pas renseigné'}
-            </p>
+                <p className="infos" style={{ marginBottom: 10 }}>
+                  <FormatQuote className="coloricon" />
+                  {' '}
+                  {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
+                </p>
+              </div>
 
-            <p className="infos">
-              <FormatQuote className="coloricon" />
-              {' '}
-              {userInfo.bio ? userInfo.bio : 'Pas renseigné'}
-            </p>
-
-            {userInfo.is_admin && (
+              {userInfo.is_admin && (
               <Button
                 variant="outlined"
                 name="admin"
@@ -164,42 +169,30 @@ Mon compte
               >
                 Modifier les catégories de l&apos;application
               </Button>
-            )}
+              )}
 
-            <Fab
-              variant="extended"
-              size="medium"
-              aria-label="Add"
-              onClick={this.logout}
-              style={{
-                width: '300px',
-                color: 'white',
-                backgroundColor: '#E15920',
-              }}
-            >
+              <Fab
+                variant="extended"
+                size="medium"
+                aria-label="Add"
+                onClick={this.logout}
+                style={{
+                  width: '300px',
+                  color: 'white',
+                  backgroundColor: '#E15920',
+                }}
+              >
               Deconnexion
-            </Fab>
+              </Fab>
 
-            {error && <p>{error.message}</p>}
+              {error && <p>{error.message}</p>}
+            </div>
           </>
         ) : (
           <>
-            <p>
-              <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
+            <p style={{ textAlign: 'center' }}>
+              <img className="loadingTypeHome" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
             </p>
-            <Fab
-              variant="extended"
-              size="medium"
-              aria-label="Add"
-              onClick={this.logout}
-              style={{
-                width: '300px',
-                color: 'white',
-                backgroundColor: '#E15920',
-              }}
-            >
-              Deconnexion
-            </Fab>
           </>
         )}
         <BottomNav />

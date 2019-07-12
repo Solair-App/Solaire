@@ -87,7 +87,7 @@ class CreateQuestion extends React.Component {
         <div className="topFond">
           <ArrowBack
             style={{
-              position: 'absolute', left: '10px', top: '10px', color: 'white',
+              position: 'absolute', left: 9, top: 13,
             }}
             onClick={() => history.push(`/createparcours/${this.parcours}/${this.cours}/addquiz`)}
           />

@@ -81,7 +81,7 @@ class Quiz extends React.Component {
       <div>
         <ArrowBack
           style={{
-            position: 'absolute', left: '2.5%', top: '2.5%', color: 'white', zIndex: 3,
+            position: 'absolute', left: 9, top: 13, color: 'white', zIndex: 3,
           }}
           onClick={() => {
             history.goBack();
@@ -120,21 +120,19 @@ function Question({ dataSet }) {
 
 function Answer({ handleClick, answer, choice }) {
   const style = {
-    width: '95vw',
-    height: '100%',
+    width: 300,
     color: 'white',
     display: 'block',
     textAlign: 'center',
     fontSize: '1.5em',
     background: 'rgba(0, 0, 0, 0.5)',
     opacity: '0.5',
-    marginBottom: '2%',
-    marginLeft: '-6.7vw',
-    padding: '3%',
+    marginBottom: 5,
+    padding: 10,
     borderRadius: '20px',
   };
   return (
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
       <button type="button" style={style} onClick={() => handleClick(choice)}>{answer}</button>
     </div>
   );
@@ -209,14 +207,17 @@ function ScoreArea({ correct, incorrect }) {
       float: 'left',
     },
     header: {
-      backgroundColor: '#4ca9a9',
+      backgroundColor: '#138787',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
       position: 'relative',
       color: 'white',
-      top: '-19px',
       height: '50px',
-      paddingTop: '10px',
       zIndex: 1,
-      marginBottom: '-10px',
+      padding: 0,
+      margin: 0,
+      marginBottom: 20,
     },
   };
 

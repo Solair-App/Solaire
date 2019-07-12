@@ -1,13 +1,8 @@
 .check{
-padding-left: 8%;
-display: flex;
-align-items: center;
-justify-content: left;
-}
-
-.backparcours{
-  background-color: #138787;
-  color: white;
+  padding-left: 8%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
 }
 
 .creator{
@@ -23,6 +18,24 @@ justify-content: left;
 margin-left: 5%;
 }
 
+.parentSlide .slide,.parentSlide .quiz,.parentSlide .video{
+  width: 90px; 
+  height: 70px; 
+  display: flex; 
+  justify-content: center;
+}
+
+.parentSlide .slide{
+  background-color: #9ACED1;
+}
+
+.parentSlide .quiz{
+  background-color: #F2AEAE;
+}
+
+.parentSlide .video{
+  background-color: #7144CA;
+}
 .coursTerminé {
   width: 60%;
   margin: auto;

@@ -84,7 +84,7 @@ class Video extends Component {
       <div>
         <div className="topFond">
           <ArrowBack
-            style={{ position: 'absolute', left: '10px', top: '10px' }}
+            style={{ position: 'absolute', left: '9px', top: '13px' }}
             onClick={() => {
               history.push(`/parcours/${this.parcours}`);
             }}

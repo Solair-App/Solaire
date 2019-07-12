@@ -61,6 +61,7 @@ const useStyles = makeStyles(theme => ({
   button: {
     backgroundColor: '#138787',
     color: 'white',
+    marginLeft: -10,
   },
 
   viewAnswersExpansion: {
@@ -179,7 +180,7 @@ const ViewCommentaires = ({
         <div className={classes.align}>
           <Fab
             variant="extended"
-            size="medium"
+            size="small"
             aria-label="Add"
             className={classes.button}
             onClick={() => {

@@ -106,7 +106,7 @@ class Form extends Component {
       <>
         <div className="topFond">
           <ArrowBack
-            style={{ position: 'fixed', left: '10px', top: '10px' }}
+            style={{ position: 'absolute', left: '9px', top: '13px' }}
             onClick={() => {
               history.push(`/createparcours/${parcours}/addcours`);
             }}
@@ -170,7 +170,7 @@ class Form extends Component {
             </Box>
             <Box style={{ marginTop: '9px', width: '298px' }}>
               <div
-                className="video"
+                className="lvideo"
                 style={{ width: '100%' }}
               >
                 {id.length === 11 ? (
@@ -194,7 +194,6 @@ class Form extends Component {
                 width: '300px',
                 color: 'white',
                 marginTop: '18px',
-                borderRadius: '4px',
                 backgroundColor: '#E15920',
               }}
             >

@@ -90,6 +90,7 @@ class ChangeProfile extends Component {
         <div>
           <TextField
             id="standard-name"
+            inputProps={{ maxLength: 35 }}
             name="name"
             onChange={this.onChange}
             value={name}
@@ -116,6 +117,7 @@ class ChangeProfile extends Component {
           <TextField
             id="standard-name"
             name="city"
+            inputProps={{ maxLength: 35 }}
             onChange={this.onChange}
             value={city}
             label="Ville"
@@ -129,6 +131,7 @@ class ChangeProfile extends Component {
             id="standard-multiline-flexible"
             name="bio"
             onChange={this.onChange}
+            inputProps={{ maxLength: 280 }}
             value={bio}
             label="A propos de moi"
             multiline

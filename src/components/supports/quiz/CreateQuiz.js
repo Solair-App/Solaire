@@ -191,6 +191,7 @@ class CreateQuiz extends Component {
             <TextField
               required
               id="name"
+              inputProps={{ maxLength: 35 }}
               label="Nom du cours"
               name="name"
               className="textfield"
@@ -203,6 +204,7 @@ class CreateQuiz extends Component {
             <TextField
               required
               id="description"
+              inputProps={{ maxLength: 280 }}
               label="Description du cours"
               name="description"
               className="textfield"

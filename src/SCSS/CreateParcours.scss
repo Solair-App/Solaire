@@ -62,7 +62,7 @@
 }
 
 .titleSlide {
-  background-color: #4ca9a9;
+  background-color: #138787;
   padding: 3px;
   color: white;
 }
@@ -71,12 +71,14 @@
   border: 1px solid #E15920;
   border-radius: 4px;
   margin: auto;
+  margin-top: 20px;
 }
 
 .aperçuSlider {
   background-color: #ffffff;
   width: 100%;
   min-height: 120px;
+  margin-top: 40px;
 }
 
 .mobileStepper {
@@ -92,6 +94,7 @@
     width: 50%;
     margin: auto;
     min-height: 300px;
+    margin-top: 50px;
   }
   .mobileStepper {
     width: 50%;
@@ -101,6 +104,7 @@
   .saveBox {
     width: 50%;
     border: none;
+
     padding-top: 20px;
     padding-bottom: 30px;
   }

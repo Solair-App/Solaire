@@ -37,9 +37,9 @@ class Essai extends Component {
   };
 
   isContentNull = () => {
-    const { content, title } = this.state;
+    const { title } = this.state;
 
-    if (content === null || title === null) {
+    if (title === null) {
       return true;
     }
     return false;

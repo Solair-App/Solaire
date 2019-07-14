@@ -18,6 +18,7 @@ class ListCours extends Component {
   }
 
   getInfo = () => {
+    console.log('hello');
     const { parcours } = this.props;
     const idParcours = localStorage.getItem('id');
     localStorage.setItem('parcoursId', idParcours);
@@ -90,7 +91,7 @@ class ListCours extends Component {
       >
         <SimpleModal open={open} idCours={coursId} togle={this.toggle} deleted={this.delete} />
 
-        {allCourses && allCourses.map((cours, i) => (
+        {allCourses.length > 0 && allCourses.map((cours, i) => (
           <div
             key={`${i + 1}y`}
             className="parentSlide"

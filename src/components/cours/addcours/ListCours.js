@@ -18,7 +18,6 @@ class ListCours extends Component {
   }
 
   getInfo = () => {
-    console.log('hello');
     const { parcours } = this.props;
     const idParcours = localStorage.getItem('id');
     localStorage.setItem('parcoursId', idParcours);

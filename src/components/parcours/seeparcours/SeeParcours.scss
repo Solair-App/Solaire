@@ -19,6 +19,8 @@ margin-left: 5%;
   height: 70px; 
   display: flex; 
   justify-content: center;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .parentSlide .slide{
@@ -26,11 +28,11 @@ margin-left: 5%;
 }
 
 .parentSlide .quiz{
-  background-color: #F2AEAE;
+  background-color: rgba(252, 193, 154, 0.973);
 }
 
 .parentSlide .video{
-  background-color: #7144CA;
+  background-color: rgb(131, 194, 170);
 }
 .coursTerminé {
   width: 60%;
@@ -49,6 +51,12 @@ margin-left: 5%;
   padding: 18px;
   margin-bottom: 12px;
   margin-top: 12px;
+}
+
+.MuiFilledInput-multiline{
+  background-color: rgb(255, 255, 255) !important;
+  margin-left: -8px !important;
+  width: 100vw !important;
 }
 
 @media screen and (min-width: 768px) {

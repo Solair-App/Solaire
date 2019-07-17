@@ -210,7 +210,6 @@ Votre Note :
                   value={values.message}
                   onChange={handleChange1}
                   inputProps={inputProps}
-                  style={{ width: '700' }}
                   className={classes.comment}
                 />
               </ListItem>

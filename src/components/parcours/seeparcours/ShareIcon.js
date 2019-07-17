@@ -23,7 +23,6 @@ function ShareIcon(props) {
   return (
 
     <>
-
       <div style={{ justifyContent: 'center', display: 'flex', filter: `grayscale(${gray})` }}>
 
         <Button

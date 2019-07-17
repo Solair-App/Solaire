@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import withFirebaseContext from '../../Firebase/withFirebaseContext';
 import Category from './Category';
+import BottomNav from './BottomNav';
 
 
 class Categories extends Component {
@@ -83,6 +84,8 @@ class Categories extends Component {
                 ).map(parcours => (
                   <Category data={parcours} />
                 ))}
+                <BottomNav />
+
               </ul>
             </div>
           )

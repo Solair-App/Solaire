@@ -100,11 +100,12 @@ class CoursDetails extends Component {
                   justifyContent: 'center',
                   color: '#138787',
                   overflow: 'hidden',
+                  width: '100%',
                 }}
               >
                 {cours.data.graduate
               && cours.data.graduate.includes(localStorage.getItem('userId')) ? (
-                <RadioButtonChecked />
+                <RadioButtonChecked style={{ marginLeft: '-15px' }} />
                   ) : (
                     <RadioButtonUnchecked />
                   )}
@@ -112,9 +113,9 @@ class CoursDetails extends Component {
                   role="presentation"
                   onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)}
                   style={{
-                    width: 305,
+                    width: '85%',
                     color: 'black',
-                    marginLeft: 10,
+                    marginLeft: 5,
                     display: 'flex',
                   }}
                   className="parentSlide"
@@ -137,6 +138,8 @@ class CoursDetails extends Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                     flexDirection: 'column',
+                    borderTopRightRadius: 5,
+                    borderBottomRightRadius: 5,
                   }}
                   >
                     <h2 style={{ paddingBottom: 5, fontSize: 14 }}>{cours.data.name}</h2>

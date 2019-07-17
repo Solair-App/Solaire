@@ -6,7 +6,6 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import BottomNav from './BottomNav';
 import './Parcours.scss';
 import './List.css';
 
@@ -16,6 +15,7 @@ const useStyles = makeStyles({
     width: 150,
     height: 200,
     boxShadow: 'none',
+    textAlign: 'left',
   },
   title: {
     fontSize: 11,
@@ -106,10 +106,12 @@ export default function ListCours(props) {
                   </Link>
                 </CardContent>
                 <div style={{
-                  fontSize: '12px',
+                  fontSize: 12,
+                  paddingLeft: 10,
+                  paddingTop: 7,
                   display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  alignItems: 'left',
+                  justifyContent: 'left',
                 }}
                 >
                   <p>
@@ -121,7 +123,6 @@ export default function ListCours(props) {
             </Card>
           </li>
           )}
-      <BottomNav />
     </>
   );
 }

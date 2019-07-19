@@ -58,32 +58,29 @@ class Connect extends Component {
           <h1>Connexion avec un email</h1>
         </div>
         <form onSubmit={this.onSubmit}>
-          <img src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="logo" className="image" />
-          <h1 className="title">Solair</h1>
-          <h4 className="accroche">Connection</h4>
 
           <Grid container>
             <Grid item xs={12} sm={6}>
               <TextField
                 required
                 name="email"
-                label="Email Address"
-                className="email"
+                label="Email"
+                className="Email"
                 currentValue={email}
                 onChange={this.onChange}
-                style={{ marginTop: '70px', marginBottom: '70px', width: '50%' }}
+                style={{ marginTop: '70px', marginBottom: '10px', width: '50%' }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 required
                 name="password"
-                label="password"
+                label="Mot de passe"
                 className="password"
                 currentValue={password}
                 type="password"
                 onChange={this.onChange}
-                style={{ marginTop: '70px', marginBottom: '70px', width: '50%' }}
+                style={{ marginTop: '70px', marginBottom: '50px', width: '50%' }}
               />
             </Grid>
           </Grid>
@@ -96,11 +93,11 @@ class Connect extends Component {
             style={{ position: 'fixed center', marginTop: '500px', borderRadius: '20px' }}
             className="Button"
           >
-            Sign IN
+            Se connecter
           </Button>
           {error && <p>{error.message}</p>}
         </form>
-        <p><Link to="/reset">Forgot Password?</Link></p>
+        <p><Link to="/reset">Mot de passe oublié?</Link></p>
       </>
     );
   }

@@ -100,7 +100,7 @@ class Signup extends Component {
               <TextField
                 required
                 id="name"
-                label="Full Name"
+                label="Prénom et nom"
                 name="username"
                 className='textfield'
                 value={username}
@@ -112,7 +112,7 @@ class Signup extends Component {
               <TextField
                 required
                 id="email"
-                label="Email Address"
+                label="Email"
                 name="email"
                 className='textfield'
                 currentValue={email}
@@ -125,7 +125,7 @@ class Signup extends Component {
               <TextField
                 required
                 id="password"
-                label="Password"
+                label="Mot de passe"
                 name="passwordOne"
                 className='textfield'
                 value={passwordOne}
@@ -139,7 +139,7 @@ class Signup extends Component {
               <TextField
                 required
                 id="password"
-                label="Confirm Password"
+                label="Confirmer mot de passe"
                 name="passwordTwo"
                 className='textfield'
                 value={passwordTwo}

@@ -123,15 +123,16 @@ function Question({ dataSet }) {
 function Answer({ handleClick, answer, choice }) {
   const style = {
     width: 300,
-    color: 'white',
     display: 'block',
     textAlign: 'center',
     fontSize: '1.5em',
-    background: 'rgba(0, 0, 0, 0.5)',
-    opacity: '0.5',
     marginBottom: 5,
     padding: 10,
     borderRadius: '20px',
+    backgroundColor: '#138787',
+    color: 'white',
+    marginLeft: -18,
+    height: '40px !important',
   };
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>

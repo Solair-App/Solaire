@@ -88,7 +88,7 @@ class Signup extends Component {
                   className="Button"
                   onClick={() => this.login('google')}
                 >
-                  Se connecter avec Google
+                  Connexion Google
                 </Fab>
                 <Link to="/signin" style={{ textDecoration: 'none' }}>
                   <Fab

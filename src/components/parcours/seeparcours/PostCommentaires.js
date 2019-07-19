@@ -60,7 +60,6 @@ const useStyles = makeStyles(theme => ({
     height: '40px !important',
     paddingRight: '15px !important',
     paddingLeft: '15px !important',
-
   },
 
   smallTitle: {

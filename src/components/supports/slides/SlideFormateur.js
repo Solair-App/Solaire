@@ -108,7 +108,7 @@ class Essai extends Component {
         <TextField
           required
           id="standard-name"
-          label="Nom du parcours"
+          label="Nom du slide"
           value={title}
           onChange={this.handleChange}
           style={{ width: '50%' }}

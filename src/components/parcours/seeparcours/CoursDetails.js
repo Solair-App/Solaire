@@ -130,22 +130,18 @@ class CoursDetails extends Component {
                     />
                   </div>
                   <div style={{
-                    width: 320,
+                    width: '90%',
+                    overflow: 'scroll',
                     height: 85,
                     backgroundColor: 'white',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flexDirection: 'column',
                     borderTopRightRadius: 5,
                     borderBottomRightRadius: 5,
                   }}
                   >
-                    <h2 style={{ paddingBottom: 5, fontSize: 14 }}>{cours.data.name}</h2>
+                    <h2 style={{ paddingTop: '2vw', paddingBottom: 5, fontSize: 14 }}>{cours.data.name}</h2>
 
                     <p style={{
-                      paddingBottom: 5, paddingLeft: 5, paddingRight: 5, fontSize: 12,
+                      paddingLeft: 5, paddingRight: 5, fontSize: 12,
                     }}
                     >
                       {cours.data.description}

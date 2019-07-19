@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   selected: {
     color: '#138787',
     padding: '0px !important',
-    fontSize: '12px !important',
+    fontSize: '12px !important ',
   },
   bottomNav: {
     position: 'fixed',

@@ -77,7 +77,10 @@ class MyLessons extends React.Component {
                 </Link>
               ))
           ) : (
-            <p style={{ textAlign: 'center' }}>
+            <p style={{
+              position: 'absolute', height: '85%', width: '100%', top: 50, left: 0, display: 'flex', justifyContent: 'center', alignItems: 'center',
+            }}
+            >
               <img className="loadingTypeHome" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
             </p>
           )}

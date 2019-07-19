@@ -85,7 +85,14 @@ class ListCours extends Component {
     const { allCourses, open, coursId } = this.state;
     return (
       <div style={{
-        display: 'flex', flexDirection: 'column', justifyContent: 'center', marginBottom: -20, alignItems: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        marginTop: 10,
+        justifyContent: 'center',
+        flexDirection: 'column',
+        color: '#138787',
+        overflow: 'hidden',
+        width: '100%',
       }}
       >
         <SimpleModal open={open} idCours={coursId} togle={this.toggle} deleted={this.delete} />
@@ -95,52 +102,51 @@ class ListCours extends Component {
             key={`${i + 1}y`}
             className="parentSlide"
             style={{
-              width: '305 px',
+              width: '95%',
               color: 'black',
+              marginLeft: 5,
               display: 'flex',
-              marginBottom: '10px',
+
             }}
           >
-            <div className={cours.data.type}>
+            <div className={cours.data.type} style={{ height: 85 }}>
               <img
                 src={`./assets/${cours.data.type}.png`}
                 style={{
-                  alignItems: 'center', width: 40, justifyContent: 'center', padding: 15,
+                  alignItems: 'center', width: 50, justifyContent: 'center', padding: 15,
                 }}
                 alt={cours.data.type}
               />
             </div>
             <div
               style={{
-                width: 350,
-                height: 70,
+                width: '90%',
+                overflow: 'scroll',
+                height: 85,
                 backgroundColor: 'white',
-                overflow: 'hidden',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexDirection: 'row',
+                borderTopRightRadius: 5,
+                borderBottomRightRadius: 5,
+                marginBottom: 10,
               }}
             >
-              <div style={{
-                display: 'flex',
-                justifyContent: 'left',
-                flexDirection: 'column',
-                textAlign: 'left',
-                paddingLeft: 10,
-                width: 140,
-                overflow: 'hidden',
-              }}
-              >
-                <h2 style={{ paddingBottom: 5, fontSize: 18 }}>{cours.data.name}</h2>
-                <p style={{ paddingBottom: 5 }}>{cours.data.description}</p>
-              </div>
-              <div style={{ display: 'flex' }}>
-                <div style={{ paddingRight: 7 }}>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <h2 style={{
+                  paddingTop: '2vw', paddingBottom: 5, fontSize: 14, marginLeft: 60, paddingRight: 60,
+                }}
+                >
+                  {cours.data.name}
+
+                </h2>
+                <div style={{
+                  paddingRight: 20, width: 10, height: 10, position: 'absolute', display: 'flex', right: '8vw', paddingTop: 5,
+                }}
+                >
                   <Edit style={{ fontSize: 25, color: '#138787' }} onClick={() => this.goToCourse(cours.data.type, cours.data, cours.id)} />
+                  <DeleteIcon onClick={() => this.open(cours.id)} style={{ fontSize: 25, color: '#138787', marginRight: '15px' }} />
                 </div>
-                <DeleteIcon onClick={() => this.open(cours.id)} style={{ fontSize: 25, color: '#138787', marginRight: '15px' }} />
               </div>
+              <p style={{ paddingLeft: 5, paddingRight: 5, fontSize: 12 }}>{cours.data.description}</p>
+
             </div>
           </div>
         ))}

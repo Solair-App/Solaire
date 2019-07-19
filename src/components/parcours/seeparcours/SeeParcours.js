@@ -263,7 +263,6 @@ class seeParcours extends Component {
                     height: '40px !important',
                     paddingRight: '15px !important',
                     paddingLeft: '15px !important',
-                    radius: '50%',
                   }}
                 >
                   Nouveau commentaire

@@ -41,18 +41,12 @@ h1{
 }
 
 .loadingTypeHome{
-  height: 100px;
-  margin-top: 200px;
+  height: 80px;
   animation: rotation 2s infinite linear;
 }
 
 a {
   color: #E15920;
-}
-
-
-.slide{
-  margin: auto auto;  
 }
 
 .titleSlideFormateur{ 
@@ -142,7 +136,7 @@ body {
 }
 @media screen and (min-width: 768px) {
   .loadingTypeHome{
-    margin-top: 300px;
+
   }
 }
 

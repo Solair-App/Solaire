@@ -157,12 +157,12 @@ copyLink = () => {
       <div>
         <div className="backparcours">
           <ArrowBack
-            style={{ position: 'fixed', left: '10px', top: '10px' }}
+            style={{ position: 'absolute', left: '10px', top: '15px' }}
             onClick={() => {
               this.redirectParcours('/mydashboard');
             }}
           />
-          <h1>{data.name}</h1>
+          <h1 style={{ marginLeft: 20 }}>{data.name}</h1>
         </div>
         <Link to={`/createparcours/${this.parcours}`}>
           <Fab

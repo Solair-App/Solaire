@@ -26,7 +26,7 @@ export default function ListLessons(props) {
 
   return (
     <Grid container className="gridLesson" alignItems="center">
-      <Grid item xs={12} sm={6} md={6}>
+      <Grid item xs={12}>
         <Link
           to={{ pathname: `/parcours/${data.id}` }}
         >
@@ -38,14 +38,14 @@ export default function ListLessons(props) {
               <ListItemText primary={data.data.name} />
               <ListItemSecondaryAction />
             </ListItem>
-            <div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
 
               {data.data.creator === localStorage.getItem('userId') ? (
                 <>
                   {' '}
                   {' '}
-                  <School />
-                  <p style={{ marginLeft: '5px' }}>
+                  <School style={{ fontSize: '20px' }} />
+                  <p style={{ marginLeft: '5px', fontSize: '13px' }}>
                     {' '}
 
 
@@ -66,10 +66,9 @@ export default function ListLessons(props) {
                   alignItems: 'center',
                   justifyContent: 'center',
                   paddingLeft: '5px',
+                  fontSize: '13px',
                 }}
               >
-
-            Note :
                 <Rating max={1} readOnly value={1} />
                 {Math.floor(data.data.rating)}
               </div>

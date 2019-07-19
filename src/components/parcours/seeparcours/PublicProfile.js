@@ -67,7 +67,9 @@ class PublicProfile extends Component {
           <>
             <div className="fond">
               <ArrowBack
-                style={{ position: 'absolute', left: '9px', top: '13px' }}
+                style={{
+                  position: 'absolute', left: '9px', top: '13px', color: 'white',
+                }}
                 onClick={() => {
                   history.goBack();
                 }}

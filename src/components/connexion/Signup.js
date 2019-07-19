@@ -75,13 +75,12 @@ class Signup extends Component {
       <div className="signin" style={{ color: 'black' }}>
         <img src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="logo" className="image" />
         <h1 className="title">Solair</h1>
-        <h4 className="accroche">Apprendre en s’amusant de façon ludique</h4>
+        <h4 className="accroche">So learn!</h4>
         {
           connected
             ? <img className="loadingType" src="https://i.ibb.co/TMTd967/Logo-solair.png" alt="loading" />
             : (
               <>
-                <h5 className="pleaseSign"> Please sign in</h5>
                 <Fab
                   variant="extended"
                   size="medium"
@@ -89,7 +88,7 @@ class Signup extends Component {
                   className="Button"
                   onClick={() => this.login('google')}
                 >
-                  Sign up with Google
+                  Se connecter avec Google
                 </Fab>
                 <Link to="/signin" style={{ textDecoration: 'none' }}>
                   <Fab
@@ -98,10 +97,10 @@ class Signup extends Component {
                     aria-label="Add"
                     className="Button"
                   >
-                    Sign up with Email
+                    S&apos;inscire avec un Email
                   </Fab>
                 </Link>
-                <p><Link to="/connect" style={{ color: '#E15920', marginBottom: '5%' }}>Already have an account?</Link></p>
+                <p><Link to="/connect" style={{ color: '#E15920', marginBottom: '5%' }}>Déjà un compte ?</Link></p>
               </>
             )
         }

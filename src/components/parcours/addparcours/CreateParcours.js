@@ -222,7 +222,7 @@ function CreateParcours({
         </div>
         <TextField
           id="standard-name"
-          label="tags"
+          label="Tags"
           className="textfield"
           value={value.tags}
           onChange={handleChange('tags')}
@@ -234,7 +234,7 @@ function CreateParcours({
           <SelectField
 
             choices={cat.thématique}
-            name="thématique"
+            name="Thématique"
             handleChange={handleChange}
             value={value.thématique}
             className="selectField"
@@ -246,7 +246,7 @@ function CreateParcours({
         && (
           <SelectField
             choices={cat.langue}
-            name="langue"
+            name="Langue"
             handleChange={handleChange}
             value={value.langue}
             class="container"
@@ -259,7 +259,7 @@ function CreateParcours({
         && (
           <SelectField
             choices={cat.durée}
-            name="durée"
+            name="Durée"
             handleChange={handleChange}
             value={value.durée}
             class="container"
@@ -273,7 +273,7 @@ function CreateParcours({
           <SelectField
 
             choices={cat.difficulté}
-            name="difficulté"
+            name="Difficulté"
             handleChange={handleChange}
             value={value.difficulté}
             className="selectField"

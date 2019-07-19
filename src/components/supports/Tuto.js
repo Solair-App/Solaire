@@ -19,10 +19,10 @@ class Tuto extends Component {
     ];
 
     this.textPath = [
-      'Différent style d\'apprentisage !',
-      'Apprendre de manière ludique & interactif !',
-      'Créer ton parcours & partage ton savoir avec les autres',
-      'Près à apprendre ?',
+      'Différents styles d\'apprentisage !',
+      'Apprendre de manière ludique & interactive !',
+      'Crée ton parcours & partage ton savoir avec les autres',
+      'Prêt à apprendre ?',
 
     ];
   }

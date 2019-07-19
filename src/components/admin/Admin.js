@@ -113,7 +113,7 @@ class Admin extends Component {
     const { history } = this.props;
     return (
       <div>
-        <div className="topFond">
+        <div className="backparcours">
           <ArrowBack
             style={{ position: 'absolute', left: '9px', top: '13px' }}
             onClick={() => {

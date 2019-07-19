@@ -44,7 +44,7 @@ class PasswordForget extends Component {
     return (
       <>
         {sent
-          ? <p>Email sent</p>
+          ? <p>Email envoyé</p>
           : (
             <>
               <div className="topFond">
@@ -63,12 +63,12 @@ class PasswordForget extends Component {
                     <TextField
                       required
                       name="email"
-                      label="Email Address"
+                      label="Votre email"
                       className="textfield"
                       currentValue={email}
                       type="text"
                       onChange={this.onChange}
-                      style={{ marginTop: '5%', width: '50%' }}
+                      style={{ marginTop: '5%', marginBottom: '50px', width: '50%' }}
                     />
                   </Grid>
                   <Grid item xs={12}>

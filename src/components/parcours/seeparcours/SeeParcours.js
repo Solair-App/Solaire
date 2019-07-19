@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
 import * as firebase from 'firebase';
 import Rating from 'material-ui-rating';
 import { withRouter } from 'react-router';
@@ -251,18 +250,24 @@ class seeParcours extends Component {
             {commentSent ? (
               <>
                 <p>Commentaire envoyé !</p>
-                <Button
+                <Fab
                   variant="outlined"
                   onClick={this.newComment}
                   name="thématique"
                   className="Button"
                   style={{
-                    margin: '30px 0 30px 0',
-                    width: '300px',
+                    backgroundColor: '#138787',
+                    color: 'white',
+                    marginBottom: 30,
+                    marginLeft: -20,
+                    height: '40px !important',
+                    paddingRight: '15px !important',
+                    paddingLeft: '15px !important',
+                    radius: '50%',
                   }}
                 >
                   Nouveau commentaire
-                </Button>
+                </Fab>
               </>
             ) : (
               <PostCommentaires
